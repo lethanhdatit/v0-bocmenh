@@ -1,48 +1,98 @@
 {
-  "site": {
-    "title": "Destiny Unveiling",
-    "tagline": "Each person is a mystery box, uncover it - and you'll understand yourself",
-    "cta": "Start Exploring"
-  },
-  "nav": {
-    "home": "Home",
-    "destiny": "Destiny",
-    "dreams": "Dreams",
-    "numerology": "Numerology",
-    "tarot": "Tarot",
-    "fengshui": "Feng Shui",
-    "compatibility": "Compatibility",
-    "community": "Community",
-    "store": "Store"
-  },
   "auth": {
-    "login": "Login",
-    "register": "Register",
-    "logout": "Logout",
-    "email": "Email",
-    "password": "Password",
-    "name": "Full Name"
-  },
-  "features": {
-    "destiny": {
-      "title": "Personal Destiny",
-      "description": "Discover your destiny through birth date"
+    "login": {
+      "title": "Login",
+      "subtitle": "Welcome back to Bóc Mệnh",
+      "email": "Email",
+      "password": "Password",
+      "emailPlaceholder": "Enter your email",
+      "passwordPlaceholder": "Enter password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "loginButton": "Login",
+      "loggingIn": "Logging in...",
+      "loginSuccess": "Login successful!",
+      "loginFailed": "Login failed",
+      "noAccount": "Don't have an account?",
+      "registerNow": "Register now",
+      "demoAccounts": "🎯 Demo accounts:",
+      "demoRegular": "• Email: demo@bocmenh.com | Pass: 123456",
+      "demoPremium": "• Email: premium@bocmenh.com | Pass: 123456 (Premium)"
     },
-    "dreams": {
-      "title": "Dream Interpretation",
-      "description": "Uncover the meaning of last night's dream"
+    "register": {
+      "title": "Register",
+      "subtitle": "Create account to explore your destiny",
+      "name": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "namePlaceholder": "Enter your full name",
+      "emailPlaceholder": "Enter your email",
+      "passwordPlaceholder": "Enter password (at least 6 characters)",
+      "confirmPasswordPlaceholder": "Re-enter password",
+      "agreeToTerms": "I agree to the",
+      "termsOfService": "Terms of Service",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy",
+      "registerButton": "Register",
+      "registering": "Registering...",
+      "registerSuccess": "Registration successful!",
+      "registerFailed": "Registration failed",
+      "haveAccount": "Already have an account?",
+      "loginNow": "Login now",
+      "passwordStrength": "Password strength:",
+      "strengthWeak": "Weak",
+      "strengthFair": "Fair",
+      "strengthGood": "Good",
+      "strengthStrong": "Strong",
+      "agreeTermsError": "You must agree to the terms of service"
     },
-    "numerology": {
-      "title": "Numerology",
-      "description": "Find your lucky numbers"
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "subtitle": "Enter email to receive password reset link",
+      "email": "Registered email",
+      "emailPlaceholder": "Enter your email",
+      "sendButton": "Send Reset Link",
+      "sending": "Sending...",
+      "emailSentTitle": "Email Sent",
+      "checkEmailTitle": "📧 Check your email",
+      "checkInbox": "• Check your inbox",
+      "checkSpam": "• Check spam/junk folder",
+      "linkExpiry": "• Link expires in 15 minutes",
+      "oneTimeUse": "• Can only be used once",
+      "tipTitle": "💡 Tip:",
+      "tipContent": "If you don't receive the email after 5 minutes, try resending or check your email address.",
+      "resendEmail": "Resend email",
+      "backToLogin": "Back to login",
+      "noteTitle": "ℹ️ Note",
+      "noteExpiry": "• Password reset link expires in 15 minutes",
+      "noteOneTime": "• Can only be used once",
+      "noteSpam": "• Check spam folder too"
     },
-    "tarot": {
-      "title": "Tarot Reading",
-      "description": "Draw Tarot cards to see your future"
-    },
-    "luckyBox": {
-      "title": "Today's Lucky Box",
-      "description": "Click to receive lucky number and message"
+    "resetPassword": {
+      "title": "Reset Password",
+      "subtitle": "Create a new password for your account",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password",
+      "newPasswordPlaceholder": "Enter new password (at least 6 characters)",
+      "confirmPasswordPlaceholder": "Re-enter new password",
+      "resetButton": "Reset Password",
+      "resetting": "Resetting...",
+      "successTitle": "Success!",
+      "redirectMessage": "🎉 You will be redirected to homepage in 3 seconds...",
+      "goHome": "Go Home",
+      "invalidLinkTitle": "Invalid Link",
+      "invalidLinkMessage": "Password reset link is invalid or expired. Please request a new link.",
+      "requestNewLink": "Request New Link",
+      "securityTitle": "🔒 Security",
+      "securityStrong": "• Strong password helps protect your account",
+      "securityShare": "• Don't share your password with anyone",
+      "securityAutoLogin": "• You will be automatically logged in after reset",
+      "passwordStrength": "Password strength:",
+      "strengthWeak": "Weak",
+      "strengthFair": "Fair",
+      "strengthGood": "Good",
+      "strengthStrong": "Strong"
     }
   }
 }

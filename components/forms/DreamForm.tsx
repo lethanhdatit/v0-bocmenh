@@ -6,6 +6,7 @@ import { motion } from "framer-motion"
 import useSWR from "swr"
 import { apiClient } from "@/lib/api"
 import { Moon, Calendar, Heart, Sparkles, Eye, MessageCircle } from "lucide-react"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 interface DreamSymbol {
   symbol: string
@@ -34,31 +35,8 @@ interface DreamAnalysis {
   preview?: string
 }
 
-const dreamTypes = [
-  { value: "nightmare", label: "Ác mộng", icon: "😰" },
-  { value: "flying", label: "Bay lượn", icon: "🕊️" },
-  { value: "falling", label: "Rơi xuống", icon: "⬇️" },
-  { value: "water", label: "Về nước", icon: "🌊" },
-  { value: "animals", label: "Động vật", icon: "🐾" },
-  { value: "people", label: "Người thân", icon: "👥" },
-  { value: "death", label: "Cái chết", icon: "💀" },
-  { value: "love", label: "Tình yêu", icon: "💕" },
-  { value: "money", label: "Tiền bạc", icon: "💰" },
-  { value: "other", label: "Khác", icon: "✨" },
-]
-
-const emotions = [
-  { value: "happy", label: "Vui vẻ", color: "text-green-400" },
-  { value: "scared", label: "Sợ hãi", color: "text-red-400" },
-  { value: "confused", label: "Bối rối", color: "text-yellow-400" },
-  { value: "peaceful", label: "Bình yên", color: "text-blue-400" },
-  { value: "excited", label: "Hồi hộp", color: "text-purple-400" },
-  { value: "sad", label: "Buồn bã", color: "text-gray-400" },
-  { value: "angry", label: "Tức giận", color: "text-orange-400" },
-  { value: "nostalgic", label: "Hoài niệm", color: "text-pink-400" },
-]
-
 export default function DreamForm() {
+  const { t } = useLanguage()
   const [formData, setFormData] = useState({
     dreamDescription: "",
     dreamDate: "",
@@ -66,6 +44,30 @@ export default function DreamForm() {
     dreamType: "",
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const dreamTypes = [
+    { value: "nightmare", label: t("dreams.types.nightmare"), icon: "😰" },
+    { value: "flying", label: t("dreams.types.flying"), icon: "🕊️" },
+    { value: "falling", label: t("dreams.types.falling"), icon: "⬇️" },
+    { value: "water", label: t("dreams.types.water"), icon: "🌊" },
+    { value: "animals", label: t("dreams.types.animals"), icon: "🐾" },
+    { value: "people", label: t("dreams.types.people"), icon: "👥" },
+    { value: "death", label: t("dreams.types.death"), icon: "💀" },
+    { value: "love", label: t("dreams.types.love"), icon: "💕" },
+    { value: "money", label: t("dreams.types.money"), icon: "💰" },
+    { value: "other", label: t("dreams.types.other"), icon: "✨" },
+  ]
+
+  const emotions = [
+    { value: "happy", label: t("dreams.emotions.happy"), color: "text-green-400" },
+    { value: "scared", label: t("dreams.emotions.scared"), color: "text-red-400" },
+    { value: "confused", label: t("dreams.emotions.confused"), color: "text-yellow-400" },
+    { value: "peaceful", label: t("dreams.emotions.peaceful"), color: "text-blue-400" },
+    { value: "excited", label: t("dreams.emotions.excited"), color: "text-purple-400" },
+    { value: "sad", label: t("dreams.emotions.sad"), color: "text-gray-400" },
+    { value: "angry", label: t("dreams.emotions.angry"), color: "text-orange-400" },
+    { value: "nostalgic", label: t("dreams.emotions.nostalgic"), color: "text-pink-400" },
+  ]
 
   const { data, error, isLoading } = useSWR(
     isSubmitted ? ["/dreams", formData] : null,
@@ -116,7 +118,7 @@ export default function DreamForm() {
           <div className="mystical-card">
             <label className="flex items-center space-x-2 text-yellow-500 font-medium mb-4">
               <MessageCircle className="w-5 h-5" />
-              <span>Mô tả giấc mơ của bạn</span>
+              <span>{t("dreams.form.dreamDescription")}</span>
             </label>
             <textarea
               name="dreamDescription"
@@ -125,18 +127,16 @@ export default function DreamForm() {
               required
               rows={6}
               className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-yellow-500 focus:outline-none text-white resize-none"
-              placeholder="Hãy mô tả chi tiết giấc mơ của bạn... Bạn thấy gì? Làm gì? Cảm thấy thế nào? Càng chi tiết càng tốt để AI có thể phân tích chính xác hơn."
+              placeholder={t("dreams.form.dreamPlaceholder")}
             />
-            <p className="text-sm text-gray-400 mt-2">
-              💡 Mẹo: Mô tả càng chi tiết càng giúp AI phân tích chính xác hơn
-            </p>
+            <p className="text-sm text-gray-400 mt-2">{t("dreams.form.dreamHint")}</p>
           </div>
 
           {/* Dream Type */}
           <div className="mystical-card">
             <label className="flex items-center space-x-2 text-yellow-500 font-medium mb-4">
               <Eye className="w-5 h-5" />
-              <span>Loại giấc mơ</span>
+              <span>{t("dreams.form.dreamType")}</span>
             </label>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
               {dreamTypes.map((type) => (
@@ -161,7 +161,7 @@ export default function DreamForm() {
           <div className="mystical-card">
             <label className="flex items-center space-x-2 text-yellow-500 font-medium mb-4">
               <Heart className="w-5 h-5" />
-              <span>Cảm xúc trong mơ</span>
+              <span>{t("dreams.form.emotions")}</span>
             </label>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {emotions.map((emotion) => (
@@ -179,14 +179,14 @@ export default function DreamForm() {
                 </button>
               ))}
             </div>
-            <p className="text-sm text-gray-400 mt-2">Có thể chọn nhiều cảm xúc</p>
+            <p className="text-sm text-gray-400 mt-2">{t("dreams.form.emotionsHint")}</p>
           </div>
 
           {/* Dream Date */}
           <div className="mystical-card">
             <label className="flex items-center space-x-2 text-yellow-500 font-medium mb-4">
               <Calendar className="w-5 h-5" />
-              <span>Ngày mơ (tùy chọn)</span>
+              <span>{t("dreams.form.dreamDate")}</span>
             </label>
             <input
               type="date"
@@ -195,9 +195,7 @@ export default function DreamForm() {
               onChange={handleInputChange}
               className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-yellow-500 focus:outline-none text-white"
             />
-            <p className="text-sm text-gray-400 mt-2">
-              Ngày mơ giúp AI phân tích theo chu kỳ âm lịch và năng lượng vũ trụ
-            </p>
+            <p className="text-sm text-gray-400 mt-2">{t("dreams.form.dreamDateHint")}</p>
           </div>
 
           <button
@@ -205,7 +203,7 @@ export default function DreamForm() {
             className="w-full mystical-button flex items-center justify-center space-x-2 text-lg py-4"
           >
             <Moon className="w-6 h-6" />
-            <span>Giải Mơ Ngay</span>
+            <span>{t("dreams.form.submitButton")}</span>
           </button>
         </motion.form>
       ) : (
@@ -217,16 +215,16 @@ export default function DreamForm() {
                 <div className="absolute inset-0 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
                 <Moon className="absolute inset-0 m-auto w-6 h-6 text-yellow-500" />
               </div>
-              <p className="text-yellow-500 text-lg font-medium">AI đang phân tích giấc mơ của bạn...</p>
-              <p className="text-gray-400 text-sm mt-2">Đang giải mã các biểu tượng và thông điệp từ tiềm thức</p>
+              <p className="text-yellow-500 text-lg font-medium">{t("dreams.result.loading")}</p>
+              <p className="text-gray-400 text-sm mt-2">{t("dreams.result.loadingSubtext")}</p>
             </div>
           )}
 
           {error && (
             <div className="mystical-card text-center py-8">
-              <p className="text-red-400 mb-4">Có lỗi xảy ra khi giải mơ</p>
+              <p className="text-red-400 mb-4">{t("common.error")}</p>
               <button onClick={resetForm} className="mystical-button">
-                Thử lại
+                {t("common.retry")}
               </button>
             </div>
           )}
@@ -237,7 +235,7 @@ export default function DreamForm() {
               <div className="mystical-card">
                 <h2 className="text-2xl font-bold text-yellow-500 mb-4 flex items-center space-x-2">
                   <Sparkles className="w-6 h-6" />
-                  <span>Ý Nghĩa Tổng Quan</span>
+                  <span>{t("dreams.result.overallMeaning")}</span>
                 </h2>
                 <p className="text-gray-300 text-lg leading-relaxed">{data.data.overallMeaning}</p>
               </div>
@@ -247,7 +245,7 @@ export default function DreamForm() {
                 <div className="mystical-card">
                   <h3 className="text-xl font-bold text-yellow-500 mb-4 flex items-center space-x-2">
                     <Eye className="w-5 h-5" />
-                    <span>Biểu Tượng Trong Mơ</span>
+                    <span>{t("dreams.result.symbols")}</span>
                   </h3>
                   <div className="space-y-4">
                     {data.data.symbols.map((symbol: DreamSymbol, index: number) => (
@@ -278,11 +276,11 @@ export default function DreamForm() {
                 <div className="mystical-card">
                   <h3 className="text-xl font-bold text-yellow-500 mb-4 flex items-center space-x-2">
                     <Heart className="w-5 h-5" />
-                    <span>Phân Tích Cảm Xúc</span>
+                    <span>{t("dreams.result.emotionalAnalysis")}</span>
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <span className="text-gray-400">Cảm xúc chủ đạo: </span>
+                      <span className="text-gray-400">{t("dreams.result.emotionalAnalysis")}: </span>
                       <span className="text-white font-medium">{data.data.emotionalAnalysis.primaryEmotion}</span>
                     </div>
                     {data.data.emotionalAnalysis.emotionalState && (
@@ -297,11 +295,6 @@ export default function DreamForm() {
                         <span className="text-yellow-400">{data.data.emotionalAnalysis.advice}</span>
                       </div>
                     )}
-                    {data.data.emotionalAnalysis.preview && (
-                      <div className="bg-gradient-to-r from-yellow-500/20 to-amber-500/20 border border-yellow-500/30 rounded-lg p-3">
-                        <p className="text-yellow-500 font-medium">{data.data.emotionalAnalysis.preview}</p>
-                      </div>
-                    )}
                   </div>
                 </div>
               )}
@@ -309,7 +302,7 @@ export default function DreamForm() {
               {/* Predictions */}
               {data.data.predictions && data.data.predictions.length > 0 && (
                 <div className="mystical-card">
-                  <h3 className="text-xl font-bold text-yellow-500 mb-4">🔮 Dự Đoán</h3>
+                  <h3 className="text-xl font-bold text-yellow-500 mb-4">🔮 {t("dreams.result.predictions")}</h3>
                   <ul className="space-y-2">
                     {data.data.predictions.map((prediction: string, index: number) => (
                       <li key={index} className="text-gray-300 flex items-start space-x-2">
@@ -324,7 +317,7 @@ export default function DreamForm() {
               {/* Recommendations */}
               {data.data.recommendations && data.data.recommendations.length > 0 && (
                 <div className="mystical-card">
-                  <h3 className="text-xl font-bold text-yellow-500 mb-4">💡 Lời Khuyên</h3>
+                  <h3 className="text-xl font-bold text-yellow-500 mb-4">💡 {t("dreams.result.recommendations")}</h3>
                   <ul className="space-y-2">
                     {data.data.recommendations.map((rec: string, index: number) => (
                       <li key={index} className="text-gray-300 flex items-start space-x-2">
@@ -339,7 +332,7 @@ export default function DreamForm() {
               {/* Lucky Elements */}
               {data.data.luckyElements && (
                 <div className="mystical-card">
-                  <h3 className="text-xl font-bold text-yellow-500 mb-4">🍀 Yếu Tố May Mắn</h3>
+                  <h3 className="text-xl font-bold text-yellow-500 mb-4">🍀 {t("dreams.result.luckyElements")}</h3>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <h4 className="font-semibold text-white mb-2">Màu sắc:</h4>
@@ -376,7 +369,7 @@ export default function DreamForm() {
               {/* Spiritual Message */}
               {data.data.spiritualMessage && (
                 <div className="mystical-card bg-gradient-to-br from-purple-900/20 to-pink-900/20 border-purple-500/30">
-                  <h3 className="text-xl font-bold text-purple-400 mb-4">✨ Thông Điệp Tâm Linh</h3>
+                  <h3 className="text-xl font-bold text-purple-400 mb-4">✨ {t("dreams.result.spiritualMessage")}</h3>
                   <p className="text-gray-300 italic leading-relaxed">{data.data.spiritualMessage}</p>
                 </div>
               )}
@@ -391,15 +384,15 @@ export default function DreamForm() {
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <button onClick={resetForm} className="mystical-button">
-                  Giải Mơ Khác
+                  {t("dreams.result.newDream")}
                 </button>
                 {data.isLimited && (
                   <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full hover:from-purple-700 hover:to-pink-700 transition-all">
-                    Nâng Cấp Premium
+                    {t("auth.premium")}
                   </button>
                 )}
                 <button className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-full hover:from-blue-700 hover:to-cyan-700 transition-all">
-                  Lưu Giấc Mơ
+                  {t("common.save")}
                 </button>
               </div>
             </div>

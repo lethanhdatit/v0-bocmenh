@@ -5,6 +5,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Eye, EyeOff, Mail, Lock, LogIn } from "lucide-react"
 import { useAuth } from "@/contexts/AuthContext"
+import { useTranslation } from "react-i18next"
 import Link from "next/link"
 
 interface LoginFormProps {
@@ -14,6 +15,7 @@ interface LoginFormProps {
 
 export default function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
   const { login } = useAuth()
+  const { t } = useTranslation()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -33,7 +35,7 @@ export default function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
     const result = await login(formData.email, formData.password, formData.rememberMe)
 
     if (result.success) {
-      setMessage(result.message || "Đăng nhập thành công!")
+      setMessage(result.message || t("auth.login.loginSuccess"))
       if (onSuccess) {
         setTimeout(onSuccess, 1000)
       } else if (redirectTo) {
@@ -43,7 +45,7 @@ export default function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
       }
     } else {
       setErrors(result.errors || {})
-      setMessage(result.message || "Đăng nhập thất bại")
+      setMessage(result.message || t("auth.login.loginFailed"))
     }
 
     setIsLoading(false)
@@ -69,16 +71,16 @@ export default function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
       className="mystical-card max-w-md mx-auto"
     >
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-yellow-500 mb-2">Đăng Nhập</h2>
-        <p className="text-gray-300">Chào mừng bạn trở lại với Bóc Mệnh</p>
+        <h2 className="text-2xl font-bold text-yellow-500 mb-2">{t("auth.login.title")}</h2>
+        <p className="text-gray-300">{t("auth.login.subtitle")}</p>
       </div>
 
       {/* Demo accounts info */}
       <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 mb-6">
-        <p className="text-blue-400 text-sm font-medium mb-2">🎯 Tài khoản demo:</p>
+        <p className="text-blue-400 text-sm font-medium mb-2">{t("auth.login.demoAccounts")}</p>
         <div className="text-xs text-blue-300 space-y-1">
-          <div>• Email: demo@bocmenh.com | Pass: 123456</div>
-          <div>• Email: premium@bocmenh.com | Pass: 123456 (Premium)</div>
+          <div>{t("auth.login.demoRegular")}</div>
+          <div>{t("auth.login.demoPremium")}</div>
         </div>
       </div>
 
@@ -87,7 +89,7 @@ export default function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
         <div>
           <label className="flex items-center space-x-2 text-gray-300 font-medium mb-2">
             <Mail className="w-4 h-4" />
-            <span>Email</span>
+            <span>{t("auth.login.email")}</span>
           </label>
           <input
             type="email"
@@ -97,7 +99,7 @@ export default function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
             className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg focus:outline-none text-white transition-colors ${
               errors.email ? "border-red-500 focus:border-red-400" : "border-gray-600 focus:border-yellow-500"
             }`}
-            placeholder="Nhập email của bạn"
+            placeholder={t("auth.login.emailPlaceholder")}
             required
           />
           {errors.email && (
@@ -115,7 +117,7 @@ export default function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
         <div>
           <label className="flex items-center space-x-2 text-gray-300 font-medium mb-2">
             <Lock className="w-4 h-4" />
-            <span>Mật khẩu</span>
+            <span>{t("auth.login.password")}</span>
           </label>
           <div className="relative">
             <input
@@ -126,7 +128,7 @@ export default function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
               className={`w-full px-4 py-3 pr-12 bg-gray-800/50 border rounded-lg focus:outline-none text-white transition-colors ${
                 errors.password ? "border-red-500 focus:border-red-400" : "border-gray-600 focus:border-yellow-500"
               }`}
-              placeholder="Nhập mật khẩu"
+              placeholder={t("auth.login.passwordPlaceholder")}
               required
             />
             <button
@@ -158,13 +160,13 @@ export default function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
               onChange={handleInputChange}
               className="w-4 h-4 text-yellow-500 bg-gray-800 border-gray-600 rounded focus:ring-yellow-500 focus:ring-2"
             />
-            <span className="text-sm">Ghi nhớ đăng nhập</span>
+            <span className="text-sm">{t("auth.login.rememberMe")}</span>
           </label>
           <Link
             href="/auth/forgot-password"
             className="text-sm text-yellow-500 hover:text-yellow-400 transition-colors"
           >
-            Quên mật khẩu?
+            {t("auth.login.forgotPassword")}
           </Link>
         </div>
 
@@ -201,16 +203,16 @@ export default function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
           ) : (
             <LogIn className="w-5 h-5" />
           )}
-          <span>{isLoading ? "Đang đăng nhập..." : "Đăng Nhập"}</span>
+          <span>{isLoading ? t("auth.login.loggingIn") : t("auth.login.loginButton")}</span>
         </button>
       </form>
 
       {/* Register Link */}
       <div className="text-center mt-6 pt-6 border-t border-gray-700">
         <p className="text-gray-400">
-          Chưa có tài khoản?{" "}
+          {t("auth.login.noAccount")}{" "}
           <Link href="/auth/register" className="text-yellow-500 hover:text-yellow-400 transition-colors font-medium">
-            Đăng ký ngay
+            {t("auth.login.registerNow")}
           </Link>
         </p>
       </div>

@@ -1,8 +1,5 @@
 import type { Metadata } from "next"
-import HeroSection from "@/components/sections/HeroSection"
-import FeaturesSection from "@/components/sections/FeaturesSection"
-import LuckyBoxSection from "@/components/sections/LuckyBoxSection"
-import Navigation from "@/components/layout/Navigation"
+import ClientPage from "./ClientPage"
 
 export const metadata: Metadata = {
   title: "Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn",
@@ -10,12 +7,5 @@ export const metadata: Metadata = {
 }
 
 export default function HomePage() {
-  return (
-    <main className="relative">
-      <Navigation />
-      <HeroSection />
-      <FeaturesSection />
-      <LuckyBoxSection />
-    </main>
-  )
+  return <ClientPage />
 }

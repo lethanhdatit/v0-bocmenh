@@ -1,0 +1,192 @@
+{
+  "nav": {
+    "home": "Home",
+    "destiny": "Destiny",
+    "dreams": "Dreams",
+    "numerology": "Numerology",
+    "tarot": "Tarot",
+    "fengshui": "Feng Shui",
+    "compatibility": "Love Compatibility",
+    "weddingDate": "Wedding Date",
+    "community": "Community",
+    "store": "Store",
+    "crystals": "Crystal Healing",
+    "meditation": "Meditation Guides",
+    "nameAnalysis": "Name Analysis",
+    "businessName": "Business Name",
+    "astrology": "Astrology",
+    "palmistry": "Palmistry",
+    "horoscope": "Horoscope",
+    "language": "Language",
+    "profile": "Profile",
+    "history": "History",
+    "premium": "Premium"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profile": "Profile",
+    "history": "Reading History",
+    "premium": "Upgrade Premium"
+  },
+  "auth.login": {
+    "title": "Login",
+    "subtitle": "Welcome back to Destiny Unveiling",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "loginButton": "Login",
+    "loggingIn": "Logging in...",
+    "noAccount": "Don't have an account?",
+    "registerNow": "Register now",
+    "demoAccounts": "Demo accounts:",
+    "demoRegular": "Regular: demo@example.com / password123",
+    "demoPremium": "Premium: premium@example.com / password123",
+    "loginSuccess": "Login successful!",
+    "loginFailed": "Login failed"
+  },
+  "auth.register": {
+    "title": "Register",
+    "subtitle": "Create a new account to explore your destiny",
+    "name": "Full Name",
+    "namePlaceholder": "Enter your full name",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Create a strong password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Re-enter your password",
+    "agreeToTerms": "I agree to the",
+    "termsOfService": "Terms of Service",
+    "and": "and",
+    "privacyPolicy": "Privacy Policy",
+    "registerButton": "Register",
+    "registering": "Registering...",
+    "haveAccount": "Already have an account?",
+    "loginNow": "Login now",
+    "passwordStrength": "Password strength:",
+    "strengthWeak": "Weak",
+    "strengthFair": "Fair",
+    "strengthGood": "Good",
+    "strengthStrong": "Strong",
+    "agreeTermsError": "You must agree to the terms of service",
+    "registerSuccess": "Registration successful!",
+    "registerFailed": "Registration failed"
+  },
+  "auth.forgotPassword": {
+    "title": "Forgot Password",
+    "subtitle": "Enter your email to receive a password reset link",
+    "email": "Email",
+    "emailPlaceholder": "Enter your registered email",
+    "sendButton": "Send Email",
+    "sending": "Sending...",
+    "backToLogin": "Back to login",
+    "emailSentTitle": "Email Sent",
+    "checkEmailTitle": "Check your email:",
+    "checkInbox": "Check your inbox",
+    "checkSpam": "Check spam/junk folder",
+    "linkExpiry": "Link expires in 1 hour",
+    "oneTimeUse": "Link can only be used once",
+    "noteTitle": "Note:",
+    "noteExpiry": "Link will expire after 1 hour",
+    "noteOneTime": "Each link can only be used once",
+    "noteSpam": "Check spam folder if you don't see the email",
+    "resendEmail": "Resend email",
+    "tipTitle": "Tip:",
+    "tipContent": "Add our email to your contacts to avoid spam"
+  },
+  "auth.resetPassword": {
+    "title": "Reset Password",
+    "subtitle": "Create a new password for your account",
+    "newPassword": "New Password",
+    "newPasswordPlaceholder": "Enter new password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Re-enter new password",
+    "resetButton": "Reset Password",
+    "resetting": "Resetting...",
+    "passwordStrength": "Password strength:",
+    "strengthWeak": "Weak",
+    "strengthFair": "Fair",
+    "strengthGood": "Good",
+    "strengthStrong": "Strong",
+    "securityTitle": "Security:",
+    "securityStrong": "Use a strong password with at least 8 characters",
+    "securityShare": "Don't share your password with anyone",
+    "securityAutoLogin": "You will be automatically logged in after reset",
+    "invalidLinkTitle": "Invalid Link",
+    "invalidLinkMessage": "The password reset link is invalid or has expired",
+    "requestNewLink": "Request new link",
+    "successTitle": "Reset Successful",
+    "redirectMessage": "You will be redirected to the homepage in 3 seconds...",
+    "goHome": "Go Home"
+  },
+  "site": {
+    "title": "Destiny Unveiling",
+    "tagline": "Each person is a mystery box, uncover it - and you'll understand yourself",
+    "cta": "Start Exploring",
+    "description": "Discover destiny, interpret dreams, numerology and much more"
+  },
+  "hero": {
+    "title": "Discover Your Destiny",
+    "subtitle": "Each person is a mystery box, uncover it and you'll understand yourself",
+    "cta": "Start Your Journey"
+  },
+  "features": {
+    "title": "Featured Services",
+    "destiny": {
+      "title": "Personal Destiny",
+      "description": "Discover your destiny through birth date and personal information"
+    },
+    "dreams": {
+      "title": "Dream Interpretation",
+      "description": "Uncover the deep meaning of last night's dream"
+    },
+    "numerology": {
+      "title": "Numerology",
+      "description": "Find your lucky numbers and life meaning"
+    },
+    "tarot": {
+      "title": "Tarot Reading",
+      "description": "Draw Tarot cards to explore future and guidance"
+    },
+    "fengshui": {
+      "title": "Feng Shui",
+      "description": "Improve luck and living energy"
+    },
+    "compatibility": {
+      "title": "Love Compatibility",
+      "description": "Check compatibility between two people"
+    }
+  },
+  "luckyBox": {
+    "title": "Today's Lucky Box",
+    "description": "Click the box to receive your lucky number and special message",
+    "button": "Open Lucky Box",
+    "luckyNumber": "Your lucky number",
+    "message": "Message",
+    "tryAgain": "Try again tomorrow"
+  },
+  "common": {
+    "loading": "Loading...",
+    "submit": "Submit",
+    "analyze": "Analyze",
+    "results": "Results",
+    "tryAgain": "Try Again",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More",
+    "back": "Back",
+    "next": "Next",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "error": "An error occurred",
+    "success": "Success",
+    "close": "Close",
+    "openMenu": "Open menu",
+    "connectionError": "Connection error"
+  }
+}
