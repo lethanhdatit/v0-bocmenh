@@ -1,15 +1,17 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Menu, X, Globe, User, LogOut, Crown } from "lucide-react"
+import { Menu, X, Globe, User, LogOut, Crown, ChevronDown } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useAuth } from "@/contexts/AuthContext"
 import { useLanguage } from "@/contexts/LanguageContext"
+import type { Language } from "@/i18n/settings"
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
+  const [showLanguageMenu, setShowLanguageMenu] = useState(false)
   const { user, isLoggedIn, logout, isLoading } = useAuth()
   const { language, setLanguage, t } = useLanguage()
 
@@ -31,9 +33,35 @@ export default function Navigation() {
     setShowUserMenu(false)
   }
 
-  const toggleLanguage = () => {
-    setLanguage(language === "vi" ? "en" : "vi")
+  const handleLanguageChange = (lang: Language) => {
+    setLanguage(lang)
+    setShowLanguageMenu(false)
   }
+
+  const languages = [
+    { code: "vi", name: "Tiếng Việt", flag: "🇻🇳" },
+    { code: "en", name: "English", flag: "🇺🇸" },
+    // Sẵn sàng cho tương lai
+    // { code: "zh", name: "中文", flag: "🇨🇳" },
+    // { code: "ja", name: "日本語", flag: "🇯🇵" },
+  ]
+
+  // Thêm useEffect để handle click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (showLanguageMenu) {
+        setShowLanguageMenu(false)
+      }
+      if (showUserMenu) {
+        setShowUserMenu(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [showLanguageMenu, showUserMenu])
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
@@ -63,13 +91,46 @@ export default function Navigation() {
           {/* Right side - Language & Auth */}
           <div className="flex items-center space-x-4">
             {/* Language Switcher */}
-            <button
-              onClick={toggleLanguage}
-              className="flex items-center space-x-1 text-gray-300 hover:text-yellow-500 transition-colors"
-            >
-              <Globe className="w-4 h-4" />
-              <span className="text-sm uppercase">{language}</span>
-            </button>
+            <div className="relative">
+              <button
+                onClick={() => setShowLanguageMenu(!showLanguageMenu)}
+                className="flex items-center space-x-1 text-gray-300 hover:text-yellow-500 transition-colors"
+              >
+                <Globe className="w-4 h-4" />
+                <span className="text-sm">
+                  {languages.find((lang) => lang.code === language)?.flag}{" "}
+                  {languages.find((lang) => lang.code === language)?.name}
+                </span>
+                <ChevronDown className="w-3 h-3" />
+              </button>
+
+              <AnimatePresence>
+                {showLanguageMenu && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="absolute right-0 mt-2 w-40 bg-gray-900 border border-gray-700 rounded-lg shadow-lg py-2 z-50"
+                  >
+                    {languages.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => handleLanguageChange(lang.code as Language)}
+                        className={`w-full text-left px-4 py-2 text-sm transition-colors flex items-center space-x-2 ${
+                          language === lang.code
+                            ? "bg-yellow-500/10 text-yellow-500"
+                            : "text-gray-300 hover:text-yellow-500 hover:bg-gray-800"
+                        }`}
+                      >
+                        <span>{lang.flag}</span>
+                        <span>{lang.name}</span>
+                        {language === lang.code && <span className="ml-auto">✓</span>}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             {/* Auth Section */}
             {isLoading ? (
