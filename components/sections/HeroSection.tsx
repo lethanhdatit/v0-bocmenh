@@ -9,7 +9,7 @@ export default function HeroSection() {
   const { t } = useTranslation()
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated lotus background */}
       <div className="absolute left-10 top-1/2 transform -translate-y-1/2 opacity-20">
         <motion.div

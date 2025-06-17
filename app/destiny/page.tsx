@@ -104,7 +104,7 @@ export default async function DestinyPage({
   const currentYear = new Date().getFullYear()
 
   return (
-    <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-gray-950 via-slate-900 to-gray-950 text-gray-100">
+    <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-gray-950 via-slate-900 text-gray-100">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-yellow-300 via-amber-500 to-yellow-400 bg-clip-text text-transparent mb-3 tracking-tight">
