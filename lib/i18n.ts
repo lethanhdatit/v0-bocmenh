@@ -3,15 +3,15 @@ import { initReactI18next } from "react-i18next"
 import LanguageDetector from "i18next-browser-languagedetector"
 
 // Import translation files
-import viTranslations from "@/locales/vi/common.json"
-import enTranslations from "@/locales/en/common.json"
+import viCommon from "../locales/vi/common.json"
+import enCommon from "../locales/en/common.json"
 
 const resources = {
   vi: {
-    common: viTranslations,
+    common: viCommon,
   },
   en: {
-    common: enTranslations,
+    common: enCommon,
   },
 }
 
@@ -22,14 +22,20 @@ i18n
     resources,
     fallbackLng: "vi",
     defaultNS: "common",
+    ns: ["common"],
 
     detection: {
-      order: ["localStorage", "navigator"],
+      order: ["localStorage", "navigator", "htmlTag"],
       caches: ["localStorage"],
+      lookupLocalStorage: "language",
     },
 
     interpolation: {
       escapeValue: false,
+    },
+
+    react: {
+      useSuspense: false,
     },
   })
 
