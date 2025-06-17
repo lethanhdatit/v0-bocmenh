@@ -218,3 +218,9 @@ export const getProductBySlug = async (slug: string): Promise<Product | undefine
   await new Promise((resolve) => setTimeout(resolve, 50)) // Simulate API delay
   return sampleProducts.find((p) => p.slug === slug)
 }
+
+// Add the missing getProductById function
+export const getProductById = (id: string): Product | undefined => {
+  // No async/await needed here if sampleProducts is in memory
+  return sampleProducts.find((p) => p.id === id)
+}

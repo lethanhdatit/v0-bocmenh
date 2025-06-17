@@ -20,7 +20,8 @@
     "language": "Ngôn ngữ",
     "profile": "Hồ sơ",
     "history": "Lịch sử xem",
-    "premium": "Nâng cấp Premium"
+    "premium": "Nâng cấp Premium",
+    "wishlist": "Yêu thích"
   },
   "auth": {
     "logout": {
@@ -228,6 +229,13 @@
     "suggestionMitigates": "Hóa giải / Giảm bớt",
     "filterMenh": "Lọc theo Mệnh",
     "menh": "Mệnh"
+  },
+  "wishlist": {
+    "title": "Danh sách Yêu thích",
+    "subtitle": "Bạn có {count} sản phẩm trong danh sách yêu thích.",
+    "emptyTitle": "Danh sách Yêu thích của bạn trống",
+    "emptySubtitle": "Có vẻ như bạn chưa thêm sản phẩm nào vào danh sách yêu thích. Hãy bắt đầu khám phá cửa hàng để tìm những món đồ bạn thích nhé!",
+    "browseProducts": "Khám phá Sản phẩm"
   },
   "weddingDate": {
     "title": "Chọn Ngày Cưới",

@@ -20,7 +20,8 @@
     "language": "Language",
     "profile": "Profile",
     "history": "Reading History",
-    "premium": "Upgrade to Premium"
+    "premium": "Upgrade to Premium",
+    "wishlist": "Wishlist"
   },
   "auth": {
     "logout": {
@@ -228,6 +229,13 @@
     "suggestionMitigates": "Mitigates / Reduces",
     "filterMenh": "Filter by Mệnh",
     "menh": "Mệnh"
+  },
+  "wishlist": {
+    "title": "My Wishlist",
+    "subtitle": "You have {count} item(s) in your wishlist.",
+    "emptyTitle": "Your Wishlist is Empty",
+    "emptySubtitle": "Looks like you haven't added any items to your wishlist yet. Start exploring our store to find items you love!",
+    "browseProducts": "Browse Products"
   },
   "weddingDate": {
     "title": "Wedding Date Selection",

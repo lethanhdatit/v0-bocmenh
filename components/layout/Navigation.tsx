@@ -2,25 +2,20 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { Menu, X, User, LogOut, Crown, ChevronDown, History, Settings, ShoppingBag } from "lucide-react" // Bỏ Globe
+import { Menu, X, User, LogOut, Crown, ChevronDown, History, Settings, ShoppingBag, Heart } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useAuth } from "@/contexts/AuthContext"
 import { useTranslation } from "react-i18next"
-// Bỏ useLanguage vì đã chuyển sang Footer
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
-  // Bỏ state và ref liên quan đến language menu
   const { user, isLoggedIn, logout, isLoading: authIsLoading } = useAuth()
   const { t } = useTranslation()
-  // Bỏ hook useLanguage
 
   const userMenuRef = useRef<HTMLDivElement>(null)
-  // Bỏ langMenuRef
 
   const navItems = [
-    // Bỏ mục "nav.home"    
     { href: "/dreams", labelKey: "nav.dreams" },
     { href: "/numerology", labelKey: "nav.numerology" },
     { href: "/tarot", labelKey: "nav.tarot" },
@@ -29,7 +24,6 @@ export default function Navigation() {
     { href: "/compatibility", labelKey: "nav.compatibility" },
     { href: "/wedding-date", labelKey: "nav.weddingDate" },
     { href: "/store", labelKey: "nav.store" },
-    // { href: "/community", labelKey: "nav.community" },
   ]
 
   const handleLogout = async () => {
@@ -37,11 +31,8 @@ export default function Navigation() {
     setShowUserMenu(false)
   }
 
-  // Bỏ handleLanguageChange và languages array
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // Bỏ logic cho langMenuRef
       if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
         setShowUserMenu(false)
       }
@@ -52,8 +43,6 @@ export default function Navigation() {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [])
-
-  // Bỏ currentLang
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
@@ -79,8 +68,6 @@ export default function Navigation() {
           </div>
 
           <div className="flex items-center space-x-3 sm:space-x-4">
-            {/* Bỏ khối div chứa language switcher */}
-
             {authIsLoading ? (
               <div className="w-8 h-8 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin" />
             ) : isLoggedIn && user ? (
@@ -118,6 +105,7 @@ export default function Navigation() {
                       {[
                         { href: "/profile", labelKey: "nav.profile", icon: Settings },
                         { href: "/history", labelKey: "nav.history", icon: History },
+                        { href: "/wishlist", labelKey: "nav.wishlist", icon: Heart }, // Added Wishlist
                       ].map((item) => (
                         <Link
                           key={item.href}
@@ -197,6 +185,50 @@ export default function Navigation() {
                   {t(item.labelKey)}
                 </Link>
               ))}
+              {/* Mobile menu user-specific links */}
+              {isLoggedIn && user && (
+                <div className="pt-3 mt-2 border-t border-gray-700/70 space-y-1.5">
+                  <Link
+                    href="/profile"
+                    className="block text-gray-200 hover:text-yellow-400 hover:bg-gray-800/70 transition-colors py-2.5 px-3 rounded-md text-base"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {t("nav.profile")}
+                  </Link>
+                  <Link
+                    href="/history"
+                    className="block text-gray-200 hover:text-yellow-400 hover:bg-gray-800/70 transition-colors py-2.5 px-3 rounded-md text-base"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {t("nav.history")}
+                  </Link>
+                  <Link
+                    href="/wishlist"
+                    className="block text-gray-200 hover:text-yellow-400 hover:bg-gray-800/70 transition-colors py-2.5 px-3 rounded-md text-base"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {t("nav.wishlist")}
+                  </Link>
+                  {!user.isPremium && (
+                    <Link
+                      href="/premium"
+                      className="block text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10 transition-colors py-2.5 px-3 rounded-md text-base"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {t("nav.premium")}
+                    </Link>
+                  )}
+                  <button
+                    onClick={() => {
+                      handleLogout()
+                      setIsOpen(false)
+                    }}
+                    className="w-full text-left block text-gray-200 hover:text-red-400 hover:bg-red-500/10 transition-colors py-2.5 px-3 rounded-md text-base"
+                  >
+                    {t("auth.logout.title")}
+                  </button>
+                </div>
+              )}
               <div className="pt-3 mt-2 border-t border-gray-700/70 space-y-1.5">
                 {!isLoggedIn && !authIsLoading && (
                   <>
