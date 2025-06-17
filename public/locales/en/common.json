@@ -1,21 +1,48 @@
 {
+  "site": {
+    "title": "Destiny Unveiling",
+    "tagline": "Each person is a mystery box, uncover it - and you'll understand yourself",
+    "cta": "Start Exploring"
+  },
   "nav": {
     "home": "Home",
-    "destiny": "Destiny Reading",
-    "dreams": "Dream Interpretation",
+    "destiny": "Destiny",
+    "dreams": "Dreams",
     "numerology": "Numerology",
-    "tarot": "Tarot Reading",
+    "tarot": "Tarot",
     "fengshui": "Feng Shui",
-    "horoscope": "Horoscope",
-    "palmistry": "Palmistry",
-    "astrology": "Astrology",
-    "crystals": "Crystals",
-    "meditation": "Meditation",
-    "nameAnalysis": "Name Analysis",
-    "businessName": "Business Name",
-    "weddingDate": "Wedding Date",
     "compatibility": "Compatibility",
     "community": "Community",
     "store": "Store"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "name": "Full Name"
+  },
+  "features": {
+    "destiny": {
+      "title": "Personal Destiny",
+      "description": "Discover your destiny through birth date"
+    },
+    "dreams": {
+      "title": "Dream Interpretation",
+      "description": "Uncover the meaning of last night's dream"
+    },
+    "numerology": {
+      "title": "Numerology",
+      "description": "Find your lucky numbers"
+    },
+    "tarot": {
+      "title": "Tarot Reading",
+      "description": "Draw Tarot cards to see your future"
+    },
+    "luckyBox": {
+      "title": "Today's Lucky Box",
+      "description": "Click to receive lucky number and message"
+    }
   }
 }

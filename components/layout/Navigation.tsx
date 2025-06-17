@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { Menu, X, Globe, User, LogOut, Crown } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useAuth } from "@/contexts/AuthContext"
@@ -13,29 +12,18 @@ export default function Navigation() {
   const [showUserMenu, setShowUserMenu] = useState(false)
   const { user, isLoggedIn, logout, isLoading } = useAuth()
   const { language, setLanguage, t } = useLanguage()
-  const pathname = usePathname()
-
-  // Get current locale from pathname
-  const currentLocale = pathname.split("/")[1] || "vi"
 
   const navItems = [
-    { href: `/${currentLocale}`, label: t("nav.home") },
-    { href: `/${currentLocale}/destiny`, label: t("nav.destiny") },
-    { href: `/${currentLocale}/dreams`, label: t("nav.dreams") },
-    { href: `/${currentLocale}/numerology`, label: t("nav.numerology") },
-    { href: `/${currentLocale}/tarot`, label: t("nav.tarot") },
-    { href: `/${currentLocale}/fengshui`, label: t("nav.fengshui") },
-    { href: `/${currentLocale}/horoscope`, label: t("nav.horoscope") },
-    { href: `/${currentLocale}/palmistry`, label: t("nav.palmistry") },
-    { href: `/${currentLocale}/astrology`, label: t("nav.astrology") },
-    { href: `/${currentLocale}/crystals`, label: t("nav.crystals") },
-    { href: `/${currentLocale}/meditation`, label: t("nav.meditation") },
-    { href: `/${currentLocale}/name-analysis`, label: t("nav.nameAnalysis") },
-    { href: `/${currentLocale}/business-name`, label: t("nav.businessName") },
-    { href: `/${currentLocale}/wedding-date`, label: t("nav.weddingDate") },
-    { href: `/${currentLocale}/compatibility`, label: t("nav.compatibility") },
-    { href: `/${currentLocale}/community`, label: t("nav.community") },
-    { href: `/${currentLocale}/store`, label: t("nav.store") },
+    { href: "/", label: t("nav.home") },
+    { href: "/destiny", label: t("nav.destiny") },
+    { href: "/dreams", label: t("nav.dreams") },
+    { href: "/numerology", label: t("nav.numerology") },
+    { href: "/tarot", label: t("nav.tarot") },
+    { href: "/fengshui", label: t("nav.fengshui") },
+    { href: "/compatibility", label: t("nav.compatibility") },
+    { href: "/wedding-date", label: t("nav.weddingDate") },
+    { href: "/community", label: t("nav.community") },
+    { href: "/store", label: t("nav.store") },
   ]
 
   const handleLogout = async () => {
@@ -44,11 +32,7 @@ export default function Navigation() {
   }
 
   const toggleLanguage = () => {
-    const newLang = language === "vi" ? "en" : "vi"
-    const currentPath = pathname.replace(`/${currentLocale}`, "")
-    const newPath = `/${newLang}${currentPath}`
-    setLanguage(newLang)
-    window.location.href = newPath
+    setLanguage(language === "vi" ? "en" : "vi")
   }
 
   return (
@@ -56,7 +40,7 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href={`/${currentLocale}`} className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-full flex items-center justify-center">
               <span className="text-black font-bold text-sm">BM</span>
             </div>
@@ -122,14 +106,14 @@ export default function Navigation() {
                         )}
                       </div>
                       <Link
-                        href={`/${currentLocale}/profile`}
+                        href="/profile"
                         className="block px-4 py-2 text-gray-300 hover:text-yellow-500 hover:bg-gray-800 transition-colors"
                         onClick={() => setShowUserMenu(false)}
                       >
                         {t("auth.profile")}
                       </Link>
                       <Link
-                        href={`/${currentLocale}/history`}
+                        href="/history"
                         className="block px-4 py-2 text-gray-300 hover:text-yellow-500 hover:bg-gray-800 transition-colors"
                         onClick={() => setShowUserMenu(false)}
                       >
@@ -137,7 +121,7 @@ export default function Navigation() {
                       </Link>
                       {!user.isPremium && (
                         <Link
-                          href={`/${currentLocale}/premium`}
+                          href="/premium"
                           className="block px-4 py-2 text-yellow-500 hover:text-yellow-400 hover:bg-gray-800 transition-colors"
                           onClick={() => setShowUserMenu(false)}
                         >
@@ -157,14 +141,11 @@ export default function Navigation() {
               </div>
             ) : (
               <div className="hidden sm:flex items-center space-x-2">
-                <Link
-                  href={`/${currentLocale}/auth/login`}
-                  className="text-gray-300 hover:text-yellow-500 transition-colors px-3 py-1"
-                >
+                <Link href="/auth/login" className="text-gray-300 hover:text-yellow-500 transition-colors px-3 py-1">
                   {t("auth.login")}
                 </Link>
                 <Link
-                  href={`/${currentLocale}/auth/register`}
+                  href="/auth/register"
                   className="bg-yellow-500 text-black px-4 py-2 rounded-full hover:bg-yellow-400 transition-colors"
                 >
                   {t("auth.register")}
@@ -208,7 +189,7 @@ export default function Navigation() {
                       <p className="text-gray-400 text-sm">{user.email}</p>
                     </div>
                     <Link
-                      href={`/${currentLocale}/profile`}
+                      href="/profile"
                       className="block text-gray-300 hover:text-yellow-500 transition-colors py-2"
                       onClick={() => setIsOpen(false)}
                     >
@@ -227,14 +208,14 @@ export default function Navigation() {
                 ) : (
                   <>
                     <Link
-                      href={`/${currentLocale}/auth/login`}
+                      href="/auth/login"
                       className="block text-gray-300 hover:text-yellow-500 transition-colors py-2"
                       onClick={() => setIsOpen(false)}
                     >
                       {t("auth.login")}
                     </Link>
                     <Link
-                      href={`/${currentLocale}/auth/register`}
+                      href="/auth/register"
                       className="block bg-yellow-500 text-black px-4 py-2 rounded-full hover:bg-yellow-400 transition-colors text-center"
                       onClick={() => setIsOpen(false)}
                     >

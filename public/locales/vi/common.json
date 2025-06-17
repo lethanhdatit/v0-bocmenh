@@ -1,21 +1,48 @@
 {
+  "site": {
+    "title": "Bóc Mệnh",
+    "tagline": "Mỗi người là một hộp bí ẩn, hãy khám phá - và bạn sẽ hiểu về chính mình",
+    "cta": "Bắt đầu khám phá"
+  },
   "nav": {
-    "home": "Trang Chủ",
+    "home": "Trang chủ",
     "destiny": "Bóc Mệnh",
     "dreams": "Giải Mơ",
     "numerology": "Thần Số Học",
     "tarot": "Tarot",
     "fengshui": "Phong Thủy",
-    "horoscope": "Tử Vi",
-    "palmistry": "Xem Tướng",
-    "astrology": "Chiêm Tinh",
-    "crystals": "Đá Quý",
-    "meditation": "Thiền Định",
-    "nameAnalysis": "Phân Tích Tên",
-    "businessName": "Tên Doanh Nghiệp",
-    "weddingDate": "Chọn Ngày Cưới",
     "compatibility": "Tương Hợp",
     "community": "Cộng Đồng",
     "store": "Cửa Hàng"
+  },
+  "auth": {
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "logout": "Đăng xuất",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "name": "Họ tên"
+  },
+  "features": {
+    "destiny": {
+      "title": "Bóc Mệnh Cá Nhân",
+      "description": "Khám phá vận mệnh của bạn qua ngày sinh"
+    },
+    "dreams": {
+      "title": "Giải Mơ",
+      "description": "Khám phá ý nghĩa giấc mơ đêm qua"
+    },
+    "numerology": {
+      "title": "Thần Số Học",
+      "description": "Tìm hiểu con số may mắn của bạn"
+    },
+    "tarot": {
+      "title": "Bói Tarot",
+      "description": "Rút thẻ Tarot để biết tương lai"
+    },
+    "luckyBox": {
+      "title": "Hộp May Mắn Hôm Nay",
+      "description": "Nhấn để nhận số may mắn và lời nhắn"
+    }
   }
 }
