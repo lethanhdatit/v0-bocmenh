@@ -2,8 +2,8 @@ import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
 
 // Import translation files directly
-import viCommon from "../locales/vi/common.json"
-import enCommon from "../locales/en/common.json"
+import viCommon from "../public/locales/vi/common.json"
+import enCommon from "../public/locales/en/common.json"
 
 const resources = {
   vi: {

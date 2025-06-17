@@ -3,6 +3,7 @@
 import { createInstance, type i18n as I18nInstanceType } from "i18next"
 import resourcesToBackend from "i18next-resources-to-backend"
 import i18nConfig from "../next-i18next.config" // Adjust path if your config is elsewhere
+import { getLanguage as getServerLanguage } from "@/lib/languageActions"
 
 let i18nInstance: I18nInstanceType | null = null
 
@@ -15,7 +16,7 @@ async function initI18next(locale: string, namespaces: string | string[] = "comm
   await instance
     .use(
       resourcesToBackend(
-        (language: string, namespace: string) => import(`../locales/${language}/${namespace}.json`),
+        (language: string, namespace: string) => import(`../public/locales/${language}/${namespace}.json`),
       ),
     )
     .init({
@@ -33,7 +34,9 @@ async function initI18next(locale: string, namespaces: string | string[] = "comm
   return instance
 }
 
-export async function getTranslations(locale: string, namespaces: string | string[] = "common") {
+export async function getTranslations(namespaces: string | string[] = "common") {  
+  const { language: locale } = await getServerLanguage()
+
   const i18n = await initI18next(locale, namespaces)
   return {
     t: i18n.t,

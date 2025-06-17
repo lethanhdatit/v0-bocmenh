@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getSession, type UserSession } from "@/lib/session" // Đảm bảo getSession được thiết lập chính xác
+import { getSession } from "@/lib/session" // Đảm bảo getSession được thiết lập chính xác
+import { type UserSession } from "@/lib/sessionOptions"
 import { decryptData, encryptData } from "@/lib/encryption"
 import { calculateDestiny, type DestinyResult } from "@/lib/destinyService"
 

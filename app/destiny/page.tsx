@@ -3,7 +3,8 @@ import DestinyForm from "@/components/forms/DestinyForm"
 import ProductCard from "@/components/store/ProductCard"
 import { getProducts, type Product } from "@/lib/products"
 import { calculateDestiny, type DestinyResult, type DestinyData } from "@/lib/destinyService"
-import { getSession, type UserSession } from "@/lib/session"
+import { getSession } from "@/lib/session"
+import { type UserSession } from "@/lib/sessionOptions"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { AlertTriangle, Sparkles, Gift, ChevronRight } from "lucide-react"
@@ -16,7 +17,8 @@ export async function generateMetadata({
   searchParams: { [key: string]: string | string[] | undefined }
   params: { locale: string }
 }): Promise<Metadata> {
-  const { t } = await getTranslations(locale, ["common", "destiny"])
+  const { t } = await getTranslations(["common", "destiny"])
+
   const name = searchParams?.name as string
 
   if (name) {
@@ -33,8 +35,8 @@ export async function generateMetadata({
   }
 }
 
-async function getRecommendedProductsForDestiny(destiny: DestinyResult | null, locale: string): Promise<Product[]> {
-  const { t } = await getTranslations(locale, ["common", "attributes"])
+async function getRecommendedProductsForDestiny(destiny: DestinyResult | null): Promise<Product[]> {
+  const { t } = await getTranslations(["common", "attributes"])
   if (!destiny?.success || !destiny.data) {
     return []
   }
@@ -44,7 +46,7 @@ async function getRecommendedProductsForDestiny(destiny: DestinyResult | null, l
 
   if (elementToMatch) {
     const translatedElementKey = `attributes.mệnh.${destiny.element}` // e.g. attributes.mệnh.Kim
-    const translatedElement = t(translatedElementKey, destiny.element) // Fallback to original if no translation
+    const translatedElement = t(translatedElementKey, destiny.element as string) // Fallback to original if no translation
 
     const filteredByElement = allProducts.filter(
       (p) =>
@@ -71,7 +73,7 @@ export default async function DestinyPage({
   searchParams,
   params: { locale },
 }: { searchParams: { [key: string]: string | string[] | undefined }; params: { locale: string } }) {
-  const { t } = await getTranslations(locale, ["common", "destiny", "attributes"])
+  const { t } = await getTranslations(["common", "destiny", "attributes"])
 
   const name = searchParams?.name as string
   const birthDate = searchParams?.birthDate as string
@@ -86,7 +88,7 @@ export default async function DestinyPage({
     try {
       destinyResult = await calculateDestiny(name, birthDate, birthTime, session as UserSession)
       if (destinyResult.success) {
-        recommendedProducts = await getRecommendedProductsForDestiny(destinyResult, locale)
+        recommendedProducts = await getRecommendedProductsForDestiny(destinyResult)
       } else {
         errorMessage = destinyResult.error || t("destiny.error.generic")
       }
