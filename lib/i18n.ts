@@ -6,8 +6,8 @@ async function loadTranslations() {
   try {
     // Load translation files dynamically from public folder
     const [viResponse, enResponse] = await Promise.all([
-      fetch("/locales/vi/common.json"),
-      fetch("/locales/en/common.json"),
+      fetch(new URL('/locales/vi/common.json', process.env.NEXT_PUBLIC_BASE_URL).toString()),
+      fetch(new URL('/locales/en/common.json', process.env.NEXT_PUBLIC_BASE_URL).toString()),
     ])
 
     const viCommon = await viResponse.json()
