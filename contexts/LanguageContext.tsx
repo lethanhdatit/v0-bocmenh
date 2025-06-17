@@ -4,7 +4,7 @@ import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { setLanguage as setServerLanguage, getLanguage as getServerLanguage } from "@/lib/languageActions"
-import "@/lib/i18n" // Import i18n configuration
+import i18n, { initPromise } from "@/lib/i18n" // Import both i18n and init promise
 
 type Language = "vi" | "en"
 
@@ -18,7 +18,7 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
   const [language, setLanguageState] = useState<Language>("vi")
   const [isLoading, setIsLoading] = useState(true)
   const [isInitialized, setIsInitialized] = useState(false)
@@ -28,19 +28,40 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     const initializeLanguage = async () => {
       try {
         setIsLoading(true)
+
+        // Wait for i18n to be fully initialized first
+        await initPromise
+
+        // Now fetch language from server
         const { language: serverLanguage } = await getServerLanguage()
 
         // Always use server language as single source of truth
         const finalLanguage = serverLanguage || "vi"
 
         setLanguageState(finalLanguage)
-        await i18n.changeLanguage(finalLanguage)
+
+        // Now safely call changeLanguage
+        if (i18n && typeof i18n.changeLanguage === "function") {
+          await i18n.changeLanguage(finalLanguage)
+        } else {
+          console.warn("i18n.changeLanguage is not available")
+        }
+
         setIsInitialized(true)
       } catch (error) {
         console.error("Failed to initialize language from server:", error)
         // Fallback to default
         setLanguageState("vi")
-        await i18n.changeLanguage("vi")
+
+        // Try to set default language if possible
+        try {
+          if (i18n && typeof i18n.changeLanguage === "function") {
+            await i18n.changeLanguage("vi")
+          }
+        } catch (i18nError) {
+          console.error("Failed to set default language:", i18nError)
+        }
+
         setIsInitialized(true)
       } finally {
         setIsLoading(false)
@@ -50,7 +71,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     if (!isInitialized) {
       initializeLanguage()
     }
-  }, [i18n, isInitialized])
+  }, [isInitialized])
 
   const setLanguage = async (lang: Language) => {
     try {
@@ -60,12 +81,17 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       const result = await setServerLanguage(lang)
 
       if (result.success) {
-        // Update local state and i18next
+        // Update local state
         setLanguageState(lang)
-        await i18n.changeLanguage(lang)
+
+        // Update i18next if available
+        if (i18n && typeof i18n.changeLanguage === "function") {
+          await i18n.changeLanguage(lang)
+        } else {
+          console.warn("i18n.changeLanguage is not available during language change")
+        }
       } else {
         console.error("Failed to save language to server:", result.error)
-        // Don't update local state if server update failed
       }
     } catch (error) {
       console.error("Failed to change language:", error)

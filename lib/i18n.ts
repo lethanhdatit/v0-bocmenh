@@ -14,8 +14,8 @@ const resources = {
   },
 }
 
-// Initialize i18next
-i18n.use(initReactI18next).init({
+// Initialize i18next and export the promise
+const initPromise = i18n.use(initReactI18next).init({
   resources,
   fallbackLng: "vi",
   defaultNS: "common",
@@ -37,4 +37,6 @@ i18n.use(initReactI18next).init({
   },
 })
 
+// Export both the instance and initialization promise
+export { initPromise }
 export default i18n
