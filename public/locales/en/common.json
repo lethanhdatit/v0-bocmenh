@@ -4,18 +4,460 @@
     "destiny": "Destiny Reading",
     "dreams": "Dream Interpretation",
     "numerology": "Numerology",
-    "tarot": "Tarot Reading",
+    "tarot": "Tarot",
     "fengshui": "Feng Shui",
-    "horoscope": "Horoscope",
-    "palmistry": "Palmistry",
-    "astrology": "Astrology",
-    "crystals": "Crystals",
-    "meditation": "Meditation",
+    "compatibility": "Compatibility",
+    "weddingDate": "Wedding Date",
+    "store": "Store",
+    "community": "Community",
+    "crystals": "Crystal Healing",
+    "meditation": "Meditation Guides",
     "nameAnalysis": "Name Analysis",
     "businessName": "Business Name",
-    "weddingDate": "Wedding Date",
+    "astrology": "Astrology",
+    "palmistry": "Palmistry",
+    "horoscope": "Horoscope",
+    "language": "Language",
+    "profile": "Profile",
+    "history": "Reading History",
+    "premium": "Upgrade to Premium",
+    "wishlist": "Wishlist"
+  },
+  "auth": {
+    "logout": {
+      "title": "Logout"
+    },
+    "premium": {
+      "upgrade": "Upgrade to Premium"
+    },
+    "login": {
+      "title": "Login",
+      "subtitle": "Welcome back to Bóc Mệnh",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "loginButton": "Login",
+      "loggingIn": "Logging in...",
+      "noAccount": "No account?",
+      "registerNow": "Register now",
+      "demoAccounts": "Demo accounts:",
+      "demoRegular": "Regular: demo@example.com / password123",
+      "demoPremium": "Premium: premium@example.com / password123",
+      "loginSuccess": "Login successful!",
+      "loginFailed": "Login failed"
+    },
+    "register": {
+      "title": "Register",
+      "subtitle": "Create a new account to explore your destiny",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Create a strong password",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Re-enter your password",
+      "agreeToTerms": "I agree to the",
+      "termsOfService": "Terms of Service",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy",
+      "registerButton": "Register",
+      "registering": "Registering...",
+      "haveAccount": "Already have an account?",
+      "loginNow": "Login now",
+      "passwordStrength": "Password strength:",
+      "strengthWeak": "Weak",
+      "strengthFair": "Fair",
+      "strengthGood": "Good",
+      "strengthStrong": "Strong",
+      "agreeTermsError": "You must agree to the terms of service",
+      "registerSuccess": "Registration successful!",
+      "registerFailed": "Registration failed"
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "subtitle": "Enter your email to receive a password reset link",
+      "email": "Email",
+      "emailPlaceholder": "Enter your registered email",
+      "sendButton": "Send Email",
+      "sending": "Sending...",
+      "backToLogin": "Back to login",
+      "emailSentTitle": "Email Sent",
+      "checkEmailTitle": "Check your email:",
+      "checkInbox": "Check your inbox",
+      "checkSpam": "Check your spam/junk folder",
+      "linkExpiry": "Link expires in 1 hour",
+      "oneTimeUse": "Link can only be used once",
+      "noteTitle": "Note:",
+      "noteExpiry": "The link will expire after 1 hour",
+      "noteOneTime": "Each link can only be used once",
+      "noteSpam": "Check your spam folder if you don't see the email",
+      "resendEmail": "Resend email",
+      "tipTitle": "Tip:",
+      "tipContent": "Add our email to your contacts to prevent it from going to spam"
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "subtitle": "Create a new password for your account",
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "Enter your new password",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Re-enter your new password",
+      "resetButton": "Reset Password",
+      "resetting": "Resetting...",
+      "passwordStrength": "Password strength:",
+      "strengthWeak": "Weak",
+      "strengthFair": "Fair",
+      "strengthGood": "Good",
+      "strengthStrong": "Strong",
+      "securityTitle": "Security:",
+      "securityStrong": "Use a strong password with at least 8 characters",
+      "securityShare": "Do not share your password with anyone",
+      "securityAutoLogin": "You will be automatically logged in after resetting",
+      "invalidLinkTitle": "Invalid Link",
+      "invalidLinkMessage": "The password reset link is invalid or has expired",
+      "requestNewLink": "Request a new link",
+      "successTitle": "Password Reset Successful",
+      "redirectMessage": "You will be redirected to the homepage in 3 seconds...",
+      "goHome": "Go to Homepage"
+    }
+  },
+  "site": {
+    "title": "Boc Menh",
+    "tagline": "Each person is a mystery box, uncover it - and you'll understand yourself",
+    "cta": "Start Exploring",
+    "description": "Discover destiny, interpret dreams, numerology and much more",
+    "description_short": "Discover your destiny"
+  },
+  "hero": {
+    "title": "Discover Your Destiny",
+    "subtitle": "Each person is a mystery box, uncover it and you'll understand yourself",
+    "cta": "Start Your Journey"
+  },
+  "features": {
+    "title": "Featured Services",
+    "destiny": {
+      "title": "Personal Destiny",
+      "description": "Discover your destiny through birth date and personal information"
+    },
+    "dreams": {
+      "title": "Dream Interpretation",
+      "description": "Uncover the deep meaning of last night's dream"
+    },
+    "numerology": {
+      "title": "Numerology",
+      "description": "Find your lucky numbers and life meaning"
+    },
+    "tarot": {
+      "title": "Tarot Reading",
+      "description": "Draw Tarot cards to explore future and guidance"
+    },
+    "fengshui": {
+      "title": "Feng Shui",
+      "description": "Improve luck and living energy"
+    },
+    "compatibility": {
+      "title": "Love Compatibility",
+      "description": "Check compatibility between two people"
+    }
+  },
+  "luckyBox": {
+    "title": "Today's Lucky Box",
+    "description": "Click the box to receive your lucky number and special message",
+    "button": "Open Lucky Box",
+    "luckyNumber": "Your lucky number",
+    "message": "Message",
+    "tryAgain": "Try again tomorrow",
+    "messages": "Today brings new opportunities. Trust your intuition and embrace positive energy."
+  },
+  "common": {
+    "loading": "Loading...",
+    "submit": "Submit",
+    "analyze": "Analyze",
+    "results": "Results",
+    "tryAgain": "Try Again",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More",
+    "back": "Back",
+    "next": "Next",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "error": "An error occurred",
+    "success": "Success",
+    "close": "Close",
+    "openMenu": "Open menu",
+    "connectionError": "Connection error",
+    "retry": "Retry",
+    "processing": "Processing...",
+    "notSpecified": "Not specified"
+  },
+  "store": {
+    "title": "Feng Shui Store",
+    "description": "Discover authentic Feng Shui items to enhance your luck and energy",
+    "recommendedForYou": "Recommended for You",
+    "searchPlaceholder": "Search products...",
+    "filterCategories": "Filter by Category",
+    "categories": "Categories",
+    "noProductsFound": "No products found",
+    "checkOutProduct": "View Product",
+    "shareNotSupported": "Sharing not supported on this device",
+    "productNotFound": "Product not found",
+    "backToStore": "Back to Store",
+    "back": "Back",
+    "fengShuiProperties": "Feng Shui Properties",
+    "share": "Share",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "relatedProducts": "Related Products",
+    "reviews": "Reviews",
+    "addToCart": "Add to Cart",
+    "addToWishlist": "Add to Wishlist",
+    "removeFromWishlist": "Remove from Wishlist",
+    "viewOn": "View on",
+    "partnerSite": "Partner Site",
+    "goodForMenh": "Good for Mệnh",
+    "productElement": "Product Element",
+    "cung": "Palace",
+    "khi": "Qi / Energy",
+    "fengShuiSuggestions": "Feng Shui Suggestions",
+    "suggestionEnhances": "Enhances / Supports",
+    "suggestionBalances": "Balances / Harmonizes",
+    "suggestionMitigates": "Mitigates / Reduces",
+    "filterMenh": "Filter by Mệnh",
+    "menh": "Mệnh"
+  },
+  "wishlist": {
+    "title": "My Wishlist",
+    "subtitle": "You have {count} item(s) in your wishlist.",
+    "emptyTitle": "Your Wishlist is Empty",
+    "emptySubtitle": "Looks like you haven't added any items to your wishlist yet. Start exploring our store to find items you love!",
+    "browseProducts": "Browse Products"
+  },
+  "weddingDate": {
+    "title": "Wedding Date Selection",
+    "dateLabel": "Wedding Date",
+    "brideDateLabel": "Bride's Birth Date",
+    "groomDateLabel": "Groom's Birth Date",
+    "analyzing": "Analyzing...",
+    "analyze": "Analyze Date",
+    "analysisTitle": "Wedding Date Analysis",
+    "dateSelected": "Selected Date",
+    "numerologyNumber": "Numerology Number",
+    "interpretation": "Interpretation",
     "compatibility": "Compatibility",
-    "community": "Community",
-    "store": "Store"
+    "luckRating": "Luck Rating",
+    "favorableColors": "Favorable Colors",
+    "favorableElements": "Favorable Elements",
+    "challenges": "Potential Challenges",
+    "recommendations": "Recommendations",
+    "premiumFeature": "Premium Feature",
+    "premiumFeature1": "Detailed compatibility analysis",
+    "premiumFeature2": "Auspicious time recommendations",
+    "premiumFeature3": "Ceremony planning guidance",
+    "premiumFeature4": "Personalized lucky elements"
+  },
+  "numerology": {
+    "form": {
+      "title": "Numerology Analysis",
+      "description": "Discover your life path through the power of numbers",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "fullNameHint": "Use your birth name for accurate results",
+      "birthDate": "Birth Date",
+      "birthDateHint": "Your exact birth date is important for calculations",
+      "analysisType": "Analysis Type",
+      "analysisComplete": "Complete Analysis",
+      "analysisBasic": "Basic Analysis",
+      "analysisLove": "Love & Relationships",
+      "analysisCareer": "Career & Finance",
+      "submitButton": "Calculate Numbers"
+    },
+    "result": {
+      "lifePathNumber": "Life Path Number",
+      "destinyNumber": "Destiny Number",
+      "soulUrgeNumber": "Soul Urge Number",
+      "personalityNumber": "Personality Number",
+      "personalCycles": "Personal Cycles",
+      "yearlyForecast": "Yearly Forecast",
+      "compatibility": "Compatibility",
+      "advice": "Advice",
+      "loading": "Calculating your numbers...",
+      "loadingSubtext": "Analyzing the cosmic patterns in your birth data",
+      "coreNumbers": "Core Numbers",
+      "birthdayNumber": "Birthday Number",
+      "luckyNumbers": "Lucky Numbers",
+      "personalYear": "Personal Year",
+      "personalMonth": "Personal Month",
+      "personalDay": "Personal Day",
+      "newAnalysis": "New Analysis"
+    }
+  },
+  "destiny": {
+    "form": {
+      "title": "Personal Destiny Reading",
+      "subtitle": "Uncover the secrets of your life path and purpose",
+      "nameLabel": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "birthDateLabel": "Birth Date",
+      "birthTimeLabel": "Birth Time (Optional)",
+      "birthTimeHint": "Include birth time for more accurate reading",
+      "submitButton": "Reveal My Destiny",
+      "loadingMessagePage": "Analyzing your cosmic blueprint...",
+      "infoTitle": "What You'll Discover",
+      "premiumTitle": "Premium Features",
+      "validationError": "Please fill in all required fields"
+    },
+    "result": {
+      "titleFor": "Destiny Reading for {name}",
+      "titleDefault": "Your Destiny Reading",
+      "personalityTraits": "Personality Traits",
+      "element": "Life Element",
+      "careerPath": "Career Path",
+      "loveLife": "Love & Relationships",
+      "luckyNumbers": "Lucky Numbers",
+      "luckyColors": "Lucky Colors",
+      "challenges": "Life Challenges",
+      "advice": "Guidance & Advice",
+      "action": {
+        "upgrade": "Upgrade to Premium",
+        "register": "Create Account"
+      },
+      "disclaimer": "This reading is for entertainment purposes only",
+      "viewForAnother": "Read for Someone Else"
+    },
+    "meta": {
+      "descriptionFor": "Personal destiny reading for {name} - Discover your life path, personality traits, and cosmic guidance",
+      "keywordsFor": "destiny reading, {name}, astrology, life path, personality analysis",
+      "descriptionDefault": "Discover your personal destiny through ancient wisdom and cosmic insights",
+      "keywordsDefault": "destiny reading, astrology, life path, personality, cosmic guidance"
+    },
+    "pageTitle": "Personal Destiny Reading",
+    "pageSubtitle": "Discover your life purpose and cosmic blueprint",
+    "error": {
+      "generic": "Unable to generate reading. Please try again.",
+      "fetch": "Connection error. Please check your internet and try again."
+    },
+    "recommendedItemsTitle": "Recommended Feng Shui Items",
+    "recommendedItemsSubtitle": "Enhance your destiny with these powerful items",
+    "viewMoreItemsButton": "View More Items"
+  },
+  "dreams": {
+    "types": {
+      "nightmare": "Nightmare",
+      "flying": "Flying",
+      "falling": "Falling",
+      "water": "Water",
+      "animals": "Animals",
+      "people": "People",
+      "death": "Death",
+      "love": "Love",
+      "money": "Money",
+      "other": "Other"
+    },
+    "emotions": {
+      "happy": "Happy",
+      "scared": "Scared",
+      "confused": "Confused",
+      "peaceful": "Peaceful",
+      "excited": "Excited",
+      "sad": "Sad",
+      "angry": "Angry",
+      "nostalgic": "Nostalgic"
+    },
+    "form": {
+      "dreamDescription": "Dream Description",
+      "dreamPlaceholder": "Describe your dream in detail...",
+      "dreamHint": "Include as many details as possible for accurate interpretation",
+      "dreamType": "Dream Type",
+      "emotions": "Emotions Felt",
+      "emotionsHint": "How did you feel during and after the dream?",
+      "dreamDate": "Dream Date",
+      "dreamDateHint": "When did you have this dream?",
+      "submitButton": "Interpret Dream"
+    },
+    "result": {
+      "loading": "Interpreting your dream...",
+      "loadingSubtext": "Analyzing symbols and meanings from ancient wisdom",
+      "overallMeaning": "Overall Meaning",
+      "symbols": "Key Symbols",
+      "emotionalAnalysis": "Emotional Analysis",
+      "predictions": "Predictions & Insights",
+      "recommendations": "Recommendations",
+      "luckyElements": "Lucky Elements",
+      "spiritualMessage": "Spiritual Message",
+      "newDream": "Interpret Another Dream"
+    }
+  },
+  "name": "Name",
+  "birthDate": "Birth Date",
+  "birthTime": "Birth Time",
+  "home": {
+    "featuredProducts": "Featured Products",
+    "featuredProductsDesc": "Handpicked Feng Shui items to enhance your energy",
+    "viewAllProducts": "View All Products"
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "help": "Help/FAQ",
+    "about": "About Us",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "attributes": {
+    "mệnh": {
+      "Thổ": "Earth",
+      "Kim": "Metal",
+      "Mộc": "Wood",
+      "Hỏa": "Fire",
+      "Thủy": "Water"
+    },
+    "mục đích": {
+      "Tài Lộc": "Wealth",
+      "An Lạc": "Peace",
+      "Bảo Vệ": "Protection",
+      "Hóa Giải Năng Lượng Xấu": "Neutralize Negative Energy",
+      "Bình An": "Serenity",
+      "Tĩnh Tâm": "Calmness",
+      "Công Danh": "Career",
+      "Học Vấn": "Education"
+    },
+    "chất liệu": {
+      "Đá Thạch Anh Vàng": "Yellow Quartz Stone",
+      "Gỗ Bách Xanh": "Green Cypress Wood",
+      "Đá Obsidian": "Obsidian Stone",
+      "Trầm Hương Tự Nhiên": "Natural Agarwood",
+      "Đá Ngọc Hoàng Long": "Yellow Dragon Jade"
+    },
+    "khí xấu": {
+      "Uế khí": "Negative Energy"
+    },
+    "sao xấu": {
+      "Thái Tuế": "Tai Sui Star",
+      "Ngũ Hoàng Đại Sát": "Five Yellow Star"
+    },
+    "năng lượng tiêu cực": {
+      "Trược khí": "Stagnant Energy"
+    },
+    "tà khí": {
+      "Năng lượng xấu": "Evil Spirits"
+    },
+    "tâm trạng": {
+      "Căng thẳng": "Stress"
+    },
+    "tinh thần": {
+      "Thiếu tập trung": "Lack of Focus"
+    },
+    "mục tiêu": {
+      "Thi cử": "Exams",
+      "Sự nghiệp": "Career"
+    },
+    "thuộc tính người dùng": {
+      "Sao Văn Xương chiếu mệnh": "Wen Chang Star in Fate"
+    }
   }
 }

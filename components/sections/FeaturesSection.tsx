@@ -3,51 +3,51 @@
 import { motion } from "framer-motion"
 import { Sparkles, Moon, Calculator, WalletCardsIcon as Cards, Home, Heart } from "lucide-react"
 import Link from "next/link"
-import { useLanguage } from "@/contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 
 export default function FeaturesSection() {
-  const { t } = useLanguage()
+  const { t } = useTranslation()
 
   const features = [
     {
       icon: Sparkles,
-      title: t("features.destiny.title"),
-      description: t("features.destiny.description"),
+      titleKey: "features.destiny.title",
+      descriptionKey: "features.destiny.description",
       href: "/destiny",
       gradient: "from-purple-500 to-pink-500",
     },
     {
       icon: Moon,
-      title: t("features.dreams.title"),
-      description: t("features.dreams.description"),
+      titleKey: "features.dreams.title",
+      descriptionKey: "features.dreams.description",
       href: "/dreams",
       gradient: "from-blue-500 to-indigo-500",
     },
     {
       icon: Calculator,
-      title: t("features.numerology.title"),
-      description: t("features.numerology.description"),
+      titleKey: "features.numerology.title",
+      descriptionKey: "features.numerology.description",
       href: "/numerology",
       gradient: "from-green-500 to-emerald-500",
     },
     {
       icon: Cards,
-      title: t("features.tarot.title"),
-      description: t("features.tarot.description"),
+      titleKey: "features.tarot.title",
+      descriptionKey: "features.tarot.description",
       href: "/tarot",
       gradient: "from-yellow-500 to-orange-500",
     },
     {
       icon: Home,
-      title: t("features.fengshui.title"),
-      description: t("features.fengshui.description"),
+      titleKey: "features.fengshui.title",
+      descriptionKey: "features.fengshui.description",
       href: "/fengshui",
       gradient: "from-red-500 to-rose-500",
     },
     {
       icon: Heart,
-      title: t("features.compatibility.title"),
-      description: t("features.compatibility.description"),
+      titleKey: "features.compatibility.title",
+      descriptionKey: "features.compatibility.description",
       href: "/compatibility",
       gradient: "from-pink-500 to-red-500",
     },
@@ -79,7 +79,7 @@ export default function FeaturesSection() {
               viewport={{ once: true }}
             >
               <Link href={feature.href}>
-                <div className="group relative bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6 hover:border-yellow-500/50 transition-all duration-300 hover:transform hover:scale-105">
+                <div className="group relative bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6 h-full hover:border-yellow-500/50 transition-all duration-300 hover:transform hover:scale-105">
                   <div
                     className={`w-12 h-12 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
                   >
@@ -87,12 +87,11 @@ export default function FeaturesSection() {
                   </div>
 
                   <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-yellow-500 transition-colors">
-                    {feature.title}
+                    {t(feature.titleKey)}
                   </h3>
 
-                  <p className="text-gray-400 leading-relaxed">{feature.description}</p>
+                  <p className="text-gray-400 leading-relaxed">{t(feature.descriptionKey)}</p>
 
-                  {/* Hover effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/5 to-amber-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </Link>

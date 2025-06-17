@@ -5,9 +5,11 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Mail, ArrowLeft, Send, CheckCircle } from "lucide-react"
 import { apiClient } from "@/lib/api"
+import { useTranslation } from "react-i18next"
 import Link from "next/link"
 
 export default function ForgotPasswordForm() {
+  const { t } = useTranslation()
   const [email, setEmail] = useState("")
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isLoading, setIsLoading] = useState(false)
@@ -28,11 +30,11 @@ export default function ForgotPasswordForm() {
         setMessage(response.data.message)
       } else {
         setErrors(response.data.errors || {})
-        setMessage(response.data.message || "Có lỗi xảy ra")
+        setMessage(response.data.message || t("common.error"))
       }
     } catch (error: any) {
       setErrors(error.response?.data?.errors || {})
-      setMessage(error.response?.data?.message || "Lỗi kết nối")
+      setMessage(error.response?.data?.message || t("common.connectionError"))
     }
 
     setIsLoading(false)
@@ -56,26 +58,25 @@ export default function ForgotPasswordForm() {
           <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <CheckCircle className="w-8 h-8 text-green-500" />
           </div>
-          <h2 className="text-2xl font-bold text-yellow-500 mb-2">Email Đã Được Gửi</h2>
+          <h2 className="text-2xl font-bold text-yellow-500 mb-2">{t("auth.forgotPassword.emailSentTitle")}</h2>
         </div>
 
         <div className="space-y-4 text-gray-300">
           <p>{message}</p>
 
           <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
-            <h3 className="font-semibold text-blue-400 mb-2">📧 Kiểm tra email của bạn</h3>
+            <h3 className="font-semibold text-blue-400 mb-2">{t("auth.forgotPassword.checkEmailTitle")}</h3>
             <ul className="text-sm text-blue-300 space-y-1 text-left">
-              <li>• Kiểm tra hộp thư đến</li>
-              <li>• Kiểm tra thư mục spam/junk</li>
-              <li>• Link có hiệu lực trong 15 phút</li>
-              <li>• Chỉ sử dụng được 1 lần</li>
+              <li>{t("auth.forgotPassword.checkInbox")}</li>
+              <li>{t("auth.forgotPassword.checkSpam")}</li>
+              <li>{t("auth.forgotPassword.linkExpiry")}</li>
+              <li>{t("auth.forgotPassword.oneTimeUse")}</li>
             </ul>
           </div>
 
           <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
             <p className="text-yellow-400 text-sm">
-              <strong>💡 Mẹo:</strong> Nếu không nhận được email sau 5 phút, hãy thử gửi lại hoặc kiểm tra địa chỉ
-              email.
+              <strong>{t("auth.forgotPassword.tipTitle")}</strong> {t("auth.forgotPassword.tipContent")}
             </p>
           </div>
         </div>
@@ -89,7 +90,7 @@ export default function ForgotPasswordForm() {
             }}
             className="mystical-button"
           >
-            Gửi lại email
+            {t("auth.forgotPassword.resendEmail")}
           </button>
 
           <Link
@@ -97,7 +98,7 @@ export default function ForgotPasswordForm() {
             className="flex items-center justify-center space-x-2 text-gray-400 hover:text-yellow-500 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Quay lại đăng nhập</span>
+            <span>{t("auth.forgotPassword.backToLogin")}</span>
           </Link>
         </div>
       </motion.div>
@@ -111,15 +112,15 @@ export default function ForgotPasswordForm() {
       className="mystical-card max-w-md mx-auto"
     >
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-yellow-500 mb-2">Quên Mật Khẩu</h2>
-        <p className="text-gray-300">Nhập email để nhận link đặt lại mật khẩu</p>
+        <h2 className="text-2xl font-bold text-yellow-500 mb-2">{t("auth.forgotPassword.title")}</h2>
+        <p className="text-gray-300">{t("auth.forgotPassword.subtitle")}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="flex items-center space-x-2 text-gray-300 font-medium mb-2">
             <Mail className="w-4 h-4" />
-            <span>Email đã đăng ký</span>
+            <span>{t("auth.forgotPassword.email")}</span>
           </label>
           <input
             type="email"
@@ -128,7 +129,7 @@ export default function ForgotPasswordForm() {
             className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg focus:outline-none text-white transition-colors ${
               errors.email ? "border-red-500 focus:border-red-400" : "border-gray-600 focus:border-yellow-500"
             }`}
-            placeholder="Nhập email của bạn"
+            placeholder={t("auth.forgotPassword.emailPlaceholder")}
             required
           />
           {errors.email && (
@@ -144,11 +145,11 @@ export default function ForgotPasswordForm() {
 
         {/* Info Box */}
         <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
-          <h3 className="font-semibold text-blue-400 mb-2">ℹ️ Lưu ý</h3>
+          <h3 className="font-semibold text-blue-400 mb-2">{t("auth.forgotPassword.noteTitle")}</h3>
           <ul className="text-sm text-blue-300 space-y-1">
-            <li>• Link đặt lại mật khẩu có hiệu lực 15 phút</li>
-            <li>• Chỉ sử dụng được 1 lần</li>
-            <li>• Kiểm tra cả thư mục spam</li>
+            <li>{t("auth.forgotPassword.noteExpiry")}</li>
+            <li>{t("auth.forgotPassword.noteOneTime")}</li>
+            <li>{t("auth.forgotPassword.noteSpam")}</li>
           </ul>
         </div>
 
@@ -173,7 +174,7 @@ export default function ForgotPasswordForm() {
           ) : (
             <Send className="w-5 h-5" />
           )}
-          <span>{isLoading ? "Đang gửi..." : "Gửi Link Đặt Lại"}</span>
+          <span>{isLoading ? t("auth.forgotPassword.sending") : t("auth.forgotPassword.sendButton")}</span>
         </button>
       </form>
 
@@ -183,7 +184,7 @@ export default function ForgotPasswordForm() {
           className="flex items-center justify-center space-x-2 text-gray-400 hover:text-yellow-500 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Quay lại đăng nhập</span>
+          <span>{t("auth.forgotPassword.backToLogin")}</span>
         </Link>
       </div>
     </motion.div>

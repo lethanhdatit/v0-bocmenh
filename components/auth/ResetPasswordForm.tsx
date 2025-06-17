@@ -6,6 +6,7 @@ import { motion } from "framer-motion"
 import { Eye, EyeOff, Lock, CheckCircle, AlertCircle } from "lucide-react"
 import { apiClient } from "@/lib/api"
 import { useAuth } from "@/contexts/AuthContext"
+import { useTranslation } from "react-i18next"
 import Link from "next/link"
 
 interface ResetPasswordFormProps {
@@ -14,6 +15,7 @@ interface ResetPasswordFormProps {
 
 export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   const { refreshUser } = useAuth()
+  const { t } = useTranslation()
   const [formData, setFormData] = useState({
     password: "",
     confirmPassword: "",
@@ -49,11 +51,11 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         }, 3000)
       } else {
         setErrors(response.data.errors || {})
-        setMessage(response.data.message || "Có lỗi xảy ra")
+        setMessage(response.data.message || t("common.error"))
       }
     } catch (error: any) {
       setErrors(error.response?.data?.errors || {})
-      setMessage(error.response?.data?.message || "Lỗi kết nối")
+      setMessage(error.response?.data?.message || t("common.connectionError"))
     }
 
     setIsLoading(false)
@@ -80,7 +82,12 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
   const passwordStrength = getPasswordStrength(formData.password)
   const strengthColors = ["bg-red-500", "bg-orange-500", "bg-yellow-500", "bg-green-500"]
-  const strengthLabels = ["Yếu", "Trung bình", "Khá", "Mạnh"]
+  const strengthLabels = [
+    t("auth.resetPassword.strengthWeak"),
+    t("auth.resetPassword.strengthFair"),
+    t("auth.resetPassword.strengthGood"),
+    t("auth.resetPassword.strengthStrong"),
+  ]
 
   // Check if token is provided
   if (!token) {
@@ -94,15 +101,13 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <AlertCircle className="w-8 h-8 text-red-500" />
           </div>
-          <h2 className="text-2xl font-bold text-red-500 mb-2">Link Không Hợp Lệ</h2>
+          <h2 className="text-2xl font-bold text-red-500 mb-2">{t("auth.resetPassword.invalidLinkTitle")}</h2>
         </div>
 
-        <p className="text-gray-300 mb-6">
-          Link đặt lại mật khẩu không hợp lệ hoặc đã hết hạn. Vui lòng yêu cầu link mới.
-        </p>
+        <p className="text-gray-300 mb-6">{t("auth.resetPassword.invalidLinkMessage")}</p>
 
         <Link href="/auth/forgot-password" className="mystical-button inline-block">
-          Yêu Cầu Link Mới
+          {t("auth.resetPassword.requestNewLink")}
         </Link>
       </motion.div>
     )
@@ -119,19 +124,19 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <CheckCircle className="w-8 h-8 text-green-500" />
           </div>
-          <h2 className="text-2xl font-bold text-yellow-500 mb-2">Thành Công!</h2>
+          <h2 className="text-2xl font-bold text-yellow-500 mb-2">{t("auth.resetPassword.successTitle")}</h2>
         </div>
 
         <div className="space-y-4 text-gray-300">
           <p>{message}</p>
 
           <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
-            <p className="text-green-400 text-sm">🎉 Bạn sẽ được chuyển hướng về trang chủ trong 3 giây...</p>
+            <p className="text-green-400 text-sm">{t("auth.resetPassword.redirectMessage")}</p>
           </div>
         </div>
 
         <Link href="/" className="mystical-button inline-block mt-6">
-          Về Trang Chủ
+          {t("auth.resetPassword.goHome")}
         </Link>
       </motion.div>
     )
@@ -144,8 +149,8 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
       className="mystical-card max-w-md mx-auto"
     >
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-yellow-500 mb-2">Đặt Lại Mật Khẩu</h2>
-        <p className="text-gray-300">Tạo mật khẩu mới cho tài khoản của bạn</p>
+        <h2 className="text-2xl font-bold text-yellow-500 mb-2">{t("auth.resetPassword.title")}</h2>
+        <p className="text-gray-300">{t("auth.resetPassword.subtitle")}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -153,7 +158,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         <div>
           <label className="flex items-center space-x-2 text-gray-300 font-medium mb-2">
             <Lock className="w-4 h-4" />
-            <span>Mật khẩu mới</span>
+            <span>{t("auth.resetPassword.newPassword")}</span>
           </label>
           <div className="relative">
             <input
@@ -164,7 +169,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
               className={`w-full px-4 py-3 pr-12 bg-gray-800/50 border rounded-lg focus:outline-none text-white transition-colors ${
                 errors.password ? "border-red-500 focus:border-red-400" : "border-gray-600 focus:border-yellow-500"
               }`}
-              placeholder="Nhập mật khẩu mới (ít nhất 6 ký tự)"
+              placeholder={t("auth.resetPassword.newPasswordPlaceholder")}
               required
             />
             <button
@@ -190,8 +195,10 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
                 ))}
               </div>
               <p className="text-xs text-gray-400">
-                Độ mạnh mật khẩu:{" "}
-                <span className="text-yellow-500">{strengthLabels[passwordStrength - 1] || "Yếu"}</span>
+                {t("auth.resetPassword.passwordStrength")}{" "}
+                <span className="text-yellow-500">
+                  {strengthLabels[passwordStrength - 1] || t("auth.resetPassword.strengthWeak")}
+                </span>
               </p>
             </div>
           )}
@@ -211,7 +218,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         <div>
           <label className="flex items-center space-x-2 text-gray-300 font-medium mb-2">
             <Lock className="w-4 h-4" />
-            <span>Xác nhận mật khẩu</span>
+            <span>{t("auth.resetPassword.confirmPassword")}</span>
           </label>
           <div className="relative">
             <input
@@ -224,7 +231,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
                   ? "border-red-500 focus:border-red-400"
                   : "border-gray-600 focus:border-yellow-500"
               }`}
-              placeholder="Nhập lại mật khẩu mới"
+              placeholder={t("auth.resetPassword.confirmPasswordPlaceholder")}
               required
             />
             <button
@@ -248,11 +255,11 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
         {/* Security Info */}
         <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
-          <h3 className="font-semibold text-blue-400 mb-2">🔒 Bảo mật</h3>
+          <h3 className="font-semibold text-blue-400 mb-2">{t("auth.resetPassword.securityTitle")}</h3>
           <ul className="text-sm text-blue-300 space-y-1">
-            <li>• Mật khẩu mạnh giúp bảo vệ tài khoản</li>
-            <li>• Không chia sẻ mật khẩu với ai</li>
-            <li>• Bạn sẽ được đăng nhập tự động sau khi đặt lại</li>
+            <li>{t("auth.resetPassword.securityStrong")}</li>
+            <li>{t("auth.resetPassword.securityShare")}</li>
+            <li>{t("auth.resetPassword.securityAutoLogin")}</li>
           </ul>
         </div>
 
@@ -265,7 +272,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           >
             <p className="text-red-400 text-sm">{errors.token}</p>
             <Link href="/auth/forgot-password" className="text-yellow-500 hover:text-yellow-400 text-sm">
-              Yêu cầu link mới →
+              {t("auth.resetPassword.requestNewLink")} →
             </Link>
           </motion.div>
         )}
@@ -291,13 +298,13 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           ) : (
             <Lock className="w-5 h-5" />
           )}
-          <span>{isLoading ? "Đang đặt lại..." : "Đặt Lại Mật Khẩu"}</span>
+          <span>{isLoading ? t("auth.resetPassword.resetting") : t("auth.resetPassword.resetButton")}</span>
         </button>
       </form>
 
       <div className="text-center mt-6 pt-6 border-t border-gray-700">
         <Link href="/auth/login" className="text-gray-400 hover:text-yellow-500 transition-colors">
-          Quay lại đăng nhập
+          {t("auth.forgotPassword.backToLogin")}
         </Link>
       </div>
     </motion.div>

@@ -1,44 +1,60 @@
-export const locales = ["vi", "en"] as const
-export type Locale = (typeof locales)[number]
+import i18n from "i18next"
+import { initReactI18next } from "react-i18next"
+import { getBaseUrl } from "@/lib/utils"
 
-export const defaultLocale: Locale = "vi"
+// Dynamic loading function for translation files
+async function loadTranslations() {
+  try {
+    const baseUrl = getBaseUrl()
+    
+    // Load translation files dynamically from public folder
+    const [viResponse, enResponse] = await Promise.all([
+      fetch(new URL('/locales/vi/common.json', baseUrl).toString()),
+      fetch(new URL('/locales/en/common.json', baseUrl).toString()),
+    ])
 
-export function isValidLocale(locale: string): locale is Locale {
-  return locales.includes(locale as Locale)
-}
+    const viCommon = await viResponse.json()
+    const enCommon = await enResponse.json()
 
-export function getLocaleFromPathname(pathname: string): Locale {
-  const segments = pathname.split("/")
-  const potentialLocale = segments[1]
-
-  if (isValidLocale(potentialLocale)) {
-    return potentialLocale
+    return {
+      vi: { common: viCommon },
+      en: { common: enCommon },
+    }
+  } catch (error) {
+    console.error("Failed to load translations:", error)
+    // Fallback to empty resources
+    return {
+      vi: { common: {} },
+      en: { common: {} },
+    }
   }
-
-  return defaultLocale
 }
 
-export function getAlternateUrls(pathname: string) {
-  const cleanPath = pathname.replace(/^\/[a-z]{2}/, "") || "/"
+// Initialize i18next with dynamic loading
+const initPromise = loadTranslations().then((resources) => {
+  return i18n.use(initReactI18next).init({
+    resources,
+    fallbackLng: "vi",
+    defaultNS: "common",
+    ns: ["common"],
+    lng: "vi", // Default language, will be set by LanguageContext
 
-  return {
-    "vi-VN": `/vi${cleanPath}`,
-    "en-US": `/en${cleanPath}`,
-    "x-default": `/vi${cleanPath}`, // Default to Vietnamese
-  }
-}
+    interpolation: {
+      escapeValue: false, // React already escapes
+    },
 
-export function getCanonicalUrl(locale: Locale, pathname: string) {
-  const cleanPath = pathname.replace(/^\/[a-z]{2}/, "") || "/"
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bocmenh.com"
-  return `${baseUrl}/${locale}${cleanPath}`
-}
+    react: {
+      useSuspense: false, // Avoid suspense for better UX
+    },
 
-export function getPathWithoutLocale(pathname: string): string {
-  return pathname.replace(/^\/[a-z]{2}/, "") || "/"
-}
+    // No automatic detection - we handle this via server session
+    detection: {
+      order: [],
+      caches: [],
+    },
+  })
+})
 
-export function getLocalizedPath(pathname: string, locale: Locale): string {
-  const pathWithoutLocale = getPathWithoutLocale(pathname)
-  return `/${locale}${pathWithoutLocale}`
-}
+// Export both the instance and initialization promise
+export { initPromise }
+export default i18n

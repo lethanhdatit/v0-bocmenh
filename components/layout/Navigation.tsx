@@ -1,41 +1,29 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Menu, X, Globe, User, LogOut, Crown } from "lucide-react"
+import { Menu, X, User, LogOut, Crown, ChevronDown, History, Settings, ShoppingBag, Heart } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useAuth } from "@/contexts/AuthContext"
-import { useLanguage } from "@/contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
-  const { user, isLoggedIn, logout, isLoading } = useAuth()
-  const { language, setLanguage, t } = useLanguage()
-  const pathname = usePathname()
+  const { user, isLoggedIn, logout, isLoading: authIsLoading } = useAuth()
+  const { t } = useTranslation()
 
-  // Get current locale from pathname
-  const currentLocale = pathname.split("/")[1] || "vi"
+  const userMenuRef = useRef<HTMLDivElement>(null)
 
   const navItems = [
-    { href: `/${currentLocale}`, label: t("nav.home") },
-    { href: `/${currentLocale}/destiny`, label: t("nav.destiny") },
-    { href: `/${currentLocale}/dreams`, label: t("nav.dreams") },
-    { href: `/${currentLocale}/numerology`, label: t("nav.numerology") },
-    { href: `/${currentLocale}/tarot`, label: t("nav.tarot") },
-    { href: `/${currentLocale}/fengshui`, label: t("nav.fengshui") },
-    { href: `/${currentLocale}/horoscope`, label: t("nav.horoscope") },
-    { href: `/${currentLocale}/palmistry`, label: t("nav.palmistry") },
-    { href: `/${currentLocale}/astrology`, label: t("nav.astrology") },
-    { href: `/${currentLocale}/crystals`, label: t("nav.crystals") },
-    { href: `/${currentLocale}/meditation`, label: t("nav.meditation") },
-    { href: `/${currentLocale}/name-analysis`, label: t("nav.nameAnalysis") },
-    { href: `/${currentLocale}/business-name`, label: t("nav.businessName") },
-    { href: `/${currentLocale}/wedding-date`, label: t("nav.weddingDate") },
-    { href: `/${currentLocale}/compatibility`, label: t("nav.compatibility") },
-    { href: `/${currentLocale}/community`, label: t("nav.community") },
-    { href: `/${currentLocale}/store`, label: t("nav.store") },
+    { href: "/dreams", labelKey: "nav.dreams" },
+    { href: "/numerology", labelKey: "nav.numerology" },
+    { href: "/tarot", labelKey: "nav.tarot" },
+    { href: "/fengshui", labelKey: "nav.fengshui" },
+    { href: "/destiny", labelKey: "nav.destiny" },
+    { href: "/compatibility", labelKey: "nav.compatibility" },
+    { href: "/wedding-date", labelKey: "nav.weddingDate" },
+    { href: "/store", labelKey: "nav.store" },
   ]
 
   const handleLogout = async () => {
@@ -43,113 +31,108 @@ export default function Navigation() {
     setShowUserMenu(false)
   }
 
-  const toggleLanguage = () => {
-    const newLang = language === "vi" ? "en" : "vi"
-    const currentPath = pathname.replace(`/${currentLocale}`, "")
-    const newPath = `/${newLang}${currentPath}`
-    setLanguage(newLang)
-    window.location.href = newPath
-  }
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setShowUserMenu(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href={`/${currentLocale}`} className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-full flex items-center justify-center">
               <span className="text-black font-bold text-sm">BM</span>
             </div>
             <span className="text-xl font-bold text-yellow-500">{t("site.title")}</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-gray-300 hover:text-yellow-500 transition-colors duration-200"
+                className="text-gray-300 hover:text-yellow-500 transition-colors duration-200 text-sm font-medium"
               >
-                {item.label}
+                {t(item.labelKey)}
               </Link>
             ))}
           </div>
 
-          {/* Right side - Language & Auth */}
-          <div className="flex items-center space-x-4">
-            {/* Language Switcher */}
-            <button
-              onClick={toggleLanguage}
-              className="flex items-center space-x-1 text-gray-300 hover:text-yellow-500 transition-colors"
-            >
-              <Globe className="w-4 h-4" />
-              <span className="text-sm uppercase">{language}</span>
-            </button>
-
-            {/* Auth Section */}
-            {isLoading ? (
+          <div className="flex items-center space-x-3 sm:space-x-4">
+            {authIsLoading ? (
               <div className="w-8 h-8 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin" />
             ) : isLoggedIn && user ? (
-              <div className="relative">
+              <div ref={userMenuRef} className="relative">
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center space-x-2 text-gray-300 hover:text-yellow-500 transition-colors"
+                  className="flex items-center space-x-2 text-gray-300 hover:text-yellow-500 transition-colors p-1 rounded-full hover:bg-gray-700/50"
+                  aria-label={t("nav.profile")}
                 >
-                  <div className="w-8 h-8 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full flex items-center justify-center ring-1 ring-yellow-600/50">
                     <User className="w-4 h-4 text-black" />
                   </div>
-                  <span className="hidden sm:block">{user.name}</span>
-                  {user.isPremium && <Crown className="w-4 h-4 text-yellow-500" />}
+                  <span className="hidden md:inline text-sm font-medium">{user.name}</span>
+                  {user.isPremium && <Crown className="w-4 h-4 text-yellow-400" />}
+                  <ChevronDown className="w-4 h-4 opacity-70 hidden md:inline" />
                 </button>
-
                 <AnimatePresence>
                   {showUserMenu && (
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="absolute right-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-lg py-2"
+                      className="absolute right-0 mt-2 w-56 bg-gray-900 border border-gray-700 rounded-lg shadow-xl py-1.5 z-50"
                     >
-                      <div className="px-4 py-2 border-b border-gray-700">
-                        <p className="text-white font-medium">{user.name}</p>
-                        <p className="text-gray-400 text-sm">{user.email}</p>
+                      <div className="px-3.5 py-2.5 border-b border-gray-700/70">
+                        <p className="text-white font-semibold truncate">{user.name}</p>
+                        <p className="text-gray-400 text-xs truncate">{user.email}</p>
                         {user.isPremium && (
-                          <span className="inline-flex items-center space-x-1 text-yellow-500 text-xs mt-1">
+                          <span className="inline-flex items-center space-x-1 text-yellow-400 text-xs mt-1 bg-yellow-500/10 px-1.5 py-0.5 rounded">
                             <Crown className="w-3 h-3" />
-                            <span>Premium</span>
+                            <span>{t("nav.premium")}</span>
                           </span>
                         )}
                       </div>
-                      <Link
-                        href={`/${currentLocale}/profile`}
-                        className="block px-4 py-2 text-gray-300 hover:text-yellow-500 hover:bg-gray-800 transition-colors"
-                        onClick={() => setShowUserMenu(false)}
-                      >
-                        {t("auth.profile")}
-                      </Link>
-                      <Link
-                        href={`/${currentLocale}/history`}
-                        className="block px-4 py-2 text-gray-300 hover:text-yellow-500 hover:bg-gray-800 transition-colors"
-                        onClick={() => setShowUserMenu(false)}
-                      >
-                        {t("auth.history")}
-                      </Link>
-                      {!user.isPremium && (
+                      {[
+                        { href: "/profile", labelKey: "nav.profile", icon: Settings },
+                        { href: "/history", labelKey: "nav.history", icon: History },
+                        { href: "/wishlist", labelKey: "nav.wishlist", icon: Heart }, // Added Wishlist
+                      ].map((item) => (
                         <Link
-                          href={`/${currentLocale}/premium`}
-                          className="block px-4 py-2 text-yellow-500 hover:text-yellow-400 hover:bg-gray-800 transition-colors"
+                          key={item.href}
+                          href={item.href}
+                          className="flex items-center space-x-2.5 px-3.5 py-2.5 text-sm text-gray-200 hover:text-yellow-400 hover:bg-gray-800/70 transition-colors"
                           onClick={() => setShowUserMenu(false)}
                         >
-                          {t("auth.premium")}
+                          <item.icon className="w-4 h-4 opacity-80" />
+                          <span>{t(item.labelKey)}</span>
+                        </Link>
+                      ))}
+                      {!user.isPremium && (
+                        <Link
+                          href="/premium"
+                          className="flex items-center space-x-2.5 px-3.5 py-2.5 text-sm text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10 transition-colors"
+                          onClick={() => setShowUserMenu(false)}
+                        >
+                          <ShoppingBag className="w-4 h-4" />
+                          <span>{t("nav.premium")}</span>
                         </Link>
                       )}
                       <button
                         onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-gray-300 hover:text-red-400 hover:bg-gray-800 transition-colors flex items-center space-x-2"
+                        className="w-full text-left flex items-center space-x-2.5 px-3.5 py-2.5 text-sm text-gray-200 hover:text-red-400 hover:bg-red-500/10 transition-colors border-t border-gray-700/70 mt-1"
                       >
-                        <LogOut className="w-4 h-4" />
-                        <span>{t("auth.logout")}</span>
+                        <LogOut className="w-4 h-4 opacity-80" />
+                        <span>{t("auth.logout.title")}</span>
                       </button>
                     </motion.div>
                   )}
@@ -158,87 +141,110 @@ export default function Navigation() {
             ) : (
               <div className="hidden sm:flex items-center space-x-2">
                 <Link
-                  href={`/${currentLocale}/auth/login`}
-                  className="text-gray-300 hover:text-yellow-500 transition-colors px-3 py-1"
+                  href="/auth/login"
+                  className="text-gray-300 hover:text-yellow-500 transition-colors px-3 py-1.5 rounded-md text-sm font-medium hover:bg-gray-700/50"
                 >
-                  {t("auth.login")}
+                  {t("auth.login.title")}
                 </Link>
                 <Link
-                  href={`/${currentLocale}/auth/register`}
-                  className="bg-yellow-500 text-black px-4 py-2 rounded-full hover:bg-yellow-400 transition-colors"
+                  href="/auth/register"
+                  className="bg-yellow-500 text-black px-4 py-1.5 rounded-full hover:bg-yellow-400 transition-colors text-sm font-semibold shadow-sm"
                 >
-                  {t("auth.register")}
+                  {t("auth.register.title")}
                 </Link>
               </div>
             )}
 
-            {/* Mobile menu button */}
-            <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden text-gray-300 hover:text-yellow-500">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden text-gray-300 hover:text-yellow-500 p-2 rounded-md hover:bg-gray-700/50"
+              aria-label={isOpen ? t("common.close") : t("common.openMenu")}
+            >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-black/95 backdrop-blur-md border-t border-gray-800"
+            className="lg:hidden bg-black/95 backdrop-blur-lg border-t border-gray-800/70"
           >
-            <div className="px-4 py-4 space-y-3">
+            <div className="px-4 py-4 space-y-1.5">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="block text-gray-300 hover:text-yellow-500 transition-colors py-2"
+                  className="block text-gray-200 hover:text-yellow-400 hover:bg-gray-800/70 transition-colors py-2.5 px-3 rounded-md text-base"
                   onClick={() => setIsOpen(false)}
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </Link>
               ))}
-              <div className="pt-4 border-t border-gray-800 space-y-2">
-                {isLoggedIn && user ? (
-                  <>
-                    <div className="py-2">
-                      <p className="text-white font-medium">{user.name}</p>
-                      <p className="text-gray-400 text-sm">{user.email}</p>
-                    </div>
+              {/* Mobile menu user-specific links */}
+              {isLoggedIn && user && (
+                <div className="pt-3 mt-2 border-t border-gray-700/70 space-y-1.5">
+                  <Link
+                    href="/profile"
+                    className="block text-gray-200 hover:text-yellow-400 hover:bg-gray-800/70 transition-colors py-2.5 px-3 rounded-md text-base"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {t("nav.profile")}
+                  </Link>
+                  <Link
+                    href="/history"
+                    className="block text-gray-200 hover:text-yellow-400 hover:bg-gray-800/70 transition-colors py-2.5 px-3 rounded-md text-base"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {t("nav.history")}
+                  </Link>
+                  <Link
+                    href="/wishlist"
+                    className="block text-gray-200 hover:text-yellow-400 hover:bg-gray-800/70 transition-colors py-2.5 px-3 rounded-md text-base"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {t("nav.wishlist")}
+                  </Link>
+                  {!user.isPremium && (
                     <Link
-                      href={`/${currentLocale}/profile`}
-                      className="block text-gray-300 hover:text-yellow-500 transition-colors py-2"
+                      href="/premium"
+                      className="block text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10 transition-colors py-2.5 px-3 rounded-md text-base"
                       onClick={() => setIsOpen(false)}
                     >
-                      {t("auth.profile")}
+                      {t("nav.premium")}
                     </Link>
-                    <button
-                      onClick={() => {
-                        handleLogout()
-                        setIsOpen(false)
-                      }}
-                      className="block text-gray-300 hover:text-red-400 transition-colors py-2"
-                    >
-                      {t("auth.logout")}
-                    </button>
-                  </>
-                ) : (
+                  )}
+                  <button
+                    onClick={() => {
+                      handleLogout()
+                      setIsOpen(false)
+                    }}
+                    className="w-full text-left block text-gray-200 hover:text-red-400 hover:bg-red-500/10 transition-colors py-2.5 px-3 rounded-md text-base"
+                  >
+                    {t("auth.logout.title")}
+                  </button>
+                </div>
+              )}
+              <div className="pt-3 mt-2 border-t border-gray-700/70 space-y-1.5">
+                {!isLoggedIn && !authIsLoading && (
                   <>
                     <Link
-                      href={`/${currentLocale}/auth/login`}
-                      className="block text-gray-300 hover:text-yellow-500 transition-colors py-2"
+                      href="/auth/login"
+                      className="block text-gray-200 hover:text-yellow-400 hover:bg-gray-800/70 transition-colors py-2.5 px-3 rounded-md text-base"
                       onClick={() => setIsOpen(false)}
                     >
-                      {t("auth.login")}
+                      {t("auth.login.title")}
                     </Link>
                     <Link
-                      href={`/${currentLocale}/auth/register`}
-                      className="block bg-yellow-500 text-black px-4 py-2 rounded-full hover:bg-yellow-400 transition-colors text-center"
+                      href="/auth/register"
+                      className="block bg-yellow-500 text-black px-4 py-2.5 rounded-full hover:bg-yellow-400 transition-colors text-center text-base font-semibold"
                       onClick={() => setIsOpen(false)}
                     >
-                      {t("auth.register")}
+                      {t("auth.register.title")}
                     </Link>
                   </>
                 )}
