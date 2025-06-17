@@ -1,0 +1,21 @@
+{
+  "nav": {
+    "home": "Home",
+    "destiny": "Destiny Reading",
+    "dreams": "Dream Interpretation",
+    "numerology": "Numerology",
+    "tarot": "Tarot Reading",
+    "fengshui": "Feng Shui",
+    "horoscope": "Horoscope",
+    "palmistry": "Palmistry",
+    "astrology": "Astrology",
+    "crystals": "Crystals",
+    "meditation": "Meditation",
+    "nameAnalysis": "Name Analysis",
+    "businessName": "Business Name",
+    "weddingDate": "Wedding Date",
+    "compatibility": "Compatibility",
+    "community": "Community",
+    "store": "Store"
+  }
+}
