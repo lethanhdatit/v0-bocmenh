@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react"
 import type { Product } from "@/lib/products"
 import ProductCard from "@/components/store/ProductCard"
-import { useAuth } from "@/contexts/AuthContext"
+import { useAuth } from "@/contexts/AuthContext" // Assuming user profile might have 'mệnh', 'cung' etc.
 import { useTranslation } from "react-i18next"
-import { ListFilter, Search } from "lucide-react"
+import { ListFilter, Search, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -16,14 +16,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { sampleProducts as allSampleProducts } from "@/lib/products" // Import all products for filtering
 
-// Mock user attributes for demonstration
-// In a real app, this would come from AuthContext or user profile API
+// Mock user attributes for demonstration if AuthContext doesn't provide them yet
 const mockUserAttributes = {
-  mệnh: "Kim",
-  numerology: "5",
-  zodiac: "Tý",
-  needsBalance: "Mộc", // User is Kim, might need Mộc for balance
+  menhChinh: "Kim", // Mệnh chính của người dùng
+  cung: "Càn",
+  // ... other attributes like numerology, zodiac if needed for suggestions
+  needsBalance: "Mộc", // Example: User is Kim, might need Mộc for balance
+  currentIssues: [{ type: "sao xấu", value: "Thái Tuế" }], // Example: User is facing a negative star
 }
 
 export default function StorePage() {
@@ -33,25 +34,31 @@ export default function StorePage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [allCategories, setAllCategories] = useState<string[]>([])
-  const { user } = useAuth() // For future personalization
+
+  // New filters for Feng Shui properties
+  const [selectedMenh, setSelectedMenh] = useState<string[]>([])
+  const [allMenh, setAllMenh] = useState<string[]>(["Kim", "Mộc", "Thủy", "Hỏa", "Thổ"]) // Predefined list
+
+  const { user } = useAuth()
   const { t } = useTranslation()
 
   useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true)
       try {
-        // const response = await apiClient.get('/api/store/products');
-        // For now, using local data due to potential BFF encryption complexity in GET
-        const { sampleProducts } = await import("@/lib/products")
-        setProducts(sampleProducts)
-        setFilteredProducts(sampleProducts)
+        // In a real app, this might be an API call
+        // const { sampleProducts: fetchedProducts } = await import("@/lib/products")
+        setProducts(allSampleProducts)
+        setFilteredProducts(allSampleProducts)
 
-        // Extract all unique categories for filtering
-        const uniqueCategories = Array.from(new Set(sampleProducts.flatMap((p) => p.categories)))
-        setAllCategories(uniqueCategories)
+        const uniqueCategories = Array.from(new Set(allSampleProducts.flatMap((p) => p.categories)))
+        setAllCategories(uniqueCategories.sort())
+
+        // Extract unique 'menhChinh' for filtering if needed, or use predefined list
+        // const uniqueMenh = Array.from(new Set(allSampleProducts.map(p => p.menhChinh).filter(m => m) as string[]));
+        // setAllMenh(uniqueMenh.sort());
       } catch (error) {
         console.error("Failed to fetch products:", error)
-        // Handle error display
       } finally {
         setIsLoading(false)
       }
@@ -76,8 +83,13 @@ export default function StorePage() {
       tempProducts = tempProducts.filter((p) => selectedCategories.every((cat) => p.categories.includes(cat)))
     }
 
+    // Filter by selected menh
+    if (selectedMenh.length > 0) {
+      tempProducts = tempProducts.filter((p) => selectedMenh.every((menh) => p.menhChinh === menh))
+    }
+
     setFilteredProducts(tempProducts)
-  }, [searchTerm, selectedCategories, products])
+  }, [searchTerm, selectedCategories, selectedMenh, products])
 
   const handleCategoryToggle = (category: string) => {
     setSelectedCategories((prev) =>
@@ -85,18 +97,22 @@ export default function StorePage() {
     )
   }
 
+  const handleMenhToggle = (menh: string) => {
+    setSelectedMenh((prev) => (prev.includes(menh) ? prev.filter((m) => m !== menh) : [...prev, menh]))
+  }
+
   // Placeholder for smart suggestions
   const getSmartSuggestions = (): Product[] => {
     if (!products.length) return []
     // Simple example: suggest items matching user's "mệnh"
     // Or items that balance what user "needs"
-    const currentUserAttributes = user ? { mệnh: user.mệnh /* ... other attributes */ } : mockUserAttributes
+    const currentUserAttributes = user ? { menhChinh: user.menhChinh /* ... other attributes */ } : mockUserAttributes
 
     return products
       .filter((product) => {
         if (
           product.suggestionLogic?.enhances?.some(
-            (attr) => attr.type === "mệnh" && attr.value === currentUserAttributes.mệnh,
+            (attr) => attr.type === "mệnh" && attr.value === currentUserAttributes.menhChinh,
           )
         ) {
           return true
@@ -177,6 +193,31 @@ export default function StorePage() {
                 className="hover:!bg-gray-800 focus:!bg-gray-800 data-[highlighted]:!bg-gray-800"
               >
                 {category}
+              </DropdownMenuCheckboxItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="outline"
+              className="bg-gray-800 border-gray-700 hover:bg-gray-700 text-gray-300 hover:text-yellow-400 w-full sm:w-auto"
+            >
+              <Sparkles className="mr-2 h-4 w-4" /> {t("store.filterMenh")} ({selectedMenh.length})
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56 bg-gray-900 border-gray-700 text-white">
+            <DropdownMenuLabel className="text-yellow-500">{t("store.menh")}</DropdownMenuLabel>
+            <DropdownMenuSeparator className="bg-gray-700" />
+            {allMenh.map((menh) => (
+              <DropdownMenuCheckboxItem
+                key={menh}
+                checked={selectedMenh.includes(menh)}
+                onCheckedChange={() => handleMenhToggle(menh)}
+                className="hover:!bg-gray-800 focus:!bg-gray-800 data-[highlighted]:!bg-gray-800"
+              >
+                {menh}
               </DropdownMenuCheckboxItem>
             ))}
           </DropdownMenuContent>
