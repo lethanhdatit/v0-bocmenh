@@ -1,7 +1,8 @@
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
 
-// Import translation files directly
+// Import translation files directly (static import)
+// This is more reliable than dynamic fetch in Next.js
 import viCommon from "../public/locales/vi/common.json"
 import enCommon from "../public/locales/en/common.json"
 
