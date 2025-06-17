@@ -20,16 +20,16 @@ export default function Navigation() {
   // Bỏ langMenuRef
 
   const navItems = [
-    // Bỏ mục "nav.home"
-    { href: "/destiny", labelKey: "nav.destiny" },
+    // Bỏ mục "nav.home"    
     { href: "/dreams", labelKey: "nav.dreams" },
     { href: "/numerology", labelKey: "nav.numerology" },
     { href: "/tarot", labelKey: "nav.tarot" },
     { href: "/fengshui", labelKey: "nav.fengshui" },
+    { href: "/destiny", labelKey: "nav.destiny" },
     { href: "/compatibility", labelKey: "nav.compatibility" },
     { href: "/wedding-date", labelKey: "nav.weddingDate" },
     { href: "/store", labelKey: "nav.store" },
-    { href: "/community", labelKey: "nav.community" },
+    // { href: "/community", labelKey: "nav.community" },
   ]
 
   const handleLogout = async () => {

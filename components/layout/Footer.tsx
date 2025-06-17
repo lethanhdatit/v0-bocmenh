@@ -67,9 +67,6 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-gray-200 tracking-wider uppercase mb-3 opacity-0 md:opacity-100">
-              .
-            </h3>{" "}
             {/* Placeholder for alignment */}
             <ul className="space-y-2">
               {footerLinks.slice(2, footerLinks.length).map(
