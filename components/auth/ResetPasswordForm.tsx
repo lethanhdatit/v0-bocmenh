@@ -6,7 +6,6 @@ import { motion } from "framer-motion"
 import { Eye, EyeOff, Lock, CheckCircle, AlertCircle } from "lucide-react"
 import { apiClient } from "@/lib/api"
 import { useAuth } from "@/contexts/AuthContext"
-import { usePathname } from "next/navigation"
 import Link from "next/link"
 
 interface ResetPasswordFormProps {
@@ -15,9 +14,6 @@ interface ResetPasswordFormProps {
 
 export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   const { refreshUser } = useAuth()
-  const pathname = usePathname()
-  const currentLocale = pathname.split("/")[1] || "vi"
-
   const [formData, setFormData] = useState({
     password: "",
     confirmPassword: "",
@@ -49,7 +45,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         await refreshUser()
         // Redirect after success
         setTimeout(() => {
-          window.location.href = `/${currentLocale}`
+          window.location.href = "/"
         }, 3000)
       } else {
         setErrors(response.data.errors || {})
@@ -105,7 +101,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           Link đặt lại mật khẩu không hợp lệ hoặc đã hết hạn. Vui lòng yêu cầu link mới.
         </p>
 
-        <Link href={`/${currentLocale}/auth/forgot-password`} className="mystical-button inline-block">
+        <Link href="/auth/forgot-password" className="mystical-button inline-block">
           Yêu Cầu Link Mới
         </Link>
       </motion.div>
@@ -134,7 +130,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           </div>
         </div>
 
-        <Link href={`/${currentLocale}`} className="mystical-button inline-block mt-6">
+        <Link href="/" className="mystical-button inline-block mt-6">
           Về Trang Chủ
         </Link>
       </motion.div>
@@ -268,10 +264,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
             className="bg-red-500/10 border border-red-500/20 rounded-lg p-3"
           >
             <p className="text-red-400 text-sm">{errors.token}</p>
-            <Link
-              href={`/${currentLocale}/auth/forgot-password`}
-              className="text-yellow-500 hover:text-yellow-400 text-sm"
-            >
+            <Link href="/auth/forgot-password" className="text-yellow-500 hover:text-yellow-400 text-sm">
               Yêu cầu link mới →
             </Link>
           </motion.div>
@@ -303,7 +296,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
       </form>
 
       <div className="text-center mt-6 pt-6 border-t border-gray-700">
-        <Link href={`/${currentLocale}/auth/login`} className="text-gray-400 hover:text-yellow-500 transition-colors">
+        <Link href="/auth/login" className="text-gray-400 hover:text-yellow-500 transition-colors">
           Quay lại đăng nhập
         </Link>
       </div>

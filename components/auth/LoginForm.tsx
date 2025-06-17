@@ -5,7 +5,6 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Eye, EyeOff, Mail, Lock, LogIn } from "lucide-react"
 import { useAuth } from "@/contexts/AuthContext"
-import { usePathname } from "next/navigation"
 import Link from "next/link"
 
 interface LoginFormProps {
@@ -15,9 +14,6 @@ interface LoginFormProps {
 
 export default function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
   const { login } = useAuth()
-  const pathname = usePathname()
-  const currentLocale = pathname.split("/")[1] || "vi"
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -165,7 +161,7 @@ export default function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
             <span className="text-sm">Ghi nhớ đăng nhập</span>
           </label>
           <Link
-            href={`/${currentLocale}/auth/forgot-password`}
+            href="/auth/forgot-password"
             className="text-sm text-yellow-500 hover:text-yellow-400 transition-colors"
           >
             Quên mật khẩu?
@@ -213,10 +209,7 @@ export default function LoginForm({ onSuccess, redirectTo }: LoginFormProps) {
       <div className="text-center mt-6 pt-6 border-t border-gray-700">
         <p className="text-gray-400">
           Chưa có tài khoản?{" "}
-          <Link
-            href={`/${currentLocale}/auth/register`}
-            className="text-yellow-500 hover:text-yellow-400 transition-colors font-medium"
-          >
+          <Link href="/auth/register" className="text-yellow-500 hover:text-yellow-400 transition-colors font-medium">
             Đăng ký ngay
           </Link>
         </p>

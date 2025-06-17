@@ -5,7 +5,6 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Eye, EyeOff, Mail, Lock, User, UserPlus } from "lucide-react"
 import { useAuth } from "@/contexts/AuthContext"
-import { usePathname } from "next/navigation"
 import Link from "next/link"
 
 interface RegisterFormProps {
@@ -15,9 +14,6 @@ interface RegisterFormProps {
 
 export default function RegisterForm({ onSuccess, redirectTo }: RegisterFormProps) {
   const { register } = useAuth()
-  const pathname = usePathname()
-  const currentLocale = pathname.split("/")[1] || "vi"
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -275,17 +271,11 @@ export default function RegisterForm({ onSuccess, redirectTo }: RegisterFormProp
             />
             <span className="text-sm">
               Tôi đồng ý với{" "}
-              <Link
-                href={`/${currentLocale}/terms`}
-                className="text-yellow-500 hover:text-yellow-400 transition-colors"
-              >
+              <Link href="/terms" className="text-yellow-500 hover:text-yellow-400 transition-colors">
                 Điều khoản sử dụng
               </Link>{" "}
               và{" "}
-              <Link
-                href={`/${currentLocale}/privacy`}
-                className="text-yellow-500 hover:text-yellow-400 transition-colors"
-              >
+              <Link href="/privacy" className="text-yellow-500 hover:text-yellow-400 transition-colors">
                 Chính sách bảo mật
               </Link>
             </span>
@@ -342,10 +332,7 @@ export default function RegisterForm({ onSuccess, redirectTo }: RegisterFormProp
       <div className="text-center mt-6 pt-6 border-t border-gray-700">
         <p className="text-gray-400">
           Đã có tài khoản?{" "}
-          <Link
-            href={`/${currentLocale}/auth/login`}
-            className="text-yellow-500 hover:text-yellow-400 transition-colors font-medium"
-          >
+          <Link href="/auth/login" className="text-yellow-500 hover:text-yellow-400 transition-colors font-medium">
             Đăng nhập ngay
           </Link>
         </p>

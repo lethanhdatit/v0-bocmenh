@@ -5,13 +5,9 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Mail, ArrowLeft, Send, CheckCircle } from "lucide-react"
 import { apiClient } from "@/lib/api"
-import { usePathname } from "next/navigation"
 import Link from "next/link"
 
 export default function ForgotPasswordForm() {
-  const pathname = usePathname()
-  const currentLocale = pathname.split("/")[1] || "vi"
-
   const [email, setEmail] = useState("")
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isLoading, setIsLoading] = useState(false)
@@ -97,7 +93,7 @@ export default function ForgotPasswordForm() {
           </button>
 
           <Link
-            href={`/${currentLocale}/auth/login`}
+            href="/auth/login"
             className="flex items-center justify-center space-x-2 text-gray-400 hover:text-yellow-500 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -183,7 +179,7 @@ export default function ForgotPasswordForm() {
 
       <div className="text-center mt-6 pt-6 border-t border-gray-700">
         <Link
-          href={`/${currentLocale}/auth/login`}
+          href="/auth/login"
           className="flex items-center justify-center space-x-2 text-gray-400 hover:text-yellow-500 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />

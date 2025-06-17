@@ -7,7 +7,6 @@ import { LanguageProvider } from "@/contexts/LanguageContext"
 import { isValidLocale, type Locale } from "@/lib/i18n"
 import { generateSEOMetadata } from "@/lib/metadata"
 import { notFound } from "next/navigation"
-import Footer from "@/components/layout/Footer"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -76,10 +75,7 @@ export default function LocaleLayout({
                   ))}
                 </div>
               </div>
-              <div className="relative z-10">
-                {children}
-                <Footer />
-              </div>
+              {children}
             </div>
           </AuthProvider>
         </LanguageProvider>

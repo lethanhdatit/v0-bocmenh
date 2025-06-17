@@ -4,12 +4,9 @@ import { motion } from "framer-motion"
 import { Sparkles, Star } from "lucide-react"
 import Link from "next/link"
 import { useLanguage } from "@/contexts/LanguageContext"
-import { usePathname } from "next/navigation"
 
 export default function HeroSection() {
   const { t } = useLanguage()
-  const pathname = usePathname()
-  const currentLocale = pathname.split("/")[1] || "vi"
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -67,7 +64,7 @@ export default function HeroSection() {
             transition={{ delay: 1, duration: 0.5 }}
           >
             <Link
-              href={`/${currentLocale}/destiny`}
+              href="/destiny"
               className="inline-flex items-center space-x-2 bg-gradient-to-r from-yellow-500 to-amber-500 text-black px-8 py-4 rounded-full text-lg font-semibold hover:from-yellow-400 hover:to-amber-400 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-yellow-500/25"
             >
               <Sparkles className="w-5 h-5" />
