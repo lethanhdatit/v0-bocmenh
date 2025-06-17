@@ -10,12 +10,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Calendar, Home, Clock, Star, AlertTriangle, CheckCircle } from "lucide-react"
-import { useLanguage } from "@/contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 import type { MovingDateRequest, MovingDateResponse } from "@/lib/movingDate"
 import { apiClient } from "@/lib/api"
 
 export default function MovingDateForm() {
-  const { t } = useLanguage()
+  const { t } = useTranslation()
   const [formData, setFormData] = useState<MovingDateRequest>({
     name: "",
     birthDate: "",

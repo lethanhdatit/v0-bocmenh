@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import useSWR from "swr"
 import { apiClient } from "@/lib/api"
 import { Moon, Calendar, Heart, Sparkles, Eye, MessageCircle } from "lucide-react"
-import { useLanguage } from "@/contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 
 interface DreamSymbol {
   symbol: string
@@ -36,7 +36,7 @@ interface DreamAnalysis {
 }
 
 export default function DreamForm() {
-  const { t } = useLanguage()
+  const { t } = useTranslation()
   const [formData, setFormData] = useState({
     dreamDescription: "",
     dreamDate: "",
@@ -388,7 +388,7 @@ export default function DreamForm() {
                 </button>
                 {data.isLimited && (
                   <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full hover:from-purple-700 hover:to-pink-700 transition-all">
-                    {t("auth.premium")}
+                    {t("auth.premium.upgrade")}
                   </button>
                 )}
                 <button className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-full hover:from-blue-700 hover:to-cyan-700 transition-all">

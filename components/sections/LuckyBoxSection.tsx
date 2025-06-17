@@ -3,10 +3,10 @@
 import { useState, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Gift, Sparkles, Star } from "lucide-react"
-import { useLanguage } from "@/contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 
 export default function LuckyBoxSection() {
-  const { t } = useLanguage()
+  const { t } = useTranslation()
   const [isOpened, setIsOpened] = useState(false)
   const [luckyNumber, setLuckyNumber] = useState<number | null>(null)
   const [message, setMessage] = useState<string>("")

@@ -4,7 +4,7 @@ import type React from "react"
 import { createContext, useContext, useState, useEffect, useCallback } from "react"
 import { apiClient } from "@/lib/api"
 import type { UserSession } from "@/lib/sessionOptions" // Your defined session type
-import { useLanguage } from "./LanguageContext" // Import useLanguage
+import { useTranslation } from "react-i18next"
 
 interface AuthContextType {
   user: UserSession | null
@@ -28,7 +28,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserSession | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const { t } = useLanguage() // Get t function
+  const { t } = useTranslation() // Get t function
 
   const fetchUserProfile = useCallback(async () => {
     setIsLoading(true)
@@ -57,11 +57,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await apiClient.post("/auth/login", { email, password, rememberMe })
       if (response.data.success && response.data.user) {
         setUser(response.data.user)
-        return { success: true, message: t("auth.loginSuccess"), user: response.data.user }
+        return { success: true, message: t("auth.login.loginSuccess"), user: response.data.user }
       }
-      return { success: false, message: response.data.message || t("auth.loginFailed"), errors: response.data.errors }
+      return { success: false, message: response.data.message || t("auth.login.loginFailed"), errors: response.data.errors }
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || t("auth.loginFailed")
+      const errorMessage = error.response?.data?.message || t("auth.login.loginFailed")
       return { success: false, message: errorMessage, errors: error.response?.data?.errors }
     } finally {
       setIsLoading(false)
@@ -79,15 +79,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await apiClient.post("/auth/register", { name, email, password, confirmPassword })
       if (response.data.success && response.data.user) {
         setUser(response.data.user)
-        return { success: true, message: t("auth.registerSuccess"), user: response.data.user }
+        return { success: true, message: t("auth.register.registerSuccess"), user: response.data.user }
       }
       return {
         success: false,
-        message: response.data.message || t("auth.registerFailed"),
+        message: response.data.message || t("auth.register.registerFailed"),
         errors: response.data.errors,
       }
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || t("auth.registerFailed")
+      const errorMessage = error.response?.data?.message || t("auth.register.registerFailed")
       return { success: false, message: errorMessage, errors: error.response?.data?.errors }
     } finally {
       setIsLoading(false)

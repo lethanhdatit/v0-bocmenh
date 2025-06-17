@@ -3,10 +3,10 @@
 import { motion } from "framer-motion"
 import { Sparkles, Moon, Calculator, WalletCardsIcon as Cards, Home, Heart } from "lucide-react"
 import Link from "next/link"
-import { useLanguage } from "@/contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 
 export default function FeaturesSection() {
-  const { t } = useLanguage()
+  const { t } = useTranslation()
 
   const features = [
     {

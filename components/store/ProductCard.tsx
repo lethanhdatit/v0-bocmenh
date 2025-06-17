@@ -5,14 +5,14 @@ import Image from "next/image"
 import type { Product } from "@/lib/products"
 import { Button } from "@/components/ui/button"
 import { ShoppingCart, Star } from "lucide-react"
-import { useLanguage } from "@/contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 
 interface ProductCardProps {
   product: Product
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { t } = useLanguage()
+  const { t } = useTranslation()
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price)

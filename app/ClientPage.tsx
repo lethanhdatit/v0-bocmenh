@@ -8,12 +8,12 @@ import Navigation from "@/components/layout/Navigation"
 // 1. Import ProductCard and sampleProducts
 import ProductCard from "@/components/store/ProductCard"
 import { sampleProducts } from "@/lib/products" // For featured products
-import { useLanguage } from "@/contexts/LanguageContext" // Import useLanguage
+import { useTranslation } from "react-i18next"
 import Link from "next/link"
 
 export default function ClientPage() {
   // 2. Inside HomePage component, before return:
-  const { t } = useLanguage() // Initialize t function
+  const { t } = useTranslation() // Initialize t function
   const featuredProducts = sampleProducts.slice(0, 4) // Get first 4 products as featured
 
   return (

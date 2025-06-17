@@ -7,10 +7,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Stars, Calendar, Clock, User, Loader2 } from "lucide-react"
-import { useLanguage } from "@/contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 
 export default function DestinyForm() {
-  const { t } = useLanguage()
+  const { t } = useTranslation()
   const router = useRouter()
   const searchParams = useSearchParams()
 

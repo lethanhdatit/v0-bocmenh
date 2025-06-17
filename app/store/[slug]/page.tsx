@@ -7,7 +7,7 @@ import type { Product } from "@/lib/products"
 import { getProductBySlug } from "@/lib/products" // Using local import for now
 import { Button } from "@/components/ui/button"
 import { ShoppingCart, Star, ChevronLeft, Share2 } from "lucide-react"
-import { useLanguage } from "@/contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 import ProductCard from "@/components/store/ProductCard" // For related products
 import { sampleProducts } from "@/lib/products" // For related products
 
@@ -18,7 +18,7 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(null)
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const { t } = useLanguage()
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (slug) {

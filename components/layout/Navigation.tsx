@@ -199,7 +199,7 @@ export default function Navigation() {
                         className="w-full text-left flex items-center space-x-2.5 px-3.5 py-2.5 text-sm text-gray-200 hover:text-red-400 hover:bg-red-500/10 transition-colors border-t border-gray-700/70 mt-1"
                       >
                         <LogOut className="w-4 h-4 opacity-80" />
-                        <span>{t("auth.logout")}</span>
+                        <span>{t("auth.logout.title")}</span>
                       </button>
                     </motion.div>
                   )}
@@ -211,13 +211,13 @@ export default function Navigation() {
                   href="/auth/login"
                   className="text-gray-300 hover:text-yellow-500 transition-colors px-3 py-1.5 rounded-md text-sm font-medium hover:bg-gray-700/50"
                 >
-                  {t("auth.login")}
+                  {t("auth.login.title")}
                 </Link>
                 <Link
                   href="/auth/register"
                   className="bg-yellow-500 text-black px-4 py-1.5 rounded-full hover:bg-yellow-400 transition-colors text-sm font-semibold shadow-sm"
                 >
-                  {t("auth.register")}
+                  {t("auth.register.title")}
                 </Link>
               </div>
             )}
@@ -260,14 +260,14 @@ export default function Navigation() {
                       className="block text-gray-200 hover:text-yellow-400 hover:bg-gray-800/70 transition-colors py-2.5 px-3 rounded-md text-base"
                       onClick={() => setIsOpen(false)}
                     >
-                      {t("auth.login")}
+                      {t("auth.login.title")}
                     </Link>
                     <Link
                       href="/auth/register"
                       className="block bg-yellow-500 text-black px-4 py-2.5 rounded-full hover:bg-yellow-400 transition-colors text-center text-base font-semibold"
                       onClick={() => setIsOpen(false)}
                     >
-                      {t("auth.register")}
+                      {t("auth.register.title")}
                     </Link>
                   </>
                 )}

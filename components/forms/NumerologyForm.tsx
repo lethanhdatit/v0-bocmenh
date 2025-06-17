@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import useSWR from "swr"
 import { apiClient } from "@/lib/api"
 import { Calculator, User, Calendar, Sparkles, Star, TrendingUp, Heart } from "lucide-react"
-import { useLanguage } from "@/contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 
 interface NumerologyResult {
   coreNumbers: {
@@ -39,7 +39,7 @@ interface NumerologyResult {
 }
 
 export default function NumerologyForm() {
-  const { t } = useLanguage()
+  const { t } = useTranslation()
   const [formData, setFormData] = useState({
     fullName: "",
     birthDate: "",
@@ -473,7 +473,7 @@ export default function NumerologyForm() {
                 </button>
                 {data.isLimited && (
                   <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full hover:from-purple-700 hover:to-pink-700 transition-all">
-                    {t("auth.premium")}
+                    {t("auth.premium.upgrade")}
                   </button>
                 )}
                 <button className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-full hover:from-blue-700 hover:to-cyan-700 transition-all">

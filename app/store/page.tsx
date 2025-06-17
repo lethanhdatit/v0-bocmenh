@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import type { Product } from "@/lib/products"
 import ProductCard from "@/components/store/ProductCard"
 import { useAuth } from "@/contexts/AuthContext"
-import { useLanguage } from "@/contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 import { ListFilter, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -34,7 +34,7 @@ export default function StorePage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [allCategories, setAllCategories] = useState<string[]>([])
   const { user } = useAuth() // For future personalization
-  const { t } = useLanguage()
+  const { t } = useTranslation()
 
   useEffect(() => {
     const fetchProducts = async () => {
