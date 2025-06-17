@@ -191,7 +191,8 @@
     "openMenu": "Open menu",
     "connectionError": "Connection error",
     "retry": "Retry",
-    "processing": "Processing..."
+    "processing": "Processing...",
+    "notSpecified": "Not specified"
   },
   "store": {
     "title": "Feng Shui Store",
@@ -212,7 +213,21 @@
     "outOfStock": "Out of Stock",
     "relatedProducts": "Related Products",
     "reviews": "Reviews",
-    "addToCart": "Add to Cart"
+    "addToCart": "Add to Cart",
+    "addToWishlist": "Add to Wishlist",
+    "removeFromWishlist": "Remove from Wishlist",
+    "viewOn": "View on",
+    "partnerSite": "Partner Site",
+    "goodForMenh": "Good for Mệnh",
+    "productElement": "Product Element",
+    "cung": "Palace",
+    "khi": "Qi / Energy",
+    "fengShuiSuggestions": "Feng Shui Suggestions",
+    "suggestionEnhances": "Enhances / Supports",
+    "suggestionBalances": "Balances / Harmonizes",
+    "suggestionMitigates": "Mitigates / Reduces",
+    "filterMenh": "Filter by Mệnh",
+    "menh": "Mệnh"
   },
   "weddingDate": {
     "title": "Wedding Date Selection",
@@ -384,5 +399,57 @@
     "contact": "Contact",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service"
+  },
+  "attributes": {
+    "mệnh": {
+      "Thổ": "Earth",
+      "Kim": "Metal",
+      "Mộc": "Wood",
+      "Hỏa": "Fire",
+      "Thủy": "Water"
+    },
+    "mục đích": {
+      "Tài Lộc": "Wealth",
+      "An Lạc": "Peace",
+      "Bảo Vệ": "Protection",
+      "Hóa Giải Năng Lượng Xấu": "Neutralize Negative Energy",
+      "Bình An": "Serenity",
+      "Tĩnh Tâm": "Calmness",
+      "Công Danh": "Career",
+      "Học Vấn": "Education"
+    },
+    "chất liệu": {
+      "Đá Thạch Anh Vàng": "Yellow Quartz Stone",
+      "Gỗ Bách Xanh": "Green Cypress Wood",
+      "Đá Obsidian": "Obsidian Stone",
+      "Trầm Hương Tự Nhiên": "Natural Agarwood",
+      "Đá Ngọc Hoàng Long": "Yellow Dragon Jade"
+    },
+    "khí xấu": {
+      "Uế khí": "Negative Energy"
+    },
+    "sao xấu": {
+      "Thái Tuế": "Tai Sui Star",
+      "Ngũ Hoàng Đại Sát": "Five Yellow Star"
+    },
+    "năng lượng tiêu cực": {
+      "Trược khí": "Stagnant Energy"
+    },
+    "tà khí": {
+      "Năng lượng xấu": "Evil Spirits"
+    },
+    "tâm trạng": {
+      "Căng thẳng": "Stress"
+    },
+    "tinh thần": {
+      "Thiếu tập trung": "Lack of Focus"
+    },
+    "mục tiêu": {
+      "Thi cử": "Exams",
+      "Sự nghiệp": "Career"
+    },
+    "thuộc tính người dùng": {
+      "Sao Văn Xương chiếu mệnh": "Wen Chang Star in Fate"
+    }
   }
 }

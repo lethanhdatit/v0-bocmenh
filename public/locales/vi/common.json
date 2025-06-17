@@ -191,7 +191,8 @@
     "openMenu": "Mở menu",
     "connectionError": "Lỗi kết nối",
     "retry": "Thử lại",
-    "processing": "Đang xử lý..."
+    "processing": "Đang xử lý...",
+    "notSpecified": "Chưa xác định"
   },
   "store": {
     "title": "Cửa Hàng Phong Thủy",
@@ -212,7 +213,21 @@
     "outOfStock": "Hết hàng",
     "relatedProducts": "Sản phẩm liên quan",
     "reviews": "Đánh giá",
-    "addToCart": "Thêm vào giỏ"
+    "addToCart": "Thêm vào giỏ",
+    "addToWishlist": "Thêm vào yêu thích",
+    "removeFromWishlist": "Xóa khỏi yêu thích",
+    "viewOn": "Xem trên",
+    "partnerSite": "Trang đối tác",
+    "goodForMenh": "Hợp với Mệnh",
+    "productElement": "Ngũ hành sản phẩm",
+    "cung": "Cung",
+    "khi": "Khí",
+    "fengShuiSuggestions": "Gợi ý Phong Thủy",
+    "suggestionEnhances": "Tăng cường / Hỗ trợ",
+    "suggestionBalances": "Cân bằng / Điều hòa",
+    "suggestionMitigates": "Hóa giải / Giảm bớt",
+    "filterMenh": "Lọc theo Mệnh",
+    "menh": "Mệnh"
   },
   "weddingDate": {
     "title": "Chọn Ngày Cưới",
@@ -384,5 +399,57 @@
     "contact": "Liên hệ",
     "privacy": "Chính sách bảo mật",
     "terms": "Điều khoản dịch vụ"
+  },
+  "attributes": {
+    "mệnh": {
+      "Thổ": "Thổ",
+      "Kim": "Kim",
+      "Mộc": "Mộc",
+      "Hỏa": "Hỏa",
+      "Thủy": "Thủy"
+    },
+    "mục đích": {
+      "Tài Lộc": "Tài Lộc",
+      "An Lạc": "An Lạc",
+      "Bảo Vệ": "Bảo Vệ",
+      "Hóa Giải Năng Lượng Xấu": "Hóa Giải Năng Lượng Xấu",
+      "Bình An": "Bình An",
+      "Tĩnh Tâm": "Tĩnh Tâm",
+      "Công Danh": "Công Danh",
+      "Học Vấn": "Học Vấn"
+    },
+    "chất liệu": {
+      "Đá Thạch Anh Vàng": "Đá Thạch Anh Vàng",
+      "Gỗ Bách Xanh": "Gỗ Bách Xanh",
+      "Đá Obsidian": "Đá Obsidian",
+      "Trầm Hương Tự Nhiên": "Trầm Hương Tự Nhiên",
+      "Đá Ngọc Hoàng Long": "Đá Ngọc Hoàng Long"
+    },
+    "khí xấu": {
+      "Uế khí": "Uế khí"
+    },
+    "sao xấu": {
+      "Thái Tuế": "Thái Tuế",
+      "Ngũ Hoàng Đại Sát": "Ngũ Hoàng Đại Sát"
+    },
+    "năng lượng tiêu cực": {
+      "Trược khí": "Trược khí"
+    },
+    "tà khí": {
+      "Năng lượng xấu": "Tà khí"
+    },
+    "tâm trạng": {
+      "Căng thẳng": "Căng thẳng"
+    },
+    "tinh thần": {
+      "Thiếu tập trung": "Thiếu tập trung"
+    },
+    "mục tiêu": {
+      "Thi cử": "Thi cử",
+      "Sự nghiệp": "Sự nghiệp"
+    },
+    "thuộc tính người dùng": {
+      "Sao Văn Xương chiếu mệnh": "Sao Văn Xương chiếu mệnh"
+    }
   }
 }
