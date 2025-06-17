@@ -49,7 +49,7 @@
     "embla-carousel-react": "8.5.1",
     "framer-motion": "latest",
     "i18next": "latest",
-    "i18next-browser-languagedetector": "latest",
+    "i18next-browser-languagedetector": "^7.2.0",
     "i18next-resources-to-backend": "latest",
     "input-otp": "1.4.1",
     "iron-session": "latest",

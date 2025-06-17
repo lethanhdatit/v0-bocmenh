@@ -1,6 +1,5 @@
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
-import LanguageDetector from "i18next-browser-languagedetector"
 
 // Import translation files
 import viCommon from "../locales/vi/common.json"
@@ -15,28 +14,26 @@ const resources = {
   },
 }
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources,
-    fallbackLng: "vi",
-    defaultNS: "common",
-    ns: ["common"],
+i18n.use(initReactI18next).init({
+  resources,
+  fallbackLng: "vi",
+  defaultNS: "common",
+  ns: ["common"],
+  lng: "vi", // Set default language, will be overridden by server
 
-    detection: {
-      order: ["localStorage", "navigator", "htmlTag"],
-      caches: ["localStorage"],
-      lookupLocalStorage: "language",
-    },
+  interpolation: {
+    escapeValue: false,
+  },
 
-    interpolation: {
-      escapeValue: false,
-    },
+  react: {
+    useSuspense: false,
+  },
 
-    react: {
-      useSuspense: false,
-    },
-  })
+  // Remove language detection - we'll handle this manually via server session
+  detection: {
+    order: [], // Empty array means no automatic detection
+    caches: [], // No caching
+  },
+})
 
 export default i18n

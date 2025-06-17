@@ -14,7 +14,7 @@ export default function Navigation() {
   const [showLanguageMenu, setShowLanguageMenu] = useState(false)
   const { user, isLoggedIn, logout, isLoading: authIsLoading } = useAuth()
   const { t } = useTranslation()
-  const { language, setLanguage } = useLanguage()
+  const { language, setLanguage, isLoading: langIsLoading } = useLanguage()
 
   const userMenuRef = useRef<HTMLDivElement>(null)
   const langMenuRef = useRef<HTMLDivElement>(null)
@@ -37,9 +37,9 @@ export default function Navigation() {
     setShowUserMenu(false)
   }
 
-  const handleLanguageChange = (lang: "vi" | "en") => {
-    setLanguage(lang)
+  const handleLanguageChange = async (lang: "vi" | "en") => {
     setShowLanguageMenu(false)
+    await setLanguage(lang)
   }
 
   const languages = [
@@ -92,11 +92,16 @@ export default function Navigation() {
             <div ref={langMenuRef} className="relative">
               <button
                 onClick={() => setShowLanguageMenu(!showLanguageMenu)}
-                className="flex items-center space-x-1 text-gray-300 hover:text-yellow-500 transition-colors p-2 rounded-md hover:bg-gray-700/50"
+                disabled={langIsLoading}
+                className="flex items-center space-x-1 text-gray-300 hover:text-yellow-500 transition-colors p-2 rounded-md hover:bg-gray-700/50 disabled:opacity-50"
                 aria-label={t("nav.language")}
               >
-                <Globe className="w-5 h-5" />
-                {currentLang && (
+                {langIsLoading ? (
+                  <div className="w-5 h-5 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <Globe className="w-5 h-5" />
+                )}
+                {currentLang && !langIsLoading && (
                   <span className="hidden sm:inline text-sm">
                     {currentLang.flag} {currentLang.name}
                   </span>
@@ -104,7 +109,7 @@ export default function Navigation() {
                 <ChevronDown className="w-4 h-4 opacity-70" />
               </button>
               <AnimatePresence>
-                {showLanguageMenu && (
+                {showLanguageMenu && !langIsLoading && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
