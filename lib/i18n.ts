@@ -1,13 +1,16 @@
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
+import { getBaseUrl } from "@/lib/utils"
 
 // Dynamic loading function for translation files
 async function loadTranslations() {
   try {
+    const baseUrl = getBaseUrl()
+    
     // Load translation files dynamically from public folder
     const [viResponse, enResponse] = await Promise.all([
-      fetch(new URL('/locales/vi/common.json', process.env.NEXT_PUBLIC_BASE_URL).toString()),
-      fetch(new URL('/locales/en/common.json', process.env.NEXT_PUBLIC_BASE_URL).toString()),
+      fetch(new URL('/locales/vi/common.json', baseUrl).toString()),
+      fetch(new URL('/locales/en/common.json', baseUrl).toString()),
     ])
 
     const viCommon = await viResponse.json()
