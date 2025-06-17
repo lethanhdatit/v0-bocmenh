@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { encrypt } from "@/lib/encryption"
+import { encryptData } from "@/lib/encryption"
 import { calculateMovingDates, type MovingDateRequest } from "@/lib/movingDate"
 
 export async function POST(request: NextRequest) {
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     const result = calculateMovingDates(movingDateRequest)
 
     // Encrypt response
-    const encryptedResponse = encrypt(JSON.stringify(result))
+    const encryptedResponse = encryptData(JSON.stringify(result))
 
     return NextResponse.json({ data: encryptedResponse })
   } catch (error) {
