@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button"
 import { AlertTriangle, Sparkles, Gift, ChevronRight } from "lucide-react"
 import { getTranslations } from "@/i18n/server" // Assuming you have a server-side translation utility
 
+export const dynamic = "force-dynamic"
+
 export async function generateMetadata({
   searchParams,
   params: { locale },
