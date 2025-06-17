@@ -2,25 +2,25 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { Menu, X, Globe, User, LogOut, Crown, ChevronDown, History, Settings, ShoppingBag } from "lucide-react"
+import { Menu, X, User, LogOut, Crown, ChevronDown, History, Settings, ShoppingBag } from "lucide-react" // Bỏ Globe
 import { motion, AnimatePresence } from "framer-motion"
 import { useAuth } from "@/contexts/AuthContext"
 import { useTranslation } from "react-i18next"
-import { useLanguage } from "@/contexts/LanguageContext"
+// Bỏ useLanguage vì đã chuyển sang Footer
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
-  const [showLanguageMenu, setShowLanguageMenu] = useState(false)
+  // Bỏ state và ref liên quan đến language menu
   const { user, isLoggedIn, logout, isLoading: authIsLoading } = useAuth()
   const { t } = useTranslation()
-  const { language, setLanguage, isLoading: langIsLoading } = useLanguage()
+  // Bỏ hook useLanguage
 
   const userMenuRef = useRef<HTMLDivElement>(null)
-  const langMenuRef = useRef<HTMLDivElement>(null)
+  // Bỏ langMenuRef
 
   const navItems = [
-    { href: "/", labelKey: "nav.home" },
+    // Bỏ mục "nav.home"
     { href: "/destiny", labelKey: "nav.destiny" },
     { href: "/dreams", labelKey: "nav.dreams" },
     { href: "/numerology", labelKey: "nav.numerology" },
@@ -37,21 +37,11 @@ export default function Navigation() {
     setShowUserMenu(false)
   }
 
-  const handleLanguageChange = async (lang: "vi" | "en") => {
-    setShowLanguageMenu(false)
-    await setLanguage(lang)
-  }
-
-  const languages = [
-    { code: "vi", name: "Tiếng Việt", flag: "🇻🇳" },
-    { code: "en", name: "English", flag: "🇺🇸" },
-  ]
+  // Bỏ handleLanguageChange và languages array
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (langMenuRef.current && !langMenuRef.current.contains(event.target as Node)) {
-        setShowLanguageMenu(false)
-      }
+      // Bỏ logic cho langMenuRef
       if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
         setShowUserMenu(false)
       }
@@ -63,7 +53,7 @@ export default function Navigation() {
     }
   }, [])
 
-  const currentLang = languages.find((l) => l.code === language)
+  // Bỏ currentLang
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
@@ -89,52 +79,7 @@ export default function Navigation() {
           </div>
 
           <div className="flex items-center space-x-3 sm:space-x-4">
-            <div ref={langMenuRef} className="relative">
-              <button
-                onClick={() => setShowLanguageMenu(!showLanguageMenu)}
-                disabled={langIsLoading}
-                className="flex items-center space-x-1 text-gray-300 hover:text-yellow-500 transition-colors p-2 rounded-md hover:bg-gray-700/50 disabled:opacity-50"
-                aria-label={t("nav.language")}
-              >
-                {langIsLoading ? (
-                  <div className="w-5 h-5 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin" />
-                ) : (
-                  <Globe className="w-5 h-5" />
-                )}
-                {currentLang && !langIsLoading && (
-                  <span className="hidden sm:inline text-sm">
-                    {currentLang.flag} {currentLang.name}
-                  </span>
-                )}
-                <ChevronDown className="w-4 h-4 opacity-70" />
-              </button>
-              <AnimatePresence>
-                {showLanguageMenu && !langIsLoading && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="absolute right-0 mt-2 w-44 bg-gray-900 border border-gray-700 rounded-lg shadow-xl py-1.5 z-50"
-                  >
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={() => handleLanguageChange(lang.code as "vi" | "en")}
-                        className={`w-full text-left px-3.5 py-2 text-sm transition-colors flex items-center space-x-2.5 ${
-                          language === lang.code
-                            ? "bg-yellow-500/10 text-yellow-400"
-                            : "text-gray-200 hover:text-yellow-400 hover:bg-gray-800/70"
-                        }`}
-                      >
-                        <span className="text-lg">{lang.flag}</span>
-                        <span>{lang.name}</span>
-                        {language === lang.code && <span className="ml-auto text-yellow-500">✓</span>}
-                      </button>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+            {/* Bỏ khối div chứa language switcher */}
 
             {authIsLoading ? (
               <div className="w-8 h-8 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin" />

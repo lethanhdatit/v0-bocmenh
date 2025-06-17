@@ -1,15 +1,15 @@
 {
   "nav": {
     "home": "Home",
-    "destiny": "Destiny",
-    "dreams": "Dreams",
+    "destiny": "Destiny Reading",
+    "dreams": "Dream Interpretation",
     "numerology": "Numerology",
     "tarot": "Tarot",
     "fengshui": "Feng Shui",
-    "compatibility": "Love Compatibility",
+    "compatibility": "Compatibility Check",
     "weddingDate": "Wedding Date",
-    "community": "Community",
     "store": "Store",
+    "community": "Community",
     "crystals": "Crystal Healing",
     "meditation": "Meditation Guides",
     "nameAnalysis": "Name Analysis",
@@ -19,8 +19,8 @@
     "horoscope": "Horoscope",
     "language": "Language",
     "profile": "Profile",
-    "history": "History",
-    "premium": "Premium"
+    "history": "Reading History",
+    "premium": "Upgrade to Premium"
   },
   "auth": {
     "logout": {
@@ -125,10 +125,11 @@
     }
   },
   "site": {
-    "title": "Destiny Unveiling",
+    "title": "Boc Menh",
     "tagline": "Each person is a mystery box, uncover it - and you'll understand yourself",
     "cta": "Start Exploring",
-    "description": "Discover destiny, interpret dreams, numerology and much more"
+    "description": "Discover destiny, interpret dreams, numerology and much more",
+    "description_short": "Discover your destiny"
   },
   "hero": {
     "title": "Discover Your Destiny",
@@ -375,5 +376,13 @@
     "featuredProducts": "Featured Products",
     "featuredProductsDesc": "Handpicked Feng Shui items to enhance your energy",
     "viewAllProducts": "View All Products"
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "help": "Help/FAQ",
+    "about": "About Us",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
   }
 }

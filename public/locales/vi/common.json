@@ -1,15 +1,15 @@
 {
   "nav": {
     "home": "Trang chủ",
-    "destiny": "Bóc Mệnh",
-    "dreams": "Giải Mơ",
+    "destiny": "Xem Vận Mệnh",
+    "dreams": "Giải Mộng",
     "numerology": "Thần Số Học",
     "tarot": "Tarot",
-    "fengshui": "Phong Thủy",
-    "compatibility": "Tương Hợp Tình Yêu",
-    "weddingDate": "Chọn Ngày Cưới",
-    "community": "Cộng Đồng",
+    "fengshui": "Phong Thuỷ",
+    "compatibility": "Xem Tương Hợp",
+    "weddingDate": "Xem Ngày Cưới",
     "store": "Cửa Hàng",
+    "community": "Cộng Đồng",
     "crystals": "Đá Quý Chữa Lành",
     "meditation": "Hướng Dẫn Thiền",
     "nameAnalysis": "Phân Tích Tên",
@@ -19,8 +19,8 @@
     "horoscope": "Tử Vi",
     "language": "Ngôn ngữ",
     "profile": "Hồ sơ",
-    "history": "Lịch sử",
-    "premium": "Premium"
+    "history": "Lịch sử xem",
+    "premium": "Nâng cấp Premium"
   },
   "auth": {
     "logout": {
@@ -30,7 +30,7 @@
       "upgrade": "Nâng cấp Premium"
     },
     "login": {
-      "title": "Đăng Nhập",
+      "title": "Đăng nhập",
       "subtitle": "Chào mừng bạn trở lại với Bóc Mệnh",
       "email": "Email",
       "emailPlaceholder": "Nhập email của bạn",
@@ -49,7 +49,7 @@
       "loginFailed": "Đăng nhập thất bại"
     },
     "register": {
-      "title": "Đăng Ký",
+      "title": "Đăng ký",
       "subtitle": "Tạo tài khoản mới để khám phá vận mệnh",
       "name": "Họ và tên",
       "namePlaceholder": "Nhập họ và tên",
@@ -128,7 +128,8 @@
     "title": "Bóc Mệnh",
     "tagline": "Mỗi người là một hộp bí ẩn, hãy khám phá - và bạn sẽ hiểu về chính mình",
     "cta": "Bắt đầu khám phá",
-    "description": "Khám phá vận mệnh, giải mơ, thần số học và nhiều hơn nữa"
+    "description": "Khám phá vận mệnh, giải mơ, thần số học và nhiều hơn nữa",
+    "description_short": "Khám phá vận mệnh của bạn"
   },
   "hero": {
     "title": "Khám Phá Vận Mệnh Của Bạn",
@@ -375,5 +376,13 @@
     "featuredProducts": "Sản phẩm nổi bật",
     "featuredProductsDesc": "Các vật phẩm Phong Thủy được tuyển chọn để tăng cường năng lượng",
     "viewAllProducts": "Xem tất cả sản phẩm"
+  },
+  "footer": {
+    "copyright": "Đã đăng ký bản quyền",
+    "help": "Trợ giúp/FAQ",
+    "about": "Về chúng tôi",
+    "contact": "Liên hệ",
+    "privacy": "Chính sách bảo mật",
+    "terms": "Điều khoản dịch vụ"
   }
 }
