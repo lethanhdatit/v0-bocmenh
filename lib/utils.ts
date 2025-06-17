@@ -13,8 +13,8 @@ export function getBaseUrl(): string {
   }
 
   // For server-side
-  if (process.env.NEXT_PUBLIC_BASE_URL) {
-    return process.env.NEXT_PUBLIC_BASE_URL
+  if (process.env.FE_PORT) {
+    return `http://localhost:${process.env.FE_PORT}`
   }
 
   // Fallback for development

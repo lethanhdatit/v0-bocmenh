@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  bocmenh:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bocmenh
+    image: bocmenh:latest
+    ports:
+      - "${FE_PORT:-9500}:9500"
+    environment:
+      - NODE_ENV=
+      - PORT=${FE_PORT:-9500}
+      - FE_PORT=${FE_PORT:-9500}
+    restart: always
