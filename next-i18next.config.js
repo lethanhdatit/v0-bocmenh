@@ -1,4 +1,4 @@
-module.exports = {
+const i18nConfig = {
   i18n: {
     defaultLocale: "vi",
     locales: ["vi", "en"],
@@ -18,3 +18,5 @@ module.exports = {
     unoptimized: true,
   },
 }
+
+export default i18nConfig
