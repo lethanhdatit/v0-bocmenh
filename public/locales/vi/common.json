@@ -47,7 +47,7 @@
       "demoRegular": "Regular: demo@example.com / password123",
       "demoPremium": "Premium: premium@example.com / password123",
       "loginSuccess": "Đăng nhập thành công!",
-      "loginFailed": "Đăng nhập thất bại"
+      "loginFailed": "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin."
     },
     "register": {
       "title": "Đăng ký",
@@ -74,8 +74,8 @@
       "strengthGood": "Tốt",
       "strengthStrong": "Mạnh",
       "agreeTermsError": "Bạn phải đồng ý với điều khoản dịch vụ",
-      "registerSuccess": "Đăng ký thành công!",
-      "registerFailed": "Đăng ký thất bại"
+      "registerSuccess": "Đăng ký thành công! Chào mừng bạn!",
+      "registerFailed": "Đăng ký thất bại. Vui lòng thử lại."
     },
     "forgotPassword": {
       "title": "Quên Mật Khẩu",
@@ -126,10 +126,10 @@
     }
   },
   "site": {
-    "title": "Bóc Mệnh",
+    "title": "Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn",
     "tagline": "Mỗi người là một hộp bí ẩn, hãy khám phá - và bạn sẽ hiểu về chính mình",
     "cta": "Bắt đầu khám phá",
-    "description": "Khám phá vận mệnh, giải mơ, thần số học và nhiều hơn nữa",
+    "description": "Khám phá vận mệnh, giải mã giấc mơ, và tìm hiểu sâu sắc về Phong Thủy cùng Bóc Mệnh.",
     "description_short": "Khám phá vận mệnh của bạn"
   },
   "hero": {
@@ -186,49 +186,63 @@
     "save": "Lưu",
     "cancel": "Hủy",
     "confirm": "Xác nhận",
-    "error": "Có lỗi xảy ra",
+    "error": "Lỗi",
+    "errorUnexpected": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.",
     "success": "Thành công",
     "close": "Đóng",
     "openMenu": "Mở menu",
     "connectionError": "Lỗi kết nối",
     "retry": "Thử lại",
     "processing": "Đang xử lý...",
-    "notSpecified": "Chưa xác định"
+    "notSpecified": "Chưa xác định",
+    "viewDetails": "Xem chi tiết",
+    "noResults": "Không tìm thấy kết quả.",
+    "comingSoon": "Sắp ra mắt",
+    "backToHome": "Về trang chủ",
+    "showMore": "Xem thêm",
+    "showLess": "Ẩn bớt"
   },
   "store": {
     "title": "Cửa Hàng Phong Thủy",
     "description": "Khám phá các vật phẩm Phong Thủy chính hãng để tăng cường may mắn và năng lượng",
     "recommendedForYou": "Gợi ý cho bạn",
+    "pageTitle": "Vật Phẩm Phong Thủy",
+    "pageSubtitle": "Khám phá các vật phẩm giúp tăng cường vận may, tình duyên và tài lộc.",
     "searchPlaceholder": "Tìm kiếm sản phẩm...",
-    "filterCategories": "Lọc theo danh mục",
-    "categories": "Danh mục",
-    "noProductsFound": "Không tìm thấy sản phẩm",
-    "checkOutProduct": "Xem sản phẩm",
-    "shareNotSupported": "Thiết bị không hỗ trợ chia sẻ",
-    "productNotFound": "Không tìm thấy sản phẩm",
-    "backToStore": "Quay lại cửa hàng",
-    "back": "Quay lại",
-    "fengShuiProperties": "Thuộc tính Phong Thủy",
-    "share": "Chia sẻ",
+    "filterByCategory": "Lọc theo danh mục",
+    "allCategories": "Tất cả danh mục",
+    "sortBy": "Sắp xếp theo",
+    "sortOptions": {
+      "default": "Mặc định",
+      "nameAsc": "Tên (A-Z)",
+      "nameDesc": "Tên (Z-A)",
+      "priceAsc": "Giá (Thấp đến Cao)",
+      "priceDesc": "Giá (Cao đến Thấp)"
+    },
+    "productDetails": "Chi tiết sản phẩm",
+    "relatedProducts": "Sản phẩm liên quan",
+    "addToCart": "Thêm vào giỏ",
+    "buyNow": "Mua ngay",
+    "viewProduct": "Xem sản phẩm",
     "inStock": "Còn hàng",
     "outOfStock": "Hết hàng",
-    "relatedProducts": "Sản phẩm liên quan",
+    "quantity": "Số lượng",
+    "description": "Mô tả",
+    "attributes": "Thuộc tính",
     "reviews": "Đánh giá",
-    "addToCart": "Thêm vào giỏ",
-    "addToWishlist": "Thêm vào yêu thích",
-    "removeFromWishlist": "Xóa khỏi yêu thích",
-    "viewOn": "Xem trên",
-    "partnerSite": "Trang đối tác",
-    "goodForMenh": "Hợp với Mệnh",
-    "productElement": "Ngũ hành sản phẩm",
-    "cung": "Cung",
-    "khi": "Khí",
-    "fengShuiSuggestions": "Gợi ý Phong Thủy",
-    "suggestionEnhances": "Tăng cường / Hỗ trợ",
-    "suggestionBalances": "Cân bằng / Điều hòa",
-    "suggestionMitigates": "Hóa giải / Giảm bớt",
-    "filterMenh": "Lọc theo Mệnh",
-    "menh": "Mệnh"
+    "noReviews": "Chưa có đánh giá nào.",
+    "writeReview": "Viết đánh giá",
+    "viewAffiliateProductAt": "Xem tại {{partnerName}}",
+    "addToWishlist": "Thêm vào Yêu thích",
+    "removeFromWishlist": "Xóa khỏi Yêu thích",
+    "addedToWishlist": "Đã thêm vào Yêu thích!",
+    "removedFromWishlist": "Đã xóa khỏi Yêu thích!",
+    "productAddedToWishlist": "Sản phẩm đã được thêm vào danh sách yêu thích.",
+    "productRemovedFromWishlist": "Sản phẩm đã được xóa khỏi danh sách yêu thích.",
+    "confirmRemoveWishlist": "Bạn có chắc chắn muốn xóa vật phẩm này khỏi danh sách yêu thích không?",
+    "wishlistPageTitle": "Danh sách Yêu thích",
+    "wishlistEmpty": "Danh sách yêu thích của bạn đang trống.",
+    "browseProducts": "Xem sản phẩm"
   },
   "wishlist": {
     "title": "Danh sách Yêu thích",
@@ -309,7 +323,7 @@
       "loadingMessagePage": "Đang phân tích bản đồ vũ trụ của bạn...",
       "infoTitle": "Những gì bạn sẽ khám phá",
       "premiumTitle": "Tính năng Premium",
-      "validationError": "Vui lòng điền đầy đủ các trường bắt buộc"
+      "validationError": "Tên và Ngày sinh là bắt buộc."
     },
     "result": {
       "titleFor": "Bóc mệnh cho {name}",
@@ -459,5 +473,20 @@
     "thuộc tính người dùng": {
       "Sao Văn Xương chiếu mệnh": "Sao Văn Xương chiếu mệnh"
     }
+  },
+  "navigation": {
+    "home": "Trang chủ",
+    "destiny": "Bóc Mệnh",
+    "dreams": "Giải Mộng",
+    "numerology": "Thần Số Học",
+    "tarot": "Xem Tarot",
+    "fengshui": "Phong Thủy",
+    "compatibility": "Xem Tương Hợp",
+    "store": "Cửa Hàng Phong Thủy",
+    "blog": "Blog",
+    "community": "Cộng Đồng",
+    "luckyBox": "Hộp Quà May Mắn",
+    "aiFace": "AI Xem Tướng Mặt",
+    "wishlist": "Yêu thích"
   }
 }
