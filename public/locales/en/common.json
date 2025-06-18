@@ -86,7 +86,14 @@
       "strengthStrong": "Strong",
       "agreeTermsError": "You must agree to the terms of service",
       "registerSuccess": "Registration successful! Welcome!",
-      "registerFailed": "Registration failed. Please try again."
+      "registerFailed": "Registration failed. Please try again.",
+      "registerFailedDetail": "Email already exists or invalid data.",
+      "systemFailed": "System error, please try again later",
+      "invalidData": "Invalid data provided",
+      "invalidName": "The full name must have at least 2 characters.",
+      "invalidEmail": "Invalid email format",
+      "invalidPassword": "Password must be at least 6 characters long",
+      "invalidConfirmPassword": "Confirm password does not match"
     },
     "forgotPassword": {
       "title": "Forgot Password",

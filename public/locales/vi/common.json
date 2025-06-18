@@ -84,7 +84,14 @@
       "strengthStrong": "Mạnh",
       "agreeTermsError": "Bạn phải đồng ý với điều khoản dịch vụ",
       "registerSuccess": "Đăng ký thành công! Chào mừng bạn!",
-      "registerFailed": "Đăng ký thất bại. Vui lòng thử lại."
+      "registerFailed": "Đăng ký thất bại. Vui lòng thử lại.",
+      "registerFailedDetail": "Email đã được sử dụng hoặc thông tin không hợp lệ",
+      "systemFailed": "Hệ thống đang gặp sự cố. Vui lòng thử lại sau.",
+      "invalidData": "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại thông tin đăng ký.",
+      "invalidName": "Họ tên phải có ít nhất 2 ký tự",
+      "invalidEmail": "Email không hợp lệ",
+      "invalidPassword": "Mật khẩu phải có ít nhất 6 ký tự",
+      "invalidConfirmPassword": "Mật khẩu xác nhận không khớp"
     },
     "forgotPassword": {
       "title": "Quên Mật Khẩu",

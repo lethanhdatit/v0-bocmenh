@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import type { UserSession } from "@/lib/session/sessionOptions"
-import { decryptData, encryptData } from "@/lib/infra/encryption"
+import { encryptData } from "@/lib/infra/encryption"
 import { calculateDestiny, type DestinyResult } from "@/lib/destinyService"
 import { withServerBase } from "@/lib/api/apiServerBase"
 

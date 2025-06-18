@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, type FormEvent } from "react"
-import { useAuth } from "@/contexts/AuthContext"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { useState, type FormEvent } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
@@ -14,74 +14,91 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog"
-import { Loader2, AlertCircle, Eye, EyeOff, Mail, Lock } from "lucide-react"
-import { useTranslation } from "react-i18next"
-import { motion } from "framer-motion"
+} from "@/components/ui/dialog";
+import { Loader2, AlertCircle, Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
 export default function LoginModal() {
-  const { t } = useTranslation()
-  const { activeModal, closeAuthModal, openRegisterModal, openForgotPasswordModal, login, isLoading } = useAuth()
+  const { t } = useTranslation();
+  const {
+    activeModal,
+    closeAuthModal,
+    openRegisterModal,
+    openForgotPasswordModal,
+    login,
+    isLoading,
+  } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     rememberMe: false,
-  })
-  const [showPassword, setShowPassword] = useState(false)
-  const [errors, setErrors] = useState<Record<string, string>>({})
-  const [message, setMessage] = useState("")
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [message, setMessage] = useState("");
 
   const handleLogin = async (e: FormEvent) => {
-    e.preventDefault()
-    setErrors({})
-    setMessage("")
+    e.preventDefault();
+    setErrors({});
+    setMessage("");
 
-    const result = await login(formData.email, formData.password, formData.rememberMe)
+    const result = await login(
+      formData.email,
+      formData.password,
+      formData.rememberMe
+    );
     if (!result.success) {
-      setErrors(result.errors || { system: result.message } as Record<string, string>)
-      setMessage(result.message || t("auth.login.loginFailed"))
+      setErrors(
+        result.errors || ({ system: result.message } as Record<string, string>)
+      );
+      setMessage(result.message || t("auth.login.loginFailed"));
     }
-  }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
-    }))
+    }));
 
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }))
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
-  }
+  };
 
   const switchToRegister = () => {
-    setFormData({ email: "", password: "", rememberMe: false })
-    setErrors({})
-    setMessage("")
-    openRegisterModal()
-  }
+    setFormData({ email: "", password: "", rememberMe: false });
+    setErrors({});
+    setMessage("");
+    openRegisterModal();
+  };
 
   const switchToForgotPassword = () => {
-    setFormData({ email: "", password: "", rememberMe: false })
-    setErrors({})
-    setMessage("")
-    openForgotPasswordModal()
-  }
+    setFormData({ email: "", password: "", rememberMe: false });
+    setErrors({});
+    setMessage("");
+    openForgotPasswordModal();
+  };
 
   return (
     <Dialog
-      open={activeModal === "login"}      
+      open={activeModal === "login"}
       onOpenChange={(isOpen) => {
-        if (!isOpen) closeAuthModal()
+        if (!isOpen) closeAuthModal();
       }}
     >
       <DialogContent className="sm:max-w-[425px] bg-gray-900 border-yellow-500/30 text-gray-100 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-yellow-400">{t("auth.login.title")}</DialogTitle>
-          <DialogDescription className="text-gray-400">{t("auth.login.subtitle")}</DialogDescription>
+          <DialogTitle className="text-2xl font-bold text-yellow-400">
+            {t("auth.login.title")}
+          </DialogTitle>
+          <DialogDescription className="text-gray-400">
+            {t("auth.login.subtitle")}
+          </DialogDescription>
         </DialogHeader>
 
         {/* Demo accounts info */}
@@ -101,10 +118,20 @@ export default function LoginModal() {
             className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 mb-4 flex items-center gap-2"
           >
             <AlertCircle size={18} className="text-red-400" />
-            <p className="text-red-400 text-sm">{message}</p>
+            <div>
+              <p className="text-red-400 text-sm">{message}</p>
+              <div className="mt-1">
+                {Object.keys(errors).map((key) =>
+                  errors[key] ? (
+                    <p key={key} className="text-red-400 text-xs">
+                      • {errors[key]}
+                    </p>
+                  ) : null
+                )}
+              </div>
+            </div>
           </motion.div>
         )}
-
         {/* Success Message */}
         {message && !Object.keys(errors).length && (
           <motion.div
@@ -119,7 +146,10 @@ export default function LoginModal() {
         <form onSubmit={handleLogin} className="space-y-4 py-4">
           {/* Email Field */}
           <div>
-            <Label htmlFor="email-modal" className="flex items-center space-x-2 text-yellow-400 mb-2">
+            <Label
+              htmlFor="email-modal"
+              className="flex items-center space-x-2 text-yellow-400 mb-2"
+            >
               <Mail className="w-4 h-4" />
               <span>{t("auth.login.email")}</span>
             </Label>
@@ -131,7 +161,9 @@ export default function LoginModal() {
               onChange={handleInputChange}
               required
               className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 ${
-                errors.email ? "border-red-500 focus:border-red-400" : "focus:border-yellow-500"
+                errors.email
+                  ? "border-red-500 focus:border-red-400"
+                  : "focus:border-yellow-500"
               }`}
               placeholder={t("auth.login.emailPlaceholder")}
             />
@@ -148,7 +180,10 @@ export default function LoginModal() {
 
           {/* Password Field */}
           <div>
-            <Label htmlFor="password-modal" className="flex items-center space-x-2 text-yellow-400 mb-2">
+            <Label
+              htmlFor="password-modal"
+              className="flex items-center space-x-2 text-yellow-400 mb-2"
+            >
               <Lock className="w-4 h-4" />
               <span>{t("auth.login.password")}</span>
             </Label>
@@ -161,7 +196,9 @@ export default function LoginModal() {
                 onChange={handleInputChange}
                 required
                 className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 pr-12 ${
-                  errors.password ? "border-red-500 focus:border-red-400" : "focus:border-yellow-500"
+                  errors.password
+                    ? "border-red-500 focus:border-red-400"
+                    : "focus:border-yellow-500"
                 }`}
                 placeholder="••••••••"
               />
@@ -170,7 +207,11 @@ export default function LoginModal() {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-yellow-500 transition-colors"
               >
-                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {showPassword ? (
+                  <EyeOff className="w-5 h-5" />
+                ) : (
+                  <Eye className="w-5 h-5" />
+                )}
               </button>
             </div>
             {errors.password && (
@@ -195,7 +236,10 @@ export default function LoginModal() {
                 onChange={handleInputChange}
                 className="h-4 w-4 rounded border-gray-600 bg-gray-700 text-yellow-500 focus:ring-yellow-600"
               />
-              <Label htmlFor="rememberMe-modal" className="text-sm text-gray-300 cursor-pointer">
+              <Label
+                htmlFor="rememberMe-modal"
+                className="text-sm text-gray-300 cursor-pointer"
+              >
                 {t("auth.login.rememberMe")}
               </Label>
             </div>
@@ -208,8 +252,16 @@ export default function LoginModal() {
             </button>
           </div>
 
-          <Button type="submit" disabled={isLoading} className="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900">
-            {isLoading ? <Loader2 className="animate-spin" /> : t("auth.login.loginButton")}
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900"
+          >
+            {isLoading ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              t("auth.login.loginButton")
+            )}
           </Button>
         </form>
 
@@ -226,5 +278,5 @@ export default function LoginModal() {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
