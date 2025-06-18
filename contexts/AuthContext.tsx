@@ -143,8 +143,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthActionLoading(true)
     try {
       const response = await apiClient.post("/auth/register", { name, email, password, confirmPassword })
-      if (response.data.success && response.data.user) {
-        setUser(response.data.user)
+      if (response.data.success && response.data.data) {
+        setUser(response.data.data)
 
         // Handle success callbacks
         if (onLoginSuccessCallback) {
@@ -156,7 +156,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Close modal and clear callbacks
         closeAuthModal()
 
-        return { success: true, message: t("auth.register.registerSuccess"), user: response.data.user }
+        return { success: true, message: t("auth.register.registerSuccess"), user: response.data.data }
       }
       return {
         success: false,
