@@ -21,7 +21,9 @@
     "profile": "Hồ sơ",
     "history": "Lịch sử xem",
     "premium": "Nâng cấp Premium",
-    "wishlist": "Yêu thích"
+    "wishlist": "Yêu thích",
+    "blogs": "Blogs",
+    "luckybox": "Hộp may mắn"
   },
   "auth": {
     "logout": {
