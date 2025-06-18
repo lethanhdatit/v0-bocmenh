@@ -1,44 +1,85 @@
 "use client"
 
-import { useState, type FormEvent, useEffect } from "react"
+import { useState, type FormEvent, useEffect, useRef } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
-import { Stars, Calendar, Clock, User, Loader2 } from "lucide-react"
+import { Stars, Calendar, Clock, User, Loader2, AlertCircle } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { apiClient, type ApiErrorResponse } from "@/lib/api/apiClient" // Use our apiClient
 
 export default function DestinyForm() {
-  const { t } = useTranslation()
+  const { t } = useTranslation() // Ensure "destiny" namespace is loaded
   const router = useRouter()
   const searchParams = useSearchParams()
+  const isInitialized = useRef(false)
 
   const [name, setName] = useState("")
   const [birthDate, setBirthDate] = useState("")
   const [birthTime, setBirthTime] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [formError, setFormError] = useState<string | null>(null)
 
+  // Only initialize from URL params once when component mounts
   useEffect(() => {
-    setName(searchParams.get("name") || "")
-    setBirthDate(searchParams.get("birthDate") || "")
-    setBirthTime(searchParams.get("birthTime") || "")
+    if (!isInitialized.current) {
+      setName(searchParams.get("name") || "")
+      setBirthDate(searchParams.get("birthDate") || "")
+      setBirthTime(searchParams.get("birthTime") || "")
+      isInitialized.current = true
+    }
   }, [searchParams])
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    setFormError(null)
     if (!name.trim() || !birthDate) {
-      alert(t("destiny.form.validationError"))
+      setFormError(t("destiny.form.validationError")) // Use namespace
       return
     }
     setIsLoading(true)
-    const params = new URLSearchParams()
-    params.set("name", name.trim())
-    params.set("birthDate", birthDate)
-    if (birthTime) {
-      params.set("birthTime", birthTime)
+
+    try {
+      // Data for the POST request
+      const postData = {
+        name: name.trim(),
+        birthDate,
+        birthTime: birthTime || undefined,
+      }
+
+      // apiClient.post will be intercepted if auth is required
+      // The interceptor handles prompting login and retrying the request.
+      // If successful (either initially or after retry), it proceeds.
+      // The destiny API POST doesn't return data, it just processes.
+      // We then navigate to the results page.
+      await apiClient.post("/destiny", postData)
+
+      // Construct query params for the results page (GET request)
+      const pageParams = new URLSearchParams()
+      pageParams.set("name", name.trim())
+      pageParams.set("birthDate", birthDate)
+      if (birthTime) {
+        pageParams.set("birthTime", birthTime)
+      }
+      // Navigate to the destiny page which will then fetch results based on these params
+      router.push(`/destiny?${pageParams.toString()}`)
+    } catch (err: any) {
+      console.error("Destiny form submission error:", err)
+      // The Axios interceptor should handle 401 AUTH_REQUIRED.
+      // If it's another error, or if the retry after login also fails, display it.
+      // The interceptor rejects the promise if retry fails or if auth prompt isn't set.
+      const apiError = err.response?.data as ApiErrorResponse | undefined
+      if (apiError?.errorCode === "AUTH_REQUIRED") {
+        // This case should ideally be handled by the modal, but if it bubbles up:
+        setFormError(t("auth.loginRequiredToContinue"))
+      } else {
+        setFormError(apiError?.error || t("common.errorUnexpected"))
+      }
+    } finally {
+      setIsLoading(false)
     }
-    router.push(`/destiny?${params.toString()}`)
   }
 
   return (
@@ -50,6 +91,11 @@ export default function DestinyForm() {
         <CardDescription className="text-gray-300 mt-1">{t("destiny.form.subtitle")}</CardDescription>
       </CardHeader>
       <CardContent>
+        {formError && (
+          <div className="mb-4 p-3 bg-red-900/50 border border-red-700 text-red-200 rounded-md text-sm flex items-center gap-2">
+            <AlertCircle size={18} /> {formError}
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <Label htmlFor="name" className="flex items-center space-x-2 text-yellow-400 font-medium mb-1.5">

@@ -1,6 +1,6 @@
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
-import { getBaseUrl } from "@/lib/utils"
+import { getBaseUrl } from "@/lib/infra/utils"
 
 // Dynamic loading function for translation files
 async function loadTranslations() {

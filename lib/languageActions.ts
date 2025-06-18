@@ -1,6 +1,6 @@
 "use server"
 
-import { getSession } from "@/lib/session"
+import { getSession } from "@/lib/session/session"
 
 export async function setLanguage(language: "vi" | "en") {
   try {

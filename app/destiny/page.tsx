@@ -3,8 +3,8 @@ import DestinyForm from "@/components/forms/DestinyForm"
 import ProductCard from "@/components/store/ProductCard"
 import { getProducts, type Product } from "@/lib/products"
 import { calculateDestiny, type DestinyResult, type DestinyData } from "@/lib/destinyService"
-import { getSession } from "@/lib/session"
-import { type UserSession } from "@/lib/sessionOptions"
+import { getSession } from "@/lib/session/session"
+import type { UserSession } from "@/lib/session/sessionOptions"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { AlertTriangle, Sparkles, Gift, ChevronRight } from "lucide-react"
@@ -202,18 +202,12 @@ export default async function DestinyPage({
                 {(destinyResult.data as { preview?: string }).preview && (
                   <div className="mt-6 p-5 bg-yellow-600/10 border border-yellow-500/40 rounded-lg text-yellow-300">
                     <p className="font-medium">{(destinyResult.data as { preview?: string }).preview}</p>
-                    {destinyResult.isLimited && (
-                      <Link
-                        href={session?.isLoggedIn ? "/pricing" : "/auth/register"} // Assuming /pricing for upgrade
-                        legacyBehavior
-                      >
-                        <a className="inline-block mt-3 text-sm font-semibold text-gray-900 bg-yellow-400 hover:bg-yellow-500 px-4 py-2 rounded-md transition-colors">
-                          {session?.isLoggedIn
-                            ? t("destiny.result.action.upgrade")
-                            : t("destiny.result.action.register")}
-                        </a>
-                      </Link>
-                    )}
+                    <Link
+                      href={session?.isLoggedIn ? "/pricing" : "/auth/register"}
+                      className="inline-block mt-3 text-sm font-semibold text-gray-900 bg-yellow-400 hover:bg-yellow-500 px-4 py-2 rounded-md transition-colors"
+                    >
+                      {session?.isLoggedIn ? t("destiny.result.action.upgrade") : t("destiny.result.action.register")}
+                    </Link>
                   </div>
                 )}
               </div>
@@ -221,7 +215,7 @@ export default async function DestinyPage({
                 {t("destiny.result.disclaimer", { year: currentYear })}
               </p>
               <div className="text-center mt-10">
-                <Link href="/destiny" legacyBehavior>
+                <Link href="/destiny">
                   <Button
                     variant="outline"
                     className="bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-gray-900 border-yellow-600 hover:border-yellow-700 px-8 py-3 text-base font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
@@ -246,11 +240,12 @@ export default async function DestinyPage({
                   ))}
                 </div>
                 <div className="text-center mt-12">
-                  <Link href="/store" legacyBehavior>
-                    <a className="inline-flex items-center justify-center bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:from-purple-700 hover:via-pink-700 hover:to-rose-600 text-white font-semibold py-3.5 px-10 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-base">
-                      <Gift className="w-5 h-5 mr-2.5" />
-                      {t("destiny.viewMoreItemsButton")}
-                    </a>
+                  <Link
+                    href="/store"
+                    className="inline-flex items-center justify-center bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:from-purple-700 hover:via-pink-700 hover:to-rose-600 text-white font-semibold py-3.5 px-10 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-base"
+                  >
+                    <Gift className="w-5 h-5 mr-2.5" />
+                    {t("destiny.viewMoreItemsButton")}
                   </Link>
                 </div>
               </section>

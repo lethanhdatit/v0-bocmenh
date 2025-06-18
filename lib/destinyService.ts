@@ -1,4 +1,4 @@
-import type { UserSession } from "@/lib/sessionOptions" // Đảm bảo đường dẫn chính xác
+import type { UserSession } from "@/lib/session/sessionOptions" // Đảm bảo đường dẫn chính xác
 
 // Định nghĩa các type cho kết quả bóc mệnh
 export interface DestinyData {

@@ -4,6 +4,7 @@ export interface UserSession {
   id?: string
   email?: string
   name?: string
+  accessToken?: string
   isPremium?: boolean
   isLoggedIn?: boolean
   language?: "vi" | "en"

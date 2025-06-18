@@ -1,7 +1,7 @@
 // app/api/wishlist/route.ts
 import { type NextRequest, NextResponse } from "next/server"
 import { getIronSession } from "iron-session"
-import { sessionOptions, type UserSession } from "@/lib/sessionOptions"
+import { sessionOptions, type UserSession } from "@/lib/session/sessionOptions"
 import { cookies } from "next/headers"
 
 // Biến tạm thời để mô phỏng database/lưu trữ phía server

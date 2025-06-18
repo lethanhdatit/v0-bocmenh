@@ -4,7 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { motion } from "framer-motion"
 import useSWR from "swr"
-import { apiClient } from "@/lib/api"
+import { apiClient } from "@/lib/api/apiClient"
 import { Calculator, User, Calendar, Sparkles, Star, TrendingUp, Heart } from "lucide-react"
 import { useTranslation } from "react-i18next"
 

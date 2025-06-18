@@ -4,7 +4,7 @@ import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { setLanguage as setServerLanguage, getLanguage as getServerLanguage } from "@/lib/languageActions"
-import i18n, { initPromise } from "@/lib/i18n"
+import i18n, { initPromise } from "@/lib/infra/i18n"
 
 type Language = "vi" | "en"
 

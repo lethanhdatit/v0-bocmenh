@@ -20,9 +20,3 @@ export function getBaseUrl(): string {
   // Fallback for development
   return "http://localhost:3000"
 }
-
-// Utility function for API calls that need base URL
-export function getApiUrl(path: string): string {
-  const baseUrl = getBaseUrl()
-  return `${baseUrl}${path.startsWith("/") ? path : `/${path}`}`
-}

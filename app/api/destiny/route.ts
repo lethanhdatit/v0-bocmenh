@@ -1,23 +1,13 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getSession } from "@/lib/session" // Đảm bảo getSession được thiết lập chính xác
-import { type UserSession } from "@/lib/sessionOptions"
-import { decryptData, encryptData } from "@/lib/encryption"
+import type { UserSession } from "@/lib/session/sessionOptions"
+import { decryptData, encryptData } from "@/lib/infra/encryption"
 import { calculateDestiny, type DestinyResult } from "@/lib/destinyService"
+import { withServerBase } from "@/lib/api/apiServerBase"
 
-export async function POST(request: NextRequest) {
+// Original handler logic
+async function destinyApiHandler(data: any, request: NextRequest, session: UserSession) {
   try {
-    const body = await request.json()
-    const { encrypted } = body
-
-    if (!encrypted) {
-      return NextResponse.json(
-        { encrypted: encryptData({ success: false, error: "Dữ liệu mã hoá bị thiếu." }) },
-        { status: 400 },
-      )
-    }
-
-    const decrypted = decryptData(encrypted)
-    const { birthDate, birthTime, name } = decrypted
+    const { birthDate, birthTime, name } = data
 
     if (!name || !birthDate) {
       return NextResponse.json(
@@ -26,8 +16,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const session = await getSession()
-    const destinyResult: DestinyResult = await calculateDestiny(name, birthDate, birthTime, session as UserSession)
+    // Session is now passed by the wrapper
+    const destinyResult: DestinyResult = await calculateDestiny(name, birthDate, birthTime, session)
 
     return NextResponse.json({ encrypted: encryptData(destinyResult) })
   } catch (error) {
@@ -39,3 +29,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ encrypted: encryptData(errorData) }, { status: 500 })
   }
 }
+
+// Wrap the handler with authentication options
+export const POST = withServerBase(destinyApiHandler, {
+  isAuthenRequired: true, // Set to true to test authentication
+})

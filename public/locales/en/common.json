@@ -1,14 +1,14 @@
 {
   "nav": {
     "home": "Home",
-    "destiny": "Destiny Reading",
+    "destiny": "Unveil Destiny",
     "dreams": "Dream Interpretation",
     "numerology": "Numerology",
-    "tarot": "Tarot",
+    "tarot": "Tarot Reading",
     "fengshui": "Feng Shui",
-    "compatibility": "Compatibility",
+    "compatibility": "Love Compatibility",
     "weddingDate": "Wedding Date",
-    "store": "Store",
+    "store": "Feng Shui Store",
     "community": "Community",
     "crystals": "Crystal Healing",
     "meditation": "Meditation Guides",
@@ -21,7 +21,9 @@
     "profile": "Profile",
     "history": "Reading History",
     "premium": "Upgrade to Premium",
-    "wishlist": "Wishlist"
+    "wishlist": "Wishlist",
+    "aiFace": "AI Face Analysis",
+    "blog": "Blog"
   },
   "auth": {
     "logout": {
@@ -46,8 +48,17 @@
       "demoAccounts": "Demo accounts:",
       "demoRegular": "Regular: demo@example.com / password123",
       "demoPremium": "Premium: premium@example.com / password123",
-      "loginSuccess": "Login successful!",
-      "loginFailed": "Login failed"
+      "loginSuccess": "Logged in successfully!",
+      "loginFailed": "Login failed. Please check your credentials.",
+      "loginFailedDetail": "Incorrect email or password.",
+      "myAccount": "My Account",
+      "loginRequired": "Login required to access this feature.",
+      "loginRequiredToContinue": "Please log in to continue.",
+      "invalidEmail": "Invalid email",
+      "emptyPassword": "Please enter your password",
+      "invalidCredentials": "Please check your login information",
+      "success": "Logged in successfully!",
+      "systemFailed": "System error, please try again later"
     },
     "register": {
       "title": "Register",
@@ -74,8 +85,8 @@
       "strengthGood": "Good",
       "strengthStrong": "Strong",
       "agreeTermsError": "You must agree to the terms of service",
-      "registerSuccess": "Registration successful!",
-      "registerFailed": "Registration failed"
+      "registerSuccess": "Registration successful! Welcome!",
+      "registerFailed": "Registration failed. Please try again."
     },
     "forgotPassword": {
       "title": "Forgot Password",
@@ -126,10 +137,10 @@
     }
   },
   "site": {
-    "title": "Boc Menh",
+    "title": "Bóc Mệnh - Unveil Your Destiny",
     "tagline": "Each person is a mystery box, uncover it - and you'll understand yourself",
     "cta": "Start Exploring",
-    "description": "Discover destiny, interpret dreams, numerology and much more",
+    "description": "Explore your destiny, interpret dreams, and discover Feng Shui insights with Bóc Mệnh.",
     "description_short": "Discover your destiny"
   },
   "hero": {
@@ -186,14 +197,21 @@
     "save": "Save",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "error": "An error occurred",
+    "error": "Error",
+    "errorUnexpected": "An unexpected error occurred. Please try again.",
     "success": "Success",
     "close": "Close",
     "openMenu": "Open menu",
     "connectionError": "Connection error",
     "retry": "Retry",
     "processing": "Processing...",
-    "notSpecified": "Not specified"
+    "notSpecified": "Not specified",
+    "viewDetails": "View Details",
+    "noResults": "No results found.",
+    "comingSoon": "Coming Soon",
+    "backToHome": "Back to Home",
+    "showMore": "Show More",
+    "showLess": "Show Less"
   },
   "store": {
     "title": "Feng Shui Store",
@@ -228,7 +246,32 @@
     "suggestionBalances": "Balances / Harmonizes",
     "suggestionMitigates": "Mitigates / Reduces",
     "filterMenh": "Filter by Mệnh",
-    "menh": "Mệnh"
+    "menh": "Mệnh",
+    "pageTitle": "Feng Shui Items",
+    "pageSubtitle": "Discover items to enhance your luck, love, and prosperity.",
+    "sortBy": "Sort By",
+    "sortOptions": {
+      "default": "Default",
+      "nameAsc": "Name (A-Z)",
+      "nameDesc": "Name (Z-A)",
+      "priceAsc": "Price (Low to High)",
+      "priceDesc": "Price (High to Low)"
+    },
+    "productDetails": "Product Details",
+    "quantity": "Quantity",
+    "description": "Description",
+    "attributes": "Attributes",
+    "noReviews": "No reviews yet.",
+    "writeReview": "Write a Review",
+    "viewAffiliateProductAt": "View at {{partnerName}}",
+    "addedToWishlist": "Added to Wishlist!",
+    "removedFromWishlist": "Removed from Wishlist!",
+    "productAddedToWishlist": "Product added to wishlist.",
+    "productRemovedFromWishlist": "Product removed from wishlist.",
+    "confirmRemoveWishlist": "Are you sure you want to remove this item from your wishlist?",
+    "wishlistPageTitle": "My Wishlist",
+    "wishlistEmpty": "Your wishlist is empty.",
+    "browseProducts": "Browse Products"
   },
   "wishlist": {
     "title": "My Wishlist",
@@ -309,7 +352,7 @@
       "loadingMessagePage": "Analyzing your cosmic blueprint...",
       "infoTitle": "What You'll Discover",
       "premiumTitle": "Premium Features",
-      "validationError": "Please fill in all required fields"
+      "validationError": "Name and Birth Date are required."
     },
     "result": {
       "titleFor": "Destiny Reading for {name}",
@@ -339,7 +382,8 @@
     "pageSubtitle": "Discover your life purpose and cosmic blueprint",
     "error": {
       "generic": "Unable to generate reading. Please try again.",
-      "fetch": "Connection error. Please check your internet and try again."
+      "fetch": "Connection error. Please check your internet and try again.",
+      "system": "System error, please try again later"
     },
     "recommendedItemsTitle": "Recommended Feng Shui Items",
     "recommendedItemsSubtitle": "Enhance your destiny with these powerful items",

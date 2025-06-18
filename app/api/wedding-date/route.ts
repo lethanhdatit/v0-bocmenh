@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { analyzeWeddingDate, type WeddingDateRequest } from "@/lib/weddingDate"
-import { getSession } from "@/lib/session"
+import { getSession } from "@/lib/session/session"
 
 export async function GET() {
   return NextResponse.json({

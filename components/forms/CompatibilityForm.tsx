@@ -4,7 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { motion } from "framer-motion"
 import useSWR from "swr"
-import { apiClient } from "@/lib/api"
+import { apiClient } from "@/lib/api/apiClient"
 import { Heart, Users, Briefcase, User, Calendar, Sparkles, TrendingUp, MessageCircle, Target } from "lucide-react"
 
 interface CompatibilityResult {

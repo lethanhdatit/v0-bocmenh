@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { decryptData, encryptData } from "@/lib/encryption"
+import { decryptData, encryptData } from "@/lib/infra/encryption"
 import { validateResetToken, markTokenAsUsed, revokeUserTokens } from "@/lib/passwordReset"
-import { getSession } from "@/lib/session"
+import { getSession } from "@/lib/session/session"
 
 // Mock user database (should match other auth routes)
 const users: Array<{

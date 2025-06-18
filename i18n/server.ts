@@ -34,12 +34,18 @@ async function initI18next(locale: string, namespaces: string | string[] = "comm
   return instance
 }
 
-export async function getTranslations(namespaces: string | string[] = "common") {  
+export async function getTranslations(namespaces: string | string[] = "common") {
   const { language: locale } = await getServerLanguage()
 
   const i18n = await initI18next(locale, namespaces)
   return {
     t: i18n.t,
     i18n: i18n, // Optional: if you need the full i18n instance
+    messages: {}, // Add empty messages object for compatibility
   }
+}
+
+export async function getLocale() {
+  const { language } = await getServerLanguage()
+  return language
 }

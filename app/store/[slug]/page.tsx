@@ -23,7 +23,7 @@ import { useTranslation } from "react-i18next"
 import ProductCard from "@/components/store/ProductCard"
 import { sampleProducts } from "@/lib/products"
 import { useWishlist } from "@/hooks/use-wishlist"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/infra/utils"
 
 export default function ProductDetailPage() {
   const params = useParams()
