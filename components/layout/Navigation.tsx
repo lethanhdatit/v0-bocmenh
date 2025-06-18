@@ -85,12 +85,12 @@ export default function Navigation() {
           {/* Desktop Auth & Language */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Language Toggle */}
-            <button
+            {/* <button
               onClick={toggleLanguage}
               className="text-sm text-gray-300 hover:text-yellow-400 transition-colors px-2 py-1 rounded border border-gray-600 hover:border-yellow-500"
             >
               {i18n.language === "vi" ? "EN" : "VI"}
-            </button>
+            </button> */}
 
             {isLoggedIn ? (
               <div className="relative user-menu-container">
@@ -132,7 +132,7 @@ export default function Navigation() {
                         className="flex items-center space-x-2 w-full px-4 py-2 text-sm text-gray-300 hover:text-red-400 hover:bg-gray-800 transition-colors"
                       >
                         <LogOut className="w-4 h-4" />
-                        <span>{t("nav.logout")}</span>
+                        <span>{t("auth.logout.title")}</span>
                       </button>
                     </motion.div>
                   )}
@@ -144,13 +144,13 @@ export default function Navigation() {
                   onClick={() => openLoginModal()}
                   className="text-sm text-gray-300 hover:text-yellow-400 transition-colors"
                 >
-                  {t("nav.login")}
+                  {t("auth.login.title")}
                 </button>
                 <button
                   onClick={() => openRegisterModal()}
                   className="text-sm bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-md font-medium transition-colors"
                 >
-                  {t("nav.register")}
+                  {t("auth.register.title")}
                 </button>
               </div>
             )}
@@ -159,12 +159,12 @@ export default function Navigation() {
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
             {/* Mobile Language Toggle */}
-            <button
+            {/* <button
               onClick={toggleLanguage}
               className="text-sm text-gray-300 hover:text-yellow-400 transition-colors px-2 py-1 rounded border border-gray-600 hover:border-yellow-500"
             >
               {i18n.language === "vi" ? "EN" : "VI"}
-            </button>
+            </button> */}
 
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -225,7 +225,7 @@ export default function Navigation() {
                     className="flex items-center space-x-2 text-sm text-gray-300 hover:text-red-400 transition-colors"
                   >
                     <LogOut className="w-4 h-4" />
-                    <span>{t("nav.logout")}</span>
+                    <span>{t("auth.logout.title")}</span>
                   </button>
                 </div>
               ) : (
@@ -234,13 +234,13 @@ export default function Navigation() {
                     onClick={() => openLoginModal()}
                     className="block w-full text-left text-sm text-gray-300 hover:text-yellow-400 transition-colors"
                   >
-                    {t("nav.login")}
+                    {t("auth.login.title")}
                   </button>
                   <button
                     onClick={() => openRegisterModal()}
                     className="block w-full text-left text-sm bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-md font-medium transition-colors"
                   >
-                    {t("nav.register")}
+                    {t("auth.register.title")}
                   </button>
                 </div>
               )}

@@ -2,8 +2,8 @@
 
 import type React from "react"
 import { createContext, useContext, useState, useEffect, useCallback } from "react"
-import { apiClient } from "@/lib/api"
-import type { UserSession } from "@/lib/sessionOptions"
+import { apiClient } from "@/lib/api/apiClient"
+import type { UserSession } from "@/lib/session/sessionOptions"
 import { useTranslation } from "react-i18next"
 import { useRouter } from "next/navigation"
 
@@ -81,13 +81,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Modal management functions
   const openLoginModal = useCallback((options?: PromptLoginOptions) => {
-    setOnLoginSuccessCallback(options?.onLoginSuccess ? () => options.onLoginSuccess : null)
+    setOnLoginSuccessCallback(options?.onLoginSuccess ?? null)
     setRedirectToAfterLogin(options?.redirectTo || null)
     setActiveModal("login")
   }, [])
 
   const openRegisterModal = useCallback((options?: PromptLoginOptions) => {
-    setOnLoginSuccessCallback(options?.onLoginSuccess ? () => options.onLoginSuccess : null)
+    setOnLoginSuccessCallback(options?.onLoginSuccess ?? null)
     setRedirectToAfterLogin(options?.redirectTo || null)
     setActiveModal("register")
   }, [])
@@ -106,8 +106,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthActionLoading(true)
     try {
       const response = await apiClient.post("/auth/login", { email, password, rememberMe })
-      if (response.data.success && response.data.user) {
-        setUser(response.data.user)
+      if (response.data.success && response.data.data) {
+        setUser(response.data.data)
 
         // Handle success callbacks
         if (onLoginSuccessCallback) {
@@ -119,7 +119,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Close modal and clear callbacks
         closeAuthModal()
 
-        return { success: true, message: t("auth.login.loginSuccess"), user: response.data.user }
+        return { success: true, message: t("auth.login.loginSuccess"), user: response.data.data }
       }
       return {
         success: false,

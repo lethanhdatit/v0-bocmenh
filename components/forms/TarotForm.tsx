@@ -4,7 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import useSWR from "swr"
-import { apiClient } from "@/lib/api"
+import { apiClient } from "@/lib/api/apiClient"
 import { Sparkles, Heart, Briefcase, SnowflakeIcon as Crystal, Shuffle } from "lucide-react"
 import TarotCard from "@/components/tarot/TarotCard"
 

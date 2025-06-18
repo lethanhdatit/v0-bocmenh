@@ -50,9 +50,15 @@
       "demoPremium": "Premium: premium@example.com / password123",
       "loginSuccess": "Logged in successfully!",
       "loginFailed": "Login failed. Please check your credentials.",
+      "loginFailedDetail": "Incorrect email or password.",
       "myAccount": "My Account",
       "loginRequired": "Login required to access this feature.",
-      "loginRequiredToContinue": "Please log in to continue."
+      "loginRequiredToContinue": "Please log in to continue.",
+      "invalidEmail": "Invalid email",
+      "emptyPassword": "Please enter your password",
+      "invalidCredentials": "Please check your login information",
+      "success": "Logged in successfully!",
+      "systemFailed": "System error, please try again later"
     },
     "register": {
       "title": "Register",
@@ -376,7 +382,8 @@
     "pageSubtitle": "Discover your life purpose and cosmic blueprint",
     "error": {
       "generic": "Unable to generate reading. Please try again.",
-      "fetch": "Connection error. Please check your internet and try again."
+      "fetch": "Connection error. Please check your internet and try again.",
+      "system": "System error, please try again later"
     },
     "recommendedItemsTitle": "Recommended Feng Shui Items",
     "recommendedItemsSubtitle": "Enhance your destiny with these powerful items",

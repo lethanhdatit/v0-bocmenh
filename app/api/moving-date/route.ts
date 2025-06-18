@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { encryptData } from "@/lib/encryption"
+import { encryptData } from "@/lib/infra/encryption"
 import { calculateMovingDates, type MovingDateRequest } from "@/lib/movingDate"
 
 export async function POST(request: NextRequest) {

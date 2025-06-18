@@ -47,7 +47,16 @@
       "demoRegular": "Regular: demo@example.com / password123",
       "demoPremium": "Premium: premium@example.com / password123",
       "loginSuccess": "Đăng nhập thành công!",
-      "loginFailed": "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin."
+      "loginFailed": "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.",
+      "loginFailedDetail": "Email hoặc mật khẩu không đúng",
+      "myAccount": "Tài khoản của tôi",
+      "loginRequired": "Bạn cần đăng nhập để truy cập tính năng này.",
+      "loginRequiredToContinue": "Bạn cần đăng nhập để tiếp tục.",
+      "invalidEmail": "Email không hợp lệ",
+      "emptyPassword": "Vui lòng nhập mật khẩu",
+      "invalidCredentials": "Vui lòng kiểm tra lại thông tin đăng nhập",
+      "success": "Đăng nhập thành công!",
+      "systemFailed": "Hệ thống đang gặp sự cố. Vui lòng thử lại sau."
     },
     "register": {
       "title": "Đăng ký",
@@ -204,7 +213,6 @@
   },
   "store": {
     "title": "Cửa Hàng Phong Thủy",
-    "description": "Khám phá các vật phẩm Phong Thủy chính hãng để tăng cường may mắn và năng lượng",
     "recommendedForYou": "Gợi ý cho bạn",
     "pageTitle": "Vật Phẩm Phong Thủy",
     "pageSubtitle": "Khám phá các vật phẩm giúp tăng cường vận may, tình duyên và tài lộc.",
@@ -353,7 +361,8 @@
     "pageSubtitle": "Khám phá mục đích cuộc đời và bản đồ vũ trụ của bạn",
     "error": {
       "generic": "Không thể tạo kết quả bóc mệnh. Vui lòng thử lại.",
-      "fetch": "Lỗi kết nối. Vui lòng kiểm tra internet và thử lại."
+      "fetch": "Lỗi kết nối. Vui lòng kiểm tra internet và thử lại.",
+      "system": "Lỗi hệ thống, vui lòng thử lại sau"
     },
     "recommendedItemsTitle": "Vật phẩm Phong Thủy được gợi ý",
     "recommendedItemsSubtitle": "Tăng cường vận mệnh với những vật phẩm mạnh mẽ này",

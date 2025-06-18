@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { SWRConfig } from "swr"
-import { fetcher } from "@/lib/api"
+import { fetcher } from "@/lib/api/apiClient"
 
 export default function SWRProvider({ children }: { children: React.ReactNode }) {
   return (

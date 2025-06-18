@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getSession } from "@/lib/session"
-import { decryptData, encryptData } from "@/lib/encryption"
+import { getSession } from "@/lib/session/session"
+import { decryptData, encryptData } from "@/lib/infra/encryption"
 
 // Simple user database simulation (replace with real database)
 const users: Array<{

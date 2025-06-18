@@ -1,5 +1,5 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios"
-import { encryptData, decryptData } from "./encryption"
+import { encryptData, decryptData } from "../infra/encryption"
 
 // This function will be set by AuthSetup to link to AuthContext's openLoginModal
 let globalAuthPromptHandler: ((options?: any) => void) | null = null
@@ -18,7 +18,7 @@ export const apiClient = axios.create({
 // Request interceptor for encryption
 apiClient.interceptors.request.use(
   (config) => {
-    if (config.data && (config.method === "post" || config.method === "put" || config.method === "patch")) {
+    if (config.data) {
       if (!(config.data instanceof FormData)) {
         config.data = { encrypted: encryptData(config.data) }
       }
@@ -49,9 +49,15 @@ apiClient.interceptors.response.use(
       _redirectTo?: string
     }
 
+    let data = error.response?.data;
+
+    if ((data as any)?.encrypted) {
+      data = decryptData((data as any).encrypted)
+    }
+
     if (
       error.response?.status === 401 &&
-      error.response.data?.errorCode === "AUTH_REQUIRED" &&
+      data?.errorCode === "AUTH_REQUIRED" &&
       originalRequest &&
       !originalRequest._retry
     ) {
@@ -59,7 +65,7 @@ apiClient.interceptors.response.use(
 
       if (globalAuthPromptHandler) {
         return new Promise((resolve, reject) => {
-          globalAuthPromptHandler({
+          globalAuthPromptHandler!({
             onLoginSuccess: async () => {
               try {
                 // Re-attempt the original request
@@ -76,13 +82,8 @@ apiClient.interceptors.response.use(
       }
     }
 
-    // Decrypt error response if it's encrypted
-    if (error.response?.data && (error.response.data as any).encrypted) {
-      try {
-        error.response.data = decryptData((error.response.data as any).encrypted)
-      } catch (e) {
-        console.error("Failed to decrypt error response data", e)
-      }
+    if (data) {
+      error.response!.data = data
     }
     return Promise.reject(error)
   },

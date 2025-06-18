@@ -20,7 +20,7 @@ import { useTranslation } from "react-i18next"
 import { motion } from "framer-motion"
 
 export default function RegisterModal() {
-  const { t } = useTranslation(["common", "auth"])
+  const { t } = useTranslation()
   const { activeModal, closeAuthModal, openLoginModal, register, isLoading } = useAuth()
 
   const [formData, setFormData] = useState({
@@ -43,7 +43,7 @@ export default function RegisterModal() {
     // Client-side validation
     const clientErrors: Record<string, string> = {}
     if (!formData.agreeToTerms) {
-      clientErrors.agreeToTerms = t("auth:auth.register.agreeTermsError")
+      clientErrors.agreeToTerms = t("auth.register.agreeTermsError")
     }
 
     if (Object.keys(clientErrors).length > 0) {
@@ -54,7 +54,7 @@ export default function RegisterModal() {
     const result = await register(formData.name, formData.email, formData.password, formData.confirmPassword)
     if (!result.success) {
       setErrors(result.errors || {})
-      setMessage(result.message || t("auth:auth.register.registerFailed"))
+      setMessage(result.message || t("auth.register.registerFailed"))
     }
   }
 
@@ -90,10 +90,10 @@ export default function RegisterModal() {
   const passwordStrength = getPasswordStrength(formData.password)
   const strengthColors = ["bg-red-500", "bg-orange-500", "bg-yellow-500", "bg-green-500"]
   const strengthLabels = [
-    t("auth:auth.register.strengthWeak"),
-    t("auth:auth.register.strengthFair"),
-    t("auth:auth.register.strengthGood"),
-    t("auth:auth.register.strengthStrong"),
+    t("auth.register.strengthWeak"),
+    t("auth.register.strengthFair"),
+    t("auth.register.strengthGood"),
+    t("auth.register.strengthStrong"),
   ]
 
   return (
@@ -105,8 +105,8 @@ export default function RegisterModal() {
     >
       <DialogContent className="sm:max-w-[425px] bg-gray-900 border-yellow-500/30 text-gray-100 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-yellow-400">{t("auth:auth.register.title")}</DialogTitle>
-          <DialogDescription className="text-gray-400">{t("auth:auth.register.subtitle")}</DialogDescription>
+          <DialogTitle className="text-2xl font-bold text-yellow-400">{t("auth.register.title")}</DialogTitle>
+          <DialogDescription className="text-gray-400">{t("auth.register.subtitle")}</DialogDescription>
         </DialogHeader>
 
         {/* Error Message */}
@@ -137,7 +137,7 @@ export default function RegisterModal() {
           <div>
             <Label htmlFor="name-modal" className="flex items-center space-x-2 text-yellow-400 mb-2">
               <User className="w-4 h-4" />
-              <span>{t("auth:auth.register.name")}</span>
+              <span>{t("auth.register.name")}</span>
             </Label>
             <Input
               id="name-modal"
@@ -149,7 +149,7 @@ export default function RegisterModal() {
               className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 ${
                 errors.name ? "border-red-500 focus:border-red-400" : "focus:border-yellow-500"
               }`}
-              placeholder={t("auth:auth.register.namePlaceholder")}
+              placeholder={t("auth.register.namePlaceholder")}
             />
             {errors.name && (
               <motion.p
@@ -166,7 +166,7 @@ export default function RegisterModal() {
           <div>
             <Label htmlFor="email-register-modal" className="flex items-center space-x-2 text-yellow-400 mb-2">
               <Mail className="w-4 h-4" />
-              <span>{t("auth:auth.register.email")}</span>
+              <span>{t("auth.register.email")}</span>
             </Label>
             <Input
               id="email-register-modal"
@@ -178,7 +178,7 @@ export default function RegisterModal() {
               className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 ${
                 errors.email ? "border-red-500 focus:border-red-400" : "focus:border-yellow-500"
               }`}
-              placeholder={t("auth:auth.register.emailPlaceholder")}
+              placeholder={t("auth.register.emailPlaceholder")}
             />
             {errors.email && (
               <motion.p
@@ -195,7 +195,7 @@ export default function RegisterModal() {
           <div>
             <Label htmlFor="password-register-modal" className="flex items-center space-x-2 text-yellow-400 mb-2">
               <Lock className="w-4 h-4" />
-              <span>{t("auth:auth.register.password")}</span>
+              <span>{t("auth.register.password")}</span>
             </Label>
             <div className="relative">
               <Input
@@ -208,7 +208,7 @@ export default function RegisterModal() {
                 className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 pr-12 ${
                   errors.password ? "border-red-500 focus:border-red-400" : "focus:border-yellow-500"
                 }`}
-                placeholder={t("auth:auth.register.passwordPlaceholder")}
+                placeholder={t("auth.register.passwordPlaceholder")}
               />
               <button
                 type="button"
@@ -233,9 +233,9 @@ export default function RegisterModal() {
                   ))}
                 </div>
                 <p className="text-xs text-gray-400">
-                  {t("auth:auth.register.passwordStrength")}{" "}
+                  {t("auth.register.passwordStrength")}{" "}
                   <span className="text-yellow-500">
-                    {strengthLabels[passwordStrength - 1] || t("auth:auth.register.strengthWeak")}
+                    {strengthLabels[passwordStrength - 1] || t("auth.register.strengthWeak")}
                   </span>
                 </p>
               </div>
@@ -256,7 +256,7 @@ export default function RegisterModal() {
           <div>
             <Label htmlFor="confirmPassword-modal" className="flex items-center space-x-2 text-yellow-400 mb-2">
               <Lock className="w-4 h-4" />
-              <span>{t("auth:auth.register.confirmPassword")}</span>
+              <span>{t("auth.register.confirmPassword")}</span>
             </Label>
             <div className="relative">
               <Input
@@ -269,7 +269,7 @@ export default function RegisterModal() {
                 className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 pr-12 ${
                   errors.confirmPassword ? "border-red-500 focus:border-red-400" : "focus:border-yellow-500"
                 }`}
-                placeholder={t("auth:auth.register.confirmPasswordPlaceholder")}
+                placeholder={t("auth.register.confirmPasswordPlaceholder")}
               />
               <button
                 type="button"
@@ -303,13 +303,13 @@ export default function RegisterModal() {
                 }`}
               />
               <span className="text-sm">
-                {t("auth:auth.register.agreeToTerms")}{" "}
+                {t("auth.register.agreeToTerms")}{" "}
                 <a href="/terms" className="text-yellow-500 hover:text-yellow-400 transition-colors">
-                  {t("auth:auth.register.termsOfService")}
+                  {t("auth.register.termsOfService")}
                 </a>{" "}
-                {t("auth:auth.register.and")}{" "}
+                {t("auth.register.and")}{" "}
                 <a href="/privacy" className="text-yellow-500 hover:text-yellow-400 transition-colors">
-                  {t("auth:auth.register.privacyPolicy")}
+                  {t("auth.register.privacyPolicy")}
                 </a>
               </span>
             </label>
@@ -325,18 +325,18 @@ export default function RegisterModal() {
           </div>
 
           <Button type="submit" disabled={isLoading} className="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900">
-            {isLoading ? <Loader2 className="animate-spin" /> : t("auth:auth.register.registerButton")}
+            {isLoading ? <Loader2 className="animate-spin" /> : t("auth.register.registerButton")}
           </Button>
         </form>
 
         <DialogFooter className="sm:justify-center">
           <p className="text-sm text-gray-400">
-            {t("auth:auth.register.haveAccount")}{" "}
+            {t("auth.register.haveAccount")}{" "}
             <button
               onClick={switchToLogin}
               className="font-medium text-yellow-400 hover:text-yellow-300 hover:underline"
             >
-              {t("auth:auth.register.loginNow")}
+              {t("auth.register.loginNow")}
             </button>
           </p>
         </DialogFooter>

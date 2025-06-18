@@ -1,115 +1,88 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { getSession } from "@/lib/session"
-import { decryptData, encryptData } from "@/lib/encryption"
+import { type NextRequest } from "next/server";
+import { getSession } from "@/lib/session/session";
+import { getTranslations } from "@/i18n/server";
+import type { UserSession } from "@/lib/session/sessionOptions";
+import { withServerBase, baseResponse } from "@/lib/api/apiServerBase";
+import { apiServer, getConfig } from "@/lib/api/apiServer";
 
-// Simple user database simulation (should match register route)
-const users: Array<{
-  id: string
-  email: string
-  password: string
-  name: string
-  createdAt: string
-  isPremium: boolean
-}> = [
-  {
-    id: "demo-user-1",
-    email: "demo@bocmenh.com",
-    password: Buffer.from("123456").toString("base64"),
-    name: "Người Dùng Demo",
-    createdAt: new Date().toISOString(),
-    isPremium: false,
-  },
-  {
-    id: "premium-user-1",
-    email: "premium@bocmenh.com",
-    password: Buffer.from("123456").toString("base64"),
-    name: "Thành Viên Premium",
-    createdAt: new Date().toISOString(),
-    isPremium: true,
-  },
-]
+async function loginPostHandler(
+  data: any,
+  request: NextRequest,
+  userSession: UserSession
+) {
+  const { t } = await getTranslations(["common", "auth"]);
 
-export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
-    const { encrypted } = body
-
-    // Decrypt the request data
-    const { email, password, rememberMe } = decryptData(encrypted)
+    const { email, password, rememberMe } = data;
 
     // Validation
-    const errors: Record<string, string> = {}
+    const errors: Record<string, string> = {};
 
     if (!email || !isValidEmail(email)) {
-      errors.email = "Email không hợp lệ"
+      errors.email = t("auth.login.invalidEmail");
     }
 
     if (!password || password.length < 1) {
-      errors.password = "Vui lòng nhập mật khẩu"
+      errors.password = t("auth.login.emptyPassword");
     }
 
     if (Object.keys(errors).length > 0) {
-      const errorData = {
-        success: false,
+      return baseResponse({
+        status: 400,
+        message: t("auth.login.invalidCredentials"),
         errors,
-        message: "Vui lòng kiểm tra lại thông tin đăng nhập",
-      }
-      return NextResponse.json({ encrypted: encryptData(errorData) }, { status: 400 })
+      });
     }
 
-    // Find user
-    const user = users.find(
-      (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === hashPassword(password),
-    )
+    const config = await getConfig(request, userSession?.accessToken);
 
-    if (!user) {
-      const errorData = {
-        success: false,
-        errors: {
-          general: "Email hoặc mật khẩu không đúng",
-        },
-        message: "Đăng nhập thất bại",
-      }
-      return NextResponse.json({ encrypted: encryptData(errorData) }, { status: 401 })
-    }
+    const response = await apiServer.post(
+      "/account/login",
+      { username: email, password: password, rememberMe },
+      config
+    );
 
-    // Create session
-    const session = await getSession()
-    session.id = user.id
-    session.email = user.email
-    session.name = user.name
-    session.isLoggedIn = true
-    session.isPremium = user.isPremium
+    const user = response.data.data;
 
-    await session.save()
+    const session = await getSession();
 
-    const responseData = {
-      success: true,
-      message: "Đăng nhập thành công!",
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        isPremium: user.isPremium,
-      },
-    }
+    session.accessToken = user.token;
+    session.id = user.id;
+    session.email = user.username;
+    session.name = user.displayName ?? user.username ?? user.email;
+    session.isPremium = user.isPremium ?? false;
+    session.isLoggedIn = true;
 
-    return NextResponse.json({ encrypted: encryptData(responseData) })
+    await session.save();
+
+    return baseResponse({
+      status: 200,
+      message: t("auth.login.success"),
+      data: session,
+    });
   } catch (error) {
-    const errorData = {
-      success: false,
-      message: "Lỗi hệ thống, vui lòng thử lại sau",
+    if ((error as any)?.status === 400) {
+      return baseResponse({
+        status: 401,
+        message: t("auth.login.loginFailed"),
+        errors: {
+          general: t("auth.login.loginFailedDetail"),
+        },
+      });
     }
 
-    return NextResponse.json({ encrypted: encryptData(errorData) }, { status: 500 })
+    return baseResponse({
+      status: 500,
+      message: t("auth.login.systemFailed"),
+    });
   }
 }
 
 function isValidEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
 }
 
-function hashPassword(password: string): string {
-  return Buffer.from(password).toString("base64")
-}
+export const POST = withServerBase(loginPostHandler, {
+  isAuthenRequired: false,
+});

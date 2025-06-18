@@ -1,7 +1,7 @@
 // app/api/wishlist/[productId]/route.ts
 import { type NextRequest, NextResponse } from "next/server"
 import { getIronSession } from "iron-session"
-import { sessionOptions, type UserSession } from "@/lib/sessionOptions"
+import { sessionOptions, type UserSession } from "@/lib/session/sessionOptions"
 import { cookies } from "next/headers"
 
 // Sử dụng lại biến store từ file route.ts chính, hoặc quản lý riêng nếu cần.

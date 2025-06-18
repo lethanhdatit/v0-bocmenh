@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getSession } from "@/lib/session"
-import { encryptData } from "@/lib/encryption"
+import { getSession } from "@/lib/session/session"
+import { encryptData } from "@/lib/infra/encryption"
 
 export async function POST(request: NextRequest) {
   try {

@@ -18,10 +18,10 @@ import {
 import { Loader2, AlertCircle, Mail, ArrowLeft, Send, CheckCircle } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { motion } from "framer-motion"
-import { apiClient } from "@/lib/api"
+import { apiClient } from "@/lib/api/apiClient"
 
 export default function ForgotPasswordModal() {
-  const { t } = useTranslation(["common", "auth"])
+  const { t } = useTranslation()
   const { activeModal, closeAuthModal, openLoginModal } = useAuth()
 
   const [email, setEmail] = useState("")
@@ -86,10 +86,10 @@ export default function ForgotPasswordModal() {
       <DialogContent className="sm:max-w-[425px] bg-gray-900 border-yellow-500/30 text-gray-100">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-yellow-400">
-            {isSuccess ? t("auth:auth.forgotPassword.emailSentTitle") : t("auth:auth.forgotPassword.title")}
+            {isSuccess ? t("auth.forgotPassword.emailSentTitle") : t("auth.forgotPassword.title")}
           </DialogTitle>
           <DialogDescription className="text-gray-400">
-            {isSuccess ? "" : t("auth:auth.forgotPassword.subtitle")}
+            {isSuccess ? "" : t("auth.forgotPassword.subtitle")}
           </DialogDescription>
         </DialogHeader>
 
@@ -103,25 +103,25 @@ export default function ForgotPasswordModal() {
               <p>{message}</p>
 
               <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
-                <h3 className="font-semibold text-blue-400 mb-2">{t("auth:auth.forgotPassword.checkEmailTitle")}</h3>
+                <h3 className="font-semibold text-blue-400 mb-2">{t("auth.forgotPassword.checkEmailTitle")}</h3>
                 <ul className="text-sm text-blue-300 space-y-1 text-left">
-                  <li>{t("auth:auth.forgotPassword.checkInbox")}</li>
-                  <li>{t("auth:auth.forgotPassword.checkSpam")}</li>
-                  <li>{t("auth:auth.forgotPassword.linkExpiry")}</li>
-                  <li>{t("auth:auth.forgotPassword.oneTimeUse")}</li>
+                  <li>{t("auth.forgotPassword.checkInbox")}</li>
+                  <li>{t("auth.forgotPassword.checkSpam")}</li>
+                  <li>{t("auth.forgotPassword.linkExpiry")}</li>
+                  <li>{t("auth.forgotPassword.oneTimeUse")}</li>
                 </ul>
               </div>
 
               <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
                 <p className="text-yellow-400 text-sm">
-                  <strong>{t("auth:auth.forgotPassword.tipTitle")}</strong> {t("auth:auth.forgotPassword.tipContent")}
+                  <strong>{t("auth.forgotPassword.tipTitle")}</strong> {t("auth.forgotPassword.tipContent")}
                 </p>
               </div>
             </div>
 
             <div className="flex flex-col space-y-3 mt-6">
               <Button onClick={resetForm} className="bg-yellow-500 hover:bg-yellow-600 text-gray-900">
-                {t("auth:auth.forgotPassword.resendEmail")}
+                {t("auth.forgotPassword.resendEmail")}
               </Button>
             </div>
           </div>
@@ -129,11 +129,11 @@ export default function ForgotPasswordModal() {
           <>
             {/* Info Box */}
             <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 mb-4">
-              <h3 className="font-semibold text-blue-400 mb-2">{t("auth:auth.forgotPassword.noteTitle")}</h3>
+              <h3 className="font-semibold text-blue-400 mb-2">{t("auth.forgotPassword.noteTitle")}</h3>
               <ul className="text-sm text-blue-300 space-y-1">
-                <li>{t("auth:auth.forgotPassword.noteExpiry")}</li>
-                <li>{t("auth:auth.forgotPassword.noteOneTime")}</li>
-                <li>{t("auth:auth.forgotPassword.noteSpam")}</li>
+                <li>{t("auth.forgotPassword.noteExpiry")}</li>
+                <li>{t("auth.forgotPassword.noteOneTime")}</li>
+                <li>{t("auth.forgotPassword.noteSpam")}</li>
               </ul>
             </div>
 
@@ -153,7 +153,7 @@ export default function ForgotPasswordModal() {
               <div>
                 <Label htmlFor="email-forgot-modal" className="flex items-center space-x-2 text-yellow-400 mb-2">
                   <Mail className="w-4 h-4" />
-                  <span>{t("auth:auth.forgotPassword.email")}</span>
+                  <span>{t("auth.forgotPassword.email")}</span>
                 </Label>
                 <Input
                   id="email-forgot-modal"
@@ -163,7 +163,7 @@ export default function ForgotPasswordModal() {
                   className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 ${
                     errors.email ? "border-red-500 focus:border-red-400" : "focus:border-yellow-500"
                   }`}
-                  placeholder={t("auth:auth.forgotPassword.emailPlaceholder")}
+                  placeholder={t("auth.forgotPassword.emailPlaceholder")}
                   required
                 />
                 {errors.email && (
@@ -187,7 +187,7 @@ export default function ForgotPasswordModal() {
                 ) : (
                   <>
                     <Send className="w-5 h-5 mr-2" />
-                    {t("auth:auth.forgotPassword.sendButton")}
+                    {t("auth.forgotPassword.sendButton")}
                   </>
                 )}
               </Button>
@@ -201,7 +201,7 @@ export default function ForgotPasswordModal() {
             className="flex items-center justify-center space-x-2 text-gray-400 hover:text-yellow-500 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>{t("auth:auth.forgotPassword.backToLogin")}</span>
+            <span>{t("auth.forgotPassword.backToLogin")}</span>
           </button>
         </DialogFooter>
       </DialogContent>

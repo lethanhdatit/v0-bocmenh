@@ -2,7 +2,7 @@
 
 import { useEffect } from "react"
 import { useAuth } from "@/contexts/AuthContext"
-import { setGlobalAuthPrompt } from "@/lib/api"
+import { setGlobalAuthPrompt } from "@/lib/api/apiClient"
 
 export default function AuthSetup() {
   const { openLoginModal } = useAuth()

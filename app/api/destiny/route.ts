@@ -1,24 +1,13 @@
 import { type NextRequest, NextResponse } from "next/server"
-import type { UserSession } from "@/lib/sessionOptions"
-import { decryptData, encryptData } from "@/lib/encryption"
+import type { UserSession } from "@/lib/session/sessionOptions"
+import { decryptData, encryptData } from "@/lib/infra/encryption"
 import { calculateDestiny, type DestinyResult } from "@/lib/destinyService"
-import { withApiAuth } from "@/lib/apiAuthWrapper"
+import { withServerBase } from "@/lib/api/apiServerBase"
 
 // Original handler logic
-async function destinyApiHandler(request: NextRequest, session: UserSession) {
+async function destinyApiHandler(data: any, request: NextRequest, session: UserSession) {
   try {
-    const body = await request.json()
-    const { encrypted } = body
-
-    if (!encrypted) {
-      return NextResponse.json(
-        { encrypted: encryptData({ success: false, error: "Dữ liệu mã hoá bị thiếu." }) },
-        { status: 400 },
-      )
-    }
-
-    const decrypted = decryptData(encrypted)
-    const { birthDate, birthTime, name } = decrypted
+    const { birthDate, birthTime, name } = data
 
     if (!name || !birthDate) {
       return NextResponse.json(
@@ -42,6 +31,6 @@ async function destinyApiHandler(request: NextRequest, session: UserSession) {
 }
 
 // Wrap the handler with authentication options
-export const POST = withApiAuth(destinyApiHandler, {
+export const POST = withServerBase(destinyApiHandler, {
   isAuthenRequired: true, // Set to true to test authentication
 })

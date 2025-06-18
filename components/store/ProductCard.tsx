@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Star, Heart, ExternalLink } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useWishlist } from "@/hooks/use-wishlist"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/infra/utils"
 
 interface ProductCardProps {
   product: Product
