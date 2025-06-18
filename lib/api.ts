@@ -1,7 +1,7 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios"
 import { encryptData, decryptData } from "./encryption"
 
-// This function will be set by AuthSetup to link to AuthContext's promptLogin
+// This function will be set by AuthSetup to link to AuthContext's openLoginModal
 let globalAuthPromptHandler: ((options?: any) => void) | null = null
 
 export function setGlobalAuthPrompt(handler: typeof globalAuthPromptHandler) {
@@ -69,21 +69,14 @@ apiClient.interceptors.response.use(
                 reject(retryError)
               }
             },
-            // preserveState and redirectTo are hints for the promptLogin UI,
-            // not directly used by the interceptor's retry logic here.
-            // The original request config is reused.
-            // preserveState: originalRequest._preserveState,
-            // redirectTo: originalRequest._redirectTo,
           })
         })
       } else {
         console.warn("Global auth prompt handler not set. Cannot prompt for login via interceptor.")
-        // Fallback if handler isn't set, reject or redirect.
-        // For a smoother UX, rejecting is better than a hard redirect here.
       }
     }
 
-    // Decrypt error response if it's encrypted (as per existing pattern)
+    // Decrypt error response if it's encrypted
     if (error.response?.data && (error.response.data as any).encrypted) {
       try {
         error.response.data = decryptData((error.response.data as any).encrypted)

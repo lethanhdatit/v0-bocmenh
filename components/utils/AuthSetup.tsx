@@ -5,14 +5,14 @@ import { useAuth } from "@/contexts/AuthContext"
 import { setGlobalAuthPrompt } from "@/lib/api"
 
 export default function AuthSetup() {
-  const { promptLogin } = useAuth()
+  const { openLoginModal } = useAuth()
 
   useEffect(() => {
-    setGlobalAuthPrompt(promptLogin)
+    setGlobalAuthPrompt(openLoginModal)
     return () => {
       setGlobalAuthPrompt(null) // Cleanup on unmount
     }
-  }, [promptLogin])
+  }, [openLoginModal])
 
   return null // This component does not render anything visible
 }
