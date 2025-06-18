@@ -1,89 +1,109 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import Link from "next/link"
-import { Globe, ChevronDown } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
-import { useTranslation } from "react-i18next"
-import { useLanguage } from "@/contexts/LanguageContext"
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { Globe, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Footer() {
-  const { t } = useTranslation()
-  const { language, setLanguage, isLoading: langIsLoading } = useLanguage()
-  const [showLanguageMenu, setShowLanguageMenu] = useState(false)
-  const langMenuRef = useRef<HTMLDivElement>(null)
+  const { t } = useTranslation();
+  const { language, setLanguage, isLoading: langIsLoading } = useLanguage();
+  const [showLanguageMenu, setShowLanguageMenu] = useState(false);
+  const langMenuRef = useRef<HTMLDivElement>(null);
 
   const footerLinks = [
+    { href: "/contact", labelKey: "footer.contact" },
     { href: "/help", labelKey: "footer.help" },
     { href: "/about", labelKey: "footer.about" },
-    { href: "/contact", labelKey: "footer.contact" },
     { href: "/privacy", labelKey: "footer.privacy" },
     { href: "/terms", labelKey: "footer.terms" },
-  ]
+  ];
 
   const languages = [
     { code: "vi", name: "Tiếng Việt", flag: "🇻🇳" },
     { code: "en", name: "English", flag: "🇺🇸" },
-  ]
+  ];
 
-  const currentLang = languages.find((l) => l.code === language)
-  const currentYear = new Date().getFullYear()
+  const currentLang = languages.find((l) => l.code === language);
+  const currentYear = new Date().getFullYear();
 
   const handleLanguageChange = async (lang: "vi" | "en") => {
-    setShowLanguageMenu(false)
-    await setLanguage(lang)
-  }
+    setShowLanguageMenu(false);
+    await setLanguage(lang);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (langMenuRef.current && !langMenuRef.current.contains(event.target as Node)) {
-        setShowLanguageMenu(false)
+      if (
+        langMenuRef.current &&
+        !langMenuRef.current.contains(event.target as Node)
+      ) {
+        setShowLanguageMenu(false);
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside)
+    };
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <footer className="bg-gray-950/80 backdrop-blur-md border-t border-gray-800 text-gray-400">
+    <footer
+      style={{
+        backgroundColor: "#032031",
+        backgroundImage: 'url("/imgs/footer-bg.png")',
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center 20px",
+      }}
+      className="bg-gray-950/80 backdrop-blur-md border-t border-gray-800 text-gray-400"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="text-sm font-semibold text-gray-200 tracking-wider uppercase mb-3">{t("site.title")}</h3>
+            <h3 className="text-sm font-semibold text-gray-200 tracking-wider uppercase mb-3">
+              {t("site.title")}
+            </h3>
             <ul className="space-y-2">
               {footerLinks.slice(0, 2).map(
                 (
-                  link, // Example: First 2 links
+                  link // Example: First 2 links
                 ) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="hover:text-yellow-500 transition-colors text-sm">
+                    <Link
+                      href={link.href}
+                      className="hover:text-yellow-500 transition-colors text-sm"
+                    >
                       {t(link.labelKey)}
                     </Link>
                   </li>
-                ),
+                )
               )}
             </ul>
           </div>
           <div>
-            {/* Placeholder for alignment */}
             <ul className="space-y-2">
               {footerLinks.slice(2, footerLinks.length).map(
                 (
-                  link, // Example: Remaining links
+                  link // Example: Remaining links
                 ) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="hover:text-yellow-500 transition-colors text-sm">
+                    <Link
+                      href={link.href}
+                      className="hover:text-yellow-500 transition-colors text-sm"
+                    >
                       {t(link.labelKey)}
                     </Link>
                   </li>
-                ),
+                )
               )}
             </ul>
           </div>
           <div className="col-span-2 md:col-span-2 flex flex-col items-start md:items-end">
-            <h3 className="text-sm font-semibold text-gray-200 tracking-wider uppercase mb-3">{t("nav.language")}</h3>
+            <h3 className="text-sm font-semibold text-gray-200 tracking-wider uppercase mb-3">
+              {t("nav.language")}
+            </h3>
             <div ref={langMenuRef} className="relative">
               <button
                 onClick={() => setShowLanguageMenu(!showLanguageMenu)}
@@ -114,7 +134,9 @@ export default function Footer() {
                     {languages.map((lang) => (
                       <button
                         key={lang.code}
-                        onClick={() => handleLanguageChange(lang.code as "vi" | "en")}
+                        onClick={() =>
+                          handleLanguageChange(lang.code as "vi" | "en")
+                        }
                         className={`w-full text-left px-3.5 py-2 text-sm transition-colors flex items-center space-x-2.5 ${
                           language === lang.code
                             ? "bg-yellow-500/10 text-yellow-400"
@@ -123,7 +145,9 @@ export default function Footer() {
                       >
                         <span className="text-lg">{lang.flag}</span>
                         <span>{lang.name}</span>
-                        {language === lang.code && <span className="ml-auto text-yellow-500">✓</span>}
+                        {language === lang.code && (
+                          <span className="ml-auto text-yellow-500">✓</span>
+                        )}
                       </button>
                     ))}
                   </motion.div>
@@ -140,5 +164,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

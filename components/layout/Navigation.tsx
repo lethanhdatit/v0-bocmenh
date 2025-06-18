@@ -26,13 +26,15 @@ export default function Navigation() {
   }
 
   const navItems = [
-    { href: "/", label: t("nav.home") },
+    // { href: "/", label: t("nav.home") },
+    { href: "/luckybox", label: t("nav.luckybox") },
     { href: "/destiny", label: t("nav.destiny") },
     { href: "/dreams", label: t("nav.dreams") },
     { href: "/numerology", label: t("nav.numerology") },
     { href: "/tarot", label: t("nav.tarot") },
     { href: "/fengshui", label: t("nav.fengshui") },
     { href: "/store", label: t("nav.store") },
+    { href: "/blogs", label: t("nav.blogs") },
   ]
 
   // Close mobile menu when route changes

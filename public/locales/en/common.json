@@ -23,7 +23,9 @@
     "premium": "Upgrade to Premium",
     "wishlist": "Wishlist",
     "aiFace": "AI Face Analysis",
-    "blog": "Blog"
+    "blog": "Blog",
+    "blogs": "Blogs",
+    "luckybox": "Lucky Box"
   },
   "auth": {
     "logout": {
