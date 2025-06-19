@@ -52,12 +52,10 @@ export default function Footer() {
   return (
     <footer
       style={{
-        backgroundColor: "#032031",
         backgroundImage: 'url("/imgs/footer-bg.png")',
-        backgroundRepeat: "no-repeat",
         backgroundPosition: "center 20px",
       }}
-      className="bg-gray-950/80 backdrop-blur-md border-t border-gray-800 text-gray-400"
+      className="bg-[#032031] bg-no-repeat bg-gray-950/80 backdrop-blur-md border-t border-gray-800 text-gray-400"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
