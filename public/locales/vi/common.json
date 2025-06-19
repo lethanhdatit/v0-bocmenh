@@ -23,7 +23,8 @@
     "premium": "Nâng cấp Premium",
     "wishlist": "Yêu thích",
     "blogs": "Blogs",
-    "luckybox": "Hộp may mắn"
+    "luckybox": "Hộp may mắn",
+    "morebtn": "Thêm"
   },
   "auth": {
     "logout": {

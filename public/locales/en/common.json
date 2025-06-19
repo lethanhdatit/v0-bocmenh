@@ -25,7 +25,8 @@
     "aiFace": "AI Face Analysis",
     "blog": "Blog",
     "blogs": "Blogs",
-    "luckybox": "Lucky Box"
+    "luckybox": "Lucky Box",
+    "morebtn": "More"
   },
   "auth": {
     "logout": {

@@ -21,10 +21,10 @@ export default function Navigation() {
   const { user, isLoggedIn, logout, openLoginModal, openRegisterModal } = useAuth()
   const { t, i18n } = useTranslation()
 
-  const toggleLanguage = () => {
-    const newLang = i18n.language === "vi" ? "en" : "vi"
-    i18n.changeLanguage(newLang)
-  }
+  // const toggleLanguage = () => {
+  //   const newLang = i18n.language === "vi" ? "en" : "vi"
+  //   i18n.changeLanguage(newLang)
+  // }
 
   const handleLogout = async () => {
     await logout()
@@ -96,7 +96,7 @@ export default function Navigation() {
       const authWidth = authContainer.offsetWidth
 
       // Account for gaps and padding - include space for overflow button
-      const reservedSpace = logoWidth + authWidth + 80 // Include overflow button space
+      const reservedSpace = logoWidth + authWidth + 100 // Include overflow button space
 
       // Available space for menu items (centered)
       const availableWidth = totalWidth - reservedSpace
@@ -269,9 +269,8 @@ export default function Navigation() {
                     <button
                       onClick={() => setIsOverflowMenuOpen(!isOverflowMenuOpen)}
                       className="flex items-center space-x-1 text-gray-300 hover:text-yellow-400 transition-colors px-2 py-1 rounded-md hover:bg-gray-800/50"
-                      title={`Xem thêm ${overflowItems.length} mục`}
                     >
-                      <span className="text-sm font-medium">Thêm</span>
+                      <span className="text-sm font-medium">{t("nav.morebtn")}</span>
                       <ChevronDown
                         className={`w-4 h-4 transition-transform ${isOverflowMenuOpen ? "rotate-180" : ""}`}
                       />
@@ -285,7 +284,6 @@ export default function Navigation() {
                           exit={{ opacity: 0, y: -10 }}
                           className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-lg py-2 z-50"
                         >
-                          <div className="px-3 py-2 text-xs text-gray-400 border-b border-gray-700">Menu khác</div>
                           {overflowItems.map((item) => (
                             <Link
                               key={item.href}
@@ -381,39 +379,6 @@ export default function Navigation() {
                   {item.label}
                 </Link>
               ))}
-
-              {isLoggedIn && (
-                <>
-                  <hr className="border-gray-700" />
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-2 text-gray-300">
-                      <User className="w-5 h-5" />
-                      <span className="text-sm">{user?.name || user?.email}</span>
-                    </div>
-                    <Link
-                      href="/profile"
-                      className="flex items-center space-x-2 text-sm text-gray-300 hover:text-yellow-400 transition-colors"
-                    >
-                      <Settings className="w-4 h-4" />
-                      <span>{t("nav.profile")}</span>
-                    </Link>
-                    <Link
-                      href="/wishlist"
-                      className="flex items-center space-x-2 text-sm text-gray-300 hover:text-yellow-400 transition-colors"
-                    >
-                      <Heart className="w-4 h-4" />
-                      <span>{t("nav.wishlist")}</span>
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center space-x-2 text-sm text-gray-300 hover:text-red-400 transition-colors"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      <span>{t("auth.logout.title")}</span>
-                    </button>
-                  </div>
-                </>
-              )}
             </div>
           </motion.div>
         )}
