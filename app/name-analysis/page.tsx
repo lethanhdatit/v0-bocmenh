@@ -1,7 +1,11 @@
 import type { Metadata } from "next"
 import NameAnalysisForm from "@/components/forms/NameAnalysisForm"
+import { getBaseUrl } from "@/lib/infra/utils"
+
+const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Phân Tích Thần Số Học Tên | Bóc Mệnh",
   description:
     "Khám phá bí mật ẩn giấu trong tên của bạn qua thần số học. Phân tích số định mệnh, cá tính, linh hồn và nhiều yếu tố khác từ tên.",

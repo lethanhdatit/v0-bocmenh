@@ -1,7 +1,11 @@
 import type { Metadata } from "next"
 import ClientPage from "./ClientPage"
+import { getBaseUrl } from "@/lib/infra/utils"
+
+const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn | Trang Chủ",
   description:
     "Mỗi người là một hộp bí ẩn, hãy khám phá và bạn sẽ hiểu về chính mình. Dịch vụ bói toán, giải mơ, phong thủy online chính xác nhất Việt Nam.",
@@ -9,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn",
     description: "Mỗi người là một hộp bí ẩn, hãy khám phá và bạn sẽ hiểu về chính mình",
-    url: "https://bocmenh.com",
+    url: baseUrl,
     images: [
       {
         url: "/og-home.jpg",
@@ -20,10 +24,10 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://bocmenh.com",
+    canonical: "/",
     languages: {
-      vi: "https://bocmenh.com",
-      en: "https://bocmenh.com/en",
+      vi: "/",
+      en: "/",
     },
   },
 }
@@ -34,7 +38,7 @@ const structuredData = {
   "@type": "WebPage",
   name: "Bóc Mệnh - Trang Chủ",
   description: "Khám phá vận mệnh, giải mơ, xem tướng số online",
-  url: "https://bocmenh.com",
+  url: baseUrl,
   mainEntity: {
     "@type": "ItemList",
     name: "Dịch vụ Bóc Mệnh",
@@ -45,35 +49,35 @@ const structuredData = {
         position: 1,
         name: "Bóc Mệnh Cá Nhân",
         description: "Khám phá vận mệnh qua ngày sinh",
-        url: "https://bocmenh.com/destiny",
+        url: `${baseUrl}/destiny`,
       },
       {
         "@type": "Service",
         position: 2,
         name: "Giải Mơ",
         description: "Giải thích ý nghĩa giấc mơ",
-        url: "https://bocmenh.com/dreams",
+        url: `${baseUrl}/dreams`,
       },
       {
         "@type": "Service",
         position: 3,
         name: "Thần Số Học",
         description: "Phân tích số may mắn",
-        url: "https://bocmenh.com/numerology",
+        url: `${baseUrl}/numerology`,
       },
       {
         "@type": "Service",
         position: 4,
         name: "Tarot",
         description: "Bói bài Tarot online",
-        url: "https://bocmenh.com/tarot",
+        url: `${baseUrl}/tarot`,
       },
       {
         "@type": "Service",
         position: 5,
         name: "Phong Thủy",
         description: "Tư vấn phong thủy",
-        url: "https://bocmenh.com/fengshui",
+        url: `${baseUrl}/fengshui`,
       },
     ],
   },
@@ -84,7 +88,7 @@ const structuredData = {
         "@type": "ListItem",
         position: 1,
         name: "Trang chủ",
-        item: "https://bocmenh.com",
+        item: baseUrl,
       },
     ],
   },

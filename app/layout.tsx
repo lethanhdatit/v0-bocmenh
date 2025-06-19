@@ -10,10 +10,13 @@ import Footer from "@/components/layout/Footer"
 import AuthModals from "@/components/auth/AuthModals"
 import AuthSetup from "@/components/utils/AuthSetup"
 import ScrollControls from "@/components/layout/ScrollControls"
+import { getBaseUrl } from "@/lib/infra/utils"
 
+const baseUrl = getBaseUrl();
 const inter = Inter({ subsets: ["latin", "vietnamese"] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn",
   description:
     "Khám phá vận mệnh, giải mơ, xem tướng số và nhiều tính năng thú vị khác tại Bóc Mệnh. Dịch vụ bói toán online chính xác và uy tín nhất Việt Nam.",
@@ -43,7 +46,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "vi_VN",
     alternateLocale: ["en_US"],
-    url: "https://bocmenh.com",
+    url: baseUrl,
     siteName: "Bóc Mệnh",
     title: "Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn",
     description:
@@ -102,7 +105,6 @@ export default function RootLayout({
 
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
 

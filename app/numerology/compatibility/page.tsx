@@ -1,7 +1,11 @@
 import type { Metadata } from "next"
 import CompatibilityForm from "@/components/forms/CompatibilityForm"
+import { getBaseUrl } from "@/lib/infra/utils"
+
+const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Tương Hợp Thần Số Học - Kiểm Tra Độ Hợp Nhau Qua Con Số",
   description:
     "Phân tích tương hợp thần số học giữa hai người. Kiểm tra độ hợp nhau trong tình yêu, tình bạn và kinh doanh qua ngày sinh và tên",
