@@ -96,7 +96,7 @@ export default function Navigation() {
       const authWidth = authContainer.offsetWidth
 
       // Account for gaps and padding - more generous spacing for centered layout
-      const reservedSpace = logoWidth + authWidth + 120 // 120px for gaps, margins and overflow button
+      const reservedSpace = logoWidth + authWidth + 48 // 120px for gaps, margins and overflow button
 
       // Available space for menu items (centered)
       const availableWidth = totalWidth - reservedSpace
@@ -109,7 +109,7 @@ export default function Navigation() {
       // Calculate how many items can fit with centered layout
       for (let i = 0; i < hiddenItems.length; i++) {
         const item = hiddenItems[i] as HTMLElement
-        const itemWidth = item.offsetWidth + 24 // 24px for space-x-4/6 gap
+        const itemWidth = item.offsetWidth + 20 // 24px for space-x-4/6 gap
 
         if (totalMenuWidth + itemWidth <= availableWidth) {
           totalMenuWidth += itemWidth
@@ -160,7 +160,7 @@ export default function Navigation() {
             className="flex items-center space-x-2 text-gray-300 hover:text-yellow-400 transition-colors"
           >
             <User className={`flex-shrink-0 ${isMobile ? "w-5 h-5" : "w-5 h-5"}`} />
-            {!isMobile && <span className="text-sm max-w-32 truncate">{user?.name || user?.email}</span>}
+            <span className="text-sm max-w-32 truncate">{user?.name || user?.email}</span>
           </button>
 
           <AnimatePresence>
@@ -238,15 +238,15 @@ export default function Navigation() {
                   className="h-5 w-auto sm:h-6 lg:h-7 object-contain transition-all duration-300"
                   style={{
                     minWidth: "60px",
-                    maxWidth: "200px",
-                    width: "clamp(60px, 15vw, 200px)",
+                    maxWidth: "110px",
+                    width: "clamp(60px, 15vw, 110px)",
                   }}
                 />
               </Link>
             </div>
 
             {/* Center: Navigation Menu */}
-            <div className="flex-1 flex justify-center items-center min-w-0 mx-4">
+            <div className="flex-1 flex justify-center items-center min-w-0 mx-1">
               <div className="flex items-center space-x-4 lg:space-x-6">
                 {visibleItems.map((item) => (
                   <Link
