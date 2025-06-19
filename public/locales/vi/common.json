@@ -224,7 +224,7 @@
     "submit": "Gửi",
     "analyze": "Phân tích",
     "results": "Kết quả",
-    "tryAgain": "Thử lại",
+    "tryAgain": "Xin vui lòng thử lại",
     "getStarted": "Bắt đầu",
     "learnMore": "Tìm hiểu thêm",
     "back": "Quay lại",
@@ -399,7 +399,9 @@
     "error": {
       "generic": "Không thể tạo kết quả bóc mệnh. Vui lòng thử lại.",
       "fetch": "Lỗi kết nối. Vui lòng kiểm tra internet và thử lại.",
-      "system": "Lỗi hệ thống, vui lòng thử lại sau"
+      "system": "Lỗi hệ thống, vui lòng thử lại sau",
+      "theologyFailed": "Không thể lấy dữ liệu bóc mệnh. Vui lòng thử lại sau.",
+      "systemFailed": "Hệ thống đang gặp sự cố. Vui lòng thử lại sau."
     },
     "recommendedItemsTitle": "Vật phẩm Phong Thủy được gợi ý",
     "recommendedItemsSubtitle": "Tăng cường vận mệnh với những vật phẩm mạnh mẽ này",

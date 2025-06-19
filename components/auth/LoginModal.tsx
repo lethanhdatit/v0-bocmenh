@@ -53,7 +53,8 @@ export default function LoginModal() {
       setErrors(
         result.errors || ({ system: result.message } as Record<string, string>)
       );
-      setMessage(result.message || t("auth.login.loginFailed"));
+    }else{
+      setMessage(result.message!);
     }
   };
 
@@ -111,7 +112,7 @@ export default function LoginModal() {
         </div> */}
 
         {/* Error Message */}
-        {message && Object.keys(errors).length > 0 && (
+        {Object.keys(errors).length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -160,6 +161,7 @@ export default function LoginModal() {
               value={formData.email}
               onChange={handleInputChange}
               required
+              autoComplete="username"
               className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 ${
                 errors.email
                   ? "border-red-500 focus:border-red-400"
@@ -195,6 +197,7 @@ export default function LoginModal() {
                 value={formData.password}
                 onChange={handleInputChange}
                 required
+                autoComplete="current-password"
                 className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 pr-12 ${
                   errors.password
                     ? "border-red-500 focus:border-red-400"

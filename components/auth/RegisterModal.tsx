@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import { set } from "date-fns";
 
 export default function RegisterModal() {
   const { t } = useTranslation();
@@ -70,7 +71,8 @@ export default function RegisterModal() {
       setErrors(
         result.errors || ({ system: result.message } as Record<string, string>)
       );
-      setMessage(result.message || t("auth.register.registerFailed"));
+    }else{
+      setMessage(result.message!);
     }
   };
 
@@ -141,7 +143,7 @@ export default function RegisterModal() {
         </DialogHeader>
 
         {/* Error Message */}
-        {message && Object.keys(errors).length > 0 && (
+        {Object.keys(errors).length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -225,6 +227,7 @@ export default function RegisterModal() {
               value={formData.email}
               onChange={handleInputChange}
               required
+              autoComplete="username"
               className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 ${
                 errors.email
                   ? "border-red-500 focus:border-red-400"
@@ -260,6 +263,7 @@ export default function RegisterModal() {
                 value={formData.password}
                 onChange={handleInputChange}
                 required
+                autoComplete="new-password"
                 className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 pr-12 ${
                   errors.password
                     ? "border-red-500 focus:border-red-400"
@@ -333,6 +337,7 @@ export default function RegisterModal() {
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
                 required
+                autoComplete="new-password"
                 className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 pr-12 ${
                   errors.confirmPassword
                     ? "border-red-500 focus:border-red-400"
