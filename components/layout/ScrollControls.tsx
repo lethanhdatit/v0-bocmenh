@@ -3,7 +3,7 @@
 import { useRef } from "react";
 
 import { useState, useEffect, useCallback } from "react";
-import { ArrowUp, Compass, X, Info } from "lucide-react";
+import { ArrowUp, Compass, X, Info, Play } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button"; // Sử dụng Button component có sẵn
@@ -171,8 +171,9 @@ export default function ScrollControls() {
           {isTourActive ? (
             <X className="h-6 w-6" />
           ) : (
-            <Compass className="h-6 w-6" />
-            // Hoặc <Play className="h-6 w-6" />
+            // <Compass className="h-6 w-6" />
+             <Info className="h-6 w-6" />
+            // <Play className="h-6 w-6" />
           )}
         </Button>
       </div>
@@ -204,9 +205,9 @@ export default function ScrollControls() {
               >
                 <X className="h-5 w-5" />
               </Button>
-              <div className="flex justify-center mb-3">
+              {/* <div className="flex justify-center mb-3">
                 <Info className="w-8 h-8 text-yellow-500" />
-              </div>
+              </div> */}
               <h3 className="text-xl font-semibold text-yellow-400 mb-2">
                 {tooltipContent.title}
               </h3>
