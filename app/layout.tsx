@@ -27,9 +27,6 @@ export const metadata: Metadata = {
   generator: "Next.js",
   applicationName: "Bóc Mệnh",
   referrer: "origin-when-cross-origin",
-  colorScheme: "dark",
-  themeColor: "#EAB308", // yellow-500
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
   robots: {
     index: true,
     follow: true,
@@ -81,6 +78,15 @@ export const metadata: Metadata = {
       "facebook-domain-verification": "your-facebook-verification-code",
     },
   },
+}
+
+// ✅ Thêm export viewport riêng:
+export const viewport = {
+  colorScheme: "dark",
+  themeColor: "#EAB308",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 }
 
 export default function RootLayout({
