@@ -165,7 +165,7 @@ export default function RootLayout({
                   <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
                     <div className="absolute inset-0">
                       {/* Reduced stars for better performance */}
-                      {[...Array(30)].map((_, i) => (
+                      {[...Array(60)].map((_, i) => (
                         <div
                           key={i}
                           className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
@@ -177,7 +177,7 @@ export default function RootLayout({
                           }}
                         />
                       ))}
-                      {[...Array(15)].map((_, i) => (
+                      {[...Array(25)].map((_, i) => (
                         <div
                           key={`gold-${i}`}
                           className="absolute w-1.5 h-1.5 bg-yellow-500 rounded-full animate-twinkle"

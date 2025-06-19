@@ -60,9 +60,39 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="text-sm font-semibold text-gray-200 tracking-wider uppercase mb-3">
-              {t("site.title")}
-            </h3>
+            <div className="flex items-center gap-3 flex-shrink-0 min-w-0 mb-3">
+              <Link
+                href="/"
+                className="flex-shrink-0"
+                aria-label="Bóc Mệnh - Về trang chủ"
+              >
+                <img
+                  src="/logo.png"
+                  alt="Bóc Mệnh Logo - Khám phá vận mệnh của bạn"
+                  className="h-8 w-auto sm:h-9 lg:h-10 object-contain"
+                  width="40"
+                  height="40"
+                />
+              </Link>
+              <Link
+                href="/"
+                className="flex-shrink-1 min-w-0 overflow-hidden"
+                aria-label="Bóc Mệnh"
+              >
+                <img
+                  src="/slogan.png"
+                  alt="Bóc Mệnh - Mỗi người là một hộp bí ẩn"
+                  className="h-5 w-auto sm:h-6 lg:h-7 object-contain transition-all duration-300"
+                  style={{
+                    minWidth: "60px",
+                    maxWidth: "110px",
+                    width: "clamp(60px, 15vw, 110px)",
+                  }}
+                  width="110"
+                  height="28"
+                />
+              </Link>
+            </div>
             <ul className="space-y-2">
               {footerLinks.slice(0, 2).map(
                 (
@@ -81,6 +111,9 @@ export default function Footer() {
             </ul>
           </div>
           <div>
+            <h3 className="text-sm font-semibold text-gray-200 tracking-wider uppercase mb-3">
+              {t("site.title")}
+            </h3>
             <ul className="space-y-2">
               {footerLinks.slice(2, footerLinks.length).map(
                 (
