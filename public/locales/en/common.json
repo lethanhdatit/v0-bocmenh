@@ -226,7 +226,7 @@
     "submit": "Submit",
     "analyze": "Analyze",
     "results": "Results",
-    "tryAgain": "Try Again",
+    "tryAgain": "Please try again",
     "getStarted": "Get Started",
     "learnMore": "Learn More",
     "back": "Back",
@@ -420,7 +420,9 @@
     "error": {
       "generic": "Unable to generate reading. Please try again.",
       "fetch": "Connection error. Please check your internet and try again.",
-      "system": "System error, please try again later"
+      "system": "System error, please try again later",
+      "theologyFailed": "Theology analysis failed. Please try again later.",
+      "systemFailed": "System error, please try again later"
     },
     "recommendedItemsTitle": "Recommended Feng Shui Items",
     "recommendedItemsSubtitle": "Enhance your destiny with these powerful items",

@@ -1,11 +1,19 @@
-import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios"
-import { encryptData, decryptData } from "../infra/encryption"
+import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
+import { encryptData, decryptData } from "../infra/encryption";
+import { NextResponse } from "next/server";
+import { getTranslations } from "@/i18n/server";
 
 // This function will be set by AuthSetup to link to AuthContext's openLoginModal
-let globalAuthPromptHandler: ((options?: any) => void) | null = null
+let globalAuthPromptHandler: ((options?: any) => void) | null = null;
 
 export function setGlobalAuthPrompt(handler: typeof globalAuthPromptHandler) {
-  globalAuthPromptHandler = handler
+  globalAuthPromptHandler = handler;
+}
+
+let globalLogoutHandler: (() => void | Promise<void>) | null = null;
+
+export function setGlobalLogoutHandler(handler: typeof globalLogoutHandler) {
+  globalLogoutHandler = handler;
 }
 
 export const apiClient = axios.create({
@@ -13,55 +21,61 @@ export const apiClient = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-})
+});
 
 // Request interceptor for encryption
 apiClient.interceptors.request.use(
   (config) => {
     if (config.data) {
       if (!(config.data instanceof FormData)) {
-        config.data = { encrypted: encryptData(config.data) }
+        config.data = { encrypted: encryptData(config.data) };
       }
     }
-    return config
+    return config;
   },
   (error) => {
-    return Promise.reject(error)
-  },
-)
+    return Promise.reject(error);
+  }
+);
 
 // Response interceptor for decryption and auth handling
 apiClient.interceptors.response.use(
   (response) => {
     if (response.data && response.data.encrypted) {
       try {
-        response.data = decryptData(response.data.encrypted)
+        response.data = decryptData(response.data.encrypted);
       } catch (e) {
-        console.error("Failed to decrypt response data", e)
+        console.error("Failed to decrypt response data", e);
       }
     }
-    return response
+    return response;
   },
-  async (error: AxiosError<ApiErrorResponse>) => {
+  async (error: AxiosError<ApiBaseResponse>) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & {
-      _retry?: boolean
-      _preserveState?: boolean
-      _redirectTo?: string
+      _retry?: boolean;
+      _preserveState?: boolean;
+      _redirectTo?: string;
+    };
+
+    let data = error.response?.data as any;
+
+    if (data?.encrypted) {
+      data = decryptData(data.encrypted);
     }
 
-    let data = error.response?.data;
-
-    if ((data as any)?.encrypted) {
-      data = decryptData((data as any).encrypted)
+    if (error.response?.status === 401 && globalLogoutHandler) {
+      await globalLogoutHandler();
     }
 
     if (
       error.response?.status === 401 &&
-      data?.errorCode === "AUTH_REQUIRED" &&
+      (data?.errorCode === "AUTH_REQUIRED_RETRY" ||
+        data?.errorCode === "AUTH_REQUIRED") &&
       originalRequest &&
       !originalRequest._retry
     ) {
-      originalRequest._retry = true // Mark to prevent infinite loops
+      originalRequest._retry = true; // Mark to prevent infinite loops
+      originalRequest.data = data.forwardData;
 
       if (globalAuthPromptHandler) {
         return new Promise((resolve, reject) => {
@@ -69,32 +83,48 @@ apiClient.interceptors.response.use(
             onLoginSuccess: async () => {
               try {
                 // Re-attempt the original request
-                const response = await apiClient(originalRequest)
-                resolve(response)
+                if (data?.errorCode === "AUTH_REQUIRED_RETRY") {
+                  const response = await apiClient(originalRequest);
+                  resolve(response);
+                } else {
+                  const { t } = await getTranslations(["common", "common"]);
+                  reject(
+                    NextResponse.json(
+                      {
+                        success: false,
+                        message: t("common.tryAgain"),
+                        errors: { general: t("common.tryAgain") },
+                      } as ApiBaseResponse,
+                      { status: 400 }
+                    )
+                  );
+                }
               } catch (retryError) {
-                reject(retryError)
+                reject(retryError);
               }
             },
-          })
-        })
-      } else {
-        console.warn("Global auth prompt handler not set. Cannot prompt for login via interceptor.")
+          });
+        });
       }
     }
 
     if (data) {
-      error.response!.data = data
+      error.response!.data = data;
     }
-    return Promise.reject(error)
-  },
-)
+    return Promise.reject(error);
+  }
+);
 
 // SWR fetcher function
-export const fetcher = (url: string) => apiClient.get(url).then((res) => res.data)
+export const fetcher = (url: string) =>
+  apiClient.get(url).then((res) => res.data);
 
-export interface ApiErrorResponse {
-  success: boolean
-  error: string
-  errorCode?: string
-  errors?: Record<string, string>
+export interface ApiBaseResponse {
+  success: boolean;
+  message?: string;
+  data?: any;
+  forwardData?: any;
+  error?: string;
+  errorCode?: string;
+  errors?: Record<string, string>;
 }

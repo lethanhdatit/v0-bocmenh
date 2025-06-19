@@ -1,15 +1,18 @@
-import { type NextRequest, NextResponse } from "next/server";
-import { getSession } from "@/lib/session/session";
-import { decryptData, encryptData } from "@/lib/infra/encryption";
-import { withServerBase, baseResponse } from "@/lib/api/apiServerBase";
+import { type NextRequest } from "next/server";
+import {
+  withServerBase,
+  baseResponse,
+  handleApiServerError,
+} from "@/lib/api/apiServerBase";
 import { apiServer, getConfig } from "@/lib/api/apiServer";
 import type { UserSession } from "@/lib/session/sessionOptions";
 import { getTranslations } from "@/i18n/server";
+import { IronSession } from "iron-session";
 
 async function registerPostHandler(
   data: any,
   request: NextRequest,
-  userSession: UserSession
+  session: IronSession<UserSession>
 ) {
   const { t } = await getTranslations(["common", "auth"]);
 
@@ -43,7 +46,7 @@ async function registerPostHandler(
       });
     }
 
-    const config = await getConfig(request, userSession?.accessToken);
+    const config = await getConfig(request, session?.accessToken);
 
     const response = await apiServer.post(
       "/account/register",
@@ -52,8 +55,6 @@ async function registerPostHandler(
     );
 
     const user = response.data.data;
-
-    const session = await getSession();
 
     session.accessToken = user.token;
     session.id = user.id;
@@ -70,20 +71,14 @@ async function registerPostHandler(
       data: session,
     });
   } catch (error) {
-   if ((error as any)?.status === 400) {
-      return baseResponse({
-        status: 401,
-        message: t("auth.register.registerFailed"),
-        errors: {
-          general: t("auth.register.registerFailedDetail"),
-        },
-      });
-    }
-
-    return baseResponse({
-      status: 500,
-      message: t("auth.register.systemFailed"),
-    });
+    return handleApiServerError(
+      error,
+      {
+        error400Message: t("auth.register.registerFailedDetail"),
+        errorCommonMessage: t("auth.register.systemFailed"),
+      },
+      session
+    );
   }
 }
 

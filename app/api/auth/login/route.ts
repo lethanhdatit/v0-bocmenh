@@ -1,14 +1,18 @@
 import { type NextRequest } from "next/server";
-import { getSession } from "@/lib/session/session";
 import { getTranslations } from "@/i18n/server";
 import type { UserSession } from "@/lib/session/sessionOptions";
-import { withServerBase, baseResponse } from "@/lib/api/apiServerBase";
+import {
+  withServerBase,
+  baseResponse,
+  handleApiServerError,
+} from "@/lib/api/apiServerBase";
 import { apiServer, getConfig } from "@/lib/api/apiServer";
+import { IronSession } from "iron-session";
 
 async function loginPostHandler(
   data: any,
   request: NextRequest,
-  userSession: UserSession
+  session: IronSession<UserSession>
 ) {
   const { t } = await getTranslations(["common", "auth"]);
 
@@ -34,7 +38,7 @@ async function loginPostHandler(
       });
     }
 
-    const config = await getConfig(request, userSession?.accessToken);
+    const config = await getConfig(request, session?.accessToken);
 
     const response = await apiServer.post(
       "/account/login",
@@ -43,9 +47,7 @@ async function loginPostHandler(
     );
 
     const user = response.data.data;
-
-    const session = await getSession();
-
+    
     session.accessToken = user.token;
     session.id = user.id;
     session.email = user.username;
@@ -61,20 +63,14 @@ async function loginPostHandler(
       data: session,
     });
   } catch (error) {
-    if ((error as any)?.status === 400) {
-      return baseResponse({
-        status: 401,
-        message: t("auth.login.loginFailed"),
-        errors: {
-          general: t("auth.login.loginFailedDetail"),
-        },
-      });
-    }
-
-    return baseResponse({
-      status: 500,
-      message: t("auth.login.systemFailed"),
-    });
+    return handleApiServerError(
+      error,
+      {
+        error400Message: t("auth.login.loginFailedDetail"),
+        errorCommonMessage: t("auth.login.systemFailed"),
+      },
+      session
+    );
   }
 }
 

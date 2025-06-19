@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Stars, Calendar, Clock, User, Loader2, AlertCircle } from "lucide-react"
 import { useTranslation } from "react-i18next"
-import { apiClient, type ApiErrorResponse } from "@/lib/api/apiClient" // Use our apiClient
+import { apiClient, type ApiBaseResponse } from "@/lib/api/apiClient" // Use our apiClient
 
 export default function DestinyForm() {
   const { t } = useTranslation() // Ensure "destiny" namespace is loaded
@@ -33,7 +33,7 @@ export default function DestinyForm() {
   }, [searchParams])
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
+    e.preventDefault()  
     setFormError(null)
     if (!name.trim() || !birthDate) {
       setFormError(t("destiny.form.validationError")) // Use namespace
@@ -66,17 +66,8 @@ export default function DestinyForm() {
       // Navigate to the destiny page which will then fetch results based on these params
       router.push(`/destiny?${pageParams.toString()}`)
     } catch (err: any) {
-      console.error("Destiny form submission error:", err)
-      // The Axios interceptor should handle 401 AUTH_REQUIRED.
-      // If it's another error, or if the retry after login also fails, display it.
-      // The interceptor rejects the promise if retry fails or if auth prompt isn't set.
-      const apiError = err.response?.data as ApiErrorResponse | undefined
-      if (apiError?.errorCode === "AUTH_REQUIRED") {
-        // This case should ideally be handled by the modal, but if it bubbles up:
-        setFormError(t("auth.loginRequiredToContinue"))
-      } else {
-        setFormError(apiError?.error || t("common.errorUnexpected"))
-      }
+      const apiError = await err.json();
+      setFormError(apiError?.message ?? apiError?.errors?.general ?? t("common.errorUnexpected"))
     } finally {
       setIsLoading(false)
     }
