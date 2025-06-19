@@ -60,20 +60,35 @@ export default function Navigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-yellow-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
-            <img src="/logo.png" alt="Bóc Mệnh Logo" className="h-8 w-auto sm:h-10 md:h-12 object-contain" />
-            <img src="/slogan.png" alt="Bóc Mệnh" className="h-5 w-auto sm:h-6 md:h-7 object-contain hidden sm:block" />
-          </Link>
+        <div className="flex items-center h-16 gap-4">
+          {/* Logo + Slogan Container - Flexible */}
+          <div className="flex items-center gap-3 min-w-0 flex-shrink-1">
+            {/* Logo - Always visible, fixed size */}
+            <Link href="/" className="flex-shrink-0">
+              <img src="/logo.png" alt="Bóc Mệnh Logo" className="h-8 w-auto sm:h-9 lg:h-10 object-contain" />
+            </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+            {/* Slogan - Can shrink and hide when space is limited */}
+            <Link href="/" className="flex-shrink-1 min-w-0 overflow-hidden">
+              <img
+                src="/slogan.png"
+                alt="Bóc Mệnh"
+                className="h-5 w-auto sm:h-6 lg:h-7 object-contain transition-all duration-300 hidden sm:block"
+                style={{
+                  minWidth: "0",
+                  maxWidth: "200px",
+                }}
+              />
+            </Link>
+          </div>
+
+          {/* Desktop Navigation - High Priority, No Shrinking */}
+          <div className="hidden md:flex items-center space-x-6 lg:space-x-8 flex-shrink-0">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-medium transition-colors hover:text-yellow-400 ${
+                className={`text-sm font-medium transition-colors hover:text-yellow-400 whitespace-nowrap ${
                   pathname === item.href ? "text-yellow-400" : "text-gray-300"
                 }`}
               >
@@ -82,24 +97,19 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* Desktop Auth & Language */}
-          <div className="hidden md:flex items-center space-x-4">
-            {/* Language Toggle */}
-            {/* <button
-              onClick={toggleLanguage}
-              className="text-sm text-gray-300 hover:text-yellow-400 transition-colors px-2 py-1 rounded border border-gray-600 hover:border-yellow-500"
-            >
-              {i18n.language === "vi" ? "EN" : "VI"}
-            </button> */}
+          {/* Spacer - Takes remaining space */}
+          <div className="flex-grow hidden md:block"></div>
 
+          {/* Desktop Auth & Language - Fixed, No Shrinking */}
+          <div className="hidden md:flex items-center space-x-3 flex-shrink-0">
             {isLoggedIn ? (
               <div className="relative user-menu-container">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                   className="flex items-center space-x-2 text-gray-300 hover:text-yellow-400 transition-colors"
                 >
-                  <User className="w-5 h-5" />
-                  <span className="text-sm">{user?.name || user?.email}</span>
+                  <User className="w-5 h-5 flex-shrink-0" />
+                  <span className="text-sm max-w-32 truncate">{user?.name || user?.email}</span>
                 </button>
 
                 <AnimatePresence>
@@ -142,13 +152,13 @@ export default function Navigation() {
               <div className="flex items-center space-x-3">
                 <button
                   onClick={() => openLoginModal()}
-                  className="text-sm text-gray-300 hover:text-yellow-400 transition-colors"
+                  className="text-sm text-gray-300 hover:text-yellow-400 transition-colors whitespace-nowrap"
                 >
                   {t("auth.login.title")}
                 </button>
                 <button
                   onClick={() => openRegisterModal()}
-                  className="text-sm bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-md font-medium transition-colors"
+                  className="text-sm bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-md font-medium transition-colors whitespace-nowrap"
                 >
                   {t("auth.register.title")}
                 </button>
@@ -157,15 +167,7 @@ export default function Navigation() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
-            {/* Mobile Language Toggle */}
-            {/* <button
-              onClick={toggleLanguage}
-              className="text-sm text-gray-300 hover:text-yellow-400 transition-colors px-2 py-1 rounded border border-gray-600 hover:border-yellow-500"
-            >
-              {i18n.language === "vi" ? "EN" : "VI"}
-            </button> */}
-
+          <div className="md:hidden flex items-center space-x-2 flex-shrink-0">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-300 hover:text-yellow-400 transition-colors"
