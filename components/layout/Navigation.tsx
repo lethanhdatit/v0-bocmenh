@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X, User, LogOut, Settings, Heart, MoreHorizontal } from "lucide-react"
+import { Menu, X, User, LogOut, Settings, Heart, ChevronDown } from "lucide-react"
 import { useAuth } from "@/contexts/AuthContext"
 import { useTranslation } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
@@ -95,8 +95,8 @@ export default function Navigation() {
       const logoWidth = logoContainer.offsetWidth
       const authWidth = authContainer.offsetWidth
 
-      // Account for gaps and padding - more generous spacing for centered layout
-      const reservedSpace = logoWidth + authWidth + 48 // 120px for gaps, margins and overflow button
+      // Account for gaps and padding - include space for overflow button
+      const reservedSpace = logoWidth + authWidth + 80 // Include overflow button space
 
       // Available space for menu items (centered)
       const availableWidth = totalWidth - reservedSpace
@@ -109,7 +109,7 @@ export default function Navigation() {
       // Calculate how many items can fit with centered layout
       for (let i = 0; i < hiddenItems.length; i++) {
         const item = hiddenItems[i] as HTMLElement
-        const itemWidth = item.offsetWidth + 20 // 24px for space-x-4/6 gap
+        const itemWidth = item.offsetWidth + 20 // 20px for gap
 
         if (totalMenuWidth + itemWidth <= availableWidth) {
           totalMenuWidth += itemWidth
@@ -245,65 +245,70 @@ export default function Navigation() {
               </Link>
             </div>
 
-            {/* Center: Navigation Menu */}
+            {/* Center: Navigation Menu with Overflow */}
             <div className="flex-1 flex justify-center items-center min-w-0 mx-1">
-              <div className="flex items-center space-x-4 lg:space-x-6">
-                {visibleItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`text-sm font-medium transition-colors hover:text-yellow-400 whitespace-nowrap ${
-                      pathname === item.href ? "text-yellow-400" : "text-gray-300"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+              <div className="flex items-center">
+                {/* Visible Menu Items */}
+                <div className="flex items-center space-x-4 lg:space-x-6">
+                  {visibleItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`text-sm font-medium transition-colors hover:text-yellow-400 whitespace-nowrap ${
+                        pathname === item.href ? "text-yellow-400" : "text-gray-300"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Overflow Menu - Positioned right after visible items */}
+                {overflowItems.length > 0 && (
+                  <div className="overflow-menu-container relative ml-2">
+                    <button
+                      onClick={() => setIsOverflowMenuOpen(!isOverflowMenuOpen)}
+                      className="flex items-center space-x-1 text-gray-300 hover:text-yellow-400 transition-colors px-2 py-1 rounded-md hover:bg-gray-800/50"
+                      title={`Xem thêm ${overflowItems.length} mục`}
+                    >
+                      <span className="text-sm font-medium">Thêm</span>
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform ${isOverflowMenuOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+
+                    <AnimatePresence>
+                      {isOverflowMenuOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-lg py-2 z-50"
+                        >
+                          <div className="px-3 py-2 text-xs text-gray-400 border-b border-gray-700">Menu khác</div>
+                          {overflowItems.map((item) => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              className={`block px-4 py-2 text-sm transition-colors hover:text-yellow-400 hover:bg-gray-800 ${
+                                pathname === item.href ? "text-yellow-400" : "text-gray-300"
+                              }`}
+                              onClick={() => setIsOverflowMenuOpen(false)}
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Right: Auth + Overflow */}
-            <div className="flex items-center gap-2 flex-shrink-0">
-              <div ref={authContainerRef}>
-                <AuthSection isMobile={false} />
-              </div>
-
-              {/* Overflow Menu */}
-              {overflowItems.length > 0 && (
-                <div className="overflow-menu-container relative">
-                  <button
-                    onClick={() => setIsOverflowMenuOpen(!isOverflowMenuOpen)}
-                    className="text-gray-300 hover:text-yellow-400 transition-colors p-1"
-                  >
-                    <MoreHorizontal className="w-5 h-5" />
-                  </button>
-
-                  <AnimatePresence>
-                    {isOverflowMenuOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="absolute right-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-lg py-2 z-50"
-                        style={{ top: "100%" }}
-                      >
-                        {overflowItems.map((item) => (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            className={`block px-4 py-2 text-sm transition-colors hover:text-yellow-400 hover:bg-gray-800 ${
-                              pathname === item.href ? "text-yellow-400" : "text-gray-300"
-                            }`}
-                            onClick={() => setIsOverflowMenuOpen(false)}
-                          >
-                            {item.label}
-                          </Link>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              )}
+            {/* Right: Auth */}
+            <div ref={authContainerRef} className="flex-shrink-0">
+              <AuthSection isMobile={false} />
             </div>
           </div>
 
