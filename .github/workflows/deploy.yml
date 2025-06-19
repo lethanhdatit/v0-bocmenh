@@ -187,3 +187,12 @@ jobs:
 
             docker container prune -f
             docker system prune -a --volumes -f
+
+  clear_artifacts:
+    needs: deploy_to_vm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete all workflow artifacts
+        uses: geekyeggo/delete-artifact@v3
+        with:
+          name: bocmenh-image
