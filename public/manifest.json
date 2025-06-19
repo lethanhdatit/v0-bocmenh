@@ -1,0 +1,26 @@
+{
+  "name": "Bóc Mệnh - Khám Phá Vận Mệnh",
+  "short_name": "Bóc Mệnh",
+  "description": "Khám phá vận mệnh, giải mơ, xem tướng số online",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#EAB308",
+  "orientation": "portrait-primary",
+  "categories": ["entertainment", "lifestyle"],
+  "lang": "vi",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

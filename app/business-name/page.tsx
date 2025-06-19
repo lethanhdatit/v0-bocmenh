@@ -1,7 +1,11 @@
 import type { Metadata } from "next"
 import BusinessNameForm from "@/components/forms/BusinessNameForm"
+import { getBaseUrl } from "@/lib/infra/utils"
+
+const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Phân Tích Tên Doanh Nghiệp - Bóc Mệnh",
   description: "Khám phá năng lượng thần số học của tên doanh nghiệp và tiềm năng thành công kinh doanh",
   keywords: "phân tích tên doanh nghiệp, thần số học kinh doanh, tên công ty, phong thủy doanh nghiệp",

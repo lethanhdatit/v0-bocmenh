@@ -1,4 +1,31 @@
 {
+  "scroll": {
+    "toTop": "Scroll to Top"
+  },
+  "tour": {
+    "start": "Start Tour",
+    "stop": "Stop Tour",
+    "skip": "Skip",
+    "skipAll": "Skip All",
+    "nextStep": "Next Step",
+    "autoNext": "Auto-advancing in {{count}} seconds...",
+    "hero": {
+      "title": "Welcome to Bóc Mệnh!",
+      "description": "This is where you begin your journey of self-discovery and mystical exploration. Learn about your destiny!"
+    },
+    "features": {
+      "title": "Main Features",
+      "description": "Explore tools for destiny decoding, from dream interpretation, numerology to Tarot cards and Feng Shui."
+    },
+    "luckybox": {
+      "title": "Lucky Box",
+      "description": "Open your lucky box daily to receive your lucky number and a special message just for you."
+    },
+    "featuredProducts": {
+      "title": "Featured Products",
+      "description": "Discover specially curated Feng Shui products designed to bring luck and prosperity into your life."
+    }
+  },
   "nav": {
     "home": "Home",
     "destiny": "Unveil Destiny",
@@ -25,7 +52,8 @@
     "aiFace": "AI Face Analysis",
     "blog": "Blog",
     "blogs": "Blogs",
-    "luckybox": "Lucky Box"
+    "luckybox": "Lucky Box",
+    "morebtn": "More"
   },
   "auth": {
     "logout": {
@@ -146,7 +174,7 @@
     }
   },
   "site": {
-    "title": "Bóc Mệnh - Unveil Your Destiny",
+    "title": "Unveil Your Destiny",
     "tagline": "Each person is a mystery box, uncover it - and you'll understand yourself",
     "cta": "Start Exploring",
     "description": "Explore your destiny, interpret dreams, and discover Feng Shui insights with Bóc Mệnh.",

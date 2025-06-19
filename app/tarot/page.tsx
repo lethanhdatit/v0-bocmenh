@@ -1,7 +1,11 @@
 import type { Metadata } from "next"
 import TarotForm from "@/components/forms/TarotForm"
+import { getBaseUrl } from "@/lib/infra/utils"
+
+const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Bói Tarot - Khám Phá Tương Lai Với Lá Bài Tarot",
   description:
     "Rút bài Tarot để khám phá tương lai, tình yêu và sự nghiệp. Giải mã thông điệp từ vũ trụ với AI thông minh",

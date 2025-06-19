@@ -1,8 +1,12 @@
 import type { Metadata } from "next"
 import WeddingDateForm from "@/components/forms/WeddingDateForm"
 import { Calendar, Heart, Star, Sparkles } from "lucide-react"
+import { getBaseUrl } from "@/lib/infra/utils"
+
+const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Wedding Date Analysis - Bóc Mệnh",
   description: "Find the most auspicious date for your wedding based on numerology and astrology.",
 }

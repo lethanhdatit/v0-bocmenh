@@ -1,7 +1,11 @@
 import type { Metadata } from "next"
 import NumerologyForm from "@/components/forms/NumerologyForm"
+import { getBaseUrl } from "@/lib/infra/utils"
+
+const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Thần Số Học - Khám Phá Bí Mật Cuộc Đời Qua Con Số",
   description:
     "Phân tích thần số học dựa trên tên và ngày sinh. Khám phá số đường đời, số định mệnh, số may mắn và dự báo tương lai",

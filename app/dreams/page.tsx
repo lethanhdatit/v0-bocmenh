@@ -2,8 +2,12 @@ import type { Metadata } from "next"
 import DreamForm from "@/components/forms/DreamForm"
 import DreamJournal from "@/components/sections/DreamJournal"
 import DreamTips from "@/components/sections/DreamTips"
+import { getBaseUrl } from "@/lib/infra/utils"
+
+const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Giải Mơ - Khám Phá Ý Nghĩa Giấc Mơ",
   description: "Giải mã giấc mơ của bạn với AI thông minh. Khám phá ý nghĩa sâu xa và thông điệp từ tiềm thức",
   keywords: "giải mơ, giấc mơ, ý nghĩa giấc mơ, phân tích giấc mơ, AI giải mơ",

@@ -1,4 +1,31 @@
 {
+  "scroll": {
+    "toTop": "Cuộn lên đầu trang"
+  },
+  "tour": {
+    "start": "Bắt đầu Tour",
+    "stop": "Dừng Tour",
+    "skip": "Bỏ qua",
+    "skipAll": "Bỏ qua tất cả",
+    "nextStep": "Bước tiếp theo",
+    "autoNext": "Tự động chuyển sau {{count}} giây...",
+    "hero": {
+      "title": "Chào mừng đến Bóc Mệnh!",
+      "description": "Đây là nơi bạn bắt đầu hành trình khám phá bản thân và những điều huyền bí. Hãy tìm hiểu về vận mệnh của bạn!"
+    },
+    "features": {
+      "title": "Các Tính Năng Chính",
+      "description": "Khám phá các công cụ giải mã vận mệnh, từ giải mã giấc mơ, thần số học đến bài Tarot và phong thủy."
+    },
+    "luckybox": {
+      "title": "Hộp Quà May Mắn",
+      "description": "Mở hộp quà mỗi ngày để nhận con số may mắn và thông điệp đặc biệt dành riêng cho bạn."
+    },
+    "featuredProducts": {
+      "title": "Sản Phẩm Nổi Bật",
+      "description": "Khám phá các sản phẩm phong thủy được tuyển chọn đặc biệt để mang lại may mắn và thịnh vượng cho bạn."
+    }
+  },
   "nav": {
     "home": "Trang chủ",
     "destiny": "Vận Mệnh",
@@ -23,7 +50,8 @@
     "premium": "Nâng cấp Premium",
     "wishlist": "Yêu thích",
     "blogs": "Blogs",
-    "luckybox": "Hộp may mắn"
+    "luckybox": "Hộp may mắn",
+    "morebtn": "Thêm"
   },
   "auth": {
     "logout": {
@@ -144,7 +172,7 @@
     }
   },
   "site": {
-    "title": "Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn",
+    "title": "Khám Phá Vận Mệnh Của Bạn",
     "tagline": "Mỗi người là một hộp bí ẩn, hãy khám phá - và bạn sẽ hiểu về chính mình",
     "cta": "Bắt đầu khám phá",
     "description": "Khám phá vận mệnh, giải mã giấc mơ, và tìm hiểu sâu sắc về Phong Thủy cùng Bóc Mệnh.",

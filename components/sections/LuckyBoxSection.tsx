@@ -13,14 +13,28 @@ export default function LuckyBoxSection() {
 
   const messages = useMemo(() => {
     const translatedMessages = t("luckyBox.messages", { returnObjects: true })
-    return Array.isArray(translatedMessages) ? translatedMessages : []
+    const result = Array.isArray(translatedMessages) ? translatedMessages : []
+    return result
   }, [t])
 
   const openLuckyBox = () => {
-    if (isOpened || messages.length === 0) return
+    if (isOpened) {
+      return
+    }
+
+    // Fallback messages nếu translation không load được
+    const fallbackMessages = [
+      "Hôm nay là ngày may mắn của bạn!",
+      "Điều tốt đẹp đang đến với bạn!",
+      "Hãy tin tưởng vào trực giác của mình!",
+      "Cơ hội mới sẽ xuất hiện sớm thôi!",
+      "Tình yêu và hạnh phúc đang chờ đợi bạn!",
+    ]
+
+    const availableMessages = messages.length > 0 ? messages : fallbackMessages
 
     const randomNumber = Math.floor(Math.random() * 99) + 1
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)]
+    const randomMessage = availableMessages[Math.floor(Math.random() * availableMessages.length)]
 
     setLuckyNumber(randomNumber)
     setMessage(randomMessage)
@@ -37,7 +51,7 @@ export default function LuckyBoxSection() {
   }
 
   return (
-    <section className="py-20 px-4">
+    <section id="luckybox-section" className="py-20 px-4">
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -62,7 +76,9 @@ export default function LuckyBoxSection() {
                 className="absolute cursor-pointer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={openLuckyBox}
+                onClick={() => {
+                  openLuckyBox()
+                }}
               >
                 <div className="relative">
                   <motion.div
