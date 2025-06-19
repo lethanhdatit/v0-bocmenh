@@ -62,11 +62,9 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center">
-              <span className="text-black font-bold text-sm">BM</span>
-            </div>
-            <span className="text-yellow-400 font-bold text-xl hidden sm:block">Bóc Mệnh</span>
+          <Link href="/" className="flex items-center space-x-3">
+            <img src="/logo.png" alt="Bóc Mệnh Logo" className="h-8 w-auto sm:h-10 md:h-12 object-contain" />
+            <img src="/slogan.png" alt="Bóc Mệnh" className="h-5 w-auto sm:h-6 md:h-7 object-contain hidden sm:block" />
           </Link>
 
           {/* Desktop Navigation */}
