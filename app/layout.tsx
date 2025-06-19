@@ -9,6 +9,7 @@ import Navigation from "@/components/layout/Navigation"
 import Footer from "@/components/layout/Footer"
 import AuthModals from "@/components/auth/AuthModals"
 import AuthSetup from "@/components/utils/AuthSetup"
+import ScrollControls from "@/components/layout/ScrollControls"
 
 const inter = Inter({ subsets: ["latin", "vietnamese"] })
 
@@ -196,6 +197,7 @@ export default function RootLayout({
                 <Footer />
               </div>
               <AuthModals />
+              <ScrollControls />
             </AuthProvider>
           </SWRProvider>
         </LanguageProvider>
