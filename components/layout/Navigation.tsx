@@ -13,7 +13,10 @@ export default function Navigation() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const [isOverflowMenuOpen, setIsOverflowMenuOpen] = useState(false)
   const [visibleItemsCount, setVisibleItemsCount] = useState(8) // Start with all items visible
-  const menuContainerRef = useRef<HTMLDivElement>(null)
+  const navContainerRef = useRef<HTMLDivElement>(null)
+  const logoContainerRef = useRef<HTMLDivElement>(null)
+  const authContainerRef = useRef<HTMLDivElement>(null)
+  const hiddenMenuRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   const { user, isLoggedIn, logout, openLoginModal, openRegisterModal } = useAuth()
   const { t, i18n } = useTranslation()
@@ -71,53 +74,81 @@ export default function Navigation() {
   // Detect overflow and adjust visible items
   useEffect(() => {
     const checkOverflow = () => {
-      if (!menuContainerRef.current) return
+      if (
+        !navContainerRef.current ||
+        !logoContainerRef.current ||
+        !authContainerRef.current ||
+        !hiddenMenuRef.current
+      ) {
+        return
+      }
 
-      const container = menuContainerRef.current
-      const containerWidth = container.offsetWidth
-      const items = container.children
+      const navContainer = navContainerRef.current
+      const logoContainer = logoContainerRef.current
+      const authContainer = authContainerRef.current
+      const hiddenMenu = hiddenMenuRef.current
 
-      let totalWidth = 0
+      // Get total available width
+      const totalWidth = navContainer.offsetWidth
+
+      // Get fixed elements width
+      const logoWidth = logoContainer.offsetWidth
+      const authWidth = authContainer.offsetWidth
+
+      // Account for gaps and padding (16px gap between sections + some buffer)
+      const reservedSpace = logoWidth + authWidth + 80 // 80px for gaps and overflow button
+
+      // Available space for menu items
+      const availableWidth = totalWidth - reservedSpace
+
+      // Get all menu items from hidden container to measure their actual width
+      const hiddenItems = hiddenMenu.children
+      let totalMenuWidth = 0
       let maxVisibleItems = 0
 
       // Calculate how many items can fit
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i] as HTMLElement
-        totalWidth += item.offsetWidth + 32 // 32px for gap (space-x-8)
+      for (let i = 0; i < hiddenItems.length; i++) {
+        const item = hiddenItems[i] as HTMLElement
+        const itemWidth = item.offsetWidth + 32 // 32px for space-x-8 gap
 
-        if (totalWidth <= containerWidth - 100) {
-          // Reserve 100px for potential overflow button
+        if (totalMenuWidth + itemWidth <= availableWidth) {
+          totalMenuWidth += itemWidth
           maxVisibleItems = i + 1
         } else {
           break
         }
       }
 
-      // Always show at least 3 items, and don't exceed total items
-      const newVisibleCount = Math.max(3, Math.min(maxVisibleItems, navItems.length))
+      // Always show at least 2 items, and don't exceed total items
+      const newVisibleCount = Math.max(2, Math.min(maxVisibleItems, navItems.length))
 
       if (newVisibleCount !== visibleItemsCount) {
         setVisibleItemsCount(newVisibleCount)
       }
     }
 
-    // Initial check
-    checkOverflow()
+    // Delay initial check to ensure all elements are rendered
+    const timeoutId = setTimeout(checkOverflow, 100)
 
     // Set up ResizeObserver
-    const resizeObserver = new ResizeObserver(checkOverflow)
-    if (menuContainerRef.current) {
-      resizeObserver.observe(menuContainerRef.current)
+    const resizeObserver = new ResizeObserver(() => {
+      // Debounce the check
+      setTimeout(checkOverflow, 50)
+    })
+
+    if (navContainerRef.current) {
+      resizeObserver.observe(navContainerRef.current)
     }
 
     // Also listen to window resize as fallback
     window.addEventListener("resize", checkOverflow)
 
     return () => {
+      clearTimeout(timeoutId)
       resizeObserver.disconnect()
       window.removeEventListener("resize", checkOverflow)
     }
-  }, [visibleItemsCount, navItems.length])
+  }, [visibleItemsCount, navItems.length, isLoggedIn]) // Include isLoggedIn to recalculate when auth state changes
 
   // Auth Section Component
   const AuthSection = ({ isMobile = false }: { isMobile?: boolean }) => {
@@ -192,30 +223,26 @@ export default function Navigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-yellow-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center h-16 gap-4">
+        <div ref={navContainerRef} className="flex items-center h-16 gap-4">
           {/* Logo + Slogan Container */}
-          <div className="flex items-center gap-3 min-w-0 flex-shrink-1">
+          <div ref={logoContainerRef} className="flex items-center gap-3 flex-shrink-0">
             <Link href="/" className="flex-shrink-0">
               <img src="/logo.png" alt="Bóc Mệnh Logo" className="h-8 w-auto sm:h-9 lg:h-10 object-contain" />
             </Link>
-            <Link href="/" className="flex-shrink-1 min-w-0 overflow-hidden">
+            <Link href="/" className="flex-shrink-0">
               <img
                 src="/slogan.png"
                 alt="Bóc Mệnh"
                 className="h-5 w-auto sm:h-6 lg:h-7 object-contain transition-all duration-300 hidden sm:block md:block"
                 style={{
-                  minWidth: "0",
                   maxWidth: "200px",
                 }}
               />
             </Link>
           </div>
 
-          {/* Desktop Navigation - Adaptive */}
-          <div
-            ref={menuContainerRef}
-            className="hidden md:flex items-center space-x-6 lg:space-x-8 flex-shrink-0 min-w-0"
-          >
+          {/* Desktop Navigation - Visible items */}
+          <div className="hidden md:flex items-center space-x-6 lg:space-x-8 flex-shrink-0">
             {visibleItems.map((item) => (
               <Link
                 key={item.href}
@@ -233,13 +260,13 @@ export default function Navigation() {
           <div className="flex-grow hidden md:block"></div>
 
           {/* Desktop Auth */}
-          <div className="hidden md:flex items-center flex-shrink-0">
+          <div ref={authContainerRef} className="hidden md:flex items-center flex-shrink-0">
             <AuthSection isMobile={false} />
           </div>
 
           {/* Desktop Overflow Menu - Only show if there are hidden items */}
           {overflowItems.length > 0 && (
-            <div className="hidden md:flex items-center flex-shrink-0 overflow-menu-container">
+            <div className="hidden md:flex items-center flex-shrink-0 overflow-menu-container relative">
               <button
                 onClick={() => setIsOverflowMenuOpen(!isOverflowMenuOpen)}
                 className="text-gray-300 hover:text-yellow-400 transition-colors p-1"
@@ -285,6 +312,19 @@ export default function Navigation() {
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Hidden menu for measurement - invisible but rendered */}
+      <div
+        ref={hiddenMenuRef}
+        className="absolute -top-96 left-0 opacity-0 pointer-events-none flex items-center space-x-6 lg:space-x-8"
+        aria-hidden="true"
+      >
+        {navItems.map((item) => (
+          <span key={item.href} className="text-sm font-medium whitespace-nowrap">
+            {item.label}
+          </span>
+        ))}
       </div>
 
       {/* Mobile Navigation */}
