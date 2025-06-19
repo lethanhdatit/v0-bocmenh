@@ -13,17 +13,12 @@ export default function LuckyBoxSection() {
 
   const messages = useMemo(() => {
     const translatedMessages = t("luckyBox.messages", { returnObjects: true })
-    console.log("Translation result:", translatedMessages)
     const result = Array.isArray(translatedMessages) ? translatedMessages : []
-    console.log("Final messages:", result)
     return result
   }, [t])
 
   const openLuckyBox = () => {
-    console.log("openLuckyBox called", { isOpened, messagesLength: messages.length, messages })
-
     if (isOpened) {
-      console.log("Box already opened")
       return
     }
 
@@ -40,8 +35,6 @@ export default function LuckyBoxSection() {
 
     const randomNumber = Math.floor(Math.random() * 99) + 1
     const randomMessage = availableMessages[Math.floor(Math.random() * availableMessages.length)]
-
-    console.log("Generated:", { randomNumber, randomMessage })
 
     setLuckyNumber(randomNumber)
     setMessage(randomMessage)
@@ -84,7 +77,6 @@ export default function LuckyBoxSection() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
-                  console.log("Box clicked!")
                   openLuckyBox()
                 }}
               >
