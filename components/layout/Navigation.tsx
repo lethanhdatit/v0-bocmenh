@@ -208,13 +208,13 @@ export default function Navigation() {
           onClick={() => openLoginModal()}
           className={`${isMobile ? "text-xs" : "text-sm"} text-gray-300 hover:text-yellow-400 transition-colors whitespace-nowrap`}
         >
-          {isMobile ? t("auth.login.short") || "Đăng nhập" : t("auth.login.title")}
+          {isMobile ? t("auth.login.title") || "Đăng nhập" : t("auth.login.title")}
         </button>
         <button
           onClick={() => openRegisterModal()}
           className={`${isMobile ? "text-xs px-2 py-1" : "text-sm px-4 py-2"} bg-yellow-500 hover:bg-yellow-600 text-black rounded-md font-medium transition-colors whitespace-nowrap`}
         >
-          {isMobile ? t("auth.register.short") || "Đăng ký" : t("auth.register.title")}
+          {isMobile ? t("auth.register.title") || "Đăng ký" : t("auth.register.title")}
         </button>
       </div>
     )
