@@ -1,29 +1,30 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Menu, X, User, LogOut, Settings, Heart } from "lucide-react"
-import { useAuth } from "@/contexts/AuthContext"
-import { useTranslation } from "react-i18next"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, X, User, LogOut, Settings, Heart } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useTranslation } from "react-i18next";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navigation() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
-  const pathname = usePathname()
-  const { user, isLoggedIn, logout, openLoginModal, openRegisterModal } = useAuth()
-  const { t, i18n } = useTranslation()
+  const [isOpen, setIsOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const { user, isLoggedIn, logout, openLoginModal, openRegisterModal } =
+    useAuth();
+  const { t, i18n } = useTranslation();
 
   const toggleLanguage = () => {
-    const newLang = i18n.language === "vi" ? "en" : "vi"
-    i18n.changeLanguage(newLang)
-  }
+    const newLang = i18n.language === "vi" ? "en" : "vi";
+    i18n.changeLanguage(newLang);
+  };
 
   const handleLogout = async () => {
-    await logout()
-    setIsUserMenuOpen(false)
-  }
+    await logout();
+    setIsUserMenuOpen(false);
+  };
 
   const navItems = [
     // { href: "/", label: t("nav.home") },
@@ -35,37 +36,41 @@ export default function Navigation() {
     { href: "/fengshui", label: t("nav.fengshui") },
     { href: "/store", label: t("nav.store") },
     { href: "/blogs", label: t("nav.blogs") },
-  ]
+  ];
 
   // Close mobile menu when route changes
   useEffect(() => {
-    setIsOpen(false)
-  }, [pathname])
+    setIsOpen(false);
+  }, [pathname]);
 
   // Close user menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element
+      const target = event.target as Element;
       if (!target.closest(".user-menu-container")) {
-        setIsUserMenuOpen(false)
+        setIsUserMenuOpen(false);
       }
-    }
+    };
 
     if (isUserMenuOpen) {
-      document.addEventListener("click", handleClickOutside)
-      return () => document.removeEventListener("click", handleClickOutside)
+      document.addEventListener("click", handleClickOutside);
+      return () => document.removeEventListener("click", handleClickOutside);
     }
-  }, [isUserMenuOpen])
+  }, [isUserMenuOpen]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-yellow-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center h-16 gap-4">
+        <div className="flex items-center justify-between h-16">
           {/* Logo + Slogan Container - Flexible */}
           <div className="flex items-center gap-3 min-w-0 flex-shrink-1">
             {/* Logo - Always visible, fixed size */}
             <Link href="/" className="flex-shrink-0">
-              <img src="/logo.png" alt="Bóc Mệnh Logo" className="h-8 w-auto sm:h-9 lg:h-10 object-contain" />
+              <img
+                src="/logo.png"
+                alt="Bóc Mệnh Logo"
+                className="h-8 w-auto sm:h-9 lg:h-10 object-contain"
+              />
             </Link>
 
             {/* Slogan - Can shrink and hide when space is limited */}
@@ -109,7 +114,9 @@ export default function Navigation() {
                   className="flex items-center space-x-2 text-gray-300 hover:text-yellow-400 transition-colors"
                 >
                   <User className="w-5 h-5 flex-shrink-0" />
-                  <span className="text-sm max-w-32 truncate">{user?.name || user?.email}</span>
+                  <span className="text-sm max-w-32 truncate">
+                    {user?.name || user?.email}
+                  </span>
                 </button>
 
                 <AnimatePresence>
@@ -172,7 +179,11 @@ export default function Navigation() {
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-300 hover:text-yellow-400 transition-colors"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -251,5 +262,5 @@ export default function Navigation() {
         )}
       </AnimatePresence>
     </nav>
-  )
+  );
 }
