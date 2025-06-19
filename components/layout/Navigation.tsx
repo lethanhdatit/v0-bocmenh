@@ -148,7 +148,44 @@ export default function Navigation() {
       resizeObserver.disconnect()
       window.removeEventListener("resize", checkOverflow)
     }
-  }, [visibleItemsCount, navItems.length, isLoggedIn])
+  }, [
+    visibleItemsCount,
+    navItems.length,
+    isLoggedIn,
+    i18n.language, // Add language dependency
+    // Add all translated text dependencies
+    t("nav.luckybox"),
+    t("nav.destiny"),
+    t("nav.dreams"),
+    t("nav.numerology"),
+    t("nav.tarot"),
+    t("nav.fengshui"),
+    t("nav.store"),
+    t("nav.blogs"),
+    t("nav.morebtn"),
+    t("auth.login.title"),
+    t("auth.register.title"),
+    user?.name, // Add user name dependency
+    user?.email, // Add user email dependency
+  ])
+
+  // Force recalculation when language changes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // Reset to show all items first, then recalculate
+      setVisibleItemsCount(navItems.length)
+
+      // Trigger recalculation after a short delay
+      setTimeout(() => {
+        if (navContainerRef.current) {
+          // Force a resize event to trigger recalculation
+          window.dispatchEvent(new Event("resize"))
+        }
+      }, 50)
+    }, 100)
+
+    return () => clearTimeout(timer)
+  }, [i18n.language, isLoggedIn, navItems.length])
 
   // Auth Section Component
   const AuthSection = ({ isMobile = false }: { isMobile?: boolean }) => {
