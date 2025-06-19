@@ -95,10 +95,10 @@ export default function Navigation() {
       const logoWidth = logoContainer.offsetWidth
       const authWidth = authContainer.offsetWidth
 
-      // Account for gaps and padding (16px gap between sections + some buffer)
-      const reservedSpace = logoWidth + authWidth + 80 // 80px for gaps and overflow button
+      // Account for gaps and padding - more generous spacing for centered layout
+      const reservedSpace = logoWidth + authWidth + 120 // 120px for gaps, margins and overflow button
 
-      // Available space for menu items
+      // Available space for menu items (centered)
       const availableWidth = totalWidth - reservedSpace
 
       // Get all menu items from hidden container to measure their actual width
@@ -106,10 +106,10 @@ export default function Navigation() {
       let totalMenuWidth = 0
       let maxVisibleItems = 0
 
-      // Calculate how many items can fit
+      // Calculate how many items can fit with centered layout
       for (let i = 0; i < hiddenItems.length; i++) {
         const item = hiddenItems[i] as HTMLElement
-        const itemWidth = item.offsetWidth + 32 // 32px for space-x-8 gap
+        const itemWidth = item.offsetWidth + 24 // 24px for space-x-4/6 gap
 
         if (totalMenuWidth + itemWidth <= availableWidth) {
           totalMenuWidth += itemWidth
@@ -119,8 +119,8 @@ export default function Navigation() {
         }
       }
 
-      // Always show at least 2 items, and don't exceed total items
-      const newVisibleCount = Math.max(2, Math.min(maxVisibleItems, navItems.length))
+      // Always show at least 3 items for centered layout, and don't exceed total items
+      const newVisibleCount = Math.max(3, Math.min(maxVisibleItems, navItems.length))
 
       if (newVisibleCount !== visibleItemsCount) {
         setVisibleItemsCount(newVisibleCount)
@@ -148,7 +148,7 @@ export default function Navigation() {
       resizeObserver.disconnect()
       window.removeEventListener("resize", checkOverflow)
     }
-  }, [visibleItemsCount, navItems.length, isLoggedIn]) // Include isLoggedIn to recalculate when auth state changes
+  }, [visibleItemsCount, navItems.length, isLoggedIn])
 
   // Auth Section Component
   const AuthSection = ({ isMobile = false }: { isMobile?: boolean }) => {
@@ -223,93 +223,121 @@ export default function Navigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-yellow-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={navContainerRef} className="flex items-center h-16 gap-4">
-          {/* Logo + Slogan Container */}
-          <div ref={logoContainerRef} className="flex items-center gap-3 flex-shrink-0">
-            <Link href="/" className="flex-shrink-0">
-              <img src="/logo.png" alt="Bóc Mệnh Logo" className="h-8 w-auto sm:h-9 lg:h-10 object-contain" />
-            </Link>
-            <Link href="/" className="flex-shrink-0">
-              <img
-                src="/slogan.png"
-                alt="Bóc Mệnh"
-                className="h-5 w-auto sm:h-6 lg:h-7 object-contain transition-all duration-300 hidden sm:block md:block"
-                style={{
-                  maxWidth: "200px",
-                }}
-              />
-            </Link>
-          </div>
-
-          {/* Desktop Navigation - Visible items */}
-          <div className="hidden md:flex items-center space-x-6 lg:space-x-8 flex-shrink-0">
-            {visibleItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`text-sm font-medium transition-colors hover:text-yellow-400 whitespace-nowrap ${
-                  pathname === item.href ? "text-yellow-400" : "text-gray-300"
-                }`}
-              >
-                {item.label}
+        <div ref={navContainerRef} className="flex items-center h-16">
+          {/* Desktop Layout - Centered Menu */}
+          <div className="hidden md:flex items-center justify-between w-full">
+            {/* Left: Logo + Slogan */}
+            <div ref={logoContainerRef} className="flex items-center gap-3 flex-shrink-0 min-w-0">
+              <Link href="/" className="flex-shrink-0">
+                <img src="/logo.png" alt="Bóc Mệnh Logo" className="h-8 w-auto sm:h-9 lg:h-10 object-contain" />
               </Link>
-            ))}
-          </div>
-
-          {/* Spacer */}
-          <div className="flex-grow hidden md:block"></div>
-
-          {/* Desktop Auth */}
-          <div ref={authContainerRef} className="hidden md:flex items-center flex-shrink-0">
-            <AuthSection isMobile={false} />
-          </div>
-
-          {/* Desktop Overflow Menu - Only show if there are hidden items */}
-          {overflowItems.length > 0 && (
-            <div className="hidden md:flex items-center flex-shrink-0 overflow-menu-container relative">
-              <button
-                onClick={() => setIsOverflowMenuOpen(!isOverflowMenuOpen)}
-                className="text-gray-300 hover:text-yellow-400 transition-colors p-1"
-              >
-                <MoreHorizontal className="w-5 h-5" />
-              </button>
-
-              <AnimatePresence>
-                {isOverflowMenuOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="absolute right-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-lg py-2 z-50"
-                    style={{ top: "100%" }}
-                  >
-                    {overflowItems.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className={`block px-4 py-2 text-sm transition-colors hover:text-yellow-400 hover:bg-gray-800 ${
-                          pathname === item.href ? "text-yellow-400" : "text-gray-300"
-                        }`}
-                        onClick={() => setIsOverflowMenuOpen(false)}
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <Link href="/" className="flex-shrink-1 min-w-0 overflow-hidden">
+                <img
+                  src="/slogan.png"
+                  alt="Bóc Mệnh"
+                  className="h-5 w-auto sm:h-6 lg:h-7 object-contain transition-all duration-300"
+                  style={{
+                    minWidth: "60px",
+                    maxWidth: "200px",
+                    width: "clamp(60px, 15vw, 200px)",
+                  }}
+                />
+              </Link>
             </div>
-          )}
 
-          {/* Mobile Auth + Toggle */}
-          <div className="md:hidden flex items-center gap-3 flex-shrink-0 ml-auto">
-            <AuthSection isMobile={true} />
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-yellow-400 transition-colors"
-            >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            {/* Center: Navigation Menu */}
+            <div className="flex-1 flex justify-center items-center min-w-0 mx-4">
+              <div className="flex items-center space-x-4 lg:space-x-6">
+                {visibleItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`text-sm font-medium transition-colors hover:text-yellow-400 whitespace-nowrap ${
+                      pathname === item.href ? "text-yellow-400" : "text-gray-300"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: Auth + Overflow */}
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <div ref={authContainerRef}>
+                <AuthSection isMobile={false} />
+              </div>
+
+              {/* Overflow Menu */}
+              {overflowItems.length > 0 && (
+                <div className="overflow-menu-container relative">
+                  <button
+                    onClick={() => setIsOverflowMenuOpen(!isOverflowMenuOpen)}
+                    className="text-gray-300 hover:text-yellow-400 transition-colors p-1"
+                  >
+                    <MoreHorizontal className="w-5 h-5" />
+                  </button>
+
+                  <AnimatePresence>
+                    {isOverflowMenuOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="absolute right-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-lg py-2 z-50"
+                        style={{ top: "100%" }}
+                      >
+                        {overflowItems.map((item) => (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            className={`block px-4 py-2 text-sm transition-colors hover:text-yellow-400 hover:bg-gray-800 ${
+                              pathname === item.href ? "text-yellow-400" : "text-gray-300"
+                            }`}
+                            onClick={() => setIsOverflowMenuOpen(false)}
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Mobile Layout */}
+          <div className="md:hidden flex items-center justify-between w-full">
+            {/* Logo + Slogan Container */}
+            <div className="flex items-center gap-2 min-w-0 flex-1">
+              <Link href="/" className="flex-shrink-0">
+                <img src="/logo.png" alt="Bóc Mệnh Logo" className="h-8 w-auto object-contain" />
+              </Link>
+              <Link href="/" className="flex-shrink-1 min-w-0 overflow-hidden">
+                <img
+                  src="/slogan.png"
+                  alt="Bóc Mệnh"
+                  className="h-5 w-auto object-contain transition-all duration-300"
+                  style={{
+                    minWidth: "40px",
+                    maxWidth: "120px",
+                    width: "clamp(40px, 20vw, 120px)",
+                  }}
+                />
+              </Link>
+            </div>
+
+            {/* Mobile Auth + Toggle */}
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <AuthSection isMobile={true} />
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-gray-300 hover:text-yellow-400 transition-colors"
+              >
+                {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -317,7 +345,7 @@ export default function Navigation() {
       {/* Hidden menu for measurement - invisible but rendered */}
       <div
         ref={hiddenMenuRef}
-        className="absolute -top-96 left-0 opacity-0 pointer-events-none flex items-center space-x-6 lg:space-x-8"
+        className="absolute -top-96 left-0 opacity-0 pointer-events-none flex items-center space-x-4 lg:space-x-6"
         aria-hidden="true"
       >
         {navItems.map((item) => (
