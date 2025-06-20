@@ -47,7 +47,7 @@ interface AuthContextType {
   closeAuthModal: () => void;
 
   // For modal callbacks
-  onLoginSuccessCallback: (() => Promise<void> | void) | null;
+  onLoginSuccessCallback: (() => Promise<void> | void) | null | undefined;
   redirectToAfterLogin: string | null;
 }
 
@@ -71,7 +71,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Modal states
   const [activeModal, setActiveModal] = useState<AuthModalType>(null);
   const [onLoginSuccessCallback, setOnLoginSuccessCallback] = useState<
-    (() => Promise<void> | void) | null
+    (() => Promise<void> | void) | null | undefined
   >(null);
   const [redirectToAfterLogin, setRedirectToAfterLogin] = useState<
     string | null

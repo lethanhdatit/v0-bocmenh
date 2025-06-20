@@ -8,6 +8,7 @@ import { apiServer, getConfig } from "@/lib/api/apiServer";
 import type { UserSession } from "@/lib/session/sessionOptions";
 import { getTranslations } from "@/i18n/server";
 import { IronSession } from "iron-session";
+import { isValidEmail } from "@/lib/infra/validators";
 
 async function registerPostHandler(
   data: any,
@@ -80,11 +81,6 @@ async function registerPostHandler(
       session
     );
   }
-}
-
-function isValidEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
 }
 
 export const POST = withServerBase(registerPostHandler, {

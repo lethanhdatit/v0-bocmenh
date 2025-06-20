@@ -71,7 +71,7 @@ export function baseResponse({
         encrypted: encryptData({
           success: false,
           message: message ?? "Authentication required.",
-          errorCode: "AUTH_REQUIRED",
+          errorCode: "AUTH_REQUIRED_RETRY",
           errors,
           data,
         } as ApiBaseResponse),

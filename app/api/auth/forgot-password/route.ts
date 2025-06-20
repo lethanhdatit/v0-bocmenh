@@ -3,6 +3,7 @@ import { decryptData, encryptData } from "@/lib/infra/encryption";
 import { emailService, generatePasswordResetEmail } from "@/lib/email";
 import { generateResetToken } from "@/lib/passwordReset";
 import { getBaseUrl } from "@/lib/infra/utils";
+import { isValidEmail } from "@/lib/infra/validators";
 
 // Mock user database (should match other auth routes)
 const users: Array<{
@@ -112,9 +113,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
-
-function isValidEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
 }
