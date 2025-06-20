@@ -1,9 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { useParams } from "next/navigation"
 import { useTranslation } from "next-i18next"
-import type { Locale } from "@/i18n/server"
 
 const sectionKeys = [
   "acceptance",
@@ -19,32 +16,8 @@ const sectionKeys = [
   "policyChanges",
 ]
 
-export default function TermsPageClient({ lang: initialLang }: { lang: Locale }) {
-  const params = useParams()
-  const lang = (params?.lang as Locale) || initialLang || "vi"
-  const { t, i18n: i18nInstance } = useTranslation(["terms", "common"])
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    const initializeI18n = async () => {
-      setIsLoading(true)
-      if (i18nInstance.language !== lang) {
-        await i18nInstance.changeLanguage(lang)
-      }
-      // Ensure translations are loaded
-      await i18nInstance.loadNamespaces("terms")
-      setIsLoading(false)
-    }
-    initializeI18n()
-  }, [lang, i18nInstance])
-
-  if (isLoading) {
-    return (
-      <div className="container mx-auto py-12 px-4 md:px-6 text-center text-gray-100">
-        <p>{t("common:loading")}</p>
-      </div>
-    )
-  }
+export default function TermsPageClient() {
+  const { t } = useTranslation("terms");
 
   const renderContent = (sectionKey: string, itemKey: string) => {
     const content = t(itemKey, { returnObjects: true, ns: "terms" })
@@ -72,7 +45,7 @@ export default function TermsPageClient({ lang: initialLang }: { lang: Locale })
         <div className="space-y-8">
           {sectionKeys.map((key) => {
             const sectionTitle = t(`sections.${key}.title`)
-            const sectionIntro = t(`sections.${key}.intro`, { defaultValue: undefined })
+            const sectionIntro = t(`sections.${key}.intro`, { defaultValue: "" })
             const sectionContentIsArray = Array.isArray(
               t(`sections.${key}.content`, { returnObjects: true, defaultValue: undefined }),
             )
