@@ -1,32 +1,47 @@
-import i18n from "i18next"
-import { initReactI18next } from "react-i18next"
-import { getBaseUrl } from "@/lib/infra/utils"
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import { getBaseUrl } from "@/lib/infra/utils";
 
 // Dynamic loading function for translation files
 async function loadTranslations() {
   try {
-    const baseUrl = getBaseUrl()
-    
-    // Load translation files dynamically from public folder
-    const [viResponse, enResponse] = await Promise.all([
-      fetch(new URL('/locales/vi/common.json', baseUrl).toString()),
-      fetch(new URL('/locales/en/common.json', baseUrl).toString()),
-    ])
+    const baseUrl = getBaseUrl();
 
-    const viCommon = await viResponse.json()
-    const enCommon = await enResponse.json()
+    // Load translation files dynamically from public folder
+    const [
+      viCommonResponse,
+      enCommonResponse,
+      viTermResponse,
+      enTermResponse,
+      viPrivacyResponse,
+      enPrivacyResponse,
+    ] = await Promise.all([
+      fetch(new URL("/locales/vi/common.json", baseUrl).toString()),
+      fetch(new URL("/locales/en/common.json", baseUrl).toString()),
+      fetch(new URL("/locales/vi/terms.json", baseUrl).toString()),
+      fetch(new URL("/locales/en/terms.json", baseUrl).toString()),
+      fetch(new URL("/locales/vi/privacy.json", baseUrl).toString()),
+      fetch(new URL("/locales/en/privacy.json", baseUrl).toString()),
+    ]);
+
+    const viCommon = await viCommonResponse.json();
+    const enCommon = await enCommonResponse.json();
+    const viTerm = await viTermResponse.json();
+    const enTerm = await enTermResponse.json();
+    const viPrivacy = await viPrivacyResponse.json();
+    const enPrivacy = await enPrivacyResponse.json();
 
     return {
-      vi: { common: viCommon },
-      en: { common: enCommon },
-    }
+      vi: { common: viCommon, terms: viTerm, privacy: viPrivacy },
+      en: { common: enCommon, terms: enTerm, privacy: enPrivacy },
+    };
   } catch (error) {
-    console.error("Failed to load translations:", error)
+    console.error("Failed to load translations:", error);
     // Fallback to empty resources
     return {
-      vi: { common: {} },
-      en: { common: {} },
-    }
+      vi: { common: {}, terms: {}, privacy: {} },
+      en: { common: {}, terms: {}, privacy: {} },
+    };
   }
 }
 
@@ -35,8 +50,8 @@ const initPromise = loadTranslations().then((resources) => {
   return i18n.use(initReactI18next).init({
     resources,
     fallbackLng: "vi",
-    defaultNS: "common",
-    ns: ["common"],
+    defaultNS: ["common", "terms", "privacy"],
+    ns: ["common", "terms", "privacy"],
     lng: "vi", // Default language, will be set by LanguageContext
 
     interpolation: {
@@ -52,9 +67,9 @@ const initPromise = loadTranslations().then((resources) => {
       order: [],
       caches: [],
     },
-  })
-})
+  });
+});
 
 // Export both the instance and initialization promise
-export { initPromise }
-export default i18n
+export { initPromise };
+export default i18n;

@@ -1,0 +1,107 @@
+{
+  "meta_title": "Privacy Policy - Boc Menh",
+  "meta_description": "Learn how Boc Menh (BMP) collects, uses, and protects your personal information when using services at bocmenh.com.",
+  "page_title": "Privacy Policy",
+  "subtitle": "Boc Menh at bocmenh.com and the entire Boc Menh ecosystem (hereinafter referred to as BMP)",
+  "intro_p1": "When using BMP's services, you trust BMP with your information. BMP understands this is a significant responsibility and strives to protect your information and give you control.",
+  "intro_p2": "This Privacy Policy aims to help you understand what information BMP collects, why BMP collects it, and how you can update, manage, export, and delete your information.",
+  "sections": [
+    {
+      "title": "1. Scope of Application",
+      "points": [
+        "Applies to all personal information users provide when registering, using BMP's services, or any related services, subpages, mobile applications, or APIs.",
+        "This personal information privacy policy applies to all BMP devices, websites, or online applications, including services BMP provides via the website and mobile applications. This privacy policy applies regardless of whether you use a computer, mobile phone, tablet, TV, or other device to access BMP's services.",
+        "This policy does not apply to links to other pages outside the Boc Menh ecosystem."
+      ]
+    },
+    {
+      "title": "2. Information BMP Collects",
+      "subsections": [
+        {
+          "title": "a. Information you consciously and voluntarily provide",
+          "points": [
+            "Full name, date of birth (Gregorian calendar), time of birth (if any), etc.",
+            "Gender, religion, residential location, house direction.",
+            "Images of hands, face, house; descriptions of dreams, personal states, and desires.",
+            "Account information: email, password (hashed), phone number (if any)."
+          ]
+        },
+        {
+          "title": "b. Automatically collected information",
+          "points": [
+            "Technical data: IP address, browser, operating system, access logs, cookies, and similar technologies within BMP's scope.",
+            "Usage history: services experienced, time, divination results."
+          ]
+        },
+        {
+          "title": "c. Information from third parties",
+          "points": [
+            "When you allow linking social media accounts (Facebook, Google, etc.), BMP only collects information fields you consent to share."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "3. Purpose and Legal Basis for Use",
+      "points": [
+        "Provide consultation services on destiny, feng shui, compatibility, horoscopes, tarot, etc.",
+        "Personalize experience, send notifications, email reminders, offers.",
+        "Statistical analysis, improve service quality.",
+        "Fulfill obligations to state agencies upon legal request.",
+        "Communication, marketing (with consent according to Decree 75/2013/ND-CP guiding the Law on Advertising)."
+      ]
+    },
+    {
+      "title": "4. Information Sharing and Transfer",
+      "points": [
+        "DO NOT share your personal information with third parties outside the list below:",
+        "1. Payment partners (e.g., VNPay, MoMo gateways) to authenticate transactions.",
+        "2. Email, SMS service providers (only send when you consent to receive notifications).",
+        "3. Affiliate units to introduce products (not direct sales) – always transparent that Boc Menh is only an intermediary.",
+        "4. Competent state authorities upon legal request.",
+        "In all cases, BMP must ensure these partners comply with security regulations according to the Law on Cybersecurity and the Law on Personal Data Protection."
+      ]
+    },
+    {
+      "title": "5. Cookie Collection and Use",
+      "points": [
+        "Cookies help remember login sessions, language preferences, analyze user behavior.",
+        "You can disable cookies in your browser; however, some features may not function properly."
+      ]
+    },
+    {
+      "title": "6. Data Security",
+      "points": [
+        "All transmission channels are SSL/TLS encrypted.",
+        "Data stored on servers is end-to-end encrypted; only users have the decryption key."
+      ]
+    },
+    {
+      "title": "7. Security Commitment",
+      "points": [
+        "BMP commits that securing your information is a top priority. BMP uses advanced security measures to protect your personal information from any unauthorized access, misuse, or disclosure. BMP never shares your information with third parties without your prior consent. Concurrently, BMP continuously updates and tests its security systems to ensure they always meet the highest standards."
+      ]
+    },
+    {
+      "title": "8. User Rights",
+      "points": [
+        "Access, edit, supplement, or request deletion of personal data at any time.",
+        "Export personal data file (according to the circular regulations of the Ministry of Information and Communications).",
+        "Withdraw or re-grant consent to use information."
+      ]
+    },
+    {
+      "title": "9. Retention and Deletion",
+      "points": [
+        "Operational data: stored for a minimum of 5 years after the last use (to serve complaint handling, auditing).",
+        "Personal data: stored until you request deletion or the legal retention period expires."
+      ]
+    },
+    {
+      "title": "10. Policy Changes",
+      "points": [
+        "BMP reserves the right to amend this Policy at any time by posting the revised version on the website. You are responsible for regularly reviewing this Policy for revisions. Your continued use of the website after revisions are posted will be deemed your acceptance of such revisions."
+      ]
+    }
+  ]
+}
