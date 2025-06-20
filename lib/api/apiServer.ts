@@ -53,34 +53,38 @@ export async function getConfig(
 apiServer.interceptors.response.use(
   (response) => {
     const data = response.data;
+    let formattedData;
     if (response.status === 200) {
-      response.data = {
-        status: 200,
+      formattedData = {
+        status: response.status,
         message: data.message,
         data: data.data,
       };
     } else if (response.status === 400) {
-      response.data = {
-        status: 400,
+      formattedData = {
+        status: response.status,
         message: data.message,
         errors: data.data,
       };
     } else if (response.status === 403) {
-      response.data = {
-        status: 403,
+      formattedData = {
+        status: response.status,
         message: "Forbidden",
       };
     } else if (response.status === 500) {
-      response.data = {
-        status: 500,
+      formattedData = {
+        status: response.status,
         message: "Internal Server Error",
       };
     } else {
-      response.data = {
+      formattedData = {
         status: response.status,
         message: "Unexpected response status",
       };
     }
-    return response;
+    return {
+      ...response,
+      data: formattedData,
+    };
   }
 );

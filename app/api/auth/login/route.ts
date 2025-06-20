@@ -7,6 +7,7 @@ import {
   handleApiServerError,
 } from "@/lib/api/apiServerBase";
 import { apiServer, getConfig } from "@/lib/api/apiServer";
+import { isValidEmail } from "@/lib/infra/validators";
 import { IronSession } from "iron-session";
 
 async function loginPostHandler(
@@ -72,11 +73,6 @@ async function loginPostHandler(
       session
     );
   }
-}
-
-function isValidEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
 }
 
 export const POST = withServerBase(loginPostHandler, {

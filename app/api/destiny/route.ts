@@ -37,7 +37,7 @@ async function destinyApiHandler(
     const config = await getConfig(request, session?.accessToken);
 
     const response = await apiServer.post(
-      "/LuckyNumber/theology",
+      "/bocmenh/theology",
       { firstName: "", middleName: "" },
       config
     );

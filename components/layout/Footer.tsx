@@ -190,7 +190,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-700 pt-8 text-center text-sm">
           <p>
-            &copy; {currentYear} {t("site.title")}. {t("footer.copyright")}.
+            &copy; {currentYear} {t("footer.copyright")} <span className="text-gray-200 cursor-pointer">{t("site.owner")}.</span>
           </p>
         </div>
       </div>

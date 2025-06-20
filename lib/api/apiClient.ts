@@ -3,7 +3,6 @@ import { encryptData, decryptData } from "../infra/encryption";
 import { NextResponse } from "next/server";
 import { getTranslations } from "@/i18n/server";
 
-// This function will be set by AuthSetup to link to AuthContext's openLoginModal
 let globalAuthPromptHandler: ((options?: any) => void) | null = null;
 
 export function setGlobalAuthPrompt(handler: typeof globalAuthPromptHandler) {

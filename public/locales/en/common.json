@@ -175,6 +175,7 @@
   },
   "site": {
     "title": "Unveil Your Destiny",
+    "owner": "insight.ai.vn - Maximize your internal potential with AI",
     "tagline": "Each person is a mystery box, uncover it - and you'll understand yourself",
     "cta": "Start Exploring",
     "description": "Explore your destiny, interpret dreams, and discover Feng Shui insights with Bóc Mệnh.",
@@ -484,7 +485,7 @@
     "viewAllProducts": "View All Products"
   },
   "footer": {
-    "copyright": "All rights reserved",
+    "copyright": "All rights reserved by",
     "help": "Help/FAQ",
     "about": "About Us",
     "contact": "Contact",
