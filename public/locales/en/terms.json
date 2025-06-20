@@ -1,62 +1,89 @@
 {
-  "title": "Terms of Service",
-  "section1": {
-    "title": "1. Acceptance of Terms",
-    "content": "Welcome to Bóc Mệnh's services! Please read these Terms of Service (\"Terms\") carefully before using Bóc Mệnh's Bóc Mệnh. These Terms govern the legally binding terms between you and Bóc Mệnh regarding your access to and use of the service.\nBy accessing or using Bóc Mệnh, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree with any of these terms, please do not use Bóc Mệnh."
-  },
-  "section2": {
-    "title": "2. Registration, Account",
-    "item1": "Users can read content on Bóc Mệnh, use some free services, and use filters to find suitable (affiliate) products without logging in.",
-    "item2": "To use all free services, including diagnostic features, analysis, personalized recommendations, usage history, etc., you must register as a member and provide accurate information.",
-    "item3": "To use advanced services (more detailed interpretations, more in-depth analysis), you must pay a service fee (one-time payment, purchase points for multiple uses).",
-    "item4": "You are responsible for maintaining the confidentiality of your login information; Bóc Mệnh is not responsible for any risks arising from password disclosure."
-  },
-  "section3": {
-    "title": "3. User Rights and Obligations",
-    "item1": "Use the service in accordance with Vietnamese law and customs.",
-    "item2": "Do not copy or distribute Bóc Mệnh content in any form without permission.",
-    "item3": "Do not engage in any harmful conduct, disrupt the service, or attack the system."
-  },
-  "section4": {
-    "title": "4. User Conduct Rules",
-    "content": "When using Bóc Mệnh, you agree not to:",
-    "item1": "Violate any laws or regulations.",
-    "item2": "Infringe upon the privacy, intellectual property rights, or any other rights of others."
-  },
-  "section5": {
-    "title": "5. Service Description and Fees",
-    "item1": "Basic service (free): Preliminary viewing of interpretation results; limited turns.",
-    "item2": "Advanced service (paid): Detailed interpretation of destiny, feng shui, compatibility; tarot toolkit; PDF report publication.",
-    "item3": "Pricing and payment methods are clearly listed on the “Pricing & Payment Methods” page."
-  },
-  "section6": {
-    "title": "6. Affiliate & Advertising",
-    "content": "Affiliate products related to interpretation results are clearly tagged “Affiliate”.",
-    "item1": "Advertising complies with the Advertising Law, is not misleading, and does not violate customs.",
-    "item2": "Bóc Mệnh is not responsible for products provided by affiliate partners."
-  },
-  "section7": {
-    "title": "7. Intellectual Property",
-    "content": "Bóc Mệnh and all content of Bóc Mệnh, including text, images, graphics, logos, icons, audio, video, source code, design, layout, and software, are the property of Bóc Mệnh or its licensors and are protected by intellectual property law.\nUsers may not reuse unless with written permission."
-  },
-  "section8": {
-    "title": "8. Disclaimer",
-    "content": "Interpretation data is for reference only; results cannot be guaranteed to be 100% accurate.\nBóc Mệnh is not responsible for damages caused by your complete reliance on interpretation results.\nBóc Mệnh is provided on an “as is” and “as available” basis without any warranties, express or implied. Bóc Mệnh does not warrant that Bóc Mệnh will be uninterrupted, timely, secure, or error-free."
-  },
-  "section9": {
-    "title": "9. Termination and Suspension",
-    "content": "Bóc Mệnh has the right to refuse, suspend, or lock accounts that violate the terms without prior notice."
-  },
-  "section10": {
-    "title": "10. General Terms",
-    "content": "Applicable law: Information Technology Law, Network Security Law, Personal Data Protection Law, and guiding documents in Vietnam.\nAny disputes arising will prioritize mediation; if unsuccessful, lawsuits will be filed at the People's Court where Bóc Mệnh is headquartered."
-  },
-  "section11": {
-    "title": "11. Policy Changes",
-    "content": "Bóc Mệnh has the right to modify these Terms at any time by posting the revised version on the website. You are responsible for regularly reviewing these Terms for revisions. Your continued use of the website after revisions are posted will be deemed your acceptance of those revisions."
-  },
-  "section12": {
-    "title": "12. Contact",
-    "content": "Facebook Fanpage: facebook.com/bocmenh.official\nYouTube: youtube.com/bocmenh.official\nZalo Official: 032 5988 605\nSupport Email: support@bocmenh.com"
+  "metaTitle": "Terms of Service - Bóc Mệnh",
+  "metaDescription": "Read the Terms of Service of Bóc Mệnh (BMP) carefully before using our services. This policy outlines the legally binding conditions.",
+  "pageTitle": "Terms of Service",
+  "introduction": "Bóc Mệnh at bocmenh.com and the entire Bóc Mệnh ecosystem (hereinafter referred to as BMP)",
+  "sections": {
+    "acceptance": {
+      "title": "1. Acceptance of Terms",
+      "content": [
+        "Welcome to BMP's services! Please read these Terms of Service (\"Terms\") carefully before using BMP's services. These Terms govern the legally binding conditions between you and BMP regarding your access to and use of the service.",
+        "By accessing or using BMP, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree with any of these terms, please do not use BMP."
+      ]
+    },
+    "registration": {
+      "title": "2. Registration, Account",
+      "items": [
+        "Users can read content on BMP, use some free services, and use filters to find suitable (affiliate) products without logging in.",
+        "To use all free services, including diagnostic features, analysis, product recommendations suitable for your destiny sign, usage history, etc., you must register as a member and provide accurate information.",
+        "To use advanced services (more detailed interpretations, more in-depth analysis), you must pay a service fee (one-time payment, purchase points for multiple uses).",
+        "You are responsible for maintaining the confidentiality of your login information; Bóc Mệnh is not responsible for any risks arising from password disclosure."
+      ]
+    },
+    "userRights": {
+      "title": "3. User Rights and Obligations",
+      "items": [
+        "Use the service in accordance with Vietnamese law and good customs.",
+        "Do not copy or distribute Bóc Mệnh content in any form without permission.",
+        "Do not engage in any harmful conduct, disrupt the service, or attack the system."
+      ]
+    },
+    "userConduct": {
+      "title": "4. User Conduct Rules",
+      "intro": "When using BMP, you agree not to:",
+      "items": [
+        "Violate any applicable laws or regulations.",
+        "Infringe upon the privacy, intellectual property rights, or any other rights of others.",
+        "Post, transmit, or distribute any unlawful, harmful, threatening, abusive, harassing, defamatory, vulgar, obscene, hateful, discriminatory, or otherwise objectionable content.",
+        "Impersonate any person or entity."
+      ]
+    },
+    "serviceDescription": {
+      "title": "5. Service Description and Fees",
+      "items": [
+        "Basic service (free): Preliminary view of interpretation results; limited usage.",
+        "Advanced service (paid): Detailed interpretation of destiny, feng shui, compatibility; tarot toolkit; PDF report generation.",
+        "The price list and payment methods are clearly posted on the “Pricing & Payment Methods” page.",
+        "Payment via MoMo, VNPay, international cards... Refunds are processed according to the service cancellation policy."
+      ]
+    },
+    "affiliateAdvertising": {
+      "title": "6. Affiliate & Advertising",
+      "items": [
+        "Affiliate products related to interpretation results are clearly tagged “Affiliate”.",
+        "Advertising complies with the Advertising Law, is not misleading, and does not violate good customs.",
+        "BMP is not responsible for products provided by affiliate partners."
+      ]
+    },
+    "intellectualProperty": {
+      "title": "7. Intellectual Property",
+      "content": [
+        "BMP and all of its content, including text, images, graphics, logos, icons, audio, video, source code, design, layout, and software, are the property of BMP or its licensors and are protected by intellectual property laws.",
+        "Users may not reuse content, except with written permission."
+      ]
+    },
+    "disclaimer": {
+      "title": "8. Disclaimer",
+      "content": [
+        "Interpretation data is for reference purposes only; results cannot be guaranteed to be 100% accurate.",
+        "Bóc Mệnh is not responsible for any damages resulting from your complete reliance on the interpretation results.",
+        "BMP is provided \"as is\" and \"as available\" without any warranties, express or implied. BMP does not warrant that its services will be uninterrupted, timely, secure, or error-free."
+      ]
+    },
+    "termination": {
+      "title": "9. Termination and Suspension",
+      "content": "Bóc Mệnh reserves the right to refuse, suspend, or terminate accounts that violate these terms without prior notice."
+    },
+    "generalTerms": {
+      "title": "10. General Terms",
+      "content": [
+        "Applicable law: Law on Information Technology, Law on Cybersecurity, Law on Personal Data Protection, and related guiding documents in Vietnam.",
+        "Any disputes arising will be prioritized for resolution through mediation. If unsuccessful, legal action will be initiated at the People's Court where Bóc Mệnh is headquartered."
+      ]
+    },
+    "policyChanges": {
+      "title": "11. Policy Changes",
+      "content": "BMP reserves the right to amend these Terms at any time by posting the revised version on the website. You are responsible for regularly reviewing these Terms for any amendments. Your continued use of the website after amendments are posted will be deemed your acceptance of such amendments."
+    }
   }
 }

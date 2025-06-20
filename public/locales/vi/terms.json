@@ -1,62 +1,89 @@
 {
-  "title": "Điều khoản dịch vụ",
-  "section1": {
-    "title": "1. Chấp nhận điều khoản",
-    "content": "Chào mừng bạn đến với dịch vụ của Bóc Mệnh! Vui lòng đọc kỹ Điều khoản dịch vụ (\"Điều khoản\") này trước khi sử dụng Bóc Mệnh của Bóc Mệnh. Điều khoản này quy định các điều kiện ràng buộc về mặt pháp lý giữa bạn và Bóc Mệnh, liên quan đến việc bạn truy cập và sử dụng dịch vụ.\nBằng việc truy cập hoặc sử dụng Bóc Mệnh, bạn xác nhận rằng bạn đã đọc, hiểu và đồng ý bị ràng buộc bởi Điều khoản này. Nếu bạn không đồng ý với bất kỳ điều khoản nào, vui lòng không sử dụng Bóc Mệnh."
-  },
-  "section2": {
-    "title": "2. Đăng ký, tài khoản",
-    "item1": "Người dùng có thể đọc các nội dung trên Bóc Mệnh, sử dụng một số dịch vụ miễn phí, sử dụng bộ lọc để tìm sản phẩm (affiliate) phù hợp mà không cần đăng nhập.",
-    "item2": "Để sử dụng toàn bộ các dịch vụ miễn phí bao gồm các tính năng chuẩn đoán, phân tích, đề xuất sản phẩm phù hợp cung-mệnh, lịch sử sử dụng, …bạn phải đăng ký thành viên và cung cấp thông tin chính xác.",
-    "item3": "Để sử dụng dịch vụ nâng cao (luận giải chi tiết hơn, phân tích sâu rộng hơn) bạn phải thanh toán để trả phí dịch vụ (thanh toán một lần, mua điểm để sử dụng nhiều lần).",
-    "item4": "Bạn chịu trách nhiệm bảo mật thông tin đăng nhập; Bóc Mệnh không chịu trách nhiệm nếu có rủi ro phát sinh từ việc lộ mật khẩu."
-  },
-  "section3": {
-    "title": "3. Quyền và nghĩa vụ người dùng",
-    "item1": "Sử dụng dịch vụ phù hợp với quy định của pháp luật Việt Nam và thuần phong mỹ tục.",
-    "item2": "Không sao chép, phát tán nội dung Bóc Mệnh dưới bất kỳ hình thức nào mà không được phép.",
-    "item3": "Không thực hiện hành vi gây hại, làm gián đoạn dịch vụ, tấn công hệ thống."
-  },
-  "section4": {
-    "title": "4. Quy tắc ứng xử của người dùng",
-    "content": "Khi sử dụng Bóc Mệnh, bạn đồng ý không:",
-    "item1": "Vi phạm bất kỳ luật hoặc quy định nào.",
-    "item2": "Xâm phạm quyền riêng tư, quyền sở hữu trí tuệ hoặc bất kỳ quyền nào khác của người khác."
-  },
-  "section5": {
-    "title": "5. Mô tả dịch vụ và phí",
-    "item1": "Dịch vụ cơ bản (miễn phí): Xem sơ bộ kết quả luận giải; giới hạn lượt.",
-    "item2": "Dịch vụ nâng cao (có phí): Luận giải chi tiết vận mệnh, phong thủy, tương hợp; bộ công cụ tarot; xuất bản báo cáo PDF.",
-    "item3": "Bảng giá và phương thức thanh toán được niêm yết rõ ràng tại trang “Giá & Phương thức thanh toán”."
-  },
-  "section6": {
-    "title": "6. Affiliate & quảng cáo",
-    "content": "Sản phẩm affiliate liên quan đến kết quả luận giải được gắn thẻ “Affiliate” rõ ràng.",
-    "item1": "Quảng cáo tuân thủ Luật Quảng cáo, không gây nhầm lẫn, không vi phạm thuần phong mỹ tục.",
-    "item2": "Bóc Mệnh không chịu trách nhiệm về các sản phẩm do đối tác affiliate cung cấp."
-  },
-  "section7": {
-    "title": "7. Sở hữu trí tuệ",
-    "content": "Bóc Mệnh và toàn bộ nội dung của Bóc Mệnh, bao gồm văn bản, hình ảnh, đồ họa, logo, biểu tượng, âm thanh, video, mã nguồn, thiết kế, bố cục và phần mềm, là tài sản của Bóc Mệnh hoặc các bên cấp phép của Bóc Mệnh và được bảo vệ bởi luật sở hữu trí tuệ.\nNgười dùng không được tái sử dụng, trừ khi có văn bản cho phép."
-  },
-  "section8": {
-    "title": "8. Miễn trừ trách nhiệm",
-    "content": "Dữ liệu luận giải mang tính tham khảo; kết quả không thể đảm bảo chính xác 100%.\nBóc Mệnh không chịu trách nhiệm về thiệt hại do bạn tin tưởng hoàn toàn vào kết quả luận giải.\nBóc Mệnh được cung cấp \"nguyên trạng\" và \"có sẵn\" mà không có bất kỳ bảo đảm nào, rõ ràng hoặc ngụ ý. Bóc Mệnh không đảm bảo rằng Bóc Mệnh sẽ không bị gián đoạn, kịp thời, an toàn hoặc không có lỗi."
-  },
-  "section9": {
-    "title": "9. Chấm dứt và tạm ngưng",
-    "content": "Bóc Mệnh có quyền từ chối, tạm ngưng hoặc khóa tài khoản vi phạm điều khoản mà không cần thông báo trước."
-  },
-  "section10": {
-    "title": "10. Điều khoản chung",
-    "content": "Luật áp dụng: Luật Công nghệ thông tin, Luật An ninh mạng, Luật Bảo vệ dữ liệu cá nhân và các văn bản hướng dẫn tại Việt Nam.\nMọi tranh chấp phát sinh sẽ ưu tiên hòa giải, nếu không thành công sẽ khởi kiện tại Tòa án Nhân dân nơi Bóc Mệnh đặt trụ sở."
-  },
-  "section11": {
-    "title": "11. Thay đổi chính sách",
-    "content": "Bóc Mệnh có quyền sửa đổi Điều khoản này bất cứ lúc nào bằng cách đăng bản sửa đổi lên website. Bạn có trách nhiệm thường xuyên xem xét Điều khoản này để biết các bản sửa đổi. Việc bạn tiếp tục sử dụng website sau khi các bản sửa đổi được đăng tải sẽ được coi là sự chấp nhận của bạn đối với các bản sửa đổi đó."
-  },
-  "section12": {
-    "title": "12. Liên hệ",
-    "content": "Fanpage Facebook: facebook.com/bocmenh.official\nYouTube: youtube.com/bocmenh.official\nZalo Official: 032 5988 605\nEmail hỗ trợ: support@bocmenh.com"
+  "metaTitle": "Điều khoản Dịch vụ - Bóc Mệnh",
+  "metaDescription": "Đọc kỹ Điều khoản Dịch vụ của Bóc Mệnh (BMP) trước khi sử dụng các dịch vụ của chúng tôi. Chính sách này quy định các điều kiện ràng buộc pháp lý.",
+  "pageTitle": "Điều khoản dịch vụ",
+  "introduction": "Bóc Mệnh tại bocmenh.com và toàn bộ hệ sinh thái Bóc Mệnh (từ giờ gọi tắt là BMP)",
+  "sections": {
+    "acceptance": {
+      "title": "1. Chấp nhận điều khoản",
+      "content": [
+        "Chào mừng bạn đến với dịch vụ của BMP! Vui lòng đọc kỹ Điều khoản dịch vụ (\"Điều khoản\") này trước khi sử dụng BMP của BMP. Điều khoản này quy định các điều kiện ràng buộc về mặt pháp lý giữa bạn và BMP, liên quan đến việc bạn truy cập và sử dụng dịch vụ.",
+        "Bằng việc truy cập hoặc sử dụng BMP, bạn xác nhận rằng bạn đã đọc, hiểu và đồng ý bị ràng buộc bởi Điều khoản này. Nếu bạn không đồng ý với bất kỳ điều khoản nào, vui lòng không sử dụng BMP."
+      ]
+    },
+    "registration": {
+      "title": "2. Đăng ký, tài khoản",
+      "items": [
+        "Người dùng có thể đọc các nội dung trên BMP, sử dụng một số dịch vụ miễn phí, sử dụng bộ lọc để tìm sản phẩm (affiliate) phù hợp mà không cần đăng nhập.",
+        "Để sử dụng toàn bộ các dịch vụ miễn phí bao gồm các tính năng chuẩn đoán, phân tích, đề xuất sản phẩm phù hợp cung-mệnh, lịch sử sử dụng, …bạn phải đăng ký thành viên và cung cấp thông tin chính xác.",
+        "Để sử dụng dịch vụ nâng cao (luận giải chi tiết hơn, phân tích sâu rộng hơn) bạn phải thanh toán để trả phí dịch vụ (thanh toán một lần, mua điểm để sử dụng nhiều lần).",
+        "Bạn chịu trách nhiệm bảo mật thông tin đăng nhập; Bóc Mệnh không chịu trách nhiệm nếu có rủi ro phát sinh từ việc lộ mật khẩu."
+      ]
+    },
+    "userRights": {
+      "title": "3. Quyền và nghĩa vụ người dùng",
+      "items": [
+        "Sử dụng dịch vụ phù hợp với quy định của pháp luật Việt Nam và thuần phong mỹ tục.",
+        "Không sao chép, phát tán nội dung Bóc Mệnh dưới bất kỳ hình thức nào mà không được phép.",
+        "Không thực hiện hành vi gây hại, làm gián đoạn dịch vụ, tấn công hệ thống."
+      ]
+    },
+    "userConduct": {
+      "title": "4. Quy tắc ứng xử của người dùng",
+      "intro": "Khi sử dụng BMP, bạn đồng ý không:",
+      "items": [
+        "Vi phạm bất kỳ luật hoặc quy định nào.",
+        "Xâm phạm quyền riêng tư, quyền sở hữu trí tuệ hoặc bất kỳ quyền nào khác của người khác.",
+        "Đăng tải, truyền bá hoặc phân phối bất kỳ nội dung bất hợp pháp, gây hại, đe dọa, lạm dụng, quấy rối, phỉ báng, tục tĩu, thù hận, phân biệt đối xử hoặc gây khó chịu nào.",
+        "Mạo danh bất kỳ cá nhân hoặc tổ chức nào."
+      ]
+    },
+    "serviceDescription": {
+      "title": "5. Mô tả dịch vụ và phí",
+      "items": [
+        "Dịch vụ cơ bản (miễn phí): Xem sơ bộ kết quả luận giải; giới hạn lượt.",
+        "Dịch vụ nâng cao (có phí): Luận giải chi tiết vận mệnh, phong thủy, tương hợp; bộ công cụ tarot; xuất bản báo cáo PDF.",
+        "Bảng giá và phương thức thanh toán được niêm yết rõ ràng tại trang “Giá & Phương thức thanh toán”.",
+        "Thanh toán qua cổng MoMo, VNPay, thẻ quốc tế… Hoàn trả theo chính sách hủy dịch vụ."
+      ]
+    },
+    "affiliateAdvertising": {
+      "title": "6. Affiliate & quảng cáo",
+      "items": [
+        "Sản phẩm affiliate liên quan đến kết quả luận giải được gắn thẻ “Affiliate” rõ ràng.",
+        "Quảng cáo tuân thủ Luật Quảng cáo, không gây nhầm lẫn, không vi phạm thuần phong mỹ tục.",
+        "BMP không chịu trách nhiệm về các sản phẩm do đối tác affiliate cung cấp."
+      ]
+    },
+    "intellectualProperty": {
+      "title": "7. Sở hữu trí tuệ",
+      "content": [
+        "BMP và toàn bộ nội dung của BMP, bao gồm văn bản, hình ảnh, đồ họa, logo, biểu tượng, âm thanh, video, mã nguồn, thiết kế, bố cục và phần mềm, là tài sản của BMP hoặc các bên cấp phép của BMP và được bảo vệ bởi luật sở hữu trí tuệ.",
+        "Người dùng không được tái sử dụng, trừ khi có văn bản cho phép."
+      ]
+    },
+    "disclaimer": {
+      "title": "8. Miễn trừ trách nhiệm",
+      "content": [
+        "Dữ liệu luận giải mang tính tham khảo; kết quả không thể đảm bảo chính xác 100%.",
+        "Bóc Mệnh không chịu trách nhiệm về thiệt hại do bạn tin tưởng hoàn toàn vào kết quả luận giải.",
+        "BMP được cung cấp \"nguyên trạng\" và \"có sẵn\" mà không có bất kỳ bảo đảm nào, rõ ràng hoặc ngụ ý. BMP không đảm bảo rằng BMP sẽ không bị gián đoạn, kịp thời, an toàn hoặc không có lỗi."
+      ]
+    },
+    "termination": {
+      "title": "9. Chấm dứt và tạm ngưng",
+      "content": "Bóc Mệnh có quyền từ chối, tạm ngưng hoặc khóa tài khoản vi phạm điều khoản mà không cần thông báo trước."
+    },
+    "generalTerms": {
+      "title": "10. Điều khoản chung",
+      "content": [
+        "Luật áp dụng: Luật Công nghệ thông tin, Luật An ninh mạng, Luật Bảo vệ dữ liệu cá nhân và các văn bản hướng dẫn tại Việt Nam.",
+        "Mọi tranh chấp phát sinh sẽ ưu tiên hòa giải, nếu không thành công sẽ khởi kiện tại Tòa án Nhân dân nơi Bóc Mệnh đặt trụ sở."
+      ]
+    },
+    "policyChanges": {
+      "title": "11. Thay đổi chính sách",
+      "content": "BMP có quyền sửa đổi Điều khoản này bất cứ lúc nào bằng cách đăng bản sửa đổi lên website. Bạn có trách nhiệm thường xuyên xem xét Điều khoản này để biết các bản sửa đổi. Việc bạn tiếp tục sử dụng website sau khi các bản sửa đổi được đăng tải sẽ được coi là sự chấp nhận của bạn đối với các bản sửa đổi đó."
+    }
   }
 }
