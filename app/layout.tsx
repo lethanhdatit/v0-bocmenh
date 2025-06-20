@@ -90,6 +90,33 @@ export const viewport = {
   maximumScale: 5,
 }
 
+const starryBackground = <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+  <div className="absolute inset-0">
+    {[...Array(60)].map((_, i) => (
+      <div
+        key={i}
+        className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
+        style={{
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          animationDelay: `${Math.random() * 2}s`,
+          // willChange: "opacity", // Optimize animation
+        }} />
+    ))}
+    {[...Array(25)].map((_, i) => (
+      <div
+        key={`gold-${i}`}
+        className="absolute w-1.5 h-1.5 bg-yellow-500 rounded-full animate-twinkle"
+        style={{
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          animationDelay: `${Math.random() * 3}s`,
+          // willChange: "opacity", // Optimize animation
+        }} />
+    ))}
+  </div>
+</div>;
+
 export default function RootLayout({
   children,
 }: {
@@ -171,36 +198,7 @@ export default function RootLayout({
               <div className="flex flex-col min-h-screen">
                 <Navigation />
                 <main className="flex-grow pt-16 relative">
-                  {/* Optimized Starry background */}
-                  <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-                    <div className="absolute inset-0">
-                      {/* Reduced stars for better performance */}
-                      {[...Array(60)].map((_, i) => (
-                        <div
-                          key={i}
-                          className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
-                          style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            animationDelay: `${Math.random() * 2}s`,
-                            willChange: "opacity", // Optimize animation
-                          }}
-                        />
-                      ))}
-                      {[...Array(25)].map((_, i) => (
-                        <div
-                          key={`gold-${i}`}
-                          className="absolute w-1.5 h-1.5 bg-yellow-500 rounded-full animate-twinkle"
-                          style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            animationDelay: `${Math.random() * 3}s`,
-                            willChange: "opacity", // Optimize animation
-                          }}
-                        />
-                      ))}
-                    </div>
-                  </div>
+                  {starryBackground}
                   <div className="relative z-0">{children}</div>
                 </main>
                 <Footer />
