@@ -34,7 +34,7 @@ async function initI18next(locale: string, namespaces: string | string[] = "comm
   return instance
 }
 
-export async function getTranslations(namespaces: string | string[] = "common") {
+export async function getTranslations(namespaces: string | string[] = ["common", "terms"]) {
   const { language: locale } = await getServerLanguage()
 
   const i18n = await initI18next(locale, namespaces)

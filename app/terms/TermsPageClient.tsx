@@ -7,7 +7,7 @@ export default function TermsPageClient() {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-2xl font-bold mb-4">{t("title")}</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center mb-2">{t("title")}</h1>
 
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">{t("section1.title")}</h2>
@@ -85,10 +85,10 @@ export default function TermsPageClient() {
         <p>{t("section11.content")}</p>
       </section>
 
-      <section className="mb-6">
+      {/* <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">{t("section12.title")}</h2>
         <p>{t("section12.content")}</p>
-      </section>
+      </section> */}
     </div>
   )
 }
