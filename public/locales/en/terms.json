@@ -17,14 +17,15 @@
         "Users can read content on BMP, use some free services, and use filters to find suitable (affiliate) products without logging in.",
         "To use all free services, including diagnostic features, analysis, product recommendations suitable for your destiny sign, usage history, etc., you must register as a member and provide accurate information.",
         "To use advanced services (more detailed interpretations, more in-depth analysis), you must pay a service fee (one-time payment, purchase points for multiple uses).",
-        "You are responsible for maintaining the confidentiality of your login information; Bóc Mệnh is not responsible for any risks arising from password disclosure."
+        "You are responsible for maintaining the confidentiality of your login information.",
+        "BMP is not responsible for any risks arising from password disclosure."
       ]
     },
     "userRights": {
       "title": "3. User Rights and Obligations",
       "items": [
         "Use the service in accordance with Vietnamese law and good customs.",
-        "Do not copy or distribute Bóc Mệnh content in any form without permission.",
+        "Do not copy or distribute BMP content in any form without permission.",
         "Do not engage in any harmful conduct, disrupt the service, or attack the system."
       ]
     },
@@ -66,19 +67,19 @@
       "title": "8. Disclaimer",
       "content": [
         "Interpretation data is for reference purposes only; results cannot be guaranteed to be 100% accurate.",
-        "Bóc Mệnh is not responsible for any damages resulting from your complete reliance on the interpretation results.",
+        "BMP is not responsible for any damages resulting from your complete reliance on the interpretation results.",
         "BMP is provided \"as is\" and \"as available\" without any warranties, express or implied. BMP does not warrant that its services will be uninterrupted, timely, secure, or error-free."
       ]
     },
     "termination": {
       "title": "9. Termination and Suspension",
-      "content": "Bóc Mệnh reserves the right to refuse, suspend, or terminate accounts that violate these terms without prior notice."
+      "content": "BMP reserves the right to refuse, suspend, or terminate accounts that violate these terms without prior notice."
     },
     "generalTerms": {
       "title": "10. General Terms",
       "content": [
         "Applicable law: Law on Information Technology, Law on Cybersecurity, Law on Personal Data Protection, and related guiding documents in Vietnam.",
-        "Any disputes arising will be prioritized for resolution through mediation. If unsuccessful, legal action will be initiated at the People's Court where Bóc Mệnh is headquartered."
+        "Any disputes arising will be prioritized for resolution through mediation. If unsuccessful, legal action will be initiated at the People's Court where BMP is headquartered."
       ]
     },
     "policyChanges": {

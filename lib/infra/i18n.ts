@@ -15,6 +15,8 @@ async function loadTranslations() {
       enTermResponse,
       viPrivacyResponse,
       enPrivacyResponse,
+      viHelpResponse,
+      enHelpResponse,
     ] = await Promise.all([
       fetch(new URL("/locales/vi/common.json", baseUrl).toString()),
       fetch(new URL("/locales/en/common.json", baseUrl).toString()),
@@ -22,6 +24,8 @@ async function loadTranslations() {
       fetch(new URL("/locales/en/terms.json", baseUrl).toString()),
       fetch(new URL("/locales/vi/privacy.json", baseUrl).toString()),
       fetch(new URL("/locales/en/privacy.json", baseUrl).toString()),
+      fetch(new URL("/locales/vi/help.json", baseUrl).toString()),
+      fetch(new URL("/locales/en/help.json", baseUrl).toString()),
     ]);
 
     const viCommon = await viCommonResponse.json();
@@ -30,17 +34,19 @@ async function loadTranslations() {
     const enTerm = await enTermResponse.json();
     const viPrivacy = await viPrivacyResponse.json();
     const enPrivacy = await enPrivacyResponse.json();
+    const viHelp = await viHelpResponse.json();
+    const enHelp = await enHelpResponse.json();
 
     return {
-      vi: { common: viCommon, terms: viTerm, privacy: viPrivacy },
-      en: { common: enCommon, terms: enTerm, privacy: enPrivacy },
+      vi: { common: viCommon, terms: viTerm, privacy: viPrivacy, help: viHelp },
+      en: { common: enCommon, terms: enTerm, privacy: enPrivacy, help: enHelp },
     };
   } catch (error) {
     console.error("Failed to load translations:", error);
     // Fallback to empty resources
     return {
-      vi: { common: {}, terms: {}, privacy: {} },
-      en: { common: {}, terms: {}, privacy: {} },
+      vi: { common: {}, terms: {}, privacy: {}, help: {} },
+      en: { common: {}, terms: {}, privacy: {}, help: {} },
     };
   }
 }
@@ -50,8 +56,8 @@ const initPromise = loadTranslations().then((resources) => {
   return i18n.use(initReactI18next).init({
     resources,
     fallbackLng: "vi",
-    defaultNS: ["common", "terms", "privacy"],
-    ns: ["common", "terms", "privacy"],
+    defaultNS: ["common", "terms", "privacy", "help"],
+    ns: ["common", "terms", "privacy", "help"],
     lng: "vi", // Default language, will be set by LanguageContext
 
     interpolation: {

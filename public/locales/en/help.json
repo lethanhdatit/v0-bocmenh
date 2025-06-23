@@ -1,0 +1,51 @@
+{
+  "root": {
+    "title": "Help & FAQ",
+    "subTitle": "Find answers to frequently asked questions about our services",
+    "frequentlyAskedQuestions": "Frequently Asked Questions",
+    "stillNeedHelp": "Still need help?",
+    "pleaseContactUs": "If you can't find the answer, please contact us",
+    "sendSupportEmail": "Send Support Email",
+    "termsOfService": "Terms Of Service",
+    "questions": {
+      "q1": {
+        "question": "How to register an account?",
+        "answer": "Click \"Register\" in the top right corner of the homepage, fill in your email and create a password."
+      },
+      "q2": {
+        "question": "I forgot my password, what should I do?",
+        "answer": "Select \"Forgot Password\", enter your registered email. The system will send a password reset link."
+      },
+      "q3": {
+        "question": "Why are the interpretation results different each time?",
+        "answer": "Results are based on the data you provide and continuously updated methodologies. Differences may be due to AI algorithm refinements or additional information you provide.",
+        "note": "If the information you provide between sessions is the same, the interpretation results usually won't differ much, unless the AI algorithm has been refined."
+      },
+      "q4": {
+        "question": "Is my personal information safe?",
+        "answer": "All information is end-to-end encrypted, only you have the decryption key. We do not share with third parties except partners listed in our Privacy Policy."
+      },
+      "q5": {
+        "question": "How to view service history?",
+        "answer": "After logging in, go to \"Profile\" → \"History\". You can view details of all interpretations and export PDF reports."
+      },
+      "q6": {
+        "question": "Do I have to pay extra when reviewing old interpretations?",
+        "answer": "You don't need to pay anything extra, even if the AI algorithm has been refined and optimized, you won't need to pay any additional costs, unless you change the input information."
+      },
+      "q7": {
+        "question": "What is affiliate, and how do I know I'm buying products through affiliate?",
+        "answer": "Affiliate is a third-party product referral program. All affiliate product links are labeled \"Affiliate\". Boc Menh does not collect money directly from your transactions with those partners."
+      },
+      "q8": {
+        "question": "Can I export all my personal data?",
+        "answer": "Go to \"Profile\" → \"Export Data\". The system will send a ZIP file containing personal information and usage history."
+      },
+      "q9": {
+        "question": "How do I know the website is trustworthy?",
+        "answer": "We comply with Cybersecurity Law and Personal Data Protection Law. We have regular security audits and SSL certificates issued by Let's Encrypt.",
+        "note": "You can completely try all features for free before considering using paid services."
+      }
+    }
+  }
+}
