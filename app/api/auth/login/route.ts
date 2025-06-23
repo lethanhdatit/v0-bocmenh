@@ -70,7 +70,8 @@ async function loginPostHandler(
         error400Message: t("auth.login.loginFailedDetail"),
         errorCommonMessage: t("auth.login.systemFailed"),
       },
-      session
+      session,
+      data
     );
   }
 }

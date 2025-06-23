@@ -78,7 +78,8 @@ async function registerPostHandler(
         error400Message: t("auth.register.registerFailedDetail"),
         errorCommonMessage: t("auth.register.systemFailed"),
       },
-      session
+      session,
+      data
     );
   }
 }

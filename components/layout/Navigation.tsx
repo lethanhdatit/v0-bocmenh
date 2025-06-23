@@ -161,7 +161,7 @@ export default function Navigation() {
       resizeObserver.disconnect();
       window.removeEventListener("resize", checkOverflow);
     };
-  }, [visibleItemsCount, navItems.length, isLoggedIn, i18n.language]);
+  }, [visibleItemsCount, navItems.length, isLoggedIn, i18n.language, authIsLoading]);
 
   // Force recalculation when language changes
   useEffect(() => {
