@@ -1,0 +1,99 @@
+{
+  "title": "Liên hệ",
+  "subtitle": "Kết nối với Bóc Mệnh - Chúng tôi luôn sẵn sàng hỗ trợ bạn",
+  "channels": {
+    "title": "Kênh liên hệ chính",
+    "facebook": "facebook.com/bocmenh.official",
+    "youtube": "youtube.com/bocmenh.official",
+    "zalo": "032 5988 605",
+    "email": "support@bocmenh.com"
+  },
+  "users": {
+    "title": "Dành cho người dùng",
+    "subtitle": "Chúng tôi cam kết mang đến trải nghiệm tốt nhất cho bạn",
+    "support": {
+      "title": "Hỗ trợ khách hàng",
+      "description": "Đội ngũ hỗ trợ chuyên nghiệp, sẵn sàng giải đáp mọi thắc mắc của bạn về dịch vụ, tính năng và cách sử dụng.",
+      "hours": "Thời gian: 24/7 (Trả lời tự động) | 8:00 - 22:00 (Hỗ trợ trực tiếp)",
+      "response": "Thời gian phản hồi: < 2 giờ (trong giờ hành chính)"
+    },
+    "feedback": {
+      "title": "Góp ý & Phản hồi",
+      "description": "Ý kiến của bạn là động lực để chúng tôi không ngừng cải thiện và phát triển.",
+      "types": [
+        "Báo lỗi kỹ thuật và sự cố",
+        "Đề xuất tính năng mới",
+        "Đánh giá chất lượng dịch vụ",
+        "Khiếu nại và yêu cầu giải quyết",
+        "Chia sẻ trải nghiệm sử dụng"
+      ]
+    },
+    "community": {
+      "title": "Tham gia cộng đồng",
+      "description": "Kết nối với hàng nghìn người dùng khác, chia sẻ kinh nghiệm và học hỏi từ nhau.",
+      "benefits": [
+        "Tham gia group Facebook độc quyền",
+        "Nhận thông báo sớm về tính năng mới",
+        "Được ưu tiên hỗ trợ kỹ thuật",
+        "Tham gia các sự kiện offline",
+        "Nhận quà tặng và voucher đặc biệt"
+      ]
+    }
+  },
+  "partners": {
+    "title": "Dành cho đối tác",
+    "subtitle": "Cùng Bóc Mệnh phát triển và tạo ra giá trị bền vững",
+    "advertising": {
+      "title": "Quảng cáo & Truyền thông",
+      "description": "Tiếp cận hàng triệu người dùng quan tâm đến phong thủy, tâm linh và phát triển bản thân.",
+      "formats": [
+        "Banner quảng cáo trên website (Header, Sidebar, Footer)",
+        "Sponsored content và bài viết tài trợ",
+        "Video ads trên kênh YouTube chính thức",
+        "Social media promotion trên Facebook, TikTok",
+        "Email marketing đến database khách hàng",
+        "Native advertising tích hợp trong dịch vụ"
+      ],
+      "contact": "ads@bocmenh.com"
+    },
+    "affiliate": {
+      "title": "Affiliate Marketing",
+      "description": "Trở thành đối tác affiliate và kiếm thu nhập thụ động từ việc giới thiệu sản phẩm phong thủy, tâm linh.",
+      "requirements": [
+        "Website/blog có traffic ổn định (>1000 UV/tháng)",
+        "Social media có follower thật (>5000 followers)",
+        "Nội dung phù hợp với lĩnh vực phong thủy, tâm linh",
+        "Cam kết tuân thủ quy định về quảng cáo",
+        "Có kinh nghiệm trong affiliate marketing (ưu tiên)"
+      ],
+      "benefits": [
+        "Hoa hồng hấp dẫn: 10-25% trên mỗi đơn hàng",
+        "Công cụ tracking chuyên nghiệp, minh bạch",
+        "Thanh toán đúng hạn hàng tháng",
+        "Hỗ trợ marketing materials và creative",
+        "Đào tạo về sản phẩm và kỹ năng bán hàng",
+        "Bonus thêm cho top performer"
+      ],
+      "contact": "affiliate@bocmenh.com"
+    },
+    "collaboration": {
+      "title": "Hợp tác chiến lược",
+      "description": "Tìm kiếm các đối tác dài hạn để cùng phát triển hệ sinh thái dịch vụ tâm linh, phong thủy.",
+      "opportunities": [
+        "Content collaboration - Hợp tác sản xuất nội dung",
+        "Cross-promotion - Quảng bá chéo sản phẩm/dịch vụ",
+        "Joint ventures - Liên doanh phát triển sản phẩm mới",
+        "Technology partnerships - Tích hợp công nghệ",
+        "Distribution partnerships - Mở rộng kênh phân phối",
+        "Investment opportunities - Cơ hội đầu tư"
+      ],
+      "contact": "partnership@bocmenh.com"
+    }
+  },
+  "office": {
+    "title": "Văn phòng làm việc",
+    "address": "Tầng 12, Tòa nhà ABC, 123 Đường XYZ, Quận 1, TP.HCM",
+    "hours": "Thứ 2 - Thứ 6: 8:00 - 17:30 | Thứ 7: 8:00 - 12:00",
+    "note": "Vui lòng liên hệ trước khi đến để được hỗ trợ tốt nhất"
+  }
+}

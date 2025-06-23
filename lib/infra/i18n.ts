@@ -19,6 +19,8 @@ async function loadTranslations() {
       enHelpResponse,
       viAboutResponse,
       enAboutResponse,
+      viContactResponse,
+      enContactResponse,
     ] = await Promise.all([
       fetch(new URL("/locales/vi/common.json", baseUrl).toString()),
       fetch(new URL("/locales/en/common.json", baseUrl).toString()),
@@ -30,6 +32,8 @@ async function loadTranslations() {
       fetch(new URL("/locales/en/help.json", baseUrl).toString()),
       fetch(new URL("/locales/vi/about.json", baseUrl).toString()),
       fetch(new URL("/locales/en/about.json", baseUrl).toString()),
+      fetch(new URL("/locales/vi/contact.json", baseUrl).toString()),
+      fetch(new URL("/locales/en/contact.json", baseUrl).toString()),
     ])
 
     const viCommon = await viCommonResponse.json()
@@ -42,17 +46,19 @@ async function loadTranslations() {
     const enHelp = await enHelpResponse.json()
     const viAbout = await viAboutResponse.json()
     const enAbout = await enAboutResponse.json()
+    const viContact = await viContactResponse.json()
+    const enContact = await enContactResponse.json()
 
     return {
-      vi: { common: viCommon, terms: viTerm, privacy: viPrivacy, help: viHelp, about: viAbout },
-      en: { common: enCommon, terms: enTerm, privacy: enPrivacy, help: enHelp, about: enAbout },
+      vi: { common: viCommon, terms: viTerm, privacy: viPrivacy, help: viHelp, about: viAbout, contact: viContact },
+      en: { common: enCommon, terms: enTerm, privacy: enPrivacy, help: enHelp, about: enAbout, contact: enContact },
     }
   } catch (error) {
     console.error("Failed to load translations:", error)
     // Fallback to empty resources
     return {
-      vi: { common: {}, terms: {}, privacy: {}, help: {}, about: {} },
-      en: { common: {}, terms: {}, privacy: {}, help: {}, about: {} },
+      vi: { common: {}, terms: {}, privacy: {}, help: {}, about: {}, contact: {} },
+      en: { common: {}, terms: {}, privacy: {}, help: {}, about: {}, contact: {} },
     }
   }
 }
@@ -62,8 +68,8 @@ const initPromise = loadTranslations().then((resources) => {
   return i18n.use(initReactI18next).init({
     resources,
     fallbackLng: "vi",
-    defaultNS: ["common", "terms", "privacy", "help", "about"],
-    ns: ["common", "terms", "privacy", "help", "about"],
+    defaultNS: ["common", "terms", "privacy", "help", "about", "contact"],
+    ns: ["common", "terms", "privacy", "help", "about", "contact"],
     lng: "vi", // Default language, will be set by LanguageContext
 
     interpolation: {
