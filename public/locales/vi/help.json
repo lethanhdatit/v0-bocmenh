@@ -1,0 +1,43 @@
+{
+  "title": "Trợ giúp & FAQ",
+  "questions": {
+    "q1": {
+      "question": "Làm sao để đăng ký tài khoản?",
+      "answer": "Nhấp \"Đăng ký\" góc phải trang chủ, điền email, tạo mật khẩu."
+    },
+    "q2": {
+      "question": "Quên mật khẩu, tôi phải làm sao?",
+      "answer": "Chọn \"Quên mật khẩu\", nhập email đã đăng ký. Hệ thống sẽ gửi link cấp lại mật khẩu."
+    },
+    "q3": {
+      "question": "Tại sao kết quả luận giải không giống nhau mỗi lần?",
+      "answer": "Kết quả tham khảo dựa trên dữ liệu bạn cung cấp và phương pháp luận cập nhật liên tục. Sự khác biệt có thể do thuật toán AI được tinh chỉnh hoặc bạn điền thông tin bổ sung.",
+      "note": "Nếu thông tin bạn cung cấp giữa các lần là giống nhau thì kết quả luận giải thường sẽ không khác nhiều, trừ khi thuật toán AI được tinh chỉnh."
+    },
+    "q4": {
+      "question": "Thông tin cá nhân của tôi có an toàn không?",
+      "answer": "Tất cả thông tin được mã hóa đầu cuối, chỉ bạn mới có khóa giải mã. Chúng tôi không chia sẻ cho bên thứ ba ngoại trừ các đối tác được liệt kê trong Chính sách bảo mật."
+    },
+    "q5": {
+      "question": "Làm sao để xem lại lịch sử dịch vụ?",
+      "answer": "Sau khi đăng nhập, vào \"Hồ sơ\" → \"Lịch sử\". Bạn có thể xem chi tiết mọi lần luận giải và xuất báo cáo PDF."
+    },
+    "q6": {
+      "question": "Khi xem lại luận giải cũ, tôi có phải trả thêm tiền hay không?",
+      "answer": "Bạn hoàn toàn không cần phải thanh toán thêm gì cả, dù thuật toán AI có được tinh chỉnh và ngày một tối ưu hơn, nhưng bạn sẽ không cần phải trả thêm bất kỳ chi phí nào, trừ khi bạn thay đổi thông tin đầu vào."
+    },
+    "q7": {
+      "question": "Affiliate là gì, và làm sao biết tôi đang mua sản phẩm qua affiliate?",
+      "answer": "Affiliate là chương trình giới thiệu sản phẩm bên thứ ba. Tất cả đường dẫn sản phẩm affiliate được gắn nhãn \"Affiliate\". Bóc Mệnh không thu tiền trực tiếp từ giao dịch của bạn với đối tác đó."
+    },
+    "q8": {
+      "question": "Tôi có thể xuất toàn bộ dữ liệu cá nhân không?",
+      "answer": "Vào \"Hồ sơ\" → \"Xuất dữ liệu\". Hệ thống sẽ gửi file ZIP chứa thông tin cá nhân và lịch sử sử dụng."
+    },
+    "q9": {
+      "question": "Làm sao tôi biết website còn tin cậy?",
+      "answer": "Chúng tôi tuân thủ Luật An ninh mạng, Luật Bảo vệ dữ liệu cá nhân. Đã được kiểm định bảo mật định kỳ và có chứng chỉ SSL do Let's Encrypt cấp.",
+      "note": "Bạn hoàn toàn có thể trải nghiệm thử toàn bộ tính năng miễn phí trước khi cân nhắc sử dụng các dịch vụ trả phí."
+    }
+  }
+}
