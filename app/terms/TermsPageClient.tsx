@@ -2,93 +2,92 @@
 
 import { useTranslation } from "next-i18next"
 
+const sectionKeys = [
+  "acceptance",
+  "registration",
+  "userRights",
+  "userConduct",
+  "serviceDescription",
+  "affiliateAdvertising",
+  "intellectualProperty",
+  "disclaimer",
+  "termination",
+  "generalTerms",
+  "policyChanges",
+]
+
 export default function TermsPageClient() {
-  const { t } = useTranslation("terms")
+  const { t } = useTranslation("terms");
+
+  const renderContent = (sectionKey: string, itemKey: string) => {
+    const content = t(itemKey, { returnObjects: true, ns: "terms" })
+    if (Array.isArray(content)) {
+      return (
+        <ul className="list-disc list-inside space-y-1 text-gray-300">
+          {content.map((text, index) => (
+            <li key={`${sectionKey}-item-${index}`}>{text}</li>
+          ))}
+        </ul>
+      )
+    }
+    if (typeof content === "string") {
+      return <p className="text-gray-300 mb-2">{content}</p>
+    }
+    return null
+  }
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-4 text-center mb-2">{t("title")}</h1>
+    <div className="bg-black text-gray-100 min-h-screen py-8">
+      <div className="container mx-auto py-12 px-4 md:px-6">
+        <h1 className="text-4xl font-bold mb-4 text-center text-yellow-500">{t("pageTitle")}</h1>
+        <p className="mb-8 text-lg text-center text-gray-300">{t("introduction")}</p>
 
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">{t("section1.title")}</h2>
-        <p>{t("section1.content")}</p>
-      </section>
+        <div className="space-y-8">
+          {sectionKeys.map((key) => {
+            const sectionTitle = t(`sections.${key}.title`)
+            const sectionIntro = t(`sections.${key}.intro`, { defaultValue: "" })
+            const sectionContentIsArray = Array.isArray(
+              t(`sections.${key}.content`, { returnObjects: true, defaultValue: undefined }),
+            )
+            const sectionItemsIsArray = Array.isArray(
+              t(`sections.${key}.items`, { returnObjects: true, defaultValue: undefined }),
+            )
 
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">{t("section2.title")}</h2>
-        <ul>
-          <li>{t("section2.item1")}</li>
-          <li>{t("section2.item2")}</li>
-          <li>{t("section2.item3")}</li>
-          <li>{t("section2.item4")}</li>
-        </ul>
-      </section>
+            return (
+              <section key={key} className="p-6 bg-gray-900 rounded-lg shadow-lg">
+                <h2 className="text-2xl font-semibold mb-4 text-yellow-400">{sectionTitle}</h2>
+                {sectionIntro && <p className="text-gray-300 mb-3">{sectionIntro}</p>}
 
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">{t("section3.title")}</h2>
-        <ul>
-          <li>{t("section3.item1")}</li>
-          <li>{t("section3.item2")}</li>
-          <li>{t("section3.item3")}</li>
-        </ul>
-      </section>
+                {sectionContentIsArray && (
+                  <div className="space-y-2">
+                    {(t(`sections.${key}.content`, { returnObjects: true }) as string[]).map((paragraph, idx) => (
+                      <p key={`${key}-content-${idx}`} className="text-gray-300">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                )}
 
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">{t("section4.title")}</h2>
-        <p>{t("section4.content")}</p>
-        <ul>
-          <li>{t("section4.item1")}</li>
-          <li>{t("section4.item2")}</li>
-        </ul>
-      </section>
+                {sectionItemsIsArray && (
+                  <ul className="list-disc list-inside space-y-1 text-gray-300 pl-4">
+                    {(t(`sections.${key}.items`, { returnObjects: true }) as string[]).map((item, idx) => (
+                      <li key={`${key}-item-${idx}`}>{item}</li>
+                    ))}
+                  </ul>
+                )}
 
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">{t("section5.title")}</h2>
-        <ul>
-          <li>{t("section5.item1")}</li>
-          <li>{t("section5.item2")}</li>
-          <li>{t("section5.item3")}</li>
-        </ul>
-      </section>
-
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">{t("section6.title")}</h2>
-        <p>{t("section6.content")}</p>
-        <ul>
-          <li>{t("section6.item1")}</li>
-          <li>{t("section6.item2")}</li>
-        </ul>
-      </section>
-
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">{t("section7.title")}</h2>
-        <p>{t("section7.content")}</p>
-      </section>
-
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">{t("section8.title")}</h2>
-        <p>{t("section8.content")}</p>
-      </section>
-
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">{t("section9.title")}</h2>
-        <p>{t("section9.content")}</p>
-      </section>
-
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">{t("section10.title")}</h2>
-        <p>{t("section10.content")}</p>
-      </section>
-
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">{t("section11.title")}</h2>
-        <p>{t("section11.content")}</p>
-      </section>
-
-      {/* <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">{t("section12.title")}</h2>
-        <p>{t("section12.content")}</p>
-      </section> */}
+                {/* Fallback for simple string content if not array and no items */}
+                {!sectionContentIsArray &&
+                  !sectionItemsIsArray &&
+                  t(`sections.${key}.content`, { defaultValue: undefined }) &&
+                  typeof t(`sections.${key}.content`) === "string" && (
+                    <p className="text-gray-300">{t(`sections.${key}.content`)}</p>
+                  )}
+              </section>
+            )
+          })}
+        </div>
+      </div>
     </div>
   )
 }
