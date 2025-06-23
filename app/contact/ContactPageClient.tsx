@@ -58,7 +58,7 @@ export default function ContactPageClient() {
         ))}
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Hero Section */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent mb-4">
@@ -70,10 +70,10 @@ export default function ContactPageClient() {
         {/* Contact Channels */}
         <div className="mb-16">
           <h2 className="text-2xl font-bold text-white mb-8 text-center">{sections.channels?.title}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
             {contactChannels.map((channel, index) => {
               const isZalo = channel.icon === "zalo"
-              const Icon = isZalo ? null : channel.icon
+              
               return (
                 <Card
                   key={index}
@@ -87,12 +87,12 @@ export default function ContactPageClient() {
                         <Image
                           src="/imgs/socials/zalo_icon.svg"
                           alt="Zalo"
-                          width={24}
-                          height={24}
-                          className="w-6 h-6"
+                          width={48}
+                          height={48}
+                          className="w-12 h-12"
                         />
                       ) : (
-                        <Icon className="w-6 h-6 text-white" />
+                        <channel.icon className="w-6 h-6 text-white" />
                       )}
                     </div>
                     <h3 className="font-semibold text-white mb-2">{channel.label}</h3>
@@ -123,7 +123,7 @@ export default function ContactPageClient() {
             <h2 className="text-3xl font-bold text-white mb-4">{sections.users?.subtitle}</h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Support */}
             <Card className="bg-black/40 backdrop-blur-sm border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300">
               <CardHeader>
@@ -174,7 +174,7 @@ export default function ContactPageClient() {
             <h2 className="text-3xl font-bold text-white mb-4">{sections.partners?.subtitle}</h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Advertising */}
             <Card className="bg-black/40 backdrop-blur-sm border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300">
               <CardHeader>
@@ -214,7 +214,7 @@ export default function ContactPageClient() {
         {/* Office Info */}
         <Card className="bg-black/40 backdrop-blur-sm border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300">
           <CardHeader></CardHeader>
-          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CardContent className="grid grid-cols-1 md:grid-cols-1 gap-6">
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <Clock className="w-5 h-5 text-yellow-400 mt-1" />
