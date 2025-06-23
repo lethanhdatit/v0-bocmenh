@@ -1,13 +1,11 @@
-"use client";
+"use client"
 
-import { useTranslation } from "next-i18next";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { useTranslation } from "next-i18next"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import Image from "next/image"
 import {
-  Facebook,
-  Youtube,
-  Phone,
   Mail,
   Users,
   MessageSquare,
@@ -15,20 +13,18 @@ import {
   Megaphone,
   TrendingUp,
   Handshake,
-  MapPin,
   Clock,
-  Star,
   CheckCircle,
   ExternalLink,
-} from "lucide-react";
+} from "lucide-react"
 
 export default function ContactPageClient() {
-  const { t } = useTranslation("contact");
-  const sections = (t("root", { returnObjects: true }) as ContactType) || {};
+  const { t } = useTranslation("contact")
+  const sections = (t("root", { returnObjects: true }) as ContactType) || {}
 
   const contactChannels = [
     {
-      icon: Phone,
+      icon: "zalo", // Đánh dấu đây là icon Zalo
       label: "Zalo",
       value: sections.channels?.zalo,
       link: `tel:${sections.channels?.zalo}`,
@@ -41,7 +37,7 @@ export default function ContactPageClient() {
       link: `mailto:${sections.channels?.email}`,
       color: "bg-green-500",
     },
-  ];
+  ]
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
@@ -62,25 +58,22 @@ export default function ContactPageClient() {
         ))}
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Hero Section */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent mb-4">
             {sections.title}
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            {sections.subtitle}
-          </p>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">{sections.subtitle}</p>
         </div>
 
         {/* Contact Channels */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold text-white mb-8 text-center">
-            {sections.channels?.title}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <h2 className="text-2xl font-bold text-white mb-8 text-center">{sections.channels?.title}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
             {contactChannels.map((channel, index) => {
-              const Icon = channel.icon;
+              const isZalo = channel.icon === "zalo"
+              
               return (
                 <Card
                   key={index}
@@ -90,31 +83,32 @@ export default function ContactPageClient() {
                     <div
                       className={`w-12 h-12 ${channel.color} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}
                     >
-                      <Icon className="w-6 h-6 text-white" />
+                      {isZalo ? (
+                        <Image
+                          src="/imgs/socials/zalo_icon.svg"
+                          alt="Zalo"
+                          width={48}
+                          height={48}
+                          className="w-12 h-12"
+                        />
+                      ) : (
+                        <channel.icon className="w-6 h-6 text-white" />
+                      )}
                     </div>
-                    <h3 className="font-semibold text-white mb-2">
-                      {channel.label}
-                    </h3>
-                    <p className="text-gray-300 text-sm mb-4">
-                      {channel.value}
-                    </p>
+                    <h3 className="font-semibold text-white mb-2">{channel.label}</h3>
+                    <p className="text-gray-300 text-sm mb-4">{channel.value}</p>
                     <Button
                       asChild
                       size="sm"
                       className="bg-gradient-to-r from-yellow-400 to-orange-400 text-black hover:from-yellow-500 hover:to-orange-500"
                     >
-                      <a
-                        href={channel.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {sections.channels.contact}{" "}
-                        <ExternalLink className="w-4 h-4 ml-1" />
+                      <a href={channel.link} target="_blank" rel="noopener noreferrer">
+                        {sections.channels.contact} <ExternalLink className="w-4 h-4 ml-1" />
                       </a>
                     </Button>
                   </CardContent>
                 </Card>
-              );
+              )
             })}
           </div>
         </div>
@@ -126,12 +120,10 @@ export default function ContactPageClient() {
               <Users className="w-4 h-4 mr-2" />
               {sections.users?.title}
             </Badge>
-            <h2 className="text-3xl font-bold text-white mb-4">
-              {sections.users?.subtitle}
-            </h2>
+            <h2 className="text-3xl font-bold text-white mb-4">{sections.users?.subtitle}</h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Support */}
             <Card className="bg-black/40 backdrop-blur-sm border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300">
               <CardHeader>
@@ -141,16 +133,10 @@ export default function ContactPageClient() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-gray-300">
-                  {sections.users?.support?.description}
-                </p>
+                <p className="text-gray-300">{sections.users?.support?.description}</p>
                 <div className="space-y-2">
-                  <p className="text-sm text-blue-300 font-medium">
-                    {sections.users?.support?.hours}
-                  </p>
-                  <p className="text-sm text-blue-300 font-medium">
-                    {sections.users?.support?.response}
-                  </p>
+                  <p className="text-sm text-blue-300 font-medium">{sections.users?.support?.hours}</p>
+                  <p className="text-sm text-blue-300 font-medium">{sections.users?.support?.response}</p>
                 </div>
               </CardContent>
             </Card>
@@ -164,15 +150,10 @@ export default function ContactPageClient() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-gray-300">
-                  {sections.users?.feedback?.description}
-                </p>
+                <p className="text-gray-300">{sections.users?.feedback?.description}</p>
                 <ul className="space-y-2">
                   {sections.users?.feedback?.types?.map((type, index) => (
-                    <li
-                      key={index}
-                      className="flex items-start gap-2 text-sm text-gray-300"
-                    >
+                    <li key={index} className="flex items-start gap-2 text-sm text-gray-300">
                       <CheckCircle className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
                       {type}
                     </li>
@@ -190,12 +171,10 @@ export default function ContactPageClient() {
               <Handshake className="w-4 h-4 mr-2" />
               {sections.partners?.title}
             </Badge>
-            <h2 className="text-3xl font-bold text-white mb-4">
-              {sections.partners?.subtitle}
-            </h2>
+            <h2 className="text-3xl font-bold text-white mb-4">{sections.partners?.subtitle}</h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Advertising */}
             <Card className="bg-black/40 backdrop-blur-sm border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300">
               <CardHeader>
@@ -205,21 +184,14 @@ export default function ContactPageClient() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-gray-300">
-                  {sections.partners?.advertising?.description}
-                </p>
+                <p className="text-gray-300">{sections.partners?.advertising?.description}</p>
                 <ul className="space-y-2">
-                  {sections.partners?.advertising?.formats?.map(
-                    (format, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start gap-2 text-sm text-gray-300"
-                      >
-                        <CheckCircle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
-                        {format}
-                      </li>
-                    )
-                  )}
+                  {sections.partners?.advertising?.formats?.map((format, index) => (
+                    <li key={index} className="flex items-start gap-2 text-sm text-gray-300">
+                      <CheckCircle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
+                      {format}
+                    </li>
+                  ))}
                 </ul>
               </CardContent>
             </Card>
@@ -233,9 +205,7 @@ export default function ContactPageClient() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-gray-300">
-                  {sections.partners?.affiliate?.description}
-                </p>
+                <p className="text-gray-300">{sections.partners?.affiliate?.description}</p>
               </CardContent>
             </Card>
           </div>
@@ -244,14 +214,12 @@ export default function ContactPageClient() {
         {/* Office Info */}
         <Card className="bg-black/40 backdrop-blur-sm border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300">
           <CardHeader></CardHeader>
-          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CardContent className="grid grid-cols-1 md:grid-cols-1 gap-6">
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <Clock className="w-5 h-5 text-yellow-400 mt-1" />
                 <div>
-                  <h4 className="font-semibold text-white mb-1">
-                    {sections.office?.workingTime}
-                  </h4>
+                  <h4 className="font-semibold text-white mb-1">{sections.office?.workingTime}</h4>
                   <p className="text-gray-300">{sections.office?.hours}</p>
                 </div>
               </div>
@@ -260,69 +228,69 @@ export default function ContactPageClient() {
         </Card>
       </div>
     </div>
-  );
+  )
 }
 
 // Type definitions for Contact page
 export interface ContactType {
-  title: string;
-  subtitle: string;
+  title: string
+  subtitle: string
   channels: {
-    title: string;
-    facebook: string;
-    youtube: string;
-    zalo: string;
-    email: string;
-    contact: string;
-  };
+    title: string
+    facebook: string
+    youtube: string
+    zalo: string
+    email: string
+    contact: string
+  }
   users: {
-    title: string;
-    subtitle: string;
+    title: string
+    subtitle: string
     support: {
-      title: string;
-      description: string;
-      hours: string;
-      response: string;
-    };
+      title: string
+      description: string
+      hours: string
+      response: string
+    }
     feedback: {
-      title: string;
-      description: string;
-      types: string[];
-    };
+      title: string
+      description: string
+      types: string[]
+    }
     community: {
-      title: string;
-      description: string;
-      benefits: string[];
-    };
-  };
+      title: string
+      description: string
+      benefits: string[]
+    }
+  }
   partners: {
-    title: string;
-    subtitle: string;
+    title: string
+    subtitle: string
     advertising: {
-      title: string;
-      description: string;
-      formats: string[];
-      contact: string;
-    };
+      title: string
+      description: string
+      formats: string[]
+      contact: string
+    }
     affiliate: {
-      title: string;
-      description: string;
-      requirements: string[];
-      benefits: string[];
-      contact: string;
-    };
+      title: string
+      description: string
+      requirements: string[]
+      benefits: string[]
+      contact: string
+    }
     collaboration: {
-      title: string;
-      description: string;
-      opportunities: string[];
-      contact: string;
-    };
-  };
+      title: string
+      description: string
+      opportunities: string[]
+      contact: string
+    }
+  }
   office: {
-    title: string;
-    address: string;
-    hours: string;
-    note: string;
-    workingTime: string;
-  };
+    title: string
+    address: string
+    hours: string
+    note: string
+    workingTime: string
+  }
 }
