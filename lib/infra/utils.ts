@@ -20,37 +20,3 @@ export function getBaseUrl(): string {
   // Fallback for development
   return "http://localhost:3000"
 }
-
-// Type definitions for About page
-export interface AboutType {
-  title: string
-  subtitle: string
-  introduction: {
-    title: string
-    content: string[]
-  }
-  mission: {
-    title: string
-    mission: string
-    vision: string
-  }
-  values: {
-    title: string
-    accuracy: string
-    privacy: string
-  }
-  technology: {
-    title: string
-    ai: string
-    team: string
-  }
-  partners: {
-    title: string
-    experts: string
-    affiliates: string
-  }
-  community: {
-    title: string
-    content: string
-  }
-}

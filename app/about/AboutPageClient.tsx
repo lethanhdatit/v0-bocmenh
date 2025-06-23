@@ -1,24 +1,55 @@
-"use client"
+"use client";
 
-import { useTranslation } from "next-i18next"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { Building2, Target, Shield, Cpu, Users, MessageCircle } from "lucide-react"
-import type { AboutType } from "@/lib/infra/utils"
+import { useTranslation } from "next-i18next";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import {
+  Building2,
+  Target,
+  Shield,
+  Cpu,
+  Users,
+  MessageCircle,
+} from "lucide-react";
+
+// Type definitions for About page
+export interface AboutType {
+  title: string;
+  subtitle: string;
+  introduction: {
+    title: string;
+    content: string[];
+  };
+  mission: {
+    title: string;
+    mission: string;
+    vision: string;
+  };
+  values: {
+    title: string;
+    accuracy: string;
+    privacy: string;
+  };
+  technology: {
+    title: string;
+    ai: string;
+    team: string;
+  };
+  partners: {
+    title: string;
+    experts: string;
+    affiliates: string;
+  };
+  community: {
+    title: string;
+    content: string;
+  };
+}
 
 export default function AboutPageClient() {
-  const { t } = useTranslation("about")
-  const sections = (t("sections", { returnObjects: true }) as AboutType) || {}
-
-  const sectionIcons = {
-    introduction: Building2,
-    mission: Target,
-    values: Shield,
-    technology: Cpu,
-    partners: Users,
-    community: MessageCircle,
-  }
+  const { t } = useTranslation("about");
+  const sections = (t("sections", { returnObjects: true }) as AboutType) || {};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black">
@@ -32,16 +63,12 @@ export default function AboutPageClient() {
       <div className="relative z-10 container mx-auto px-4 py-12">
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 mb-6">
-            <Badge variant="outline" className="bg-yellow-500/10 text-yellow-400 border-yellow-500/30">
-              <Building2 className="w-4 h-4 mr-1" />
-              Về chúng tôi
-            </Badge>
-          </div>
           <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent mb-6">
             {sections.title}
           </h1>
-          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">{sections.subtitle}</p>
+          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            {sections.subtitle}
+          </p>
         </div>
 
         {/* Content Sections */}
@@ -64,7 +91,7 @@ export default function AboutPageClient() {
           </Card>
 
           {/* Mission & Vision */}
-          <Card className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 backdrop-blur-sm border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
+          <Card className="bg-black/40 backdrop-blur-sm border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300">
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-blue-400">
                 <Target className="w-6 h-6" />
@@ -72,13 +99,17 @@ export default function AboutPageClient() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-gray-300 leading-relaxed">– {sections.mission?.mission}</p>
-              <p className="text-gray-300 leading-relaxed">– {sections.mission?.vision}</p>
+              <p className="text-gray-300 leading-relaxed">
+                – {sections.mission?.mission}
+              </p>
+              <p className="text-gray-300 leading-relaxed">
+                – {sections.mission?.vision}
+              </p>
             </CardContent>
           </Card>
 
           {/* Core Values */}
-          <Card className="bg-gradient-to-br from-green-900/20 to-emerald-900/20 backdrop-blur-sm border-green-500/20 hover:border-green-500/40 transition-all duration-300">
+          <Card className="bg-black/40 backdrop-blur-sm border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300">
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-green-400">
                 <Shield className="w-6 h-6" />
@@ -86,13 +117,17 @@ export default function AboutPageClient() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-gray-300 leading-relaxed">– {sections.values?.accuracy}</p>
-              <p className="text-gray-300 leading-relaxed">– {sections.values?.privacy}</p>
+              <p className="text-gray-300 leading-relaxed">
+                – {sections.values?.accuracy}
+              </p>
+              <p className="text-gray-300 leading-relaxed">
+                – {sections.values?.privacy}
+              </p>
             </CardContent>
           </Card>
 
           {/* Technology & Team */}
-          <Card className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 backdrop-blur-sm border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+          <Card className="bg-black/40 backdrop-blur-sm border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300">
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-purple-400">
                 <Cpu className="w-6 h-6" />
@@ -100,13 +135,17 @@ export default function AboutPageClient() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-gray-300 leading-relaxed">– {sections.technology?.ai}</p>
-              <p className="text-gray-300 leading-relaxed">– {sections.technology?.team}</p>
+              <p className="text-gray-300 leading-relaxed">
+                – {sections.technology?.ai}
+              </p>
+              <p className="text-gray-300 leading-relaxed">
+                – {sections.technology?.team}
+              </p>
             </CardContent>
           </Card>
 
           {/* Partners & Affiliations */}
-          <Card className="bg-gradient-to-br from-orange-900/20 to-red-900/20 backdrop-blur-sm border-orange-500/20 hover:border-orange-500/40 transition-all duration-300">
+          <Card className="bg-black/40 backdrop-blur-sm border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300">
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-orange-400">
                 <Users className="w-6 h-6" />
@@ -114,13 +153,17 @@ export default function AboutPageClient() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-gray-300 leading-relaxed">– {sections.partners?.experts}</p>
-              <p className="text-gray-300 leading-relaxed">– {sections.partners?.affiliates}</p>
+              <p className="text-gray-300 leading-relaxed">
+                – {sections.partners?.experts}
+              </p>
+              <p className="text-gray-300 leading-relaxed">
+                – {sections.partners?.affiliates}
+              </p>
             </CardContent>
           </Card>
 
           {/* Community Connection */}
-          <Card className="bg-gradient-to-br from-teal-900/20 to-cyan-900/20 backdrop-blur-sm border-teal-500/20 hover:border-teal-500/40 transition-all duration-300">
+          <Card className="bg-black/40 backdrop-blur-sm border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300">
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-teal-400">
                 <MessageCircle className="w-6 h-6" />
@@ -128,23 +171,11 @@ export default function AboutPageClient() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-300 leading-relaxed">– {sections.community?.content}</p>
+              <p className="text-gray-300 leading-relaxed">
+                – {sections.community?.content}
+              </p>
             </CardContent>
           </Card>
-        </div>
-
-        {/* Contact Section */}
-        <div className="mt-16 text-center">
-          <Separator className="mb-8 bg-yellow-500/20" />
-          <p className="text-gray-400 mb-4">Có câu hỏi về dịch vụ của chúng tôi?</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Badge variant="outline" className="bg-yellow-500/10 text-yellow-400 border-yellow-500/30 px-4 py-2">
-              Email: support@bocmenh.com
-            </Badge>
-            <Badge variant="outline" className="bg-blue-500/10 text-blue-400 border-blue-500/30 px-4 py-2">
-              Hotline: 1900-xxxx
-            </Badge>
-          </div>
         </div>
       </div>
 
@@ -171,10 +202,14 @@ export default function AboutPageClient() {
           animation: animStar 150s linear infinite;
         }
         @keyframes animStar {
-          from { transform: translateY(0px); }
-          to { transform: translateY(-2000px); }
+          from {
+            transform: translateY(0px);
+          }
+          to {
+            transform: translateY(-2000px);
+          }
         }
       `}</style>
     </div>
-  )
+  );
 }

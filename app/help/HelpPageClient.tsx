@@ -116,7 +116,7 @@ export default function HelpPageClient() {
         </Card>
 
         {/* Contact Support */}
-        <Card className="mt-8 border-yellow-500/20 bg-black">
+        <Card className="mt-8 border-yellow-500/20 bg-black/40 backdrop-blur-sm border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300">
           <CardContent className="p-8 text-center">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-yellow-500/20 rounded-full mb-4">
               <HelpCircle className="w-6 h-6 text-yellow-500" />
