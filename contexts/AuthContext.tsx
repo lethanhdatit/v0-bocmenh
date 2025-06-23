@@ -87,7 +87,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(null);
       }
     } catch (error) {
-      setUser(null);
+      await logout();
       console.error("Failed to fetch user profile:", error);
     } finally {
       setIsLoading(false);

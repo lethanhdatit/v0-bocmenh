@@ -74,6 +74,7 @@ export function baseResponse({
           errorCode: "AUTH_REQUIRED_RETRY",
           errors,
           data,
+          forwardData: data,
         } as ApiBaseResponse),
       },
       { status }
@@ -99,7 +100,8 @@ export async function handleApiServerError(
     error400Message: string;
     errorCommonMessage: string;
   },
-  session?: IronSession<UserSession> | null | undefined
+  session?: IronSession<UserSession> | null | undefined,
+  data?: any | null | undefined
 ) {
   const status = error?.status ?? 500;
   let errRes = {
@@ -110,6 +112,7 @@ export async function handleApiServerError(
       general:
         status === 400 ? options.error400Message : options.errorCommonMessage,
     },
+    data
   };
 
   if (status === 401) {

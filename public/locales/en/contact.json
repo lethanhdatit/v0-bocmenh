@@ -1,0 +1,97 @@
+{
+  "root": {
+    "title": "Contact Us",
+    "subtitle": "Connect with Boc Menh - We're always ready to support you",
+    "channels": {
+      "title": "Main Contact Channels",
+      "zalo": "032 5988 605",
+      "email": "support@bocmenh.com",
+      "contact": "Contact"
+    },
+    "users": {
+      "title": "For Users",
+      "subtitle": "We're committed to providing you with the best experience",
+      "support": {
+        "title": "Customer Support",
+        "description": "Professional support team ready to answer all your questions about services, features, and usage.",
+        "hours": "8:00 AM - 10:00 PM (Direct support)",
+        "response": "Response time: < 2 hours (during business hours)"
+      },
+      "feedback": {
+        "title": "Feedback & Suggestions",
+        "description": "Your feedback motivates us to continuously improve and develop.",
+        "types": [
+          "Report technical bugs and issues",
+          "Suggest new features",
+          "Service quality evaluation",
+          "Complaints and resolution requests",
+          "Share user experience"
+        ]
+      },
+      "community": {
+        "title": "Join Community",
+        "description": "Connect with thousands of other users, share experiences and learn from each other.",
+        "benefits": [
+          "Join exclusive Facebook group",
+          "Early notifications about new features",
+          "Priority technical support",
+          "Participate in offline events",
+          "Receive special gifts and vouchers"
+        ]
+      }
+    },
+    "partners": {
+      "title": "For Partners",
+      "subtitle": "Grow with Boc Menh and create sustainable value",
+      "advertising": {
+        "title": "Advertising & Media",
+        "description": "Reach millions of users interested in feng shui, spirituality and personal development.",
+        "formats": [
+          "Website banner ads (Header, Sidebar, Footer)",
+          "Sponsored content and articles"
+        ],
+        "contact": "ads@bocmenh.com"
+      },
+      "affiliate": {
+        "title": "Affiliate Marketing",
+        "description": "Become an affiliate partner and earn passive income by promoting feng shui and spiritual products.",
+        "requirements": [
+          "Website/blog with stable traffic (>1000 UV/month)",
+          "Social media with real followers (>5000 followers)",
+          "Content suitable for feng shui, spiritual field",
+          "Commitment to comply with advertising regulations",
+          "Experience in affiliate marketing (preferred)"
+        ],
+        "benefits": [
+          "Attractive commission: 10-25% per order",
+          "Professional, transparent tracking tools",
+          "On-time monthly payments",
+          "Marketing materials and creative support",
+          "Product training and sales skills",
+          "Bonus for top performers"
+        ],
+        "contact": "affiliate@bocmenh.com"
+      },
+      "collaboration": {
+        "title": "Strategic Partnerships",
+        "description": "Seeking long-term partners to develop spiritual and feng shui service ecosystem together.",
+        "opportunities": [
+          "Content collaboration - Content production partnership",
+          "Cross-promotion - Cross-promote products/services",
+          "Joint ventures - Joint development of new products",
+          "Technology partnerships - Technology integration",
+          "Distribution partnerships - Expand distribution channels",
+          "Investment opportunities - Investment opportunities"
+        ],
+        "contact": "partnership@bocmenh.com"
+      }
+    },
+    "office": {
+      "title": "Office Location",
+      "address": "12th Floor, ABC Building, 123 XYZ Street, District 1, Ho Chi Minh City",
+      "hours": "Mon - Fri: 8:00 AM - 5:30 PM | Sat: 8:00 AM - 12:00 PM",
+      "note": "Please contact us before visiting for the best support",
+      "workingTime": "Working time"
+    }
+  }
+}

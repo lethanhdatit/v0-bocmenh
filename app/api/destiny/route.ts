@@ -64,7 +64,8 @@ async function destinyApiHandler(
         error400Message: t("auth.destiny.error.theologyFailed"),
         errorCommonMessage: t("auth.destiny.systemFailed"),
       },
-      session
+      session,
+      data
     );
   }
 }
