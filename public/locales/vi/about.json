@@ -1,0 +1,37 @@
+{
+  "sections": {
+    "title": "Về chúng tôi",
+    "subtitle": "Bóc Mệnh tại bocmenh.com và toàn bộ hệ sinh thái Bóc Mệnh (từ giờ gọi tắt là BMP)",
+    "introduction": {
+      "title": "1. Giới thiệu chung",
+      "content": [
+        "BMP là nền tảng ứng dụng trí tuệ nhân tạo chuyên sâu trong lĩnh vực xem bói, xem vận mệnh, phong thủy, tương hợp tương khắc, tarot, chọn ngày cưới, hướng nhà…",
+        "Được phát triển bởi đội ngũ chuyên gia, kỹ sư AI và kiến thức nền sâu rộng chính gốc."
+      ]
+    },
+    "mission": {
+      "title": "2. Sứ mệnh & Tầm nhìn",
+      "mission": "Sứ mệnh: Giúp hàng triệu người Việt tự tin hơn trong cuộc sống thông qua hiểu biết sâu sắc về bản thân và môi trường xung quanh.",
+      "vision": "Tầm nhìn: Trở thành nền tảng \"All-in-one\" về tư vấn nhân sinh, tâm linh và phong thủy hàng đầu Đông Nam Á."
+    },
+    "values": {
+      "title": "3. Giá trị cốt lõi",
+      "accuracy": "Chính xác & Tận tâm: Luận giải dựa trên dữ liệu lớn, thuật toán AI tiên tiến và kiến thức uyên bác được chọn lọc.",
+      "privacy": "Bảo mật & Tôn trọng: Tôn trọng quyền riêng tư, bảo vệ tối đa dữ liệu người dùng."
+    },
+    "technology": {
+      "title": "4. Công nghệ & Đội ngũ",
+      "ai": "AI được training trên tập dữ liệu sạch, chính thống (sách phong thủy, thần số học, văn bản văn hóa dân gian…), thường xuyên cập nhật.",
+      "team": "Đội ngũ phát triển giàu kinh nghiệm trong lĩnh vực Machine Learning, Data Engineering, UX/UI và pháp lý."
+    },
+    "partners": {
+      "title": "5. Đối tác & Liên kết",
+      "experts": "Hợp tác với các chuyên gia phong thủy, nhà tâm lý học, diễn giả chia sẻ kinh nghiệm thực tiễn.",
+      "affiliates": "Liên kết affiliate với nhà sản xuất, phân phối sản phẩm phong thủy, vật phẩm may mắn uy tín."
+    },
+    "community": {
+      "title": "6. Kết nối với cộng đồng",
+      "content": "Xây dựng diễn đàn trao đổi, chia sẻ kiến thức, blogs, giải đáp thắc mắc."
+    }
+  }
+}

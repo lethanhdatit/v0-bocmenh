@@ -1,0 +1,37 @@
+{
+  "sections": {
+    "title": "About Us",
+    "subtitle": "Bóc Mệnh at bocmenh.com and the entire Bóc Mệnh ecosystem (abbreviated as BMP)",
+    "introduction": {
+      "title": "1. General Introduction",
+      "content": [
+        "BMP is an artificial intelligence platform specializing in fortune telling, destiny reading, feng shui, compatibility analysis, tarot, wedding date selection, house direction...",
+        "Developed by a team of experts, AI engineers with deep and authentic foundational knowledge."
+      ]
+    },
+    "mission": {
+      "title": "2. Mission & Vision",
+      "mission": "Mission: Help millions of Vietnamese people become more confident in life through deep understanding of themselves and their surrounding environment.",
+      "vision": "Vision: Become the leading \"All-in-one\" platform for life consulting, spirituality and feng shui in Southeast Asia."
+    },
+    "values": {
+      "title": "3. Core Values",
+      "accuracy": "Accuracy & Dedication: Interpretations based on big data, advanced AI algorithms and carefully selected profound knowledge.",
+      "privacy": "Security & Respect: Respect privacy, maximize protection of user data."
+    },
+    "technology": {
+      "title": "4. Technology & Team",
+      "ai": "AI trained on clean, authentic datasets (feng shui books, numerology, folk cultural texts...), regularly updated.",
+      "team": "Development team with rich experience in Machine Learning, Data Engineering, UX/UI and legal fields."
+    },
+    "partners": {
+      "title": "5. Partners & Affiliations",
+      "experts": "Collaborate with feng shui experts, psychologists, speakers sharing practical experience.",
+      "affiliates": "Affiliate partnerships with reputable manufacturers and distributors of feng shui products and lucky items."
+    },
+    "community": {
+      "title": "6. Community Connection",
+      "content": "Building forums for exchange, knowledge sharing, blogs, and answering questions."
+    }
+  }
+}
