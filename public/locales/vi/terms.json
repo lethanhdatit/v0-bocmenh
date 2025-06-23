@@ -17,14 +17,15 @@
         "Người dùng có thể đọc các nội dung trên BMP, sử dụng một số dịch vụ miễn phí, sử dụng bộ lọc để tìm sản phẩm (affiliate) phù hợp mà không cần đăng nhập.",
         "Để sử dụng toàn bộ các dịch vụ miễn phí bao gồm các tính năng chuẩn đoán, phân tích, đề xuất sản phẩm phù hợp cung-mệnh, lịch sử sử dụng, …bạn phải đăng ký thành viên và cung cấp thông tin chính xác.",
         "Để sử dụng dịch vụ nâng cao (luận giải chi tiết hơn, phân tích sâu rộng hơn) bạn phải thanh toán để trả phí dịch vụ (thanh toán một lần, mua điểm để sử dụng nhiều lần).",
-        "Bạn chịu trách nhiệm bảo mật thông tin đăng nhập; Bóc Mệnh không chịu trách nhiệm nếu có rủi ro phát sinh từ việc lộ mật khẩu."
+        "Bạn chịu trách nhiệm bảo mật thông tin đăng nhập.",
+        "BMP không chịu trách nhiệm nếu có rủi ro phát sinh từ việc lộ mật khẩu."
       ]
     },
     "userRights": {
       "title": "3. Quyền và nghĩa vụ người dùng",
       "items": [
         "Sử dụng dịch vụ phù hợp với quy định của pháp luật Việt Nam và thuần phong mỹ tục.",
-        "Không sao chép, phát tán nội dung Bóc Mệnh dưới bất kỳ hình thức nào mà không được phép.",
+        "Không sao chép, phát tán nội dung BMP dưới bất kỳ hình thức nào mà không được phép.",
         "Không thực hiện hành vi gây hại, làm gián đoạn dịch vụ, tấn công hệ thống."
       ]
     },
@@ -66,19 +67,19 @@
       "title": "8. Miễn trừ trách nhiệm",
       "content": [
         "Dữ liệu luận giải mang tính tham khảo; kết quả không thể đảm bảo chính xác 100%.",
-        "Bóc Mệnh không chịu trách nhiệm về thiệt hại do bạn tin tưởng hoàn toàn vào kết quả luận giải.",
+        "BMP không chịu trách nhiệm về thiệt hại do bạn tin tưởng hoàn toàn vào kết quả luận giải.",
         "BMP được cung cấp \"nguyên trạng\" và \"có sẵn\" mà không có bất kỳ bảo đảm nào, rõ ràng hoặc ngụ ý. BMP không đảm bảo rằng BMP sẽ không bị gián đoạn, kịp thời, an toàn hoặc không có lỗi."
       ]
     },
     "termination": {
       "title": "9. Chấm dứt và tạm ngưng",
-      "content": "Bóc Mệnh có quyền từ chối, tạm ngưng hoặc khóa tài khoản vi phạm điều khoản mà không cần thông báo trước."
+      "content": "BMP có quyền từ chối, tạm ngưng hoặc khóa tài khoản vi phạm điều khoản mà không cần thông báo trước."
     },
     "generalTerms": {
       "title": "10. Điều khoản chung",
       "content": [
         "Luật áp dụng: Luật Công nghệ thông tin, Luật An ninh mạng, Luật Bảo vệ dữ liệu cá nhân và các văn bản hướng dẫn tại Việt Nam.",
-        "Mọi tranh chấp phát sinh sẽ ưu tiên hòa giải, nếu không thành công sẽ khởi kiện tại Tòa án Nhân dân nơi Bóc Mệnh đặt trụ sở."
+        "Mọi tranh chấp phát sinh sẽ ưu tiên hòa giải, nếu không thành công sẽ khởi kiện tại Tòa án Nhân dân nơi BMP đặt trụ sở."
       ]
     },
     "policyChanges": {
