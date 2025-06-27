@@ -190,7 +190,7 @@
     "title": "Featured Services",
     "destiny": {
       "title": "Personal Destiny",
-      "description": "Discover your destiny through birth date and personal information"
+      "description": "Explore the tools for decoding destiny, from dream interpretation, numerology to Tarot readings and Feng Shui."
     },
     "dreams": {
       "title": "Dream Interpretation",
@@ -390,7 +390,10 @@
       "loadingMessagePage": "Analyzing your cosmic blueprint...",
       "infoTitle": "What You'll Discover",
       "premiumTitle": "Premium Features",
-      "validationError": "Name and Birth Date are required."
+      "validationError": "Name and Birth Date are required.",
+      "birthPlaceLabel": "Birth Place",
+      "genderLabel": "Gender",
+      "birthPlacePlaceholder": "Example: district 1, HCMC"
     },
     "result": {
       "titleFor": "Destiny Reading for {name}",
@@ -417,13 +420,14 @@
       "keywordsDefault": "destiny reading, astrology, life path, personality, cosmic guidance"
     },
     "pageTitle": "Personal Destiny Reading",
-    "pageSubtitle": "Discover your life purpose and cosmic blueprint",
+    "pageSubtitle": "Discover destiny and the key to unlocking the potential within you.",
     "error": {
       "generic": "Unable to generate reading. Please try again.",
       "fetch": "Connection error. Please check your internet and try again.",
       "system": "System error, please try again later",
       "theologyFailed": "Theology analysis failed. Please try again later.",
-      "systemFailed": "System error, please try again later"
+      "systemFailed": "System error, please try again later",
+      "invalidInput": "Invalid input"
     },
     "recommendedItemsTitle": "Recommended Feng Shui Items",
     "recommendedItemsSubtitle": "Enhance your destiny with these powerful items",
@@ -543,5 +547,29 @@
     "thuộc tính người dùng": {
       "Sao Văn Xương chiếu mệnh": "Wen Chang Star in Fate"
     }
-  }
+  },
+  "genders": [
+    { "value": 1, "label": "Male" },
+    { "value": 2, "label": "Female" },
+    { "value": 3, "label": "Non-binary" },
+    { "value": 4, "label": "Transgender Male" },
+    { "value": 5, "label": "Transgender Female" },
+    { "value": 6, "label": "Gender Fluid" },
+    { "value": 7, "label": "Agender" },
+    { "value": 8, "label": "Two Spirits" },
+    { "value": 9, "label": "Intersex" },
+    { "value": 10, "label": "Other" }
+  ],
+  "religions": [
+    { "value": 1, "label": "Buddhism" },
+    { "value": 2, "label": "Catholicism" },
+    { "value": 3, "label": "Protestantism" },
+    { "value": 4, "label": "Islam" },
+    { "value": 5, "label": "Judaism" },
+    { "value": 6, "label": "Hinduism" },
+    { "value": 7, "label": "Confucianism" },
+    { "value": 8, "label": "Taoism" },
+    { "value": 9, "label": "Atheism" },
+    { "value": 10, "label": "Other religion" }
+  ]
 }

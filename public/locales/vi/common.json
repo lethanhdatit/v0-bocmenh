@@ -188,7 +188,7 @@
     "title": "Các Tính Năng Nổi Bật",
     "destiny": {
       "title": "Bóc Mệnh Cá Nhân",
-      "description": "Khám phá vận mệnh của bạn qua ngày sinh và thông tin cá nhân"
+      "description": "Dựa trên nguyên lý Bát Tự (Tứ trụ), kết hợp kiến thức cổ học phương Đông để khám phá đặc điểm nổi bật trong tính cách, tiềm năng phát triển và xu hướng cuộc đời."
     },
     "dreams": {
       "title": "Giải Mơ",
@@ -369,7 +369,10 @@
       "loadingMessagePage": "Đang phân tích bản đồ vũ trụ của bạn...",
       "infoTitle": "Những gì bạn sẽ khám phá",
       "premiumTitle": "Tính năng Premium",
-      "validationError": "Tên và Ngày sinh là bắt buộc."
+      "validationError": "Tên và Ngày sinh là bắt buộc.",
+      "birthPlaceLabel": "Nơi sinh",
+      "genderLabel": "Giới tính",
+      "birthPlacePlaceholder": "Ví dụ: Quận 1, Hồ Chí Minh"
     },
     "result": {
       "titleFor": "Bóc mệnh cho {name}",
@@ -396,13 +399,14 @@
       "keywordsDefault": "bóc mệnh, chiêm tinh, con đường cuộc đời, tính cách, hướng dẫn vũ trụ"
     },
     "pageTitle": "Bóc Mệnh Cá Nhân",
-    "pageSubtitle": "Khám phá mục đích cuộc đời và bản đồ vũ trụ của bạn",
+    "pageSubtitle": "Khám phá định mệnh và chìa khóa khai mở tiềm năng trong bạn.",
     "error": {
       "generic": "Không thể tạo kết quả bóc mệnh. Vui lòng thử lại.",
       "fetch": "Lỗi kết nối. Vui lòng kiểm tra internet và thử lại.",
       "system": "Lỗi hệ thống, vui lòng thử lại sau",
       "theologyFailed": "Không thể lấy dữ liệu bóc mệnh. Vui lòng thử lại sau.",
-      "systemFailed": "Hệ thống đang gặp sự cố. Vui lòng thử lại sau."
+      "systemFailed": "Hệ thống đang gặp sự cố. Vui lòng thử lại sau.",
+      "invalidInput": "Thông tin đầu vào không hợp lệ."
     },
     "recommendedItemsTitle": "Vật phẩm Phong Thủy được gợi ý",
     "recommendedItemsSubtitle": "Tăng cường vận mệnh với những vật phẩm mạnh mẽ này",
@@ -537,5 +541,29 @@
     "luckyBox": "Hộp Quà May Mắn",
     "aiFace": "AI Xem Tướng Mặt",
     "wishlist": "Yêu thích"
-  }
+  },
+  "genders": [
+    { "value": 1, "label": "Nam" },
+    { "value": 2, "label": "Nữ" },
+    { "value": 3, "label": "Phi nhị nguyên" },
+    { "value": 4, "label": "Nam chuyển giới" },
+    { "value": 5, "label": "Nữ chuyển giới" },
+    { "value": 6, "label": "Biến đổi giới tính" },
+    { "value": 7, "label": "Vô giới" },
+    { "value": 8, "label": "Hai linh hồn" },
+    { "value": 9, "label": "Intersex" },
+    { "value": 10, "label": "Khác" }
+  ],
+  "religions": [
+    { "value": 1, "label": "Phật giáo" },
+    { "value": 2, "label": "Công giáo" },
+    { "value": 3, "label": "Tin Lành" },
+    { "value": 4, "label": "Hồi giáo" },
+    { "value": 5, "label": "Do Thái giáo" },
+    { "value": 6, "label": "Ấn Độ giáo" },
+    { "value": 7, "label": "Khổng giáo" },
+    { "value": 8, "label": "Tao giáo" },
+    { "value": 9, "label": "Vô thần" },
+    { "value": 10, "label": "Tôn giáo khác" }
+  ]
 }
