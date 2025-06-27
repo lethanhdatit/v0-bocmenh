@@ -307,7 +307,7 @@ export default function Navigation() {
                 <img
                   src="/logo.png"
                   alt="Bóc Mệnh Logo - Khám phá vận mệnh của bạn"
-                  className="h-8 w-auto sm:h-10 lg:h-12 object-contain"
+                  className="h-10 w-auto sm:h-11 lg:h-12 object-contain"
                   width="40"
                   height="40"
                 />
@@ -435,7 +435,7 @@ export default function Navigation() {
                 <img
                   src="/logo.png"
                   alt="Bóc Mệnh Logo"
-                  className="h-8 w-auto object-contain"
+                  className="h-10 w-auto object-contain"
                   width="32"
                   height="32"
                 />
