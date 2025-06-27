@@ -69,7 +69,7 @@ export default function Footer() {
                 <img
                   src="/logo.png"
                   alt="Bóc Mệnh Logo - Khám phá vận mệnh của bạn"
-                  className="h-8 w-auto sm:h-9 lg:h-10 object-contain"
+                  className="h-10 w-auto sm:h-11 lg:h-12 object-contain"
                   width="40"
                   height="40"
                 />
