@@ -1,207 +1,319 @@
-"use client";
+"use client"
 
-import { useState, type FormEvent, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardFooter,
-} from "@/components/ui/card";
-import {
-  Stars,
-  Calendar,
-  Clock,
-  User,
-  Building,
-  Loader2,
-  AlertCircle,
-} from "lucide-react";
-import { useTranslation } from "react-i18next";
-import { apiClient } from "@/lib/api/apiClient"; // Use our apiClient
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { GlobalLoading } from "@/components/ui/global-loading"
+import { useToast } from "@/hooks/use-toast"
+import { apiClient } from "@/lib/api/apiClient"
+import { Calendar, User, MapPin, Clock } from "lucide-react"
+
+const destinySchema = z.object({
+  fullName: z.string().min(2, "Họ tên phải có ít nhất 2 ký tự"),
+  birthDate: z.string().min(1, "Vui lòng chọn ngày sinh"),
+  birthTime: z.string().min(1, "Vui lòng chọn giờ sinh"),
+  birthPlace: z.string().min(1, "Vui lòng nhập nơi sinh"),
+  gender: z.enum(["male", "female"], {
+    required_error: "Vui lòng chọn giới tính",
+  }),
+})
+
+type DestinyFormData = z.infer<typeof destinySchema>
+
+interface DestinyResult {
+  personalityAnalysis: string
+  careerForecast: string
+  loveLife: string
+  healthAdvice: string
+  luckyNumbers: number[]
+  luckyColors: string[]
+  favorableDirections: string[]
+  recommendations: string[]
+}
 
 export default function DestinyForm() {
-  const { t } = useTranslation();
-  const router = useRouter();
+  const [result, setResult] = useState<DestinyResult | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const { toast } = useToast()
 
-  const genders = (t("genders", { returnObjects: true }) as Array<any>) || [];
+  const form = useForm<DestinyFormData>({
+    resolver: zodResolver(destinySchema),
+    defaultValues: {
+      fullName: "",
+      birthDate: "",
+      birthTime: "",
+      birthPlace: "",
+      gender: undefined,
+    },
+  })
 
-  const [birthPlace, setBirthPlace] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [birthTime, setBirthTime] = useState("");
-  const [gender, setGender] = useState<Number>(genders[0].value);
-  const [isLoading, setIsLoading] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setFormError(null);
-    if (!birthPlace.trim() || !birthDate) {
-      setFormError(t("destiny.form.validationError")); // Use namespace
-      return;
-    }
-    setIsLoading(true);
-
+  const onSubmit = async (data: DestinyFormData) => {
+    setIsLoading(true)
     try {
-      // Data for the POST request
-      const postData = {
-        birthPlace: birthPlace.trim(),
-        birthDate,
-        birthTime: birthTime || undefined,
-        gender: gender
-      };
-
-      const response = await apiClient.post("/destiny", postData);
-
-      if (response.data.success && response.data.data) {
-        // Navigate to the destiny page which will then fetch results based on these params
-        router.push(`/destiny/${response.data.data.id.toString()}`);
-      }
-    } catch (error: any) {
-      setFormError(
-        error.response?.data?.message ??
-          error.response?.errors?.general ??
-          t("common.errorUnexpected")
-      );
+      const response = await apiClient.post("/destiny", data)
+      setResult(response.data)
+      toast({
+        title: "Phân tích thành công",
+        description: "Vận mệnh của bạn đã được phân tích xong!",
+      })
+    } catch (error) {
+      toast({
+        title: "Có lỗi xảy ra",
+        description: "Vui lòng thử lại sau.",
+        variant: "destructive",
+      })
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
+
+  const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, "0") + ":00")
 
   return (
-    <Card className="w-full max-w-lg mx-auto bg-gray-900/80 border-yellow-500/30 shadow-xl backdrop-blur-sm">
-      <CardHeader className="text-center">
-        {/* <CardTitle className="text-3xl font-bold bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
-          {t("destiny.form.title")}
-        </CardTitle> */}
-        <CardDescription className="text-gray-300 mt-1 text-left">
-          <i>{t("features.destiny.description")}</i>
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        {formError && (
-          <div className="mb-4 p-3 bg-red-900/50 border border-red-700 text-red-200 rounded-md text-sm flex items-center gap-2">
-            <AlertCircle size={18} /> {formError}
+    <>
+      <GlobalLoading isVisible={isLoading} />
+
+      <div className="max-w-4xl mx-auto p-6 space-y-8">
+        <Card className="border-yellow-200 shadow-lg">
+          <CardHeader className="text-center bg-gradient-to-r from-yellow-50 to-amber-50">
+            <CardTitle className="text-2xl font-bold text-gray-800 flex items-center justify-center gap-2">
+              <User className="w-6 h-6 text-yellow-600" />
+              Phân Tích Vận Mệnh Bát Tự
+            </CardTitle>
+            <CardDescription className="text-gray-600">
+              Khám phá vận mệnh và tương lai của bạn thông qua ngày giờ sinh
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-6">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="fullName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <User className="w-4 h-4" />
+                          Họ và tên đầy đủ
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Nhập họ tên đầy đủ"
+                            {...field}
+                            className="border-yellow-200 focus:border-yellow-400"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="gender"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Giới tính</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="border-yellow-200 focus:border-yellow-400">
+                              <SelectValue placeholder="Chọn giới tính" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="male">Nam</SelectItem>
+                            <SelectItem value="female">Nữ</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="birthDate"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4" />
+                          Ngày sinh (Âm lịch)
+                        </FormLabel>
+                        <FormControl>
+                          <Input type="date" {...field} className="border-yellow-200 focus:border-yellow-400" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="birthTime"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Clock className="w-4 h-4" />
+                          Giờ sinh
+                        </FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="border-yellow-200 focus:border-yellow-400">
+                              <SelectValue placeholder="Chọn giờ sinh" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {hours.map((hour) => (
+                              <SelectItem key={hour} value={hour}>
+                                {hour}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="birthPlace"
+                    render={({ field }) => (
+                      <FormItem className="md:col-span-2">
+                        <FormLabel className="flex items-center gap-2">
+                          <MapPin className="w-4 h-4" />
+                          Nơi sinh
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Nhập nơi sinh (tỉnh/thành phố)"
+                            {...field}
+                            className="border-yellow-200 focus:border-yellow-400"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-semibold py-3 text-lg"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Đang phân tích..." : "Phân Tích Vận Mệnh"}
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+
+        {result && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card className="border-blue-200">
+              <CardHeader>
+                <CardTitle className="text-blue-800">Phân Tích Tính Cách</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700">{result.personalityAnalysis}</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-green-200">
+              <CardHeader>
+                <CardTitle className="text-green-800">Dự Báo Sự Nghiệp</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700">{result.careerForecast}</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-pink-200">
+              <CardHeader>
+                <CardTitle className="text-pink-800">Tình Duyên</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700">{result.loveLife}</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-purple-200">
+              <CardHeader>
+                <CardTitle className="text-purple-800">Sức Khỏe</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700">{result.healthAdvice}</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-yellow-200 md:col-span-2">
+              <CardHeader>
+                <CardTitle className="text-yellow-800">Thông Tin May Mắn</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-gray-800 mb-2">Số may mắn:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {result.luckyNumbers.map((number, index) => (
+                      <span
+                        key={index}
+                        className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium"
+                      >
+                        {number}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-gray-800 mb-2">Màu sắc may mắn:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {result.luckyColors.map((color, index) => (
+                      <span
+                        key={index}
+                        className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
+                      >
+                        {color}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-gray-800 mb-2">Hướng thuận lợi:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {result.favorableDirections.map((direction, index) => (
+                      <span
+                        key={index}
+                        className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium"
+                      >
+                        {direction}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-gray-800 mb-2">Lời khuyên:</h4>
+                  <ul className="list-disc list-inside space-y-1 text-gray-700">
+                    {result.recommendations.map((recommendation, index) => (
+                      <li key={index}>{recommendation}</li>
+                    ))}
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         )}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <Label
-              htmlFor="birthDate"
-              className="flex items-center space-x-2 text-yellow-400 font-medium mb-1.5"
-            >
-              <Calendar className="w-5 h-5" />
-              <span>{t("destiny.form.birthDateLabel")}</span>
-            </Label>
-            <Input
-              id="birthDate"
-              type="date"
-              value={birthDate}
-              onChange={(e) => setBirthDate(e.target.value)}
-              required
-              className="w-full px-4 py-3 bg-gray-800/70 border-gray-700 hover:border-yellow-600/70 focus:border-yellow-500 focus:ring-yellow-500/50 text-white rounded-lg transition-colors"
-              max={new Date().toISOString().split("T")[0]}
-            />
-          </div>
-          <div>
-            <Label
-              htmlFor="birthTime"
-              className="flex items-center space-x-2 text-yellow-400 font-medium mb-1.5"
-            >
-              <Clock className="w-5 h-5" />
-              <span>{t("destiny.form.birthTimeLabel")}</span>
-            </Label>
-            <Input
-              id="birthTime"
-              type="time"
-              value={birthTime}
-              onChange={(e) => setBirthTime(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-800/70 border-gray-700 hover:border-yellow-600/70 focus:border-yellow-500 focus:ring-yellow-500/50 text-white rounded-lg transition-colors"
-            />
-            <p className="text-xs text-gray-400 mt-1">
-              {t("destiny.form.birthTimeHint")}
-            </p>
-          </div>
-          <div>
-            <Label
-              htmlFor="birthPlace"
-              className="flex items-center space-x-2 text-yellow-400 font-medium mb-1.5"
-            >
-              <Building className="w-5 h-5" />
-              <span>{t("destiny.form.birthPlaceLabel")}</span>
-            </Label>
-            <Input
-              id="birthPlace"
-              type="text"
-              value={birthPlace}
-              onChange={(e) => setBirthPlace(e.target.value)}
-              required
-              className="w-full px-4 py-3 bg-gray-800/70 border-gray-700 hover:border-yellow-600/70 focus:border-yellow-500 focus:ring-yellow-500/50 text-white placeholder-gray-500 rounded-lg transition-colors"
-              placeholder={t("destiny.form.birthPlacePlaceholder")}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label className="flex items-center space-x-2 text-yellow-400 font-medium mb-1.5">
-              <User className="w-5 h-5" />
-              <span>{t("destiny.form.genderLabel")}</span>
-            </Label>
-            <Select
-              value={(gender ?? genders[0].value).toString()}
-              onValueChange={(value) => setGender(Number.parseInt(value))}
-            >
-              <SelectTrigger className="w-full px-4 py-3 bg-gray-800/70 border-gray-700 hover:border-yellow-600/70 focus:border-yellow-500 focus:ring-yellow-500/50 text-white placeholder-gray-500 rounded-lg transition-colors">
-                <SelectValue placeholder={t("destiny.form.genderLabel")} />
-              </SelectTrigger>
-              <SelectContent className="bg-amber-50 border-amber-600 max-h-60 overflow-y-auto">
-                {genders.map((gender: { value: number; label: string }) => (
-                  <SelectItem
-                    key={gender.value}
-                    value={gender.value.toString()}
-                    className="ancient-font text-amber-800 hover:bg-amber-100"
-                  >
-                    {gender.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-gray-900 font-semibold py-3.5 text-lg rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2.5"
-          >
-            {isLoading ? (
-              <Loader2 className="w-6 h-6 animate-spin" />
-            ) : (
-              <Stars className="w-6 h-6" />
-            )}
-            <span>
-              {isLoading
-                ? t("common.processing")
-                : t("destiny.form.submitButton")}
-            </span>
-          </Button>
-        </form>
-      </CardContent>
-      {isLoading && (
-        <CardFooter className="flex justify-center pt-4 border-t border-gray-700/50">
-          <p className="text-sm text-yellow-300 animate-pulse">
-            {t("destiny.form.loadingMessagePage")}
-          </p>
-        </CardFooter>
-      )}
-    </Card>
-  );
+      </div>
+    </>
+  )
 }
