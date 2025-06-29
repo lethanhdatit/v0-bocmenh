@@ -1,7 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Sparkles, Moon, Calculator, WalletCardsIcon as Cards, Home, Heart } from "lucide-react"
+import { Sparkles, Moon, Calculator, Heart, Home } from "lucide-react"
+import { GiCardRandom } from "react-icons/gi"
 import Link from "next/link"
 import { useTranslation } from "react-i18next"
 
@@ -14,85 +15,74 @@ export default function FeaturesSection() {
       titleKey: "features.destiny.title",
       descriptionKey: "features.destiny.description",
       href: "/destiny",
-      gradient: "from-purple-500 to-pink-500",
     },
-    {
-      icon: Moon,
-      titleKey: "features.dreams.title",
-      descriptionKey: "features.dreams.description",
-      href: "/dreams",
-      gradient: "from-blue-500 to-indigo-500",
-    },
+    { icon: Moon, titleKey: "features.dreams.title", descriptionKey: "features.dreams.description", href: "/dreams" },
     {
       icon: Calculator,
       titleKey: "features.numerology.title",
       descriptionKey: "features.numerology.description",
       href: "/numerology",
-      gradient: "from-green-500 to-emerald-500",
     },
     {
-      icon: Cards,
+      icon: GiCardRandom,
       titleKey: "features.tarot.title",
       descriptionKey: "features.tarot.description",
       href: "/tarot",
-      gradient: "from-yellow-500 to-orange-500",
     },
     {
       icon: Home,
       titleKey: "features.fengshui.title",
       descriptionKey: "features.fengshui.description",
       href: "/fengshui",
-      gradient: "from-red-500 to-rose-500",
     },
     {
       icon: Heart,
       titleKey: "features.compatibility.title",
       descriptionKey: "features.compatibility.description",
       href: "/compatibility",
-      gradient: "from-pink-500 to-red-500",
     },
   ]
 
   return (
-    <section id="features-section" className="py-20 px-4">
+    <section id="features-section" className="py-24 px-4">
       <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16 font-serif"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-yellow-500 to-amber-500 bg-clip-text text-transparent">
-            {t("features.title")}
-          </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">{t("site.description")}</p>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-secondary">{t("features.title")}</h2>
+          <p className="text-lg text-foreground/70 max-w-3xl mx-auto">{t("site.description")}</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={feature.href}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
             >
-              <Link href={feature.href}>
-                <div className="group relative bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6 h-full hover:border-yellow-500/50 transition-all duration-300 hover:transform hover:scale-105">
-                  <div
-                    className={`w-12 h-12 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <feature.icon className="w-6 h-6 text-white" />
+              <Link href={feature.href} className="block h-full group">
+                <div className="relative bg-card border border-border rounded-xl p-8 h-full transition-all duration-300 hover:border-primary/50 hover:bg-card/90 hover:-translate-y-2 shadow-sm hover:shadow-lg hover:shadow-primary/10">
+                  <div className="absolute top-0 right-0 w-24 h-24 opacity-0 group-hover:opacity-10 transition-opacity duration-300">
+                    <div
+                      className="w-full h-full"
+                      style={{ background: `url(/imgs/oriental-pattern-dark.png)`, backgroundSize: "100px" }}
+                    />
                   </div>
-
-                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-yellow-500 transition-colors">
-                    {t(feature.titleKey)}
-                  </h3>
-
-                  <p className="text-gray-400 leading-relaxed">{t(feature.descriptionKey)}</p>
-
-                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/5 to-amber-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="relative">
+                    <div className="w-12 h-12 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center mb-6 ring-1 ring-border group-hover:ring-secondary transition-all duration-300">
+                      <feature.icon className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-3 font-serif group-hover:text-secondary transition-colors">
+                      {t(feature.titleKey)}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed font-sans">{t(feature.descriptionKey)}</p>
+                  </div>
                 </div>
               </Link>
             </motion.div>
