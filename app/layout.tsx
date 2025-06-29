@@ -12,6 +12,7 @@ import AuthModals from "@/components/auth/AuthModals"
 import AuthSetup from "@/components/utils/AuthSetup"
 import ScrollControls from "@/components/layout/ScrollControls"
 import { getBaseUrl } from "@/lib/infra/utils"
+import GlobalLoadingWrapper from "@/components/ui/GlobalLoadingWrapper";
 
 const baseUrl = getBaseUrl();
 const inter = Inter({ subsets: ["latin", "vietnamese"] })
@@ -195,6 +196,7 @@ export default function RootLayout({
           <SWRProvider>
             <AuthProvider>
               <AuthSetup />
+              <GlobalLoadingWrapper />
               <div className="flex flex-col min-h-screen">
                 <Navigation />
                 <main className="flex-grow pt-16 relative">

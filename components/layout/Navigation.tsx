@@ -286,7 +286,7 @@ export default function Navigation() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-yellow-500/20"
+      className="fixed top-0 left-0 right-0 z-50 bg-black/35 backdrop-blur-md"
       role="navigation"
       aria-label="Main navigation"
     >

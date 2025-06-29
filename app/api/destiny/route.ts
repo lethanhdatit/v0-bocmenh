@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
 import type { UserSession } from "@/lib/session/sessionOptions";
-import { calculateDestiny, type DestinyResult } from "@/lib/destinyService";
 import {
   withServerBase,
   baseResponse,
@@ -10,7 +9,7 @@ import { IronSession } from "iron-session";
 import { apiServer, getConfig } from "@/lib/api/apiServer";
 import { getTranslations } from "@/i18n/server";
 
-// Original handler logic
+// POST handler
 async function destinyApiHandler(
   data: any,
   request: NextRequest,
@@ -55,20 +54,12 @@ async function destinyApiHandler(
       config
     );
 
-    // const desResult = response.data.data;
-
-    // Session is now passed by the wrapper
-    const destinyResult: DestinyResult = await calculateDestiny(
-      "",
-      birthDate,
-      birthTime,
-      session
-    );
+    const desResult = response.data.data;
 
     return baseResponse({
       status: 200,
       message: "ok",
-      data: response.data.data,
+      data: desResult,
     });
   } catch (error) {
     return handleApiServerError(
@@ -83,7 +74,56 @@ async function destinyApiHandler(
   }
 }
 
-// Wrap the handler with authentication options
+// GET handler
+async function destinyApiGetHandler(
+  _data: any,
+  request: NextRequest,
+  session: IronSession<UserSession>
+) {
+  const { t } = await getTranslations(["common", "destiny"]);
+
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return baseResponse({
+        status: 400,
+        message: t("destiny.error.invalidInput"),
+        errors: { id: t("destiny.error.invalidInput") },
+      });
+    }
+
+    const config = await getConfig(request, session?.accessToken);
+
+    const response = await apiServer.get(`/bocmenh/tuTruBatTu/${id}`, {
+      ...config,
+    });
+
+    const desResult = response.data.data;
+
+    return baseResponse({
+      status: 200,
+      message: "ok",
+      data: desResult,
+    });
+  } catch (error) {
+    return handleApiServerError(
+      error,
+      {
+        error400Message: t("destiny.error.theologyFailed"),
+        errorCommonMessage: t("destiny.systemFailed"),
+      },
+      session,
+      _data
+    );
+  }
+}
+
 export const POST = withServerBase(destinyApiHandler, {
-  isAuthenRequired: true, // Set to true to test authentication
+  isAuthenRequired: true,
+});
+
+export const GET = withServerBase(destinyApiGetHandler, {
+  isAuthenRequired: true,
 });
