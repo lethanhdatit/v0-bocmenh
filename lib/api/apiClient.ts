@@ -1,23 +1,19 @@
-import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
-import { encryptData, decryptData } from "../infra/encryption";
-import { NextResponse } from "next/server";
-import { getTranslations } from "@/i18n/server";
-import {
-  showGlobalLoading,
-  hideGlobalLoading,
-  getIsLoading,
-} from "@/lib/utils";
+import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios"
+import { encryptData, decryptData } from "../infra/encryption"
+import { NextResponse } from "next/server"
+import { getTranslations } from "@/i18n/server"
+import { showGlobalLoading, hideGlobalLoading, getIsLoading } from "@/lib/utils"
 
-let globalAuthPromptHandler: ((options?: any) => void) | null = null;
+let globalAuthPromptHandler: ((options?: any) => void) | null = null
 
 export function setGlobalAuthPrompt(handler: typeof globalAuthPromptHandler) {
-  globalAuthPromptHandler = handler;
+  globalAuthPromptHandler = handler
 }
 
-let globalLogoutHandler: (() => void | Promise<void>) | null = null;
+let globalLogoutHandler: (() => void | Promise<void>) | null = null
 
 export function setGlobalLogoutHandler(handler: typeof globalLogoutHandler) {
-  globalLogoutHandler = handler;
+  globalLogoutHandler = handler
 }
 
 export const apiClient = axios.create({
@@ -25,79 +21,75 @@ export const apiClient = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-});
+})
 
 // Request interceptor for encryption
 apiClient.interceptors.request.use(
   (config) => {
-    if (
-      config.data &&
-      ["post", "put", "patch"].includes(config.method?.toLowerCase() || "")
-    ) {
+    if (config.data && ["post", "put", "patch"].includes(config.method?.toLowerCase() || "")) {
       if (!(config.data instanceof FormData)) {
-        config.data = { encrypted: encryptData(config.data) };
+        config.data = { encrypted: encryptData(config.data) }
       }
     }
-    return config;
+    return config
   },
-  (error) => Promise.reject(error)
-);
+  (error) => Promise.reject(error),
+)
 
 // Response interceptor for decryption and auth handling
 apiClient.interceptors.response.use(
   (response) => {
     if (response.data && response.data.encrypted) {
       try {
-        response.data = decryptData(response.data.encrypted);
+        response.data = decryptData(response.data.encrypted)
       } catch (e) {
-        console.error("Failed to decrypt response data", e);
+        console.error("Failed to decrypt response data", e)
       }
     }
-    return response;
+    return response
   },
   async (error: AxiosError<ApiBaseResponse>) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & {
-      _retry?: boolean;
-      _preserveState?: boolean;
-      _redirectTo?: string;
-    };
+      _retry?: boolean
+      _preserveState?: boolean
+      _redirectTo?: string
+    }
 
-    let data = error.response?.data as any;
+    let data = error.response?.data as any
 
     if (data?.encrypted) {
-      data = decryptData(data.encrypted);
+      data = decryptData(data.encrypted)
     }
 
     if (error.response?.status === 401 && globalLogoutHandler) {
-      await globalLogoutHandler();
+      await globalLogoutHandler()
     }
 
     if (
       error.response?.status === 401 &&
-      (data?.errorCode === "AUTH_REQUIRED_RETRY" ||
-        data?.errorCode === "AUTH_REQUIRED") &&
+      (data?.errorCode === "AUTH_REQUIRED_RETRY" || data?.errorCode === "AUTH_REQUIRED") &&
       originalRequest &&
       !originalRequest._retry
     ) {
-      originalRequest._retry = true; // Mark to prevent infinite loops
-      originalRequest.data = data.forwardData;
-      
-      if (globalAuthPromptHandler) {
-        const needReloading = getIsLoading();
+      originalRequest._retry = true // Mark to prevent infinite loops
+      originalRequest.data = data.forwardData
 
-        if (needReloading) hideGlobalLoading();
+      if (globalAuthPromptHandler) {
+        const needReloading = getIsLoading()
+
+        if (needReloading) hideGlobalLoading()
 
         return new Promise((resolve, reject) => {
           globalAuthPromptHandler!({
             onLoginSuccess: async () => {
               try {
-                if (needReloading) showGlobalLoading();
+                if (needReloading) showGlobalLoading()
                 // Re-attempt the original request
                 if (data?.errorCode === "AUTH_REQUIRED_RETRY") {
-                  const response = await apiClient(originalRequest);
-                  resolve(response);
+                  const response = await apiClient(originalRequest)
+                  resolve(response)
                 } else {
-                  const { t } = await getTranslations(["common", "common"]);
+                  const { t } = await getTranslations(["common", "common"])
                   reject(
                     NextResponse.json(
                       {
@@ -105,36 +97,35 @@ apiClient.interceptors.response.use(
                         message: t("common.tryAgain"),
                         errors: { general: t("common.tryAgain") },
                       } as ApiBaseResponse,
-                      { status: 400 }
-                    )
-                  );
+                      { status: 400 },
+                    ),
+                  )
                 }
               } catch (retryError) {
-                reject(retryError);
+                reject(retryError)
               }
             },
-          });
-        });
+          })
+        })
       }
     }
 
     if (data) {
-      error.response!.data = data;
+      error.response!.data = data
     }
-    return Promise.reject(error);
-  }
-);
+    return Promise.reject(error)
+  },
+)
 
 // SWR fetcher function
-export const fetcher = (url: string) =>
-  apiClient.get(url).then((res) => res.data);
+export const fetcher = (url: string) => apiClient.get(url).then((res) => res.data)
 
 export interface ApiBaseResponse {
-  success: boolean;
-  message?: string;
-  data?: any;
-  forwardData?: any;
-  error?: string;
-  errorCode?: string;
-  errors?: Record<string, string>;
+  success: boolean
+  message?: string
+  data?: any
+  forwardData?: any
+  error?: string
+  errorCode?: string
+  errors?: Record<string, string>
 }
