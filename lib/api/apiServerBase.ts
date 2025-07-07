@@ -24,21 +24,26 @@ export function withServerBase(
 ) {
   return async (request: NextRequest, ...args: any[]) => {
     const session = await getSession();
-    const body = await request.json();
-    const { encrypted } = body;
 
     let data = undefined;
+    let body: any = undefined;
 
-    if (encrypted) {
-      data = decryptData(encrypted);
+    if (["POST", "PUT", "PATCH"].includes(request.method)) {
+      try {
+        body = await request.json();
+        const { encrypted } = body || {};
+        if (encrypted) {
+          data = decryptData(encrypted);
+        }
+      } catch {
+        data = undefined;
+      }
     }
-    
+
     if (options.isAuthenRequired && !session.isLoggedIn) {
-      // Signal client that authentication is required
       return NextResponse.json(
         {
           encrypted: encryptData({
-            // Encrypt error response as per project requirements
             success: false,
             error: "Authentication required.",
             errorCode: "AUTH_REQUIRED_RETRY",
@@ -49,7 +54,6 @@ export function withServerBase(
       );
     }
 
-    // Pass the potentially updated session to the original handler
     return handler(data, request, session, ...args);
   };
 }

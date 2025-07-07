@@ -2,6 +2,11 @@ import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
 import { encryptData, decryptData } from "../infra/encryption";
 import { NextResponse } from "next/server";
 import { getTranslations } from "@/i18n/server";
+import {
+  showGlobalLoading,
+  hideGlobalLoading,
+  getIsLoading,
+} from "@/lib/utils";
 
 let globalAuthPromptHandler: ((options?: any) => void) | null = null;
 
@@ -25,16 +30,17 @@ export const apiClient = axios.create({
 // Request interceptor for encryption
 apiClient.interceptors.request.use(
   (config) => {
-    if (config.data) {
+    if (
+      config.data &&
+      ["post", "put", "patch"].includes(config.method?.toLowerCase() || "")
+    ) {
       if (!(config.data instanceof FormData)) {
         config.data = { encrypted: encryptData(config.data) };
       }
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 // Response interceptor for decryption and auth handling
@@ -75,12 +81,17 @@ apiClient.interceptors.response.use(
     ) {
       originalRequest._retry = true; // Mark to prevent infinite loops
       originalRequest.data = data.forwardData;
-
+      
       if (globalAuthPromptHandler) {
+        const needReloading = getIsLoading();
+
+        if (needReloading) hideGlobalLoading();
+
         return new Promise((resolve, reject) => {
           globalAuthPromptHandler!({
             onLoginSuccess: async () => {
               try {
+                if (needReloading) showGlobalLoading();
                 // Re-attempt the original request
                 if (data?.errorCode === "AUTH_REQUIRED_RETRY") {
                   const response = await apiClient(originalRequest);

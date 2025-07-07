@@ -1,4 +1,57 @@
 {
+  "topups": {
+    "title": "Top-up Fates - Boc Menh",
+    "description": "Choose a top-up package to use divination, feng shui, and fortune-telling services on Boc Menh.",
+    "pageTitle": "Choose Your Fates Package",
+    "fatesUnit": "fates",
+    "bonus": "Bonus",
+    "discount": "Discount",
+    "selectPaymentGate": "Select Payment Gateway",
+    "noPaymentGates": "No payment gateways available.",
+    "buyNow": "Buy Now",
+    "processing": "Processing...",
+    "fetchGatesError": "Failed to load payment gateways. Please try again.",
+    "selectPackageAndGate": "Please select a top-up package and a payment gateway.",
+    "purchaseFailed": "Purchase failed. Please try again.",
+    "popupBlocked": "Payment popup blocked. Please allow popups and try again.",
+    "systemFailed": "System error, please try again later",
+    "processingPayment": "Processing payment...",
+    "error": {
+      "common": "Error",
+      "listFailed": "Failed to load list topups",
+      "BuyFailed": "Failed to load buy topups",
+      "invalidInput": "Invalid input",
+      "checkoutStatusFailed": "Failed to load the checkout status"
+    }
+  },
+  "checkout": {
+    "title": "Payment Status - Boc Menh",
+    "description": "Check the status of your fates top-up transaction.",
+    "transactionStatus": "Transaction Status",
+    "checkingStatus": "Updating transaction status...",
+    "invalidTransaction": "Invalid Transaction",
+    "missingId": "Missing transaction ID. Please access from the top-up page.",
+    "fetchError": "Failed to load transaction status. Please try again.",
+    "amount": "Amount",
+    "fatesAdded": "Fates received",
+    "transactionRef": "Transaction Reference",
+    "tryAgain": "Try Again",
+    "backToHome": "Back to Home",
+    "paymentGate": "Payment gate",
+    "subTotalAmount": "Original amount",
+    "totalAmount": "Final amount",
+    "paidAmount": "Paid amount",
+    "status": "Status",
+    "fates": "Fates point",
+    "cancelCheckoutFailed": "Failed to cancel the transaction",
+    "paymentStatus":{
+      "new": "New",
+      "processing": "Processing",
+      "partiallyPaid": "Partially Paid",
+      "paid": "Paid",
+      "cancelled": "Cancelled"
+    }
+  },
   "scroll": {
     "toTop": "Scroll to Top"
   },
@@ -549,27 +602,87 @@
     }
   },
   "genders": [
-    { "value": 1, "label": "Male" },
-    { "value": 2, "label": "Female" },
-    { "value": 3, "label": "Non-binary" },
-    { "value": 4, "label": "Transgender Male" },
-    { "value": 5, "label": "Transgender Female" },
-    { "value": 6, "label": "Gender Fluid" },
-    { "value": 7, "label": "Agender" },
-    { "value": 8, "label": "Two Spirits" },
-    { "value": 9, "label": "Intersex" },
-    { "value": 10, "label": "Other" }
+    {
+      "value": 1,
+      "label": "Male"
+    },
+    {
+      "value": 2,
+      "label": "Female"
+    },
+    {
+      "value": 3,
+      "label": "Non-binary"
+    },
+    {
+      "value": 4,
+      "label": "Transgender Male"
+    },
+    {
+      "value": 5,
+      "label": "Transgender Female"
+    },
+    {
+      "value": 6,
+      "label": "Gender Fluid"
+    },
+    {
+      "value": 7,
+      "label": "Agender"
+    },
+    {
+      "value": 8,
+      "label": "Two Spirits"
+    },
+    {
+      "value": 9,
+      "label": "Intersex"
+    },
+    {
+      "value": 10,
+      "label": "Other"
+    }
   ],
   "religions": [
-    { "value": 1, "label": "Buddhism" },
-    { "value": 2, "label": "Catholicism" },
-    { "value": 3, "label": "Protestantism" },
-    { "value": 4, "label": "Islam" },
-    { "value": 5, "label": "Judaism" },
-    { "value": 6, "label": "Hinduism" },
-    { "value": 7, "label": "Confucianism" },
-    { "value": 8, "label": "Taoism" },
-    { "value": 9, "label": "Atheism" },
-    { "value": 10, "label": "Other religion" }
+    {
+      "value": 1,
+      "label": "Buddhism"
+    },
+    {
+      "value": 2,
+      "label": "Catholicism"
+    },
+    {
+      "value": 3,
+      "label": "Protestantism"
+    },
+    {
+      "value": 4,
+      "label": "Islam"
+    },
+    {
+      "value": 5,
+      "label": "Judaism"
+    },
+    {
+      "value": 6,
+      "label": "Hinduism"
+    },
+    {
+      "value": 7,
+      "label": "Confucianism"
+    },
+    {
+      "value": 8,
+      "label": "Taoism"
+    },
+    {
+      "value": 9,
+      "label": "Atheism"
+    },
+    {
+      "value": 10,
+      "label": "Other religion"
+    }
   ]
 }

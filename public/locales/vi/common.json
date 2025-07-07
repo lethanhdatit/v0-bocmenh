@@ -1,4 +1,57 @@
 {
+  "topups": {
+    "title": "Nạp Duyên - Bóc Mệnh",
+    "description": "Chọn gói nạp duyên để sử dụng các dịch vụ tử vi, phong thủy, bói toán trên Bóc Mệnh.",
+    "pageTitle": "Chọn Gói Nạp Duyên",
+    "fatesUnit": "duyên",
+    "bonus": "Thưởng",
+    "discount": "Giảm giá",
+    "selectPaymentGate": "Chọn Cổng Thanh Toán",
+    "noPaymentGates": "Không có cổng thanh toán nào khả dụng.",
+    "buyNow": "Mua Ngay",
+    "processing": "Đang xử lý...",
+    "fetchGatesError": "Không thể tải danh sách cổng thanh toán. Vui lòng thử lại.",
+    "selectPackageAndGate": "Vui lòng chọn một gói nạp duyên và một cổng thanh toán.",
+    "purchaseFailed": "Giao dịch thất bại. Vui lòng thử lại.",
+    "popupBlocked": "Cửa sổ thanh toán bị chặn. Vui lòng cho phép popup và thử lại.",
+    "systemFailed": "Hệ thống đang gặp sự cố. Vui lòng thử lại sau.",
+    "processingPayment": "Đang xử lý thanh toán...",
+    "error": {
+      "common": "Lỗi",
+      "listFailed": "Không thể tải danh sách topups",
+      "BuyFailed": "Không thể mua topups",
+      "invalidInput": "Thông tin đầu vào không hợp lệ.",
+      "checkoutStatusFailed": "Không thể tải trạng thái giao dịch"
+    }
+  },
+  "checkout": {
+    "title": "Trạng Thái Thanh Toán - Bóc Mệnh",
+    "description": "Kiểm tra trạng thái giao dịch nạp duyên của bạn.",
+    "transactionStatus": "Trạng Thái Giao Dịch",
+    "checkingStatus": "Đang cập nhật trạng thái giao dịch...",
+    "invalidTransaction": "Giao dịch không hợp lệ",
+    "missingId": "Thiếu mã giao dịch. Vui lòng truy cập lại từ trang nạp duyên.",
+    "fetchError": "Không thể tải trạng thái giao dịch. Vui lòng thử lại.",
+    "amount": "Số tiền",
+    "fatesAdded": "Điểm duyên nhận được",
+    "transactionRef": "Mã giao dịch",
+    "tryAgain": "Thử lại",
+    "backToHome": "Quay về trang chủ",
+    "paymentGate": "Cổng thanh toán",
+    "subTotalAmount": "Giá gốc",
+    "totalAmount": "Giá cuối",
+    "paidAmount": "Đã thanh toán",
+    "status": "Trạng thái giao dịch",
+    "fates": "Điểm duyên",
+    "cancelCheckoutFailed": "Không thể huỷ giao dịch",
+    "paymentStatus":{
+      "new": "Mới tạo",
+      "processing": "Đang xử lý",
+      "partiallyPaid": "Đã thanh toán một phần",
+      "paid": "Đã thanh toán",
+      "cancelled": "Đã huỷ"
+    }
+  },
   "scroll": {
     "toTop": "Cuộn lên đầu trang"
   },
@@ -543,27 +596,87 @@
     "wishlist": "Yêu thích"
   },
   "genders": [
-    { "value": 1, "label": "Nam" },
-    { "value": 2, "label": "Nữ" },
-    { "value": 3, "label": "Phi nhị nguyên" },
-    { "value": 4, "label": "Nam chuyển giới" },
-    { "value": 5, "label": "Nữ chuyển giới" },
-    { "value": 6, "label": "Biến đổi giới tính" },
-    { "value": 7, "label": "Vô giới" },
-    { "value": 8, "label": "Hai linh hồn" },
-    { "value": 9, "label": "Intersex" },
-    { "value": 10, "label": "Khác" }
+    {
+      "value": 1,
+      "label": "Nam"
+    },
+    {
+      "value": 2,
+      "label": "Nữ"
+    },
+    {
+      "value": 3,
+      "label": "Phi nhị nguyên"
+    },
+    {
+      "value": 4,
+      "label": "Nam chuyển giới"
+    },
+    {
+      "value": 5,
+      "label": "Nữ chuyển giới"
+    },
+    {
+      "value": 6,
+      "label": "Biến đổi giới tính"
+    },
+    {
+      "value": 7,
+      "label": "Vô giới"
+    },
+    {
+      "value": 8,
+      "label": "Hai linh hồn"
+    },
+    {
+      "value": 9,
+      "label": "Intersex"
+    },
+    {
+      "value": 10,
+      "label": "Khác"
+    }
   ],
   "religions": [
-    { "value": 1, "label": "Phật giáo" },
-    { "value": 2, "label": "Công giáo" },
-    { "value": 3, "label": "Tin Lành" },
-    { "value": 4, "label": "Hồi giáo" },
-    { "value": 5, "label": "Do Thái giáo" },
-    { "value": 6, "label": "Ấn Độ giáo" },
-    { "value": 7, "label": "Khổng giáo" },
-    { "value": 8, "label": "Tao giáo" },
-    { "value": 9, "label": "Vô thần" },
-    { "value": 10, "label": "Tôn giáo khác" }
+    {
+      "value": 1,
+      "label": "Phật giáo"
+    },
+    {
+      "value": 2,
+      "label": "Công giáo"
+    },
+    {
+      "value": 3,
+      "label": "Tin Lành"
+    },
+    {
+      "value": 4,
+      "label": "Hồi giáo"
+    },
+    {
+      "value": 5,
+      "label": "Do Thái giáo"
+    },
+    {
+      "value": 6,
+      "label": "Ấn Độ giáo"
+    },
+    {
+      "value": 7,
+      "label": "Khổng giáo"
+    },
+    {
+      "value": 8,
+      "label": "Tao giáo"
+    },
+    {
+      "value": 9,
+      "label": "Vô thần"
+    },
+    {
+      "value": 10,
+      "label": "Tôn giáo khác"
+    }
   ]
 }
