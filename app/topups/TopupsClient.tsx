@@ -109,7 +109,6 @@ export default function TopupsClient({
         });
       }
     } catch (error) {
-      debugger;
       console.error("Failed to initiate purchase:", error);
       toast({
         title: t("topups.error.common"),

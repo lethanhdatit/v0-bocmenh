@@ -32,7 +32,6 @@ export async function getConfig(
     "Content-Type": "application/json",
   };
 
-  // Forward các header cần thiết từ req
   forwardHeaders.forEach((key) => {
     const value = req.headers.get(key);
     if (value) headers[key] = value;
@@ -54,6 +53,7 @@ apiServer.interceptors.response.use(
   (response) => {
     const data = response.data;
     let formattedData;
+
     if (response.status === 200) {
       formattedData = {
         status: response.status,
@@ -82,9 +82,35 @@ apiServer.interceptors.response.use(
         message: "Unexpected response status",
       };
     }
+
     return {
       ...response,
       data: formattedData,
     };
+  },
+  (error) => {
+    if (error.code === "ECONNREFUSED") {
+      return Promise.reject({
+        status: 503,
+        message: "Không thể kết nối tới máy chủ. Vui lòng thử lại sau.",
+        details: {
+          address: error.address,
+          port: error.port,
+        },
+      });
+    }
+
+    if (error.code === "ECONNABORTED") {
+      return Promise.reject({
+        status: 504,
+        message: "Yêu cầu quá thời gian xử lý. Vui lòng thử lại sau.",
+      });
+    }
+
+    return Promise.reject({
+      status: error.response?.status || 500,
+      message: error.message || "Đã xảy ra lỗi không xác định.",
+      data: error.response?.data,
+    });
   }
 );
