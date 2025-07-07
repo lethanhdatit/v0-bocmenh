@@ -18,6 +18,7 @@ import {
   CardHeader,
   CardDescription,
   CardFooter,
+  CardTitle
 } from "@/components/ui/card";
 import {
   Stars,
@@ -88,9 +89,9 @@ export default function DestinyForm() {
     <>
       <Card className="w-full max-w-lg mx-auto bg-gray-900/80 border-yellow-500/30 shadow-xl backdrop-blur-sm">
         <CardHeader className="text-center">
-          {/* <CardTitle className="text-3xl font-bold bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
+          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
             {t("destiny.form.title")}
-          </CardTitle> */}
+          </CardTitle>
           <CardDescription className="text-gray-300 mt-1 text-left">
             <i>{t("features.destiny.description")}</i>
           </CardDescription>

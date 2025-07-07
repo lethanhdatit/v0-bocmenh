@@ -21,6 +21,7 @@ export default function Navigation() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isOverflowMenuOpen, setIsOverflowMenuOpen] = useState(false);
   const [visibleItemsCount, setVisibleItemsCount] = useState(8);
+  const [logoSpin, setLogoSpin] = useState(false);
   const navContainerRef = useRef<HTMLDivElement>(null);
   const logoContainerRef = useRef<HTMLDivElement>(null);
   const authContainerRef = useRef<HTMLDivElement>(null);
@@ -42,14 +43,14 @@ export default function Navigation() {
   };
 
   // Menu items in priority order (most important first)
-  const navItems = [
-    { href: "/luckybox", label: t("nav.luckybox") },
+  const navItems = [    
     { href: "/destiny", label: t("nav.destiny") },
     { href: "/dreams", label: t("nav.dreams") },
     { href: "/numerology", label: t("nav.numerology") },
     { href: "/tarot", label: t("nav.tarot") },
     { href: "/fengshui", label: t("nav.fengshui") },
     { href: "/store", label: t("nav.store") },
+    { href: "/luckybox", label: t("nav.luckybox") },
     { href: "/blogs", label: t("nav.blogs") },
   ];
 
@@ -62,6 +63,10 @@ export default function Navigation() {
     setIsOpen(false);
     setIsOverflowMenuOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    setLogoSpin(true);
+  }, []);
 
   // Close user menu when clicking outside
   useEffect(() => {
@@ -161,7 +166,13 @@ export default function Navigation() {
       resizeObserver.disconnect();
       window.removeEventListener("resize", checkOverflow);
     };
-  }, [visibleItemsCount, navItems.length, isLoggedIn, i18n.language, authIsLoading]);
+  }, [
+    visibleItemsCount,
+    navItems.length,
+    isLoggedIn,
+    i18n.language,
+    authIsLoading,
+  ]);
 
   // Force recalculation when language changes
   useEffect(() => {
@@ -286,7 +297,7 @@ export default function Navigation() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-black/35 backdrop-blur-md"
+      className="fixed top-0 left-0 right-0 z-50 bg-black/25 backdrop-blur-md"
       role="navigation"
       aria-label="Main navigation"
     >
@@ -304,13 +315,17 @@ export default function Navigation() {
                 className="flex-shrink-0"
                 aria-label="Bóc Mệnh - Về trang chủ"
               >
-                <img
-                  src="/logo.png"
-                  alt="Bóc Mệnh Logo - Khám phá vận mệnh của bạn"
-                  className="h-10 w-auto sm:h-11 lg:h-12 object-contain"
-                  width="40"
-                  height="40"
-                />
+                <div className="relative flex items-center">
+                  <img
+                    src="/logo.png"
+                    alt="Bóc Mệnh Logo - Khám phá vận mệnh của bạn"
+                    className={`h-10 w-auto sm:h-11 lg:h-12 object-contain transition-transform duration-700 ${
+                      logoSpin ? "animate-spin-slow" : ""
+                    }`}
+                    width="40"
+                    height="40"
+                  />
+                </div>
               </Link>
               <Link
                 href="/"
@@ -432,13 +447,17 @@ export default function Navigation() {
                 className="flex-shrink-0"
                 aria-label="Bóc Mệnh - Về trang chủ"
               >
-                <img
-                  src="/logo.png"
-                  alt="Bóc Mệnh Logo"
-                  className="h-10 w-auto object-contain"
-                  width="32"
-                  height="32"
-                />
+                <div className="relative flex items-center">
+                  <img
+                    src="/logo.png"
+                    alt="Bóc Mệnh Logo - Khám phá vận mệnh của bạn"
+                    className={`h-10 w-auto object-contain transition-transform duration-700 ${
+                      logoSpin ? "animate-spin-slow" : ""
+                    }`}
+                    width="32"
+                    height="32"
+                  />
+                </div>
               </Link>
               <Link
                 href="/"

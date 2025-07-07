@@ -1,28 +1,29 @@
 import "@/lib/infra/disableConsole";
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
-import { AuthProvider } from "@/contexts/AuthContext"
-import { LanguageProvider } from "@/contexts/LanguageContext"
-import SWRProvider from "@/components/providers/SWRProvider"
-import Navigation from "@/components/layout/Navigation"
-import Footer from "@/components/layout/Footer"
-import AuthModals from "@/components/auth/AuthModals"
-import AuthSetup from "@/components/utils/AuthSetup"
-import ScrollControls from "@/components/layout/ScrollControls"
-import { getBaseUrl } from "@/lib/infra/utils"
+import type React from "react";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import SWRProvider from "@/components/providers/SWRProvider";
+import Navigation from "@/components/layout/Navigation";
+import Footer from "@/components/layout/Footer";
+import AuthModals from "@/components/auth/AuthModals";
+import AuthSetup from "@/components/utils/AuthSetup";
+import ScrollControls from "@/components/layout/ScrollControls";
+import { getBaseUrl } from "@/lib/infra/utils";
 import GlobalLoadingWrapper from "@/components/ui/GlobalLoadingWrapper";
 
 const baseUrl = getBaseUrl();
-const inter = Inter({ subsets: ["latin", "vietnamese"] })
+const inter = Inter({ subsets: ["latin", "vietnamese"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: "Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn",
   description:
     "Khám phá vận mệnh, giải mơ, xem tướng số và nhiều tính năng thú vị khác tại Bóc Mệnh. Dịch vụ bói toán online chính xác và uy tín nhất Việt Nam.",
-  keywords: "bóc mệnh, vận mệnh, giải mơ, tướng số, phong thủy, tarot, thần số học, chiêm tinh, xem bói online",
+  keywords:
+    "bóc mệnh, vận mệnh, giải mơ, tướng số, phong thủy, tarot, thần số học, chiêm tinh, xem bói online",
   authors: [{ name: "Bóc Mệnh Team" }],
   creator: "Bóc Mệnh",
   publisher: "Bóc Mệnh",
@@ -66,7 +67,8 @@ export const metadata: Metadata = {
     site: "@bocmenh",
     creator: "@bocmenh",
     title: "Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn",
-    description: "Khám phá vận mệnh, giải mơ, xem tướng số online chính xác nhất",
+    description:
+      "Khám phá vận mệnh, giải mơ, xem tướng số online chính xác nhất",
     images: ["/twitter-image.jpg"],
   },
   // Additional
@@ -80,7 +82,7 @@ export const metadata: Metadata = {
       "facebook-domain-verification": "your-facebook-verification-code",
     },
   },
-}
+};
 
 // ✅ Thêm export viewport riêng:
 export const viewport = {
@@ -89,39 +91,59 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-}
+};
 
-const starryBackground = <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-  <div className="absolute inset-0">
-    {[...Array(60)].map((_, i) => (
-      <div
-        key={i}
-        className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
-        style={{
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          animationDelay: `${Math.random() * 2}s`,
-          // willChange: "opacity", // Optimize animation
-        }} />
-    ))}
-    {[...Array(25)].map((_, i) => (
-      <div
-        key={`gold-${i}`}
-        className="absolute w-1.5 h-1.5 bg-yellow-500 rounded-full animate-twinkle"
-        style={{
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          animationDelay: `${Math.random() * 3}s`,
-          // willChange: "opacity", // Optimize animation
-        }} />
-    ))}
+const starryBackground = (
+  <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+    <div className="absolute inset-0">
+      {[...Array(30)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 2}s`,
+            // willChange: "opacity", // Optimize animation
+          }}
+        />
+      ))}
+      {[...Array(18)].map((_, i) => (
+        <div
+          key={`gold-${i}`}
+          className="absolute w-1.5 h-1.5 bg-yellow-500 rounded-full animate-twinkle"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 3}s`,
+            // willChange: "opacity", // Optimize animation
+          }}
+        />
+      ))}
+    </div>
   </div>
-</div>;
+);
+
+const OrientalBackground = () => (
+  <div className="fixed inset-0 -z-50 overflow-hidden">
+    <div
+      className="absolute inset-0 bg-cover bg-center"
+      style={{ backgroundImage: "url(/imgs/main-bg.png)" }}
+    />
+    <div
+      className="absolute inset-0 opacity-50 mix-blend-multiply"
+      style={{
+        backgroundImage: "url(/imgs/oriental-pattern-dark.png)",
+        backgroundSize: "500px",
+      }}
+    />
+  </div>
+);
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="vi">
@@ -136,7 +158,11 @@ export default function RootLayout({
 
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
 
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -153,7 +179,8 @@ export default function RootLayout({
               name: "Bóc Mệnh",
               alternateName: "Boc Menh",
               url: "https://bocmenh.com",
-              description: "Khám phá vận mệnh, giải mơ, xem tướng số và phong thủy online",
+              description:
+                "Khám phá vận mệnh, giải mơ, xem tướng số và phong thủy online",
               inLanguage: ["vi", "en"],
               potentialAction: {
                 "@type": "SearchAction",
@@ -179,7 +206,8 @@ export default function RootLayout({
               mainEntity: {
                 "@type": "Service",
                 name: "Dịch vụ bói toán online",
-                description: "Cung cấp dịch vụ bóc mệnh, giải mơ, xem tướng số, phong thủy online",
+                description:
+                  "Cung cấp dịch vụ bóc mệnh, giải mơ, xem tướng số, phong thủy online",
                 provider: {
                   "@type": "Organization",
                   name: "Bóc Mệnh",
@@ -195,9 +223,8 @@ export default function RootLayout({
         <LanguageProvider>
           <SWRProvider>
             <AuthProvider>
-              <AuthSetup />
-              <GlobalLoadingWrapper />
               <div className="flex flex-col min-h-screen">
+                {/* <OrientalBackground /> */}
                 <Navigation />
                 <main className="flex-grow pt-16 relative">
                   {starryBackground}
@@ -207,10 +234,12 @@ export default function RootLayout({
               </div>
               <AuthModals />
               <ScrollControls />
+              <AuthSetup />
+              <GlobalLoadingWrapper />
             </AuthProvider>
           </SWRProvider>
         </LanguageProvider>
       </body>
     </html>
-  )
+  );
 }
