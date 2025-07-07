@@ -1,106 +1,126 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { type TopupPackage, type PaymentGate, getPaymentGates, buyTopup } from "@/lib/topups"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
-import Image from "next/image"
-import { useToast } from "@/hooks/use-toast"
-import { useTranslation } from "react-i18next"
-import { showGlobalLoading, hideGlobalLoading } from "@/lib/utils"
+import { useState, useEffect } from "react";
+import {
+  type TopupPackage,
+  type PaymentGate,
+  getPaymentGates,
+  buyTopup,
+} from "@/lib/topups";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import Image from "next/image";
+import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
+import { showGlobalLoading, hideGlobalLoading } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 interface TopupsClientProps {
-  initialTopupPackages: TopupPackage[]
+  initialTopupPackages: TopupPackage[];
 }
 
-export default function TopupsClient({ initialTopupPackages }: TopupsClientProps) {
-  const { t } = useTranslation("common")
-  const { toast } = useToast()
-  const [selectedPackage, setSelectedPackage] = useState<TopupPackage | null>(null)
-  const [paymentGates, setPaymentGates] = useState<PaymentGate[]>([])
-  const [selectedPaymentGate, setSelectedPaymentGate] = useState<string | null>(null)
-  const [isBuying, setIsBuying] = useState(false)
+export default function TopupsClient({
+  initialTopupPackages,
+}: TopupsClientProps) {
+  const { t } = useTranslation("common");
+  const { toast } = useToast();
+  const [selectedPackage, setSelectedPackage] = useState<TopupPackage | null>(
+    null
+  );
+  const [paymentGates, setPaymentGates] = useState<PaymentGate[]>([]);
+  const [selectedPaymentGate, setSelectedPaymentGate] = useState<string | null>(
+    null
+  );
+  const [isBuying, setIsBuying] = useState(false);
 
   useEffect(() => {
     const fetchGates = async () => {
       try {
-        const gates = await getPaymentGates()
-        setPaymentGates(gates)
+        const gates = await getPaymentGates();
+        setPaymentGates(gates);
         if (gates.length > 0) {
-          setSelectedPaymentGate(gates[0].id)
+          setSelectedPaymentGate(gates[0].id);
         }
       } catch (error) {
-        console.error("Failed to fetch payment gates:", error)
+        console.error("Failed to fetch payment gates:", error);
         toast({
-          title: t("topups.error"),
+          title: t("topups.error.common"),
           description: t("topups.fetchGatesError"),
           variant: "destructive",
-        })
+        });
       }
-    }
-    fetchGates()
-  }, [t, toast])
+    };
+    fetchGates();
+  }, [t, toast]);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       // Ensure the message is from a trusted origin if opening external IPN links
       // For internal /topups-checkout, origin check might be less critical but still good practice
       if (event.origin !== window.location.origin) {
-        console.warn("Message from untrusted origin:", event.origin)
-        return
+        console.warn("Message from untrusted origin:", event.origin);
+        return;
       }
 
-      const { type, transId } = event.data
+      const { type, transId } = event.data;
       if (type === "paymentComplete" && transId) {
-        window.location.href = `/topups-checkout?transId=${transId}`
+        window.location.href = `/topups-checkout?transId=${transId}`;
       }
-    }
+    };
 
-    window.addEventListener("message", handleMessage)
+    window.addEventListener("message", handleMessage);
     return () => {
-      window.removeEventListener("message", handleMessage)
-    }
-  }, [])
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
 
   const handleBuy = async () => {
     if (!selectedPackage || !selectedPaymentGate) {
       toast({
-        title: t("topups.error"),
+        title: t("topups.error.common"),
         description: t("topups.selectPackageAndGate"),
         variant: "destructive",
-      })
-      return
+      });
+      return;
     }
 
-    setIsBuying(true)
-    showGlobalLoading(t("topups.processingPayment"))
+    setIsBuying(true);
+    showGlobalLoading(t("topups.processingPayment"));
     try {
-      const { ipnLink } = await buyTopup(selectedPackage.id, selectedPaymentGate)
+      const { ipnLink } = await buyTopup(
+        selectedPackage.id,
+        selectedPaymentGate
+      );
 
       // Open IPN link in a new small window
-      const newWindow = window.open(ipnLink, "_blank", "width=600,height=700,resizable=yes,scrollbars=yes")
+      const newWindow = window.open(
+        ipnLink,
+        "_blank",
+        "width=600,height=700,location=no,menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes"
+      );
 
       if (!newWindow) {
         toast({
-          title: t("topups.error"),
+          title: t("topups.error.common"),
           description: t("topups.popupBlocked"),
           variant: "destructive",
-        })
+        });
       }
     } catch (error) {
-      console.error("Failed to initiate purchase:", error)
+      debugger;
+      console.error("Failed to initiate purchase:", error);
       toast({
-        title: t("topups.error"),
+        title: t("topups.error.common"),
         description: t("topups.purchaseFailed"),
         variant: "destructive",
-      })
+      });
     } finally {
-      setIsBuying(false)
-      hideGlobalLoading()
+      setIsBuying(false);
+      hideGlobalLoading();
     }
-  }
+  };
 
   return (
     <div className="w-full max-w-4xl bg-card/80 backdrop-blur-sm border border-border rounded-xl p-6 shadow-lg">
@@ -116,15 +136,21 @@ export default function TopupsClient({ initialTopupPackages }: TopupsClientProps
             onClick={() => setSelectedPackage(pkg)}
           >
             <CardHeader className="pb-2">
-              <CardTitle className="text-2xl font-serif text-primary text-center">{pkg.name}</CardTitle>
+              <CardTitle className="text-2xl font-serif text-primary text-center">
+                {pkg.name}
+              </CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-4xl font-bold text-secondary mb-2">
-                {pkg.finalFates} <span className="text-lg font-normal">{t("topups.fatesUnit")}</span>
+                {pkg.finalFates}{" "}
+                <span className="text-lg font-normal">
+                  {t("topups.fatesUnit")}
+                </span>
               </p>
               {pkg.fateBonus && pkg.fateBonus > 0 && (
                 <p className="text-sm text-muted-foreground">
-                  {t("topups.bonus")}: +{pkg.fateBonus} {t("topups.fatesUnit")} ({pkg.fateBonusRate}%)
+                  {t("topups.bonus")}: +{pkg.fateBonus} {t("topups.fatesUnit")}{" "}
+                  ({pkg.fateBonusRate}%)
                 </p>
               )}
               <div className="mt-4">
@@ -133,14 +159,19 @@ export default function TopupsClient({ initialTopupPackages }: TopupsClientProps
                     <p className="text-lg text-foreground line-through opacity-70">
                       {pkg.amount.toLocaleString("vi-VN")} VND
                     </p>
-                    <p className="text-2xl font-semibold text-primary">{pkg.finalAmount.toLocaleString("vi-VN")} VND</p>
+                    <p className="text-2xl font-semibold text-primary">
+                      {pkg.finalAmount.toLocaleString("vi-VN")} VND
+                    </p>
                     <p className="text-sm text-secondary">
-                      {t("topups.discount")}: -{pkg.amountDiscount.toLocaleString("vi-VN")} VND (
+                      {t("topups.discount")}: -
+                      {pkg.amountDiscount.toLocaleString("vi-VN")} VND (
                       {pkg.amountDiscountRate}%)
                     </p>
                   </>
                 ) : (
-                  <p className="text-2xl font-semibold text-primary">{pkg.finalAmount.toLocaleString("vi-VN")} VND</p>
+                  <p className="text-2xl font-semibold text-primary">
+                    {pkg.finalAmount.toLocaleString("vi-VN")} VND
+                  </p>
                 )}
               </div>
             </CardContent>
@@ -150,37 +181,55 @@ export default function TopupsClient({ initialTopupPackages }: TopupsClientProps
 
       {selectedPackage && (
         <div className="mt-8 p-6 bg-card/90 border border-border rounded-xl shadow-inner">
-          <h2 className="text-xl font-serif text-foreground mb-4">{t("topups.selectPaymentGate")}</h2>
+          <h2 className="text-xl font-serif text-foreground mb-4">
+            {t("topups.selectPaymentGate")}
+          </h2>
           {paymentGates.length > 0 ? (
             <RadioGroup
               onValueChange={setSelectedPaymentGate}
               value={selectedPaymentGate || ""}
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
             >
-              {paymentGates.map((gate) => (
-                <div
-                  key={gate.id}
-                  className="flex items-center space-x-3 p-4 border border-border rounded-lg cursor-pointer hover:bg-muted/50 transition-colors"
-                >
-                  <RadioGroupItem value={gate.id} id={`gate-${gate.id}`} />
-                  <Label htmlFor={`gate-${gate.id}`} className="flex items-center gap-3 flex-grow cursor-pointer">
-                    {gate.icon && (
-                      <Image
-                        src={gate.icon || "/placeholder.svg"}
-                        alt={gate.name}
-                        width={32}
-                        height={32}
-                        className="rounded-full"
-                      />
+              {paymentGates.map((gate) => {
+                const isDisabled = gate.active !== true;
+                return (
+                  <div
+                    key={gate.id}
+                    className={cn(
+                      "flex items-center space-x-3 p-4 border border-border rounded-lg cursor-pointer hover:bg-muted/50 transition-colors",
+                      isDisabled &&
+                        "opacity-50 pointer-events-none cursor-not-allowed"
                     )}
-                    <span className="font-medium text-foreground">{gate.name}</span>
-                    <span className="text-sm text-muted-foreground ml-auto hidden sm:block">{gate.description}</span>
-                  </Label>
-                </div>
-              ))}
+                  >
+                    <RadioGroupItem
+                      value={gate.id}
+                      id={`gate-${gate.id}`}
+                      disabled={isDisabled}
+                    />
+                    <Label
+                      htmlFor={`gate-${gate.id}`}
+                      className="flex items-center gap-3 flex-grow cursor-pointer"
+                    >
+                      {gate.icon && (
+                        <Image
+                          src={gate.icon || "/placeholder.svg"}
+                          alt={gate.name}
+                          width={64}
+                          height={18}
+                        />
+                      )}
+                      <span className="text-sm text-muted-foreground ml-auto hidden sm:block">
+                        {gate.description}
+                      </span>
+                    </Label>
+                  </div>
+                );
+              })}
             </RadioGroup>
           ) : (
-            <p className="text-muted-foreground">{t("topups.noPaymentGates")}</p>
+            <p className="text-muted-foreground">
+              {t("topups.noPaymentGates")}
+            </p>
           )}
 
           <Button
@@ -193,5 +242,5 @@ export default function TopupsClient({ initialTopupPackages }: TopupsClientProps
         </div>
       )}
     </div>
-  )
+  );
 }

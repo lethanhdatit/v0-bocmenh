@@ -10,11 +10,18 @@
     "noPaymentGates": "No payment gateways available.",
     "buyNow": "Buy Now",
     "processing": "Processing...",
-    "error": "Error",
     "fetchGatesError": "Failed to load payment gateways. Please try again.",
     "selectPackageAndGate": "Please select a top-up package and a payment gateway.",
     "purchaseFailed": "Purchase failed. Please try again.",
-    "popupBlocked": "Payment popup blocked. Please allow popups and try again."
+    "popupBlocked": "Payment popup blocked. Please allow popups and try again.",
+    "systemFailed": "System error, please try again later",
+    "processingPayment": "Processing payment...",
+    "error": {
+      "common": "Error",
+      "listFailed": "Failed to load list topups",
+      "BuyFailed": "Failed to load buy topups",
+      "invalidInput": "Invalid input"
+    }
   },
   "checkout": {
     "title": "Payment Status - Boc Menh",

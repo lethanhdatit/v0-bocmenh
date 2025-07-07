@@ -10,11 +10,18 @@
     "noPaymentGates": "Không có cổng thanh toán nào khả dụng.",
     "buyNow": "Mua Ngay",
     "processing": "Đang xử lý...",
-    "error": "Lỗi",
     "fetchGatesError": "Không thể tải danh sách cổng thanh toán. Vui lòng thử lại.",
     "selectPackageAndGate": "Vui lòng chọn một gói nạp duyên và một cổng thanh toán.",
     "purchaseFailed": "Giao dịch thất bại. Vui lòng thử lại.",
-    "popupBlocked": "Cửa sổ thanh toán bị chặn. Vui lòng cho phép popup và thử lại."
+    "popupBlocked": "Cửa sổ thanh toán bị chặn. Vui lòng cho phép popup và thử lại.",
+    "systemFailed": "Hệ thống đang gặp sự cố. Vui lòng thử lại sau.",
+    "processingPayment": "Đang xử lý thanh toán...",
+    "error": {
+      "common": "Lỗi",
+      "listFailed": "Không thể tải danh sách topups",
+      "BuyFailed": "Không thể mua topups",
+      "invalidInput": "Thông tin đầu vào không hợp lệ."
+    }
   },
   "checkout": {
     "title": "Trạng Thái Thanh Toán - Bóc Mệnh",

@@ -1,4 +1,5 @@
 import { apiClient } from "@/lib/api/apiClient"
+import { apiServer, getConfig } from "@/lib/api/apiServer";
 
 export interface TopupPackage {
   id: string
@@ -22,6 +23,7 @@ export interface PaymentGate {
   name: string
   icon: string
   description: string
+  active: boolean
 }
 
 export interface BuyTopupResponse {
@@ -39,12 +41,12 @@ export interface TransactionStatusResponse {
 }
 
 export async function getTopupPackages(): Promise<TopupPackage[]> {
-  const response = await apiClient.get<{ data: TopupPackage[] }>("/topups")
-  return response.data.data
+  const response = await apiServer.get(`/transaction/topups`);
+  return response.data.data;
 }
 
 export async function getPaymentGates(): Promise<PaymentGate[]> {
-  const response = await apiClient.get<{ data: PaymentGate[] }>("/payment-gates")
+  const response = await apiServer.get(`/transaction/paymentGates`);
   return response.data.data
 }
 
