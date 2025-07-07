@@ -31,13 +31,18 @@ export interface BuyTopupResponse {
 }
 
 export interface TransactionStatusResponse {
-  status: "PENDING" | "SUCCESS" | "FAILED";
-  message: string;
-  details?: {
-    amount: number;
-    fatesAdded: number;
-    transactionRef: string;
-  };
+  id: string;
+  status: "new" | "processing" | "partiallyPaid" | "paid" | "cancelled";
+  total: number;
+  subTotal: number;
+  paid: number;
+  provider: "vietQR" | "paypal";
+  currency: "USD" | "VND";
+  fates: number;
+  content?: string;
+  message?: string;
+  providerMeta?: any;
+  meta?: any;
 }
 
 export async function getTopupPackages(): Promise<TopupPackage[]> {
@@ -69,11 +74,20 @@ export async function buyTopup(
   return response.data.data;
 }
 
+export async function cancelTopup(
+  transId: string
+): Promise<TransactionStatusResponse> {
+  const response = await apiClient.post<{ data: TransactionStatusResponse }>(
+    `/transaction/cancel?id=${transId}`
+  );
+  return response.data.data;
+}
+
 export async function getTransactionStatus(
   transId: string
 ): Promise<TransactionStatusResponse> {
   const response = await apiClient.post<{ data: TransactionStatusResponse }>(
-    `/transaction-status?id=${transId}`
+    `/transaction/status?id=${transId}`
   );
   return response.data.data;
 }

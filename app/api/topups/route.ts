@@ -1,5 +1,4 @@
-import { encryptData } from "@/lib/infra/encryption";
-import { type NextRequest, NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
 import type { UserSession } from "@/lib/session/sessionOptions";
 import {
   withServerBase,
@@ -9,40 +8,6 @@ import {
 import { IronSession } from "iron-session";
 import { apiServer, getConfig } from "@/lib/api/apiServer";
 import { getTranslations } from "@/i18n/server";
-
-async function getTopupHandler(
-  _data: any,
-  request: NextRequest,
-  session: IronSession<UserSession>
-) {
-  const { t } = await getTranslations(["common", "topups"]);
-
-  try {    
-    const config = await getConfig(request, session?.accessToken);
-
-    const response = await apiServer.get(`/transaction/topups`, {
-      ...config,
-    });
-
-    const result = response.data.data;
-
-    return baseResponse({
-      status: 200,
-      message: "ok",
-      data: result,
-    });
-  } catch (error) {
-    return handleApiServerError(
-      error,
-      {
-        error400Message: t("topups.error.listFailed"),
-        errorCommonMessage: t("topups.systemFailed"),
-      },
-      session,
-      _data
-    );
-  }
-}
 
 async function buyTopupHandler(
   data: any,
@@ -103,9 +68,5 @@ async function buyTopupHandler(
 }
 
 export const POST = withServerBase(buyTopupHandler, {
-  isAuthenRequired: true,
-});
-
-export const GET = withServerBase(getTopupHandler, {
   isAuthenRequired: true,
 });

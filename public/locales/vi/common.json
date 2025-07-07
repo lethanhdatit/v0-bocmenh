@@ -20,14 +20,15 @@
       "common": "Lỗi",
       "listFailed": "Không thể tải danh sách topups",
       "BuyFailed": "Không thể mua topups",
-      "invalidInput": "Thông tin đầu vào không hợp lệ."
+      "invalidInput": "Thông tin đầu vào không hợp lệ.",
+      "checkoutStatusFailed": "Không thể tải trạng thái giao dịch"
     }
   },
   "checkout": {
     "title": "Trạng Thái Thanh Toán - Bóc Mệnh",
     "description": "Kiểm tra trạng thái giao dịch nạp duyên của bạn.",
     "transactionStatus": "Trạng Thái Giao Dịch",
-    "checkingStatus": "Đang kiểm tra trạng thái giao dịch...",
+    "checkingStatus": "Đang cập nhật trạng thái giao dịch...",
     "invalidTransaction": "Giao dịch không hợp lệ",
     "missingId": "Thiếu mã giao dịch. Vui lòng truy cập lại từ trang nạp duyên.",
     "fetchError": "Không thể tải trạng thái giao dịch. Vui lòng thử lại.",
@@ -35,7 +36,21 @@
     "fatesAdded": "Điểm duyên nhận được",
     "transactionRef": "Mã giao dịch",
     "tryAgain": "Thử lại",
-    "backToHome": "Quay về trang chủ"
+    "backToHome": "Quay về trang chủ",
+    "paymentGate": "Cổng thanh toán",
+    "subTotalAmount": "Giá gốc",
+    "totalAmount": "Giá cuối",
+    "paidAmount": "Đã thanh toán",
+    "status": "Trạng thái giao dịch",
+    "fates": "Điểm duyên",
+    "cancelCheckoutFailed": "Không thể huỷ giao dịch",
+    "paymentStatus":{
+      "new": "Mới tạo",
+      "processing": "Đang xử lý",
+      "partiallyPaid": "Đã thanh toán một phần",
+      "paid": "Đã thanh toán",
+      "cancelled": "Đã huỷ"
+    }
   },
   "scroll": {
     "toTop": "Cuộn lên đầu trang"

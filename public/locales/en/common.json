@@ -20,14 +20,15 @@
       "common": "Error",
       "listFailed": "Failed to load list topups",
       "BuyFailed": "Failed to load buy topups",
-      "invalidInput": "Invalid input"
+      "invalidInput": "Invalid input",
+      "checkoutStatusFailed": "Failed to load the checkout status"
     }
   },
   "checkout": {
     "title": "Payment Status - Boc Menh",
     "description": "Check the status of your fates top-up transaction.",
     "transactionStatus": "Transaction Status",
-    "checkingStatus": "Checking transaction status...",
+    "checkingStatus": "Updating transaction status...",
     "invalidTransaction": "Invalid Transaction",
     "missingId": "Missing transaction ID. Please access from the top-up page.",
     "fetchError": "Failed to load transaction status. Please try again.",
@@ -35,7 +36,21 @@
     "fatesAdded": "Fates received",
     "transactionRef": "Transaction Reference",
     "tryAgain": "Try Again",
-    "backToHome": "Back to Home"
+    "backToHome": "Back to Home",
+    "paymentGate": "Payment gate",
+    "subTotalAmount": "Original amount",
+    "totalAmount": "Final amount",
+    "paidAmount": "Paid amount",
+    "status": "Status",
+    "fates": "Fates point",
+    "cancelCheckoutFailed": "Failed to cancel the transaction",
+    "paymentStatus":{
+      "new": "New",
+      "processing": "Processing",
+      "partiallyPaid": "Partially Paid",
+      "paid": "Paid",
+      "cancelled": "Cancelled"
+    }
   },
   "scroll": {
     "toTop": "Scroll to Top"

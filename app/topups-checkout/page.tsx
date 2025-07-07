@@ -13,11 +13,12 @@ export async function generateMetadata(): Promise<Metadata> {
 interface TopupsCheckoutPageProps {
   searchParams: {
     transId?: string
+    cancel?: string
   }
 }
 
 export default async function TopupsCheckoutPage({ searchParams }: TopupsCheckoutPageProps) {
-  const { transId } = searchParams
+  const { transId, cancel } = searchParams
   const { t } = await getTranslations("common")
 
   if (!transId) {
@@ -33,7 +34,7 @@ export default async function TopupsCheckoutPage({ searchParams }: TopupsCheckou
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-oriental-bg bg-cover bg-center text-foreground">
-      <TopupsCheckoutClient transId={transId} />
+      <TopupsCheckoutClient transId={transId} cancel={cancel} />
     </div>
   )
 }
