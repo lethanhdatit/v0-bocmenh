@@ -17,7 +17,7 @@ async function buyTopupHandler(
    const { t } = await getTranslations(["common", "topups"]);
 
   try {
-    const { packageId, paymentGateId } = data;
+    const { packageId, paymentGateId, callbackUrl } = data;
 
     // Validation
     const errors: Record<string, string> = {};
@@ -34,8 +34,7 @@ async function buyTopupHandler(
       });
     }
 
-    const config = await getConfig(request, session?.accessToken);
-    const callbackUrl = `${request.nextUrl.origin}/topups-checkout`;
+    const config = await getConfig(request, session?.accessToken);    
 
     const response = await apiServer.post(
       "/transaction/topups",

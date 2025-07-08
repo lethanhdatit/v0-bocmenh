@@ -1,5 +1,6 @@
 import { apiClient } from "@/lib/api/apiClient";
 import { apiServer } from "@/lib/api/apiServer";
+import { getBaseUrl } from "@/lib/infra/utils"
 
 export interface TopupPackage {
   id: string;
@@ -58,9 +59,11 @@ export async function buyTopup(
   packageId: string,
   paymentGateId: string
 ): Promise<BuyTopupResponse> {
+  const callbackUrl = `${getBaseUrl()}/topups-checkout`;
   const response = await apiClient.post<{ data: BuyTopupResponse }>("/topups", {
     packageId,
     paymentGateId,
+    callbackUrl
   });
   return response.data.data;
 }
