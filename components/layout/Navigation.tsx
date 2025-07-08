@@ -51,6 +51,7 @@ export default function Navigation() {
     { href: "/fengshui", label: t("nav.fengshui") },
     { href: "/store", label: t("nav.store") },
     { href: "/luckybox", label: t("nav.luckybox") },
+    { href: "/topups", label: t("nav.topups") },
     { href: "/blogs", label: t("nav.blogs") },
   ];
 

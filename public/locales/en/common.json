@@ -1,5 +1,11 @@
 {
   "topups": {
+    "promotionBadge": "On Sale",
+    "cardSummary": "Only <b>{{amount}}₫</b> for <b>{{fates}} fates</b>!",
+    "discountDirect": "off",
+    "discountPercent": "extra off",
+    "bonusDirect": "bonus",
+    "bonusPercent": "extra bonus",
     "title": "Top-up Fates - Boc Menh",
     "description": "Choose a top-up package to use divination, feng shui, and fortune-telling services on Boc Menh.",
     "pageTitle": "Choose Your Fates Package",
@@ -46,7 +52,7 @@
     "cancelCheckoutFailed": "Failed to cancel the transaction",
     "getPaymentGatesFailed": "Failed to load the payment gates",
     "systemFailed": "System error, please try again later",
-    "paymentStatus":{
+    "paymentStatus": {
       "new": "New",
       "processing": "Processing",
       "partiallyPaid": "Partially Paid",
@@ -108,7 +114,8 @@
     "blog": "Blog",
     "blogs": "Blogs",
     "luckybox": "Lucky Box",
-    "morebtn": "More"
+    "morebtn": "More",
+    "topups": "Buy Fates"
   },
   "auth": {
     "logout": {

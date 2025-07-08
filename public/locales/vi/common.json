@@ -1,5 +1,11 @@
 {
   "topups": {
+    "promotionBadge": "khuyến mãi",
+    "cardSummary": "Chỉ với <b>{{amount}}₫</b> bạn nhận được <b>{{fates}} duyên</b>!",
+    "discountDirect": "giảm ngay",
+    "discountPercent": "giảm thêm",
+    "bonusDirect": "tặng",
+    "bonusPercent": "tặng thêm",
     "title": "Nạp Duyên - Bóc Mệnh",
     "description": "Chọn gói nạp duyên để sử dụng các dịch vụ tử vi, phong thủy, bói toán trên Bóc Mệnh.",
     "pageTitle": "Chọn Gói Nạp Duyên",
@@ -46,7 +52,7 @@
     "cancelCheckoutFailed": "Không thể huỷ giao dịch",
     "getPaymentGatesFailed": "Không thể tải danh sách cổng thanh toán",
     "systemFailed": "Hệ thống đang gặp sự cố. Vui lòng thử lại sau.",
-    "paymentStatus":{
+    "paymentStatus": {
       "new": "Mới tạo",
       "processing": "Đang xử lý",
       "partiallyPaid": "Đã thanh toán một phần",
@@ -106,7 +112,8 @@
     "wishlist": "Yêu thích",
     "blogs": "Blogs",
     "luckybox": "Hộp may mắn",
-    "morebtn": "Thêm"
+    "morebtn": "Thêm",
+    "topups": "Mua Duyên"
   },
   "auth": {
     "logout": {
