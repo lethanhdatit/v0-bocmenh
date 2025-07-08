@@ -1,4 +1,4 @@
-const { i18n } = require("./next-i18next.config.js")
+const { i18n } = require("./next-i18next.config.js");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -19,6 +19,9 @@ const nextConfig = {
       allowedOrigins: ["localhost:3000"],
     },
   },
-}
+  // env: {
+  //   NEXT_PUBLIC_BE_BASE_URL: process.env.BE_BASE_URL,
+  // },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

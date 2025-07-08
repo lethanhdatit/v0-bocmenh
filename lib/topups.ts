@@ -54,15 +54,6 @@ export async function getTopupPackages(): Promise<TopupPackage[]> {
   }
 }
 
-export async function getPaymentGates(): Promise<PaymentGate[]> {
-  try {
-    const response = await apiServer.get(`/transaction/paymentGates`);
-    return response.data.data;
-  } catch (error) {
-    return [];
-  }
-}
-
 export async function buyTopup(
   packageId: string,
   paymentGateId: string
@@ -72,6 +63,15 @@ export async function buyTopup(
     paymentGateId,
   });
   return response.data.data;
+}
+
+export async function getPaymentGates(): Promise<PaymentGate[]> {
+  try {
+    const response = await apiClient.get(`/transaction/payment-gates`);
+    return response.data.data;
+  } catch (error) {
+    return [];
+  }
 }
 
 export async function cancelTopup(

@@ -44,6 +44,8 @@
     "status": "Status",
     "fates": "Fates point",
     "cancelCheckoutFailed": "Failed to cancel the transaction",
+    "getPaymentGatesFailed": "Failed to load the payment gates",
+    "systemFailed": "System error, please try again later",
     "paymentStatus":{
       "new": "New",
       "processing": "Processing",
