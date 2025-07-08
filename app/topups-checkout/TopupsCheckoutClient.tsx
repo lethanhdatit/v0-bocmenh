@@ -29,7 +29,7 @@ export default function TopupsCheckoutClient({
     () => getTransactionStatus(transId),
     {
       refreshInterval: (data) =>
-        data?.status === "processing" || data?.status === "new" ? 3000 : 0,
+        data?.status === "processing" || data?.status === "new" ? 1500 : 0,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
     }
@@ -60,7 +60,7 @@ export default function TopupsCheckoutClient({
           { type: "paymentComplete", transId },
           window.location.origin
         );
-        setTimeout(() => window.close(), 2000);
+        setTimeout(() => window.close(), 1000);
       }
     }
   }, [data, transId]);
