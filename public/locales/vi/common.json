@@ -44,6 +44,8 @@
     "status": "Trạng thái giao dịch",
     "fates": "Điểm duyên",
     "cancelCheckoutFailed": "Không thể huỷ giao dịch",
+    "getPaymentGatesFailed": "Không thể tải danh sách cổng thanh toán",
+    "systemFailed": "Hệ thống đang gặp sự cố. Vui lòng thử lại sau.",
     "paymentStatus":{
       "new": "Mới tạo",
       "processing": "Đang xử lý",
