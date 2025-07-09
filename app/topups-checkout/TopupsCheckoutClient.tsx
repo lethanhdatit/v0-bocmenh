@@ -13,6 +13,7 @@ import { showGlobalLoading, hideGlobalLoading } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { CheckCircle, XCircle, Loader2, AlertCircle } from "lucide-react";
 import Image from "next/image";
+import { toShortId } from "@/lib/infra/utils";
 
 interface TopupsCheckoutClientProps {
   transId: string;
@@ -36,14 +37,10 @@ export default function TopupsCheckoutClient({
   );
 
   useEffect(() => {
-    const handler = async (id: string) => {
-      await cancelTopup(id);
-    };
-
     if (cancel === "1") {
-      handler(transId);
+      cancelTopup(transId);
     }
-  }, []);
+  }, [cancel, transId]);
 
   useEffect(() => {
     if (isLoading) {
@@ -115,17 +112,16 @@ export default function TopupsCheckoutClient({
 
   const statusColors = getStatusColors(data?.status || "new");
 
+  var locale = getLocaleByCurrency(data?.currency ?? "VND");
+
   return (
-    <Card
-      className={`w-full max-w-md p-6 shadow-xl border rounded-2xl bg-white text-center transition-all duration-300`}
-    >
-      <CardHeader className="pb-4">
-        <CardTitle className="text-3xl font-serif text-gray-800">
+    <Card className="w-full max-w-xl p-0 shadow-xl border rounded-2xl bg-white text-center transition-all duration-300 mx-auto">
+      <CardHeader className="pb-2 pt-6">
+        <CardTitle className="text-2xl font-serif text-gray-800">
           {t("checkout.transactionStatus")}
         </CardTitle>
       </CardHeader>
-
-      <CardContent className="flex flex-col items-center justify-center gap-6">
+      <CardContent className="flex flex-col items-center justify-center gap-4">
         {error ? (
           <>
             <XCircle className="w-16 h-16 text-red-500" />
@@ -133,85 +129,232 @@ export default function TopupsCheckoutClient({
           </>
         ) : (
           <>
-            {getStatusIcon(data?.status || "new")}
-            {data?.status !== "paid" && data?.status !== "cancelled" && (
-              <div className={`px-4 py-2 text-lg font-semibold`}>
-                {data?.message || t("checkout.checkingStatus")}
+            <div className="flex flex-col items-center gap-2">
+              {getStatusIcon(data?.status || "new")}
+              <div
+                className={`px-4 py-2 text-lg font-semibold ${statusColors.text}`}
+              >
+                {t(`checkout.paymentStatus.${data?.status || "new"}`)}
               </div>
-            )}
+              {data?.status !== "paid" && data?.status !== "cancelled" && (
+                <div className="text-sm text-gray-500">
+                  {t("checkout.checkingStatus")}
+                </div>
+              )}
+            </div>
 
+            {/* BILL */}
             {data && (
-              <div className="text-left w-full mt-4 space-y-3 text-gray-700">
-                <p>
-                  <strong className="font-medium">
-                    {t("checkout.status")}:
-                  </strong>{" "}
-                  <b className={`${statusColors.text}`}>
+              <div className="w-full max-w-lg mx-auto bg-gray-50 rounded-xl shadow-inner border border-dashed border-gray-200 text-left text-sm font-mono p-4 mt-2">
+                {/* --- PHẦN 1 --- */}
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
+                    {t("checkout.orderId")}:
+                  </span>
+                  <span>{toShortId(data.id)}</span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">{t("checkout.status")}:</span>
+                  <span className={statusColors.text}>
                     {t(`checkout.paymentStatus.${data.status}`)}
-                  </b>
-                </p>
-                <p className="flex items-center gap-x-2">
-                  <strong className="font-medium">
+                  </span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
                     {t("checkout.paymentGate")}:
-                  </strong>
-                  <Image
-                    src={
-                      `${data.provider.toLowerCase()}.png` || "/placeholder.svg"
-                    }
-                    alt={data.provider}
-                    width={64}
-                    height={18}
-                    className="inline-block"
-                  />
-                </p>
-                <p>
-                  <strong className="font-medium">
-                    {t("checkout.fates")}:
-                  </strong>{" "}
-                  {data.fates} {data.content ? `(${data.content})` : ""}
-                </p>
-                <p>
-                  <strong className="font-medium">
-                    {t("checkout.subTotalAmount")}:
-                  </strong>{" "}
-                  {data.subTotal.toLocaleString("vi-VN")} {data.currency}
-                </p>
-                <p>
-                  <strong className="font-medium">
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <Image
+                      src={`/${data.provider.toLowerCase()}.png`}
+                      alt={data.provider}
+                      width={32}
+                      height={16}
+                      className="inline-block"
+                    />
+                    <span>{data.provider}</span>
+                  </span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
+                    {t("checkout.currency")}:
+                  </span>
+                  <span>{data.currency}</span>
+                </div>
+                {data.exchangeRate && data.exchangeRate != 1 && (
+                  <div className="flex justify-between mb-1">
+                    <span className="font-semibold">
+                      {t("checkout.exchangeRate")}:
+                    </span>
+                    <span>
+                      {data.exchangeRate.toLocaleString(locale)} VND/
+                      {data.currency}
+                    </span>
+                  </div>
+                )}
+                {/* Đường đứt khúc */}
+                <div className="border-t border-dashed border-gray-300 my-3" />
+
+                {/* --- PHẦN 2 --- */}
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">{t("checkout.packageName")}:</span>
+                  <span className="font-bold text-indigo-800">{data.packageName}</span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">{t("checkout.fates")}:</span>
+                  <span className="font-bold">{data.fates}</span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
+                    {t("checkout.fateBonus")}:
+                  </span>
+                  <span className="font-bold text-green-600">
+                    +{data.fateBonus}
+                  </span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
+                    {t("checkout.fateBonusRate")}:
+                  </span>
+                  <span className="font-bold text-green-600">
+                    +{data.fateBonusRate}%
+                  </span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
+                    {t("checkout.finalFates")}:
+                  </span>
+                  <span className="font-bold text-indigo-800">
+                    {data.finalFates}
+                  </span>
+                </div>
+                {/* Đường đứt khúc */}
+                <div className="border-t border-dashed border-gray-300 my-3" />
+
+                {/* --- PHẦN 3 --- */}
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
                     {t("checkout.totalAmount")}:
-                  </strong>{" "}
-                  {data.total.toLocaleString("vi-VN")} {data.currency}
-                </p>
-                <p>
-                  <strong className="font-medium">
+                  </span>
+                  <span className="font-bold">
+                    {data.total.toLocaleString(locale)}{" "}
+                    {data.currency}
+                  </span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
+                    {t("checkout.discountTotal")}:
+                  </span>
+                  <span className="font-bold text-green-600">
+                    -{data.discountTotal.toLocaleString(locale)}{" "}
+                    {data.currency}
+                  </span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
+                    {t("checkout.subTotalAmount")}:
+                  </span>
+                  <span className="font-bold">
+                    {data.subTotal.toLocaleString(locale)} {data.currency}
+                  </span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
+                    {t("checkout.feeTotal")} <span>({data.feeRate}%)</span>:{" "}
+                    {/* {data.buyerPaysFee ? (
+                      <span className="text-xs text-gray-500">
+                        ({t("checkout.buyerPaysFee")})
+                      </span>
+                    ) : (
+                      <span className="text-xs text-gray-500">
+                        ({t("checkout.sellerPaysFee")})
+                      </span>
+                    )} */}
+                  </span>
+                  <span className="font-bold text-red-600">
+                    +{data.feeTotal.toLocaleString(locale)} {data.currency}
+                  </span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
+                    {t("checkout.VATaxTotal")} <span>({data.vaTaxRate}%)</span>:
+                  </span>
+                  <span className="font-bold text-red-600">
+                    +{data.vaTaxTotal.toLocaleString(locale)} {data.currency}
+                  </span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
+                    {t("checkout.finalTotal")}:
+                  </span>
+                  <span className="font-bold text-green-800">
+                    {data.finalTotal.toLocaleString(locale)} {data.currency}
+                  </span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
+                    {t("checkout.VATaxIncluded")}:
+                  </span>
+                  <span className="font-bold">
+                    {data.vaTaxIncluded
+                      ? t("checkout.yes", "Có")
+                      : t("checkout.no", "Không")}
+                  </span>
+                </div>
+                <div className="flex justify-between mb-1">
+                  <span className="font-semibold">
                     {t("checkout.paidAmount")}:
-                  </strong>{" "}
-                  {data.paid.toLocaleString("vi-VN")} {data.currency}
-                </p>
+                  </span>
+                  <span className="font-bold text-blue-700">
+                    {data.paid.toLocaleString(locale)} {data.currency}
+                  </span>
+                </div>
+                {/* Đường đứt khúc */}
+                <div className="border-t border-dashed border-gray-300 my-3" />
+
+                {/* --- PHẦN 4 --- */}
+                {data.note && (
+                  <div className="flex justify-between mb-1 items-start">
+                    <span className="font-semibold">{t("checkout.note")}:</span>
+                    <span className="text-xs text-gray-500 break-words text-right max-w-[70%]">
+                      {data.note}
+                    </span>
+                  </div>
+                )}
               </div>
             )}
 
-            {(data?.status === "cancelled" ||
-              data?.status === "partiallyPaid") && (
-              <Button
-                onClick={() => (window.location.href = "/topups")}
-                className="mt-4 bg-yellow-500 hover:bg-yellow-600 text-white"
-              >
-                {t("checkout.tryAgain")}
-              </Button>
-            )}
+            {/* Action buttons giữ nguyên */}
+            <div className="flex flex-col gap-2 w-full mt-4">
+              {(data?.status === "cancelled" ||
+                data?.status === "partiallyPaid") && (
+                <Button
+                  onClick={() => (window.location.href = "/topups")}
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white"
+                >
+                  {t("checkout.tryAgain")}
+                </Button>
+              )}
 
-            {data?.status !== "processing" && data?.status !== "new" && data?.status !== "cancelled" && (
-              <Button
-                onClick={() => (window.location.href = "/")}
-                className="mt-2 bg-gray-800 hover:bg-gray-900 text-white"
-              >
-                {t("checkout.backToHome")}
-              </Button>
-            )}
+              {data?.status !== "processing" &&
+                data?.status !== "new" &&
+                data?.status !== "cancelled" && (
+                  <Button
+                    onClick={() => (window.location.href = "/")}
+                    className="bg-gray-800 hover:bg-gray-900 text-white"
+                  >
+                    {t("checkout.backToHome")}
+                  </Button>
+                )}
+            </div>
           </>
         )}
       </CardContent>
     </Card>
   );
+}
+
+function getLocaleByCurrency(currency: string) {
+  if (currency === "VND") return "vi-VN";
+  if (currency === "USD") return "en-US";
+  return "en-US";
 }

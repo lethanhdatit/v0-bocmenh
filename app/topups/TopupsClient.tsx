@@ -130,7 +130,7 @@ export default function TopupsClient({
     setTimeout(() => {
       paymentRef.current?.scrollIntoView({
         behavior: "smooth",
-        block: "start",
+        block: "center",
       });
     }, 250);
   };
@@ -510,9 +510,6 @@ export default function TopupsClient({
                           className="drop-shadow"
                         />
                       )}
-                      <span className="text-base text-yellow-900 font-semibold">
-                        {gate.name}
-                      </span>
                       <span className="text-xs text-yellow-700 ml-auto hidden sm:block">
                         {gate.description}
                       </span>

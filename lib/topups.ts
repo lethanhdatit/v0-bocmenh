@@ -34,14 +34,26 @@ export interface BuyTopupResponse {
 export interface TransactionStatusResponse {
   id: string;
   status: "new" | "processing" | "partiallyPaid" | "paid" | "cancelled";
-  total: number;
-  subTotal: number;
-  paid: number;
   provider: "vietQR" | "paypal";
   currency: "USD" | "VND";
+  exchangeRate: number;
+  total: number;
+  subTotal: number;
+  discountTotal: number;
+  finalTotal: number;
+  paid: number;
+  buyerPaysFee: boolean;
+  feeRate: number;
+  feeTotal: number;
+  vaTaxIncluded: boolean;
+  vaTaxRate: number;
+  vaTaxTotal: number;
+  note: string;
+  packageName: string;
   fates: number;
-  content?: string;
-  message?: string;
+  finalFates: number;
+  fateBonus: number;
+  fateBonusRate: number;
   providerMeta?: any;
   meta?: any;
 }
@@ -66,6 +78,15 @@ export async function buyTopup(
     callbackUrl
   });
   return response.data.data;
+}
+
+export async function getMyFates(): Promise<number> {
+  try {
+    const response = await apiClient.get(`/topups`);
+    return response?.data?.data ?? 0;
+  } catch (error) {
+    return 0;
+  }
 }
 
 export async function getPaymentGates(): Promise<PaymentGate[]> {

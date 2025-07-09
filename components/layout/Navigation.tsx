@@ -15,6 +15,7 @@ import {
 import { useAuth } from "@/contexts/AuthContext";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
+import { useMyFates } from "@/contexts/MyFatesContext";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,6 +37,7 @@ export default function Navigation() {
     openRegisterModal,
   } = useAuth();
   const { t, i18n } = useTranslation();
+  const { myFates } = useMyFates();
 
   const handleLogout = async () => {
     setIsUserMenuOpen(false);
@@ -43,7 +45,7 @@ export default function Navigation() {
   };
 
   // Menu items in priority order (most important first)
-  const navItems = [    
+  const navItems = [
     { href: "/destiny", label: t("nav.destiny") },
     { href: "/dreams", label: t("nav.dreams") },
     { href: "/numerology", label: t("nav.numerology") },
@@ -216,6 +218,19 @@ export default function Navigation() {
               />
               <span className="text-sm max-w-32 truncate">
                 {user?.name || user?.email}
+              </span>
+              <span className="ml-3 flex items-center gap-1 text-xs font-semibold text-yellow-700 rounded-full px-2 py-0.5 shadow-sm min-w-[36px] justify-center">
+                <span className="leading-none tabular-nums">
+                  {myFates !== null ? myFates : "--"}
+                </span>
+                <img
+                  src="/fates.png"
+                  alt="Fates"
+                  className="w-6 h-6 object-contain"
+                  style={{ display: "inline-block" }}
+                  width={15}
+                  height={15}
+                />
               </span>
             </button>
 

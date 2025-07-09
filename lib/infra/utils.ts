@@ -1,5 +1,14 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import short from "short-uuid"
+
+export function toShortId(regularUUID: string): string {
+  return short().fromUUID(regularUUID)
+}
+
+export function fromShortId(shortId: string): string {
+  return short().toUUID(shortId)
+}
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

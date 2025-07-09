@@ -12,6 +12,7 @@ import { apiClient, setGlobalLogoutHandler } from "@/lib/api/apiClient";
 import type { UserSession } from "@/lib/session/sessionOptions";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
+import { useMyFates } from "@/contexts/MyFatesContext";
 
 interface PromptLoginOptions {
   onLoginSuccess?: () => Promise<void> | void;
@@ -64,6 +65,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserSession | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthActionLoading, setIsAuthActionLoading] = useState(false);
+  const { fetchMyFates, setMyFates } = useMyFates();
 
   const { t } = useTranslation();
   const router = useRouter();
@@ -83,6 +85,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await apiClient.get("/auth/profile");
       if (response.data.success && response.data.user) {
         setUser(response.data.user);
+        fetchMyFates();
       } else {
         setUser(null);
       }
@@ -103,6 +106,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       await apiClient.post("/auth/logout");
       setUser(null);
+      setMyFates(0);
     } catch (error) {
       console.error("Logout failed:", error);
     } finally {
@@ -156,6 +160,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (response.data.success && response.data.data) {
         setUser(response.data.data);
 
+        fetchMyFates();
+
         // Handle success callbacks
         if (onLoginSuccessCallback) {
           await onLoginSuccessCallback();
@@ -205,6 +211,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
       if (response.data.success && response.data.data) {
         setUser(response.data.data);
+
+        fetchMyFates();
 
         // Handle success callbacks
         if (onLoginSuccessCallback) {
