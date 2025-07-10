@@ -66,6 +66,44 @@ async function buyTopupHandler(
   }
 }
 
+async function getMyFatesHandler(
+  _data: any,
+  request: NextRequest,
+  session: IronSession<UserSession>
+) {
+  const { t } = await getTranslations(["common", "topups"]);
+
+  try {    
+    const config = await getConfig(request, session?.accessToken);
+
+    const response = await apiServer.get(`/transaction/topups/me`, {
+      ...config,
+    });
+
+    const result = response.data.data;
+
+    return baseResponse({
+      status: 200,
+      message: "ok",
+      data: result,
+    });
+  } catch (error) {
+    return handleApiServerError(
+      error,
+      {
+        error400Message: t("topups.error.getMyFatesFailed"),
+        errorCommonMessage: t("topups.systemFailed"),
+      },
+      session,
+      _data
+    );
+  }
+}
+
 export const POST = withServerBase(buyTopupHandler, {
+  isAuthenRequired: true,
+});
+
+export const GET = withServerBase(getMyFatesHandler, {
   isAuthenRequired: true,
 });

@@ -16,7 +16,8 @@ export interface TopupPackage {
   amountDiscountRate?: number;
   finalAmount: number;
   createdTs: string;
-  rate: number;
+  vaTaxIncluded: boolean;
+  vaTaxRate: number;
 }
 
 export interface PaymentGate {
@@ -31,17 +32,34 @@ export interface BuyTopupResponse {
   ipnLink: string;
 }
 
+export interface MemoCheckoutResponse extends TopupPackage {
+  currency: "USD" | "VND";
+  memoCheckout: TransactionStatusResponse;
+}
+
 export interface TransactionStatusResponse {
   id: string;
   status: "new" | "processing" | "partiallyPaid" | "paid" | "cancelled";
-  total: number;
-  subTotal: number;
-  paid: number;
   provider: "vietQR" | "paypal";
   currency: "USD" | "VND";
+  exchangeRate: number;
+  total: number;
+  subTotal: number;
+  discountTotal: number;
+  finalTotal: number;
+  paid: number;
+  buyerPaysFee: boolean;
+  feeRate: number;
+  feeTotal: number;
+  vaTaxIncluded: boolean;
+  vaTaxRate: number;
+  vaTaxTotal: number;
+  note: string;
+  packageName: string;
   fates: number;
-  content?: string;
-  message?: string;
+  finalFates: number;
+  fateBonus: number;
+  fateBonusRate: number;
   providerMeta?: any;
   meta?: any;
 }
@@ -68,9 +86,27 @@ export async function buyTopup(
   return response.data.data;
 }
 
+export async function memoCheckout(
+  packageId: string,
+  paymentGateId: string
+): Promise<MemoCheckoutResponse> {
+  const url = `/topups/memo-checkout?topupPackageId=${packageId}&provider=${paymentGateId}`;
+  const response = await apiClient.get<{ data: MemoCheckoutResponse }>(url);
+  return response.data.data;
+}
+
+export async function getMyFates(): Promise<number> {
+  try {
+    const response = await apiClient.get(`/topups`);
+    return response?.data?.data ?? 0;
+  } catch (error) {
+    return 0;
+  }
+}
+
 export async function getPaymentGates(): Promise<PaymentGate[]> {
   try {
-    const response = await apiClient.get(`/transaction/payment-gates`);
+    const response = await apiServer.get(`/transaction/paymentGates`);
     return response.data.data;
   } catch (error) {
     return [];

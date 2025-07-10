@@ -13,6 +13,7 @@ import AuthSetup from "@/components/utils/AuthSetup";
 import ScrollControls from "@/components/layout/ScrollControls";
 import { getBaseUrl } from "@/lib/infra/utils";
 import GlobalLoadingWrapper from "@/components/ui/GlobalLoadingWrapper";
+import { MyFatesProvider } from "@/contexts/MyFatesContext";
 
 const baseUrl = getBaseUrl();
 const inter = Inter({ subsets: ["latin", "vietnamese"] });
@@ -222,21 +223,23 @@ export default function RootLayout({
       <body className={`${inter.className} bg-black text-white`}>
         <LanguageProvider>
           <SWRProvider>
-            <AuthProvider>
-              <div className="flex flex-col min-h-screen">
-                {/* <OrientalBackground /> */}
-                <Navigation />
-                <main className="flex-grow pt-16 relative">
-                  {starryBackground}
-                  <div className="relative z-0">{children}</div>
-                </main>
-                <Footer />
-              </div>
-              <AuthModals />
-              <ScrollControls />
-              <AuthSetup />
-              <GlobalLoadingWrapper />
-            </AuthProvider>
+            <MyFatesProvider>
+              <AuthProvider>
+                <div className="flex flex-col min-h-screen">
+                  {/* <OrientalBackground /> */}
+                  <Navigation />
+                  <main className="flex-grow pt-16 relative">
+                    {starryBackground}
+                    <div className="relative z-0">{children}</div>
+                  </main>
+                  <Footer />
+                </div>
+                <AuthModals />
+                <ScrollControls />
+                <AuthSetup />
+                <GlobalLoadingWrapper />
+              </AuthProvider>
+            </MyFatesProvider>
           </SWRProvider>
         </LanguageProvider>
       </body>

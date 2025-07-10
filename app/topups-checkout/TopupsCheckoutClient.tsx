@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { showGlobalLoading, hideGlobalLoading } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { CheckCircle, XCircle, Loader2, AlertCircle } from "lucide-react";
-import Image from "next/image";
+import { TopupBill } from "@/components/topups/TopupBill";
 
 interface TopupsCheckoutClientProps {
   transId: string;
@@ -36,14 +36,10 @@ export default function TopupsCheckoutClient({
   );
 
   useEffect(() => {
-    const handler = async (id: string) => {
-      await cancelTopup(id);
-    };
-
     if (cancel === "1") {
-      handler(transId);
+      cancelTopup(transId);
     }
-  }, []);
+  }, [cancel, transId]);
 
   useEffect(() => {
     if (isLoading) {
@@ -116,16 +112,13 @@ export default function TopupsCheckoutClient({
   const statusColors = getStatusColors(data?.status || "new");
 
   return (
-    <Card
-      className={`w-full max-w-md p-6 shadow-xl border rounded-2xl bg-white text-center transition-all duration-300`}
-    >
-      <CardHeader className="pb-4">
-        <CardTitle className="text-3xl font-serif text-gray-800">
+    <Card className="w-full max-w-xl p-0 shadow-xl border rounded-2xl bg-white text-center transition-all duration-300 mx-auto">
+      <CardHeader className="pb-2 pt-6">
+        <CardTitle className="text-2xl font-serif text-gray-800">
           {t("checkout.transactionStatus")}
         </CardTitle>
       </CardHeader>
-
-      <CardContent className="flex flex-col items-center justify-center gap-6">
+      <CardContent className="flex flex-col items-center justify-center gap-4">
         {error ? (
           <>
             <XCircle className="w-16 h-16 text-red-500" />
@@ -133,82 +126,50 @@ export default function TopupsCheckoutClient({
           </>
         ) : (
           <>
-            {getStatusIcon(data?.status || "new")}
-            {data?.status !== "paid" && data?.status !== "cancelled" && (
-              <div className={`px-4 py-2 text-lg font-semibold`}>
-                {data?.message || t("checkout.checkingStatus")}
+            <div className="flex flex-col items-center gap-2">
+              {getStatusIcon(data?.status || "new")}
+              <div
+                className={`px-4 py-2 text-lg font-semibold ${statusColors.text}`}
+              >
+                {t(`checkout.paymentStatus.${data?.status || "new"}`)}
               </div>
-            )}
+              {data?.status !== "paid" && data?.status !== "cancelled" && (
+                <div className="text-sm text-gray-500">
+                  {t("checkout.checkingStatus")}
+                </div>
+              )}
+            </div>
 
+            {/* BILL */}
             {data && (
-              <div className="text-left w-full mt-4 space-y-3 text-gray-700">
-                <p>
-                  <strong className="font-medium">
-                    {t("checkout.status")}:
-                  </strong>{" "}
-                  <b className={`${statusColors.text}`}>
-                    {t(`checkout.paymentStatus.${data.status}`)}
-                  </b>
-                </p>
-                <p className="flex items-center gap-x-2">
-                  <strong className="font-medium">
-                    {t("checkout.paymentGate")}:
-                  </strong>
-                  <Image
-                    src={
-                      `${data.provider.toLowerCase()}.png` || "/placeholder.svg"
-                    }
-                    alt={data.provider}
-                    width={64}
-                    height={18}
-                    className="inline-block"
-                  />
-                </p>
-                <p>
-                  <strong className="font-medium">
-                    {t("checkout.fates")}:
-                  </strong>{" "}
-                  {data.fates} {data.content ? `(${data.content})` : ""}
-                </p>
-                <p>
-                  <strong className="font-medium">
-                    {t("checkout.subTotalAmount")}:
-                  </strong>{" "}
-                  {data.subTotal.toLocaleString("vi-VN")} {data.currency}
-                </p>
-                <p>
-                  <strong className="font-medium">
-                    {t("checkout.totalAmount")}:
-                  </strong>{" "}
-                  {data.total.toLocaleString("vi-VN")} {data.currency}
-                </p>
-                <p>
-                  <strong className="font-medium">
-                    {t("checkout.paidAmount")}:
-                  </strong>{" "}
-                  {data.paid.toLocaleString("vi-VN")} {data.currency}
-                </p>
+              <div className="w-full max-w-lg mx-auto bg-gray-50 rounded-xl border border-dashed border-gray-200 text-left text-sm font-mono p-4 mt-1">
+                <TopupBill data={data} statusColors={statusColors} showExport={true}/>
               </div>
             )}
 
-            {(data?.status === "cancelled" ||
-              data?.status === "partiallyPaid") && (
-              <Button
-                onClick={() => (window.location.href = "/topups")}
-                className="mt-4 bg-yellow-500 hover:bg-yellow-600 text-white"
-              >
-                {t("checkout.tryAgain")}
-              </Button>
-            )}
+            {/* Action buttons giữ nguyên */}
+            <div className="flex flex-col gap-2 w-full mt-4">
+              {(data?.status === "cancelled" ||
+                data?.status === "partiallyPaid") && (
+                <Button
+                  onClick={() => (window.location.href = "/topups")}
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white"
+                >
+                  {t("checkout.tryAgain")}
+                </Button>
+              )}
 
-            {data?.status !== "processing" && data?.status !== "new" && data?.status !== "cancelled" && (
-              <Button
-                onClick={() => (window.location.href = "/")}
-                className="mt-2 bg-gray-800 hover:bg-gray-900 text-white"
-              >
-                {t("checkout.backToHome")}
-              </Button>
-            )}
+              {data?.status !== "processing" &&
+                data?.status !== "new" &&
+                data?.status !== "cancelled" && (
+                  <Button
+                    onClick={() => (window.location.href = "/")}
+                    className="bg-gray-800 hover:bg-gray-900 text-white"
+                  >
+                    {t("checkout.backToHome")}
+                  </Button>
+                )}
+            </div>
           </>
         )}
       </CardContent>
