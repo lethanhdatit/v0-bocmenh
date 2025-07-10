@@ -14,6 +14,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function getLocaleByCurrency(currency: string) {
+  if (currency === "VND") return "vi-VN";
+  if (currency === "USD") return "en-US";
+  return "en-US";
+}
+
 // Utility function to get base URL dynamically
 export function getBaseUrl(): string {
   // For client-side

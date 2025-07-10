@@ -2,6 +2,8 @@
   "topups": {
     "promotionBadge": "khuyến mãi",
     "cardSummary": "Chỉ với <b>{{amount}}₫</b> bạn nhận được <b>{{fates}} duyên</b>!",
+    "cardVAT": "(Đã bao gồm VAT <b>{{vatRate}}%</b>)",
+    "cardNotVAT": "(Chưa bao gồm VAT <b>{{vatRate}}%</b>)",
     "discountDirect": "giảm ngay",
     "discountPercent": "giảm thêm",
     "bonusDirect": "tặng",
@@ -28,7 +30,8 @@
       "BuyFailed": "Không thể mua topups",
       "invalidInput": "Thông tin đầu vào không hợp lệ.",
       "checkoutStatusFailed": "Không thể tải trạng thái giao dịch",
-      "getMyFatesFailed": "Không thể tải thông tin duyên của bạn"
+      "getMyFatesFailed": "Không thể tải thông tin duyên của bạn",
+      "getMemoCheckoutFailed": "Không thể tải memo checkout"
     }
   },
   "checkout": {

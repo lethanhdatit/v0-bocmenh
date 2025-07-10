@@ -16,7 +16,8 @@ export interface TopupPackage {
   amountDiscountRate?: number;
   finalAmount: number;
   createdTs: string;
-  rate: number;
+  vaTaxIncluded: boolean;
+  vaTaxRate: number;
 }
 
 export interface PaymentGate {
@@ -29,6 +30,11 @@ export interface PaymentGate {
 
 export interface BuyTopupResponse {
   ipnLink: string;
+}
+
+export interface MemoCheckoutResponse extends TopupPackage {
+  currency: "USD" | "VND";
+  memoCheckout: TransactionStatusResponse;
 }
 
 export interface TransactionStatusResponse {
@@ -80,6 +86,15 @@ export async function buyTopup(
   return response.data.data;
 }
 
+export async function memoCheckout(
+  packageId: string,
+  paymentGateId: string
+): Promise<MemoCheckoutResponse> {
+  const url = `/topups/memo-checkout?topupPackageId=${packageId}&provider=${paymentGateId}`;
+  const response = await apiClient.get<{ data: MemoCheckoutResponse }>(url);
+  return response.data.data;
+}
+
 export async function getMyFates(): Promise<number> {
   try {
     const response = await apiClient.get(`/topups`);
@@ -91,7 +106,7 @@ export async function getMyFates(): Promise<number> {
 
 export async function getPaymentGates(): Promise<PaymentGate[]> {
   try {
-    const response = await apiClient.get(`/transaction/payment-gates`);
+    const response = await apiServer.get(`/transaction/paymentGates`);
     return response.data.data;
   } catch (error) {
     return [];

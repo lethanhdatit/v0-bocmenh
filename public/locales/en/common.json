@@ -2,6 +2,8 @@
   "topups": {
     "promotionBadge": "On Sale",
     "cardSummary": "Only <b>{{amount}}₫</b> for <b>{{fates}} fates</b>!",
+    "cardVAT": "(Included VAT <b>{{vatRate}}%</b>)",
+    "cardNotVAT": "(Not including VAT <b>{{vatRate}}%</b>)",
     "discountDirect": "off",
     "discountPercent": "extra off",
     "bonusDirect": "bonus",
@@ -28,7 +30,8 @@
       "BuyFailed": "Failed to load buy topups",
       "invalidInput": "Invalid input",
       "checkoutStatusFailed": "Failed to load the checkout status",
-      "getMyFatesFailed": "Failed to load your fates information"
+      "getMyFatesFailed": "Failed to load your fates information",
+      "getMemoCheckoutFailed": "Failed to load the memo checkout information"
     }
   },
   "checkout": {

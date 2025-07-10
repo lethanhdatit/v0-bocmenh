@@ -71,7 +71,7 @@ async function getMyFatesHandler(
   request: NextRequest,
   session: IronSession<UserSession>
 ) {
-  const { t } = await getTranslations(["common", "checkout"]);
+  const { t } = await getTranslations(["common", "topups"]);
 
   try {    
     const config = await getConfig(request, session?.accessToken);
