@@ -18,6 +18,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useMyFates } from "@/contexts/MyFatesContext";
 import { formatShortNumber } from "@/lib/infra/utils";
 import { useTopupWindow } from "@/hooks/use-topup-window";
+import { FatesUnit } from "@/components/common/FatesUnit";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -297,7 +298,7 @@ export default function Navigation() {
             </button>
             {/* MyFates badge */}
             <span
-              className="flex items-center gap-1 text-xs font-semibold text-yellow-700 rounded-full px-1 py-0.5 shadow-sm min-w-[64px] justify-center cursor-pointer"
+              className="flex items-center gap-1 text-xs font-semibold text-yellow-700 rounded-full px-2 py-0.5 min-w-[64px] justify-center cursor-pointer"
               tabIndex={0}
               role="button"
               aria-label={
@@ -311,32 +312,28 @@ export default function Navigation() {
               }}
               onMouseEnter={() => setShowFatesTooltip(true)}
             >
-              <span
-                className={`leading-none tabular-nums transition-transform duration-300 ease-in-out
-              ${
-                animating
-                  ? "scale-125 text-yellow-500 drop-shadow-lg"
-                  : "scale-100"
-              }
-              min-w-[54px] text-right inline-block
-            `}
-              >
-                {formatShortNumber(displayFates)}
+              <span className="flex items-center gap-2">
+                <span
+                  className={`leading-none tabular-nums transition-transform duration-300 ease-in-out
+                            ${animating ? "scale-125 text-yellow-500 drop-shadow-lg" : "scale-100"}
+                            min-w-[54px] text-right inline-block`}
+                >
+                  {formatShortNumber(displayFates)}
+                </span>
+                <FatesUnit
+                  type="icon"
+                  width={14}
+                  height={14}
+                  text={t("topups.fatesUnit")}
+                  className="flex-shrink-0"
+                />
               </span>
-              <img
-                src="/unit.png"
-                alt="Fates"
-                className="w-4 h-4 ml-1 object-contain"
-                style={{ display: "inline-block" }}
-                width={16}
-                height={16}
-              />
             </span>
             {/* Tooltip */}
             {showFatesTooltip && (
               <div
-                className="absolute right-0 top-full z-50 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg p-3 text-gray-800 text-sm"
-                style={{ minWidth: 180 }}
+                className="absolute right-0 top-full z-50 mt-2 w-56 bg-gradient-to-r from-gray-100 via-gray-200 to-white border border-gray-200 rounded-lg shadow-lg p-3 text-gray-800 text-sm"
+                style={{ minWidth: 248 }}
               >
                 <button
                   className="absolute top-1 right-3 text-gray-400 hover:text-red-500 text-xs"
@@ -349,26 +346,42 @@ export default function Navigation() {
                 >
                   ×
                 </button>
-                <div className="mb-2">
-                  <span className="font-semibold text-yellow-700">
+                <div className="mb-2 flex items-center gap-1 justify-start min-w-0 w-full">
+                  <span className="font-semibold text-yellow-700 text-base">
                     {myFates !== null && myFates !== 0
                       ? myFates.toLocaleString()
                       : "--"}
-                  </span>{" "}
-                  <span className="text-xs text-gray-500">
-                    {t("topups.fatesUnit")}
                   </span>
+                  <FatesUnit
+                    type="icon"
+                    width={14}
+                    height={14}
+                    text={t("topups.fatesUnit")}
+                    className="flex-shrink-0"
+                  />
                 </div>
-                <button
-                  className="w-full mt-1 px-3 py-1 rounded bg-yellow-500 hover:bg-yellow-600 text-white text-xs font-semibold transition"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowFatesTooltip(false);
-                    openTopup();
-                  }}
-                >
-                  {t("topups.buyMore") || "Mua thêm"}
-                </button>
+                <div className="flex gap-2 mt-1">
+                  <button
+                    className="flex-1 px-3 py-1 rounded bg-yellow-500 hover:bg-yellow-600 text-white text-xs font-semibold transition"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowFatesTooltip(false);
+                      openTopup();
+                    }}
+                  >
+                    {t("topups.buyMore")}
+                  </button>
+                  <button
+                    className="flex-1 px-3 py-1 rounded border border-yellow-500 bg-white text-yellow-700 hover:bg-yellow-50 text-xs font-semibold transition"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowFatesTooltip(false);
+                      window.location.href = "/topups";
+                    }}
+                  >
+                    {t("topups.seePackages")}
+                  </button>
+                </div>
               </div>
             )}
             <AnimatePresence>
@@ -475,8 +488,6 @@ export default function Navigation() {
                     className={`h-10 w-auto sm:h-11 lg:h-12 object-contain transition-transform duration-700 ${
                       logoSpin ? "animate-spin-slow" : ""
                     }`}
-                    width="40"
-                    height="40"
                   />
                 </div>
               </Link>

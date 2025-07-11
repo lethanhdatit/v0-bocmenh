@@ -6,7 +6,7 @@ export function useTopupWindow() {
   const { fetchMyFates } = useMyFates();
 
   const openTopup = useCallback((onSuccess?: (transId: string) => void) => {
-    const scaleRate = 0.8;
+    const scaleRate = 0.7;
 
     const width = Math.round(window.innerWidth * scaleRate);
     const height = Math.round(window.innerHeight * scaleRate);
