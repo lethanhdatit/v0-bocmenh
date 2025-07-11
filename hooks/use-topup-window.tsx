@@ -1,7 +1,9 @@
 import { useCallback, useRef } from "react";
+import { useMyFates } from "@/contexts/MyFatesContext";
 
 export function useTopupWindow() {
   const winRef = useRef<Window | null>(null);
+  const { fetchMyFates } = useMyFates();
 
   const openTopup = useCallback((onSuccess?: (transId: string) => void) => {
     const scaleRate = 0.8;
@@ -20,6 +22,7 @@ export function useTopupWindow() {
     const handler = (event: MessageEvent) => {
       if (event.origin !== window.location.origin) return;
       if (event.data?.type === "paymentComplete") {
+        fetchMyFates();
         if (onSuccess) onSuccess(event.data.transId);
         if (winRef.current) winRef.current.close();
         window.removeEventListener("message", handler);

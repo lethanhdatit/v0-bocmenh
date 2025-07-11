@@ -97,7 +97,11 @@ export function TopupBill({
       align: "center",
     });
 
-    pdf.save(`bill_${window.location.host.replace(':', '')}_${data?.id && toShortId(data.id) || "export"}.pdf`);
+    pdf.save(
+      `bill_${window.location.host.replace(":", "")}_${
+        (data?.id && toShortId(data.id)) || "export"
+      }.pdf`
+    );
   };
 
   return (
@@ -170,10 +174,10 @@ export function TopupBill({
           )}
           <div className="border-t border-dashed border-gray-300 my-3" />
           {(data.packageName ||
-            data.fates ||
-            data.fateBonus ||
-            data.fateBonusRate ||
-            data.finalFates) && (
+            typeof data.fates === "number" ||
+            typeof data.fateBonus === "number" ||
+            typeof data.fateBonusRate === "number" ||
+            typeof data.finalFates === "number") && (
             <>
               {/* --- PHẦN 2 --- */}
               {data.packageName && (
@@ -186,13 +190,13 @@ export function TopupBill({
                   </span>
                 </div>
               )}
-              {data.fates && (
+              {typeof data.fates === "number" && (
                 <div className="flex justify-between mb-1">
                   <span className="font-semibold">{t("checkout.fates")}:</span>
                   <span className="font-bold">{data.fates}</span>
                 </div>
               )}
-              {data.fateBonus && data.fateBonus !== 0 && (
+              {typeof data.fateBonus === "number" && data.fateBonus !== 0 && (
                 <div className="flex justify-between mb-1">
                   <span className="font-semibold">
                     {t("checkout.fateBonus")}:
@@ -202,17 +206,18 @@ export function TopupBill({
                   </span>
                 </div>
               )}
-              {data.fateBonusRate && data.fateBonusRate !== 0 && (
-                <div className="flex justify-between mb-1">
-                  <span className="font-semibold">
-                    {t("checkout.fateBonusRate")}:
-                  </span>
-                  <span className="font-bold text-green-600">
-                    +{data.fateBonusRate}%
-                  </span>
-                </div>
-              )}
-              {data.finalFates && (
+              {typeof data.fateBonusRate === "number" &&
+                data.fateBonusRate !== 0 && (
+                  <div className="flex justify-between mb-1">
+                    <span className="font-semibold">
+                      {t("checkout.fateBonusRate")}:
+                    </span>
+                    <span className="font-bold text-green-600">
+                      +{data.fateBonusRate}%
+                    </span>
+                  </div>
+                )}
+              {typeof data.finalFates === "number" && (
                 <div className="flex justify-between mb-1">
                   <span className="font-semibold">
                     {t("checkout.finalFates")}:
@@ -227,7 +232,7 @@ export function TopupBill({
           )}
 
           {/* --- PHẦN 3 --- */}
-          {data.total && (
+          {typeof data.total === "number" && (
             <div className="flex justify-between mb-1">
               <span className="font-semibold">
                 {t("checkout.totalAmount")}:
@@ -237,17 +242,18 @@ export function TopupBill({
               </span>
             </div>
           )}
-          {data.discountTotal && data.discountTotal !== 0 && (
-            <div className="flex justify-between mb-1">
-              <span className="font-semibold">
-                {t("checkout.discountTotal")}:
-              </span>
-              <span className="font-bold text-green-600">
-                -{data.discountTotal.toLocaleString(locale)} {data.currency}
-              </span>
-            </div>
-          )}
-          {data.subTotal && (
+          {typeof data.discountTotal === "number" &&
+            data.discountTotal !== 0 && (
+              <div className="flex justify-between mb-1">
+                <span className="font-semibold">
+                  {t("checkout.discountTotal")}:
+                </span>
+                <span className="font-bold text-green-600">
+                  -{data.discountTotal.toLocaleString(locale)} {data.currency}
+                </span>
+              </div>
+            )}
+          {typeof data.subTotal === "number" && (
             <div className="flex justify-between mb-1">
               <span className="font-semibold">
                 {t("checkout.subTotalAmount")}:
@@ -257,29 +263,35 @@ export function TopupBill({
               </span>
             </div>
           )}
-          {data.feeTotal && data.feeTotal !== 0 && (
+          {typeof data.feeTotal === "number" && data.feeTotal !== 0 && (
             <div className="flex justify-between mb-1">
               <span className="font-semibold">
                 {t("checkout.feeTotal")}{" "}
-                {data.feeRate && <span>({data.feeRate}%)</span>}:
+                {typeof data.feeRate === "number" && (
+                  <span>({data.feeRate}%)</span>
+                )}
+                :
               </span>
               <span className="font-bold text-red-600">
                 +{data.feeTotal.toLocaleString(locale)} {data.currency}
               </span>
             </div>
           )}
-          {data.vaTaxTotal && data.vaTaxTotal !== 0 && (
+          {typeof data.vaTaxTotal === "number" && data.vaTaxTotal !== 0 && (
             <div className="flex justify-between mb-1">
               <span className="font-semibold">
                 {t("checkout.VATaxTotal")}{" "}
-                {data.vaTaxRate && <span>({data.vaTaxRate}%)</span>}:
+                {typeof data.vaTaxRate === "number" && (
+                  <span>({data.vaTaxRate}%)</span>
+                )}
+                :
               </span>
               <span className="font-bold text-red-600">
                 +{data.vaTaxTotal.toLocaleString(locale)} {data.currency}
               </span>
             </div>
           )}
-          {data.finalTotal && (
+          {typeof data.finalTotal === "number" && (
             <div className="flex justify-between mb-1">
               <span className="font-semibold">{t("checkout.finalTotal")}:</span>
               <span className="font-bold text-green-800">
@@ -299,7 +311,7 @@ export function TopupBill({
               </span>
             </div>
           )}
-          {data.paid && (
+          {typeof data.paid === "number" && (
             <div className="flex justify-between mb-1">
               <span className="font-semibold">{t("checkout.paidAmount")}:</span>
               <span className="font-bold text-blue-700">
