@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -16,6 +16,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMyFates } from "@/contexts/MyFatesContext";
+import { formatShortNumber } from "@/lib/infra/utils";
+import { useTopupWindow } from "@/hooks/use-topup-window";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +25,7 @@ export default function Navigation() {
   const [isOverflowMenuOpen, setIsOverflowMenuOpen] = useState(false);
   const [visibleItemsCount, setVisibleItemsCount] = useState(8);
   const [logoSpin, setLogoSpin] = useState(false);
+  const [showFatesTooltip, setShowFatesTooltip] = useState(false);
   const navContainerRef = useRef<HTMLDivElement>(null);
   const logoContainerRef = useRef<HTMLDivElement>(null);
   const authContainerRef = useRef<HTMLDivElement>(null);
@@ -38,6 +41,12 @@ export default function Navigation() {
   } = useAuth();
   const { t, i18n } = useTranslation();
   const { myFates } = useMyFates();
+  const [displayFates, setDisplayFates] = useState(myFates ?? 0);
+  const [animating, setAnimating] = useState(false);
+  const prevFatesRef = useRef(myFates ?? 0);
+  const animationFrameRef = useRef<number | null>(null);
+  const isFirstRender = useRef(true);
+  const { openTopup } = useTopupWindow();
 
   const handleLogout = async () => {
     setIsUserMenuOpen(false);
@@ -195,6 +204,71 @@ export default function Navigation() {
     return () => clearTimeout(timer);
   }, [i18n.language, isLoggedIn, navItems.length]);
 
+  useEffect(() => {
+    if (showFatesTooltip) {
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          setShowFatesTooltip(false);
+        }
+      };
+
+      document.addEventListener("keydown", handleKeyDown);
+      return () => document.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [showFatesTooltip]);
+
+  useEffect(() => {
+    if (myFates == null || myFates === prevFatesRef.current) return;
+
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+
+    const start = prevFatesRef.current;
+    const end = myFates;
+    const duration = 900; // ms
+    const frameRate = 1000 / 60;
+    const totalFrames = Math.round(duration / frameRate);
+    let frame = 0;
+
+    function easeOutExpo(x: number) {
+      return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
+    }
+
+    function animateCounter() {
+      frame++;
+      const progress = Math.min(frame / totalFrames, 1);
+      const eased = easeOutExpo(progress);
+      const value = Math.round(start + (end - start) * eased);
+      setDisplayFates(value);
+
+      if (progress < 1) {
+        animationFrameRef.current = requestAnimationFrame(animateCounter);
+      } else {
+        setDisplayFates(end);
+        prevFatesRef.current = end;
+        animationFrameRef.current = null;
+
+        setAnimating(true);
+        const zoomTimeout = setTimeout(() => {
+          setAnimating(false);
+        }, 650);
+
+        return () => clearTimeout(zoomTimeout);
+      }
+    }
+
+    animateCounter();
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
+      }
+    };
+  }, [myFates]);
+
   // Auth Section Component
   const AuthSection = ({ isMobile = false }: { isMobile?: boolean }) => {
     if (authIsLoading) {
@@ -204,13 +278,14 @@ export default function Navigation() {
     } else {
       if (isLoggedIn) {
         return (
-          <div className="relative user-menu-container">
+          <div className="relative user-menu-container flex items-center">
             <button
               onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
               className="flex items-center space-x-2 text-gray-300 hover:text-yellow-400 transition-colors"
               aria-label={`User menu for ${user?.name || user?.email}`}
               aria-expanded={isUserMenuOpen}
               aria-haspopup="true"
+              type="button"
             >
               <User
                 className={`flex-shrink-0 ${isMobile ? "w-5 h-5" : "w-5 h-5"}`}
@@ -219,21 +294,83 @@ export default function Navigation() {
               <span className="text-sm max-w-32 truncate">
                 {user?.name || user?.email}
               </span>
-              <span className="ml-3 flex items-center gap-1 text-xs font-semibold text-yellow-700 rounded-full px-2 py-0.5 shadow-sm min-w-[36px] justify-center">
-                <span className="leading-none tabular-nums">
-                  {myFates !== null ? myFates : "--"}
-                </span>
-                <img
-                  src="/fates.png"
-                  alt="Fates"
-                  className="w-6 h-6 object-contain"
-                  style={{ display: "inline-block" }}
-                  width={15}
-                  height={15}
-                />
-              </span>
             </button>
-
+            {/* MyFates badge */}
+            <span
+              className="flex items-center gap-1 text-xs font-semibold text-yellow-700 rounded-full px-1 py-0.5 shadow-sm min-w-[64px] justify-center cursor-pointer"
+              tabIndex={0}
+              role="button"
+              aria-label={
+                myFates !== null && myFates !== 0
+                  ? myFates.toLocaleString()
+                  : "--"
+              }
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowFatesTooltip(true);
+              }}
+              onMouseEnter={() => setShowFatesTooltip(true)}
+            >
+              <span
+                className={`leading-none tabular-nums transition-transform duration-300 ease-in-out
+              ${
+                animating
+                  ? "scale-125 text-yellow-500 drop-shadow-lg"
+                  : "scale-100"
+              }
+              min-w-[54px] text-right inline-block
+            `}
+              >
+                {formatShortNumber(displayFates)}
+              </span>
+              <img
+                src="/unit.png"
+                alt="Fates"
+                className="w-4 h-4 ml-1 object-contain"
+                style={{ display: "inline-block" }}
+                width={16}
+                height={16}
+              />
+            </span>
+            {/* Tooltip */}
+            {showFatesTooltip && (
+              <div
+                className="absolute right-0 top-full z-50 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg p-3 text-gray-800 text-sm"
+                style={{ minWidth: 180 }}
+              >
+                <button
+                  className="absolute top-1 right-3 text-gray-400 hover:text-red-500 text-xs"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowFatesTooltip(false);
+                  }}
+                  aria-label="Đóng"
+                  tabIndex={0}
+                >
+                  ×
+                </button>
+                <div className="mb-2">
+                  <span className="font-semibold text-yellow-700">
+                    {myFates !== null && myFates !== 0
+                      ? myFates.toLocaleString()
+                      : "--"}
+                  </span>{" "}
+                  <span className="text-xs text-gray-500">
+                    {t("topups.fatesUnit")}
+                  </span>
+                </div>
+                <button
+                  className="w-full mt-1 px-3 py-1 rounded bg-yellow-500 hover:bg-yellow-600 text-white text-xs font-semibold transition"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowFatesTooltip(false);
+                    openTopup();
+                  }}
+                >
+                  {t("topups.buyMore") || "Mua thêm"}
+                </button>
+              </div>
+            )}
             <AnimatePresence>
               {isUserMenuOpen && (
                 <motion.div
