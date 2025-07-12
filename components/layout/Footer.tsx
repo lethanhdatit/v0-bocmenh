@@ -6,10 +6,12 @@ import { Globe, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useLayoutVisibility } from "@/contexts/LayoutVisibilityContext";
 
 export default function Footer() {
   const { t } = useTranslation();
   const { language, setLanguage, isLoading: langIsLoading } = useLanguage();
+  const { showFooter } = useLayoutVisibility();
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
   const langMenuRef = useRef<HTMLDivElement>(null);
 
@@ -48,6 +50,8 @@ export default function Footer() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  if (!showFooter) return null;
 
   return (
     <footer
@@ -190,7 +194,10 @@ export default function Footer() {
 
         <div className="border-t border-gray-700 pt-8 text-center text-sm">
           <p>
-            &copy; {currentYear} {t("footer.copyright")} <span className="text-gray-200 cursor-pointer">{t("site.owner")}.</span>
+            &copy; {currentYear} {t("footer.copyright")}{" "}
+            <span className="text-gray-200 cursor-pointer">
+              {t("site.owner")}.
+            </span>
           </p>
         </div>
       </div>

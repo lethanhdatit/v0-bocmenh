@@ -17,6 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "react-i18next";
 import { showGlobalLoading, hideGlobalLoading } from "@/lib/utils";
 import { cn } from "@/lib/utils";
+import { useLayoutVisibility } from "@/contexts/LayoutVisibilityContext";
 
 interface TopupsClientProps {
   initialTopupPackages: TopupPackage[];
@@ -38,9 +39,11 @@ export default function TopupsClient({
     paymentGates.length > 0 ? paymentGates[0].id : null
   );
   const [isBuying, setIsBuying] = useState(false);
-  const paymentRef = useRef<HTMLDivElement>(null);
+  const paymentRef = useRef<HTMLButtonElement>(null);
   const [selectedMemoCheckout, setSelectedMemoCheckout] =
     useState<MemoCheckoutResponse | null>(null);
+  const { hideNav, showNavFn, hideFooter, showFooterFn } =
+    useLayoutVisibility();
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -56,6 +59,12 @@ export default function TopupsClient({
     };
 
     window.addEventListener("message", handleMessage);
+
+    if (!openNewWindow) {
+      hideNav();
+      hideFooter();
+    }
+
     return () => {
       window.removeEventListener("message", handleMessage);
     };
@@ -82,16 +91,14 @@ export default function TopupsClient({
       if (openNewWindow) {
         // Open IPN link in a new small window
         const scaleRate = 0.8;
-        
+
         const width = Math.round(window.innerWidth * scaleRate);
         const height = Math.round(window.innerHeight * scaleRate);
-        const left = Math.round((window.innerWidth - width) / 2);
-        const top = Math.round((window.innerHeight - height) / 2);
 
         const newWindow = window.open(
           ipnLink,
           "_blank",
-          `width=${width},height=${height},left=${left},top=${top},location=no,menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes`
+          `width=${width},height="100%",location=no,menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes`
         );
         if (!newWindow) {
           toast({
@@ -152,7 +159,7 @@ export default function TopupsClient({
       setTimeout(() => {
         paymentRef.current?.scrollIntoView({
           behavior: "smooth",
-          block: "center",
+          block: "end",
         });
       }, 250);
     } catch (error) {
@@ -306,26 +313,18 @@ export default function TopupsClient({
 
       {/* Thanh toán */}
       {selectedPackage && (
-        <div
-          ref={paymentRef}
+        <div          
           className="mt-10 p-8 bg-gradient-to-br from-yellow-50 via-white to-yellow-100 border-2 border-yellow-300 rounded-2xl shadow-2xl relative"
         >
-          {/* Checkout Bill - Memo Checkout */}
-          {selectedMemoCheckout && (
-            <div className="mb-6 w-full mx-auto bg-gray-50 rounded-xl shadow-inner border border-dashed border-gray-200 text-left text-sm font-mono p-4">
-              <TopupBill data={selectedMemoCheckout.memoCheckout} />
-            </div>
-          )}
-
           {/* Tiêu đề chọn cổng thanh toán */}
-          <h2 className="text-2xl font-bold text-yellow-900 mb-6 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-yellow-900 mb-4 flex items-center gap-2">
             {t("topups.selectPaymentGate")}
           </h2>
           {paymentGates.length > 0 ? (
             <RadioGroup
               onValueChange={handleSelectPaymentGate}
               value={selectedPaymentGate || ""}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full items-stretch"
+              className="grid mb-4 grid-cols-1 sm:grid-cols-2 gap-4 h-full items-stretch"
             >
               {paymentGates.map((gate) => {
                 const isDisabled = gate.active !== true;
@@ -364,11 +363,18 @@ export default function TopupsClient({
           ) : (
             <p className="text-yellow-700">{t("topups.noPaymentGates")}</p>
           )}
+          {/* Checkout Bill - Memo Checkout */}
+          {selectedMemoCheckout && (
+            <div className="mb-2 w-full mx-auto bg-gray-50 rounded-xl shadow-inner border border-dashed border-gray-200 text-left text-sm font-mono p-4">
+              <TopupBill data={selectedMemoCheckout.memoCheckout} />
+            </div>
+          )}          
 
           <Button
+            ref={paymentRef}
             onClick={handleBuy}
             disabled={!selectedPackage || !selectedPaymentGate || isBuying}
-            className="mystical-button w-full mt-8 text-lg shadow-lg"
+            className="mystical-button w-full mt-2 text-lg shadow-lg"
           >
             {isBuying ? (
               <span className="flex items-center gap-2">

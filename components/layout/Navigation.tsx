@@ -19,8 +19,12 @@ import { useMyFates } from "@/contexts/MyFatesContext";
 import { formatShortNumber } from "@/lib/infra/utils";
 import { useTopupWindow } from "@/hooks/use-topup-window";
 import { FatesUnit } from "@/components/common/FatesUnit";
+import { useLayoutVisibility } from "@/contexts/LayoutVisibilityContext";
 
 export default function Navigation() {
+  const { showNav } = useLayoutVisibility();
+  if (!showNav) return null;
+
   const [isOpen, setIsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isOverflowMenuOpen, setIsOverflowMenuOpen] = useState(false);
