@@ -23,14 +23,9 @@ export function TopupBill({
   const billRef = useRef<HTMLDivElement>(null);
 
   // Lấy URL đẹp cho footer PDF
-  const getFooterUrl = () => {
+  const getRefUrl = (id?: string) => {
     try {
-      const url = new URL(window.location.href);
-      url.search = ""; // Xóa hết params
-      if (data.id) {
-        url.searchParams.set("transId", data.id);
-      }
-      return url.toString();
+      return `${window.location.origin}${id ? `/topups-checkout?transId=${id}` : ``}`;
     } catch {
       return window.location.href;
     }
@@ -55,13 +50,24 @@ export function TopupBill({
 
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
-    const imgProps = pdf.getImageProperties(imgData);
-    const ratio = Math.min(
-      pageWidth / imgProps.width,
-      (pageHeight - 60) / imgProps.height
-    );
-    const imgWidth = imgProps.width * ratio;
-    const imgHeight = imgProps.height * ratio;
+
+    // === Thêm tiêu đề hóa đơn điện tử ===
+    pdf.setFont("Roboto", "normal");
+    pdf.setFontSize(28);
+    pdf.setTextColor("#1e293b");
+    pdf.text(t("checkout.billingTitle"), pageWidth / 2, 48, { align: "center" });
+
+    // === Thêm sub tiêu đề ===
+    pdf.setFont("Arial", "normal");
+    pdf.setFontSize(10);
+    pdf.setTextColor("#2563eb");
+    
+    var transLink = getRefUrl(data.id);
+    pdf.textWithLink(transLink, pageWidth / 2, 68, {
+      url: transLink,
+      align: "center",
+      target: "_blank",
+    });
 
     // Watermark
     const watermark = new window.Image();
@@ -79,17 +85,26 @@ export function TopupBill({
       0.1 // opacity
     );
 
-    // Bill content
+    // Bill content (dời xuống dưới tiêu đề/sub tiêu đề)
+    const imgProps = pdf.getImageProperties(imgData);
+    const ratio = Math.min(
+      pageWidth / imgProps.width,
+      (pageHeight - 60) / imgProps.height
+    );
+    const imgWidth = imgProps.width * ratio;
+    const imgHeight = imgProps.height * ratio;
+
     pdf.addImage(
       imgData,
       "PNG",
       (pageWidth - imgWidth) / 2,
-      30,
+      90, // dời xuống dưới tiêu đề/sub tiêu đề
       imgWidth,
       imgHeight
     );
 
-    const footerUrl = getFooterUrl();
+    // ...footer giữ nguyên...
+    const footerUrl = getRefUrl();
     pdf.setFontSize(10);
     pdf.setTextColor("#2563eb");
     pdf.textWithLink(footerUrl, pageWidth / 2, pageHeight - 16, {
@@ -152,7 +167,7 @@ export function TopupBill({
                   height={16}
                   className="inline-block"
                 />
-                <span>{data.provider}</span>
+                {/* <span>{data.provider}</span> */}
               </span>
             </div>
           )}
@@ -332,10 +347,10 @@ export function TopupBill({
           )}
         </span>
       </div>
-      {showExport && (
+      {showExport && data.status === 'paid' && (
         <div className="flex gap-2 justify-end mt-4">
           <button
-            className="px-3 py-1 rounded bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow"
+            className="px-3 py-1 rounded bg-blue-600 hover:bg-yellow-600 text-white text-xs font-semibold shadow"
             onClick={handleExportPDF}
           >
             Export PDF

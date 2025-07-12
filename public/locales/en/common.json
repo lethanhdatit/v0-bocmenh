@@ -37,6 +37,7 @@
     }
   },
   "checkout": {
+    "billingTitle": "Electronic Invoice",
     "title": "Payment Status - Boc Menh",
     "description": "Check the status of your fates top-up transaction.",
     "transactionStatus": "Transaction Status",
@@ -48,7 +49,7 @@
     "amount": "Amount",
     "fatesAdded": "Fates received",
     "transactionRef": "Transaction Reference",
-    "orderId": "Order ID",
+    "orderId": "ID",
     "status": "Status",
     "paymentGate": "Payment Gateway",
     "currency": "Currency",

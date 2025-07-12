@@ -29,7 +29,9 @@ export default function Navigation() {
   const [showFatesTooltip, setShowFatesTooltip] = useState(false);
   const navContainerRef = useRef<HTMLDivElement>(null);
   const logoContainerRef = useRef<HTMLDivElement>(null);
+  const logoMobileContainerRef = useRef<HTMLDivElement>(null);
   const authContainerRef = useRef<HTMLDivElement>(null);
+  const authMobileContainerRef = useRef<HTMLDivElement>(null);
   const hiddenMenuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const {
@@ -61,10 +63,10 @@ export default function Navigation() {
     { href: "/numerology", label: t("nav.numerology") },
     { href: "/tarot", label: t("nav.tarot") },
     { href: "/fengshui", label: t("nav.fengshui") },
-    { href: "/store", label: t("nav.store") },
     { href: "/luckybox", label: t("nav.luckybox") },
     { href: "/topups", label: t("nav.topups") },
-    { href: "/blogs", label: t("nav.blogs") },
+    { href: "/store", label: t("nav.store") },
+    // { href: "/blogs", label: t("nav.blogs") },
   ];
 
   // Split items into visible and overflow
@@ -104,8 +106,7 @@ export default function Navigation() {
     const checkOverflow = () => {
       if (
         !navContainerRef.current ||
-        !logoContainerRef.current ||
-        !authContainerRef.current ||
+        (!logoContainerRef.current && !logoMobileContainerRef.current) ||
         !hiddenMenuRef.current
       ) {
         return;
@@ -113,18 +114,23 @@ export default function Navigation() {
 
       const navContainer = navContainerRef.current;
       const logoContainer = logoContainerRef.current;
-      const authContainer = authContainerRef.current;
+      const logoMobileContainer = logoMobileContainerRef.current;
       const hiddenMenu = hiddenMenuRef.current;
 
-      // Get total available width
+      let authWidth = 0;
+      let logoWidth = 0;
+      if (window.innerWidth >= 768) {
+        // Desktop
+        authWidth = authContainerRef.current?.offsetWidth ?? 0;
+        logoWidth = logoContainer?.offsetWidth ?? 0;
+      } else {
+        // Mobile
+        authWidth = authMobileContainerRef.current?.offsetWidth ?? 0;
+        logoWidth = logoMobileContainer?.offsetWidth ?? 0;
+      }
+
       const totalWidth = navContainer.offsetWidth;
-
-      // Get fixed elements width
-      const logoWidth = logoContainer.offsetWidth;
-      const authWidth = authContainer.offsetWidth;
-
-      // Account for gaps and padding - include space for overflow button
-      const reservedSpace = logoWidth + authWidth + 100; // Include overflow button space
+      const reservedSpace = logoWidth + authWidth + 140; // Include overflow button space
 
       // Available space for menu items (centered)
       const availableWidth = totalWidth - reservedSpace;
@@ -147,9 +153,9 @@ export default function Navigation() {
         }
       }
 
-      // Always show at least 3 items for centered layout, and don't exceed total items
+      // Always show at least 2 items for centered layout, and don't exceed total items
       const newVisibleCount = Math.max(
-        3,
+        2,
         Math.min(maxVisibleItems, navItems.length)
       );
 
@@ -280,25 +286,9 @@ export default function Navigation() {
       if (isLoggedIn) {
         return (
           <div className="relative user-menu-container flex items-center">
-            <button
-              onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-              className="flex items-center space-x-2 text-gray-300 hover:text-yellow-400 transition-colors"
-              aria-label={`User menu for ${user?.name || user?.email}`}
-              aria-expanded={isUserMenuOpen}
-              aria-haspopup="true"
-              type="button"
-            >
-              <User
-                className={`flex-shrink-0 ${isMobile ? "w-5 h-5" : "w-5 h-5"}`}
-                aria-hidden="true"
-              />
-              <span className="text-sm max-w-32 truncate">
-                {user?.name || user?.email}
-              </span>
-            </button>
             {/* MyFates badge */}
             <span
-              className="flex items-center gap-1 text-xs font-semibold text-yellow-700 rounded-full px-2 py-0.5 min-w-[64px] justify-center cursor-pointer"
+              className="flex items-center gap-1 text-xs font-semibold text-yellow-700 rounded-full mr-3 px-1 py-0.5 min-w-[48px] justify-center cursor-pointer"
               tabIndex={0}
               role="button"
               aria-label={
@@ -315,8 +305,12 @@ export default function Navigation() {
               <span className="flex items-center gap-2">
                 <span
                   className={`leading-none tabular-nums transition-transform duration-300 ease-in-out
-                            ${animating ? "scale-125 text-yellow-500 drop-shadow-lg" : "scale-100"}
-                            min-w-[54px] text-right inline-block`}
+                            ${
+                              animating
+                                ? "scale-125 text-yellow-500 drop-shadow-lg"
+                                : "scale-100"
+                            }
+                            min-w-[44px] text-right inline-block`}
                 >
                   {formatShortNumber(displayFates)}
                 </span>
@@ -349,7 +343,7 @@ export default function Navigation() {
                 <div className="mb-2 flex items-center gap-1 justify-start min-w-0 w-full">
                   <span className="font-semibold text-yellow-700 text-base">
                     {myFates !== null && myFates !== 0
-                      ? myFates.toLocaleString()
+                      ? myFates.toString()
                       : "--"}
                   </span>
                   <FatesUnit
@@ -384,6 +378,22 @@ export default function Navigation() {
                 </div>
               </div>
             )}
+            <button
+              onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+              className="flex items-center space-x-2 text-gray-300 hover:text-yellow-400 transition-colors"
+              aria-label={`User menu for ${user?.name || user?.email}`}
+              aria-expanded={isUserMenuOpen}
+              aria-haspopup="true"
+              type="button"
+            >
+              <User
+                className={`flex-shrink-0 ${isMobile ? "w-5 h-5" : "w-5 h-5"}`}
+                aria-hidden="true"
+              />
+              <span className="text-sm max-w-32 truncate">
+                {user?.name || user?.email}
+              </span>
+            </button>
             <AnimatePresence>
               {isUserMenuOpen && (
                 <motion.div
@@ -461,6 +471,9 @@ export default function Navigation() {
     }
   };
 
+  const isOverflowSelected =
+    isOverflowMenuOpen || overflowItems.some((item) => item.href === pathname);
+
   return (
     <nav
       className="fixed top-0 left-0 right-0 z-50 bg-black/25 backdrop-blur-md"
@@ -474,11 +487,11 @@ export default function Navigation() {
             {/* Left: Logo + Slogan */}
             <div
               ref={logoContainerRef}
-              className="flex items-center gap-3 flex-shrink-0 min-w-0"
+              className="flex items-center gap-2 flex-shrink-1 min-w-0"
             >
               <Link
                 href="/"
-                className="flex-shrink-0"
+                className="flex-shrink-1"
                 aria-label="Bóc Mệnh - Về trang chủ"
               >
                 <div className="relative flex items-center">
@@ -501,8 +514,8 @@ export default function Navigation() {
                   alt="Bóc Mệnh - Mỗi người là một hộp bí ẩn"
                   className="h-5 w-auto sm:h-6 lg:h-7 object-contain transition-all duration-300"
                   style={{
-                    minWidth: "60px",
-                    maxWidth: "110px",
+                    minWidth: "40px",
+                    maxWidth: "98px",
                     width: "clamp(60px, 15vw, 110px)",
                   }}
                   width="110"
@@ -541,16 +554,22 @@ export default function Navigation() {
 
                 {/* Overflow Menu - Positioned right after visible items */}
                 {overflowItems.length > 0 && (
-                  <div className="overflow-menu-container relative ml-2">
+                  <div className="overflow-menu-container relative ml-4">
                     <button
                       onClick={() => setIsOverflowMenuOpen(!isOverflowMenuOpen)}
-                      className="flex items-center space-x-1 text-gray-300 hover:text-yellow-400 transition-colors px-2 py-1 rounded-md hover:bg-gray-800/50"
+                      className={`flex items-center space-x-1 px-2 py-1 rounded-md transition-colors
+                      ${
+                        isOverflowSelected
+                          ? "text-yellow-400 font-bold"
+                          : "text-gray-300 hover:text-yellow-400 hover:bg-gray-800/50"
+                      }
+                    `}
                       aria-label="More navigation options"
                       aria-expanded={isOverflowMenuOpen}
                       aria-haspopup="true"
                     >
                       <span className="text-sm font-medium">
-                        {t("nav.morebtn")}
+                        <b>{t("nav.morebtn")}</b>
                       </span>
                       <ChevronDown
                         className={`w-4 h-4 transition-transform ${
@@ -605,7 +624,10 @@ export default function Navigation() {
           {/* Mobile Layout */}
           <div className="md:hidden flex items-center justify-between w-full">
             {/* Logo + Slogan Container */}
-            <div className="flex items-center gap-2 min-w-0 flex-1">
+            <div
+              ref={logoMobileContainerRef}
+              className="flex items-center gap-2 min-w-0 flex-1  overflow-hidden"
+            >
               <Link
                 href="/"
                 className="flex-shrink-0"
@@ -625,7 +647,7 @@ export default function Navigation() {
               </Link>
               <Link
                 href="/"
-                className="flex-shrink-1 min-w-0 overflow-hidden"
+                className="flex-shrink-1 min-w-0 overflow-hidden hidden xs:block"
                 aria-label="Bóc Mệnh"
               >
                 <img
@@ -633,8 +655,8 @@ export default function Navigation() {
                   alt="Bóc Mệnh"
                   className="h-5 w-auto object-contain transition-all duration-300"
                   style={{
-                    minWidth: "40px",
-                    maxWidth: "120px",
+                    minWidth: "35px",
+                    maxWidth: "85px",
                     width: "clamp(40px, 20vw, 120px)",
                   }}
                   width="120"
@@ -644,7 +666,10 @@ export default function Navigation() {
             </div>
 
             {/* Mobile Auth + Toggle */}
-            <div className="flex items-center gap-3 flex-shrink-0">
+            <div
+              ref={authMobileContainerRef}
+              className="flex items-center gap-3 flex-shrink-0"
+            >
               <AuthSection isMobile={true} />
               <button
                 onClick={() => setIsOpen(!isOpen)}
