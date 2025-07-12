@@ -37,6 +37,7 @@
     }
   },
   "checkout": {
+    "billingTitle": "Hoa Don Dien Tu",
     "title": "Trạng Thái Thanh Toán - Bóc Mệnh",
     "description": "Kiểm tra trạng thái giao dịch nạp duyên của bạn.",
     "invalidTransaction": "Giao dịch không hợp lệ",
@@ -138,9 +139,9 @@
     "premium": "Nâng cấp Premium",
     "wishlist": "Yêu thích",
     "blogs": "Blogs",
-    "luckybox": "Hộp may mắn",
+    "luckybox": "Hộp May Mắn",
     "morebtn": "Thêm",
-    "topups": "Mua Duyên"
+    "topups": "Gói Nạp"
   },
   "auth": {
     "logout": {

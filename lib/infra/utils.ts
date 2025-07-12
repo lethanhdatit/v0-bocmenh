@@ -12,7 +12,7 @@ export function fromShortId(shortId: string): string {
 
 export function formatShortNumber(
   num: number | null | undefined,
-  minAbbr: number = 1000,
+  minAbbr: number = 10000,
   maxDecimal: number = 2
 ) {
   if (num == null) return "--";
