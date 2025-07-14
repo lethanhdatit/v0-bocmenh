@@ -16,7 +16,7 @@ export function formatShortNumber(
   maxDecimal: number = 2
 ) {
   if (num == null) return "--";
-  if (num < minAbbr) return num.toLocaleString();
+  if (num < minAbbr) return num.toString();
 
   const format = (value: number, suffix: string) => {
     const factor = Math.pow(10, maxDecimal);
@@ -38,7 +38,7 @@ export function formatShortNumber(
   if (num >= 1_000) {
     return format(num / 1_000, "k");
   }
-  return num.toLocaleString();
+  return num.toString();
 }
 
 export function cn(...inputs: ClassValue[]) {
