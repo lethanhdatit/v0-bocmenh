@@ -75,9 +75,10 @@ export async function getTopupPackages(): Promise<TopupPackage[]> {
 
 export async function buyTopup(
   packageId: string,
-  paymentGateId: string
+  paymentGateId: string,
+  miniMode: boolean = false,
 ): Promise<BuyTopupResponse> {
-  const callbackUrl = `${getBaseUrl()}/topups-checkout`;
+  const callbackUrl = `${getBaseUrl()}/topups-checkout?miniMode=${miniMode}`;
   const response = await apiClient.post<{ data: BuyTopupResponse }>("/topups", {
     packageId,
     paymentGateId,
