@@ -13,16 +13,21 @@ import { showGlobalLoading, hideGlobalLoading } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { CheckCircle, XCircle, Loader2, AlertCircle } from "lucide-react";
 import { TopupBill } from "@/components/topups/TopupBill";
+import { useLayoutVisibility } from "@/contexts/LayoutVisibilityContext";
 
 interface TopupsCheckoutClientProps {
   transId: string;
   cancel?: string;
+  miniMode?: boolean;
 }
 
 export default function TopupsCheckoutClient({
   transId,
   cancel,
+  miniMode = false,
 }: TopupsCheckoutClientProps) {
+  const { hideNav, showNavFn, hideFooter, showFooterFn } =
+      useLayoutVisibility();
   const { t } = useTranslation("common");
   const { data, error, isLoading } = useSWR<TransactionStatusResponse>(
     transId ? `/transaction-status?id=${transId}` : null,
@@ -40,6 +45,16 @@ export default function TopupsCheckoutClient({
       cancelTopup(transId);
     }
   }, [cancel, transId]);
+
+  useEffect(() => {
+    if (miniMode) {
+      hideNav();
+      hideFooter();
+    }else{
+      showNavFn();
+      showFooterFn();
+    }
+  }, [miniMode]);
 
   useEffect(() => {
     if (isLoading) {

@@ -42,7 +42,7 @@ export default function TopupsClient({
   const paymentRef = useRef<HTMLButtonElement>(null);
   const [selectedMemoCheckout, setSelectedMemoCheckout] =
     useState<MemoCheckoutResponse | null>(null);
-  const { hideNav, showNavFn, hideFooter, showFooterFn } =
+  const { hideNav, hideFooter } =
     useLayoutVisibility();
 
   useEffect(() => {
@@ -85,7 +85,8 @@ export default function TopupsClient({
     try {
       const { ipnLink } = await buyTopup(
         selectedPackage.id,
-        selectedPaymentGate
+        selectedPaymentGate,
+        true
       );
 
       if (openNewWindow) {
