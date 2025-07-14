@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 type FatesUnitProps = {
   type?: "text" | "icon" | "both";
@@ -30,6 +31,8 @@ export const FatesUnit: React.FC<FatesUnitProps> = ({
   const w = width ?? s.w;
   const h = height ?? s.h;
 
+  const { t } = useTranslation("common");
+
   return (
     <span className={`inline-flex items-center gap-1 ${s.text} ${className}`}>
       {(type === "text" || type === "both") && (
@@ -37,12 +40,13 @@ export const FatesUnit: React.FC<FatesUnitProps> = ({
       )}
       {(type === "icon" || type === "both") && (
         <img
+          title={t("checkout.fates")}
           src={iconSrc}
           alt={text}
           width={w}
           height={h}
           style={{ width: w, height: h, display: "inline-block" }}
-          className="object-contain"
+          className="object-contain fate-glow"
         />
       )}
     </span>
