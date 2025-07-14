@@ -18,6 +18,14 @@ import { useTranslation } from "react-i18next";
 import { showGlobalLoading, hideGlobalLoading } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { useLayoutVisibility } from "@/contexts/LayoutVisibilityContext";
+import {
+  Infinity,
+  Radar,
+  Pyramid,
+  SunSnow,
+  Aperture,
+  ShipWheel,
+} from "lucide-react";
 
 interface TopupsClientProps {
   initialTopupPackages: TopupPackage[];
@@ -314,18 +322,24 @@ export default function TopupsClient({
 
       {/* Thanh toán */}
       {selectedPackage && (
-        <div          
+        <div
           className="mt-10 p-8 bg-gradient-to-br from-yellow-50 via-white to-yellow-100 border-2 border-yellow-300 rounded-2xl shadow-2xl relative"
         >
           {/* Tiêu đề chọn cổng thanh toán */}
           <h2 className="text-2xl font-bold text-yellow-900 mb-4 flex items-center gap-2">
             {t("topups.selectPaymentGate")}
           </h2>
+           {/* Checkout Bill - Memo Checkout */}
+          {selectedMemoCheckout && (
+            <div className="mb-4 w-full mx-auto bg-gray-50 rounded-xl shadow-inner border border-dashed border-gray-200 text-left text-sm font-mono p-4">
+              <TopupBill data={selectedMemoCheckout.memoCheckout} />
+            </div>
+          )}    
           {paymentGates.length > 0 ? (
             <RadioGroup
               onValueChange={handleSelectPaymentGate}
               value={selectedPaymentGate || ""}
-              className="grid mb-4 grid-cols-1 sm:grid-cols-2 gap-4 h-full items-stretch"
+              className="grid mb-2 grid-cols-1 sm:grid-cols-2 gap-4 h-full items-stretch"
             >
               {paymentGates.map((gate) => {
                 const isDisabled = gate.active !== true;
@@ -364,13 +378,6 @@ export default function TopupsClient({
           ) : (
             <p className="text-yellow-700">{t("topups.noPaymentGates")}</p>
           )}
-          {/* Checkout Bill - Memo Checkout */}
-          {selectedMemoCheckout && (
-            <div className="mb-2 w-full mx-auto bg-gray-50 rounded-xl shadow-inner border border-dashed border-gray-200 text-left text-sm font-mono p-4">
-              <TopupBill data={selectedMemoCheckout.memoCheckout} />
-            </div>
-          )}          
-
           <Button
             ref={paymentRef}
             onClick={handleBuy}
@@ -394,120 +401,10 @@ export default function TopupsClient({
 
 // Icon SVG chuyên nghiệp cho từng gói
 const icons = [
-  <svg
-    width="32"
-    height="32"
-    fill="none"
-    viewBox="0 0 32 32"
-    key="icon-huu-duyen"
-  >
-    <circle
-      cx="16"
-      cy="16"
-      r="14"
-      stroke="#D4AF37"
-      strokeWidth="2"
-      fill="#FFFBEA"
-    />
-    <path
-      d="M16 8v8l6 3"
-      stroke="#D4AF37"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-  </svg>, // Hữu Duyên
-  <svg
-    width="32"
-    height="32"
-    fill="none"
-    viewBox="0 0 32 32"
-    key="icon-thoi-duyen"
-  >
-    <rect
-      x="6"
-      y="6"
-      width="20"
-      height="20"
-      rx="6"
-      stroke="#7C3AED"
-      strokeWidth="2"
-      fill="#F3F0FF"
-    />
-    <path
-      d="M16 10v6l4 2"
-      stroke="#7C3AED"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-  </svg>, // Thời Duyên
-  <svg
-    width="32"
-    height="32"
-    fill="none"
-    viewBox="0 0 32 32"
-    key="icon-nhat-duyen"
-  >
-    <circle
-      cx="16"
-      cy="16"
-      r="12"
-      fill="#FFF7E6"
-      stroke="#FDBA74"
-      strokeWidth="2"
-    />
-    <circle cx="16" cy="16" r="6" fill="#FDBA74" />
-  </svg>, // Nhật Duyên
-  <svg
-    width="32"
-    height="32"
-    fill="none"
-    viewBox="0 0 32 32"
-    key="icon-nguyet-duyen"
-  >
-    <circle
-      cx="16"
-      cy="16"
-      r="12"
-      fill="#F3F0FF"
-      stroke="#7C3AED"
-      strokeWidth="2"
-    />
-    <path d="M22 16a6 6 0 1 1-12 0" stroke="#7C3AED" strokeWidth="2" />
-  </svg>, // Nguyệt Duyên
-  <svg
-    width="32"
-    height="32"
-    fill="none"
-    viewBox="0 0 32 32"
-    key="icon-thien-duyen"
-  >
-    <ellipse
-      cx="16"
-      cy="20"
-      rx="10"
-      ry="6"
-      fill="#E0E7FF"
-      stroke="#6366F1"
-      strokeWidth="2"
-    />
-    <ellipse cx="16" cy="12" rx="6" ry="3" fill="#6366F1" opacity="0.2" />
-  </svg>, // Thiên Duyên
-  <svg
-    width="32"
-    height="32"
-    fill="none"
-    viewBox="0 0 32 32"
-    key="icon-vu-duyen"
-  >
-    <ellipse
-      cx="16"
-      cy="20"
-      rx="10"
-      ry="6"
-      fill="#DBF4FF"
-      stroke="#0EA5E9"
-      strokeWidth="2"
-    />
-    <path d="M12 16c0-2 8-2 8 0" stroke="#0EA5E9" strokeWidth="2" />
-  </svg>, // Vũ Duyên
+  <ShipWheel key="icon-vo-vi" size={32} strokeWidth={2.2} className="text-blue-400 drop-shadow" />,        // Vô Vi
+  <Aperture key="icon-vo-nga" size={32} strokeWidth={2.2} className="text-purple-400 drop-shadow" />, // Vô Ngã
+  <SunSnow key="icon-vo-tuong" size={32} strokeWidth={2.2} className="text-gray-400 drop-shadow" />,     // Vô Tướng
+  <Radar key="icon-vo-uy" size={32} strokeWidth={2.2} className="text-green-400 drop-shadow" />,     // Vô Uý
+  <Pyramid key="icon-vo-nhiem" size={32} strokeWidth={2.2} className="text-cyan-400 drop-shadow" />,  // Vô Nhiễm
+  <Infinity key="icon-vo-luong" size={32} strokeWidth={2.4} className="text-yellow-400 drop-shadow" />,// Vô Lượng
 ];
