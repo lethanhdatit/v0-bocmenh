@@ -229,6 +229,20 @@ export default function Navigation() {
   }, [showFatesTooltip]);
 
   useEffect(() => {
+    if (!showFatesTooltip) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      const tooltip = document.querySelector(".fates-tooltip");
+      if (tooltip && !tooltip.contains(event.target as Node)) {
+        setShowFatesTooltip(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showFatesTooltip]);
+
+  useEffect(() => {
     if (myFates == null || myFates === prevFatesRef.current) return;
 
     if (animationFrameRef.current) {
@@ -300,6 +314,7 @@ export default function Navigation() {
                   ? myFates.toLocaleString()
                   : "--"
               }
+              title={t("checkout.fates")}
               onClick={(e) => {
                 e.stopPropagation();
                 setShowFatesTooltip(true);
@@ -330,7 +345,7 @@ export default function Navigation() {
             {/* Tooltip */}
             {showFatesTooltip && (
               <div
-                className="absolute right-0 top-full z-50 mt-2 w-56 bg-gradient-to-r from-gray-100 via-gray-200 to-white border border-gray-200 rounded-lg shadow-lg p-3 text-gray-800 text-sm"
+                className="absolute right-0 top-full z-50 mt-2 w-56 bg-gray-900/95 backdrop-blur-md border border-gray-200 rounded-lg shadow-lg p-3 text-gray-800 text-sm fates-tooltip"
                 style={{ minWidth: 248 }}
               >
                 <button
@@ -345,7 +360,10 @@ export default function Navigation() {
                   ×
                 </button>
                 <div className="mb-2 flex items-center gap-1 justify-start min-w-0 w-full">
-                  <span className="font-semibold text-yellow-700 text-base">
+                  <span
+                    title={t("checkout.fates")}
+                    className="font-semibold text-yellow-700 text-base cursor-pointer"
+                  >
                     {myFates !== null && myFates !== 0
                       ? myFates.toString()
                       : "--"}
@@ -355,7 +373,7 @@ export default function Navigation() {
                     width={14}
                     height={14}
                     text={t("topups.fatesUnit")}
-                    className="flex-shrink-0"
+                    className="flex-shrink-0 cursor-pointer"
                   />
                 </div>
                 <div className="flex gap-2 mt-1">
@@ -404,7 +422,7 @@ export default function Navigation() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="absolute right-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-lg py-2 z-50"
+                  className="absolute right-0 top-full mt-2 min-w-[180px] w-max bg-gray-900 border border-gray-700 rounded-lg shadow-lg py-2 z-50 max-h-[80vh] overflow-auto"
                   role="menu"
                   aria-orientation="vertical"
                 >

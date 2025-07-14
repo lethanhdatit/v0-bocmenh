@@ -173,3 +173,23 @@ body {
 .animate-spin-slow {
   animation: spin-slow 10s linear infinite;
 }
+
+.fate-glow {
+  filter:
+    drop-shadow(0 0 2px #ffe066)
+    drop-shadow(0 0 4px #ffd700);
+  animation: fateGlowPulse 0.5s infinite alternate;
+}
+
+@keyframes fateGlowPulse {
+  0% {
+    filter:
+      drop-shadow(0 0 2px #ffe066)
+      drop-shadow(0 0 4px #ffd700);
+  }
+  100% {
+    filter:
+      drop-shadow(0 0 3px #ffe066)
+      drop-shadow(0 0 5px #ffd700);
+  }
+}
