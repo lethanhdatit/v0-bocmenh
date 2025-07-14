@@ -79,7 +79,7 @@
     "tryAgain": "Try Again",
     "backToHome": "Back to Home",
     "fetchError": "Failed to fetch transaction information",
-    "checkingStatus": "Checking status...",
+    "checkingStatus": "Checking status, please be patient...",
     "paymentStatus": {
       "new": "Awaiting Payment",
       "processing": "Processing",

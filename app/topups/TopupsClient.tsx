@@ -25,6 +25,7 @@ import {
   SunSnow,
   Aperture,
   ShipWheel,
+  BadgePercent
 } from "lucide-react";
 
 interface TopupsClientProps {
@@ -50,8 +51,7 @@ export default function TopupsClient({
   const paymentRef = useRef<HTMLButtonElement>(null);
   const [selectedMemoCheckout, setSelectedMemoCheckout] =
     useState<MemoCheckoutResponse | null>(null);
-  const { hideNav, hideFooter } =
-    useLayoutVisibility();
+  const { hideNav, hideFooter } = useLayoutVisibility();
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -202,24 +202,18 @@ export default function TopupsClient({
               {(pkg.amountDiscount ?? 0) > 0 ||
               (pkg.amountDiscountRate ?? 0) > 0 ? (
                 <span
-                  className={cn(
-                    "absolute right-[-48px] top-4 z-20 w-40 text-center py-1 text-[11px] font-bold text-pink-700 bg-gradient-to-r from-yellow-300 via-pink-200 to-yellow-400 shadow border border-yellow-200",
-                    "rotate-12 select-none pointer-events-none",
-                    "sm:w-44 sm:text-xs"
-                  )}
-                  style={{
-                    letterSpacing: 1,
-                  }}
+                  className="absolute top-1 right-1 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-tr from-yellow-300 via-pink-200 to-yellow-400 shadow border border-yellow-200"
+                  style={{ pointerEvents: "none" }}
                 >
-                  {t("topups.promotionBadge")}
+                  <BadgePercent className="w-6 h-6 text-red-700" />
                 </span>
               ) : null}
               {/* Icon + tên */}
-              <div className="flex flex-col items-center pt-6 pb-3 border-b border-gray-100 bg-white">
-                <span className="mb-2">{icons[idx % icons.length]}</span>
+              <div className="mt-4 flex flex-col items-center pt-6 pb-3 border-b border-gray-100 bg-white">
                 <span className="text-xl font-bold text-gray-900 tracking-wide">
                   {pkg.name}
                 </span>
+                <span className="mt-2">{icons[idx % icons.length]}</span>
               </div>
               {/* Duyên nhận được + bonus */}
               <div className="py-4 px-2 sm:px-4 bg-gray-50 border-b border-gray-100 flex flex-col items-center">
@@ -322,19 +316,17 @@ export default function TopupsClient({
 
       {/* Thanh toán */}
       {selectedPackage && (
-        <div
-          className="mt-10 p-8 bg-gradient-to-br from-yellow-50 via-white to-yellow-100 border-2 border-yellow-300 rounded-2xl shadow-2xl relative"
-        >
+        <div className="mt-10 p-8 bg-gradient-to-br from-yellow-50 via-white to-yellow-100 border-2 border-yellow-300 rounded-2xl shadow-2xl relative">
           {/* Tiêu đề chọn cổng thanh toán */}
           <h2 className="text-2xl font-bold text-yellow-900 mb-4 flex items-center gap-2">
             {t("topups.selectPaymentGate")}
           </h2>
-           {/* Checkout Bill - Memo Checkout */}
+          {/* Checkout Bill - Memo Checkout */}
           {selectedMemoCheckout && (
             <div className="mb-4 w-full mx-auto bg-gray-50 rounded-xl shadow-inner border border-dashed border-gray-200 text-left text-sm font-mono p-4">
               <TopupBill data={selectedMemoCheckout.memoCheckout} />
             </div>
-          )}    
+          )}
           {paymentGates.length > 0 ? (
             <RadioGroup
               onValueChange={handleSelectPaymentGate}
@@ -401,10 +393,40 @@ export default function TopupsClient({
 
 // Icon SVG chuyên nghiệp cho từng gói
 const icons = [
-  <ShipWheel key="icon-vo-vi" size={32} strokeWidth={2.2} className="text-blue-400 drop-shadow" />,        // Vô Vi
-  <Aperture key="icon-vo-nga" size={32} strokeWidth={2.2} className="text-purple-400 drop-shadow" />, // Vô Ngã
-  <SunSnow key="icon-vo-tuong" size={32} strokeWidth={2.2} className="text-gray-400 drop-shadow" />,     // Vô Tướng
-  <Radar key="icon-vo-uy" size={32} strokeWidth={2.2} className="text-green-400 drop-shadow" />,     // Vô Uý
-  <Pyramid key="icon-vo-nhiem" size={32} strokeWidth={2.2} className="text-cyan-400 drop-shadow" />,  // Vô Nhiễm
-  <Infinity key="icon-vo-luong" size={32} strokeWidth={2.4} className="text-yellow-400 drop-shadow" />,// Vô Lượng
+  <ShipWheel
+    key="icon-vo-vi"
+    size={32}
+    strokeWidth={2.2}
+    className="text-blue-400 drop-shadow"
+  />, // Vô Vi
+  <Aperture
+    key="icon-vo-nga"
+    size={32}
+    strokeWidth={2.2}
+    className="text-purple-400 drop-shadow"
+  />, // Vô Ngã
+  <SunSnow
+    key="icon-vo-tuong"
+    size={32}
+    strokeWidth={2.2}
+    className="text-gray-400 drop-shadow"
+  />, // Vô Tướng
+  <Radar
+    key="icon-vo-uy"
+    size={32}
+    strokeWidth={2.2}
+    className="text-green-400 drop-shadow"
+  />, // Vô Uý
+  <Pyramid
+    key="icon-vo-nhiem"
+    size={32}
+    strokeWidth={2.2}
+    className="text-cyan-400 drop-shadow"
+  />, // Vô Nhiễm
+  <Infinity
+    key="icon-vo-luong"
+    size={32}
+    strokeWidth={2.4}
+    className="text-yellow-400 drop-shadow"
+  />, // Vô Lượng
 ];

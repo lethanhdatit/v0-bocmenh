@@ -324,12 +324,8 @@ export default function Navigation() {
               <span className="flex items-center gap-2">
                 <span
                   className={`leading-none tabular-nums transition-transform duration-300 ease-in-out
-                            ${
-                              animating
-                                ? "scale-125 text-yellow-500 drop-shadow-lg"
-                                : "scale-100"
-                            }
-                            min-w-[44px] text-right inline-block`}
+                  ${animating ? "scale-125 text-yellow-500 drop-shadow-lg" : "scale-100"}
+                  min-w-[44px] text-right inline-block flex items-center h-[20px]`}
                 >
                   {formatShortNumber(displayFates)}
                 </span>
