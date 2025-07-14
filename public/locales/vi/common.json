@@ -79,7 +79,7 @@
     "tryAgain": "Thử lại",
     "backToHome": "Về trang chủ",
     "fetchError": "Không lấy được thông tin giao dịch",
-    "checkingStatus": "Đang kiểm tra trạng thái...",
+    "checkingStatus": "Đang kiểm tra trạng thái, xin hãy kiên nhẫn...",
     "paymentStatus": {
       "new": "Chờ thanh toán",
       "processing": "Đang xử lý",
