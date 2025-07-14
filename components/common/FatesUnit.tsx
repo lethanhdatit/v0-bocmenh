@@ -1,3 +1,5 @@
+'use client';
+
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -9,6 +11,7 @@ type FatesUnitProps = {
   width?: number | string;
   height?: number | string;
   className?: string;
+  isAura?: boolean;
 };
 
 const sizeMap = {
@@ -26,6 +29,7 @@ export const FatesUnit: React.FC<FatesUnitProps> = ({
   width,
   height,
   className = "",
+  isAura = true
 }) => {
   const s = sizeMap[size] || sizeMap.sm;
   const w = width ?? s.w;
@@ -46,7 +50,7 @@ export const FatesUnit: React.FC<FatesUnitProps> = ({
           width={w}
           height={h}
           style={{ width: w, height: h, display: "inline-block" }}
-          className="object-contain fate-glow"
+          className={`object-contain ${isAura ? "fate-glow" : ""}`}
         />
       )}
     </span>
