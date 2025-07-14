@@ -25,7 +25,7 @@ import {
   SunSnow,
   Aperture,
   ShipWheel,
-  BadgePercent
+  BadgePercent,
 } from "lucide-react";
 
 interface TopupsClientProps {
@@ -45,7 +45,7 @@ export default function TopupsClient({
     null
   );
   const [selectedPaymentGate, setSelectedPaymentGate] = useState<string | null>(
-    paymentGates.length > 0 ? paymentGates[0].id : null
+    paymentGates.find((gate) => gate.active === true)?.id ?? null
   );
   const [isBuying, setIsBuying] = useState(false);
   const paymentRef = useRef<HTMLButtonElement>(null);
