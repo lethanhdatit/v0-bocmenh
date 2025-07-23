@@ -472,8 +472,9 @@
       "title": "Personal Destiny Reading",
       "subtitle": "Uncover the secrets of your life path and purpose",
       "nameLabel": "Full Name",
+      "categoryLabel": "Topic",
       "namePlaceholder": "Enter your full name",
-      "birthDateLabel": "Birth Date",
+      "birthDateLabel": "Birth date time (solar calendar)",
       "birthTimeLabel": "Birth Time (Optional)",
       "birthTimeHint": "Include birth time for more accurate reading",
       "submitButton": "Reveal My Destiny",
@@ -641,85 +642,177 @@
   "genders": [
     {
       "value": 1,
-      "label": "Male"
+      "label": "Male",
+      "key": "male"
     },
     {
       "value": 2,
-      "label": "Female"
+      "label": "Female",
+      "key": "female"
     },
     {
       "value": 3,
-      "label": "Non-binary"
+      "label": "Non-binary",
+      "key": "nonBinary"
     },
     {
       "value": 4,
-      "label": "Transgender Male"
+      "label": "Transgender Male",
+      "key": "transgenderMale"
     },
     {
       "value": 5,
-      "label": "Transgender Female"
+      "label": "Transgender Female",
+      "key": "transgenderFemale"
     },
     {
       "value": 6,
-      "label": "Gender Fluid"
+      "label": "Gender Fluid",
+      "key": "genderFluid"
     },
     {
       "value": 7,
-      "label": "Agender"
+      "label": "Agender",
+      "key": "agender"
     },
     {
       "value": 8,
-      "label": "Two Spirits"
+      "label": "Two Spirits",
+      "key": "twoSpirit"
     },
     {
       "value": 9,
-      "label": "Intersex"
+      "label": "Intersex",
+      "key": "intersex"
     },
     {
       "value": 10,
-      "label": "Other"
+      "label": "Other",
+      "key": "other"
     }
   ],
   "religions": [
     {
       "value": 1,
-      "label": "Buddhism"
+      "label": "Buddhism",
+      "key": "buddhism"
     },
     {
       "value": 2,
-      "label": "Catholicism"
+      "label": "Catholicism",
+      "key": "catholic"
     },
     {
       "value": 3,
-      "label": "Protestantism"
+      "label": "Protestantism",
+      "key": "protestant"
     },
     {
       "value": 4,
-      "label": "Islam"
+      "label": "Islam",
+      "key": "islam"
     },
     {
       "value": 5,
-      "label": "Judaism"
+      "label": "Judaism",
+      "key": "judaism"
     },
     {
       "value": 6,
-      "label": "Hinduism"
+      "label": "Hinduism",
+      "key": "hinduism"
     },
     {
       "value": 7,
-      "label": "Confucianism"
+      "label": "Confucianism",
+      "key": "confucianism"
     },
     {
       "value": 8,
-      "label": "Taoism"
+      "label": "Taoism",
+      "key": "taoism"
     },
     {
       "value": 9,
-      "label": "Atheism"
+      "label": "Atheism",
+      "key": "atheism"
     },
     {
       "value": 10,
-      "label": "Other religion"
+      "label": "Other religion",
+      "key": "other"
+    }
+  ],
+  "batTuTuTruCategories": [
+    {
+      "value": 0,
+      "label": "Wealth – Money – Business",
+      "key": "wealth"
+    },
+    {
+      "value": 1,
+      "label": "Career – Profession – Self Development",
+      "key": "career"
+    },
+    {
+      "value": 2,
+      "label": "Marriage – Love – Children",
+      "key": "marriage"
+    },
+    {
+      "value": 3,
+      "label": "Luck Period – Year – Month – Auspicious Timing",
+      "key": "luckPeriod"
+    },
+    {
+      "value": 4,
+      "label": "Spirituality – Destiny – Mindfulness",
+      "key": "spiritual"
+    },
+    {
+      "value": 5,
+      "label": "Compatibility – Marriage – Business Partnership",
+      "key": "compatibility"
+    },
+    {
+      "value": 6,
+      "label": "Turning Point – Breakthrough – Life Change",
+      "key": "turningPoint"
+    },
+    {
+      "value": 7,
+      "label": "Family Conflict – Psychology – Emotions",
+      "key": "familyConflict"
+    },
+    {
+      "value": 8,
+      "label": "Children – Offspring – Lineage",
+      "key": "children"
+    },
+    {
+      "value": 9,
+      "label": "Karma – Ancestral – Cause and Effect",
+      "key": "karma"
+    },
+    {
+      "value": 10,
+      "label": "Talent – Hidden Destiny – Enlightenment",
+      "key": "talentPotential"
+    },
+    {
+      "value": 11,
+      "label": "Illness – Health – Organs",
+      "key": "health"
+    },
+    {
+      "value": 12,
+      "label": "Divine Spirit – Special Formations",
+      "key": "divineSpirit"
+    },
+    {
+      "value": 13,
+      "label": "Feng Shui – Housing – Directional Luck",
+      "key": "fengShui"
     }
   ]
 }

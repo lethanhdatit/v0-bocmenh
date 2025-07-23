@@ -358,7 +358,7 @@
     "productDetails": "Chi tiết sản phẩm",
     "relatedProducts": "Sản phẩm liên quan",
     "addToCart": "Thêm vào giỏ",
-    "buyNow": "Mua ngay",    
+    "buyNow": "Mua ngay",
     "viewProduct": "Xem sản phẩm",
     "inStock": "Còn hàng",
     "outOfStock": "Hết hàng",
@@ -450,9 +450,10 @@
     "form": {
       "title": "Bóc Mệnh Cá Nhân",
       "subtitle": "Khám phá bí mật về con đường và mục đích cuộc đời của bạn",
-      "nameLabel": "Họ và tên đầy đủ",
+      "nameLabel": "Họ và tên",
+      "categoryLabel": "Chủ đề",
       "namePlaceholder": "Nhập họ và tên đầy đủ",
-      "birthDateLabel": "Ngày sinh",
+      "birthDateLabel": "Ngày sinh (dương lịch)",
       "birthTimeLabel": "Giờ sinh (Tùy chọn)",
       "birthTimeHint": "Bao gồm giờ sinh để có kết quả chính xác hơn",
       "submitButton": "Khám phá vận mệnh",
@@ -635,85 +636,177 @@
   "genders": [
     {
       "value": 1,
-      "label": "Nam"
+      "label": "Nam",
+      "key": "male"
     },
     {
       "value": 2,
-      "label": "Nữ"
+      "label": "Nữ",
+      "key": "female"
     },
     {
       "value": 3,
-      "label": "Phi nhị nguyên"
+      "label": "Phi nhị nguyên",
+      "key": "nonBinary"
     },
     {
       "value": 4,
-      "label": "Nam chuyển giới"
+      "label": "Nam chuyển giới",
+      "key": "transgenderMale"
     },
     {
       "value": 5,
-      "label": "Nữ chuyển giới"
+      "label": "Nữ chuyển giới",
+      "key": "transgenderFemale"
     },
     {
       "value": 6,
-      "label": "Biến đổi giới tính"
+      "label": "Biến đổi giới tính",
+      "key": "genderFluid"
     },
     {
       "value": 7,
-      "label": "Vô giới"
+      "label": "Vô giới",
+      "key": "agender"
     },
     {
       "value": 8,
-      "label": "Hai linh hồn"
+      "label": "Hai linh hồn",
+      "key": "twoSpirit"
     },
     {
       "value": 9,
-      "label": "Intersex"
+      "label": "Intersex",
+      "key": "intersex"
     },
     {
       "value": 10,
-      "label": "Khác"
+      "label": "Khác",
+      "key": "other"
     }
   ],
   "religions": [
     {
       "value": 1,
-      "label": "Phật giáo"
+      "label": "Phật giáo",
+      "key": "buddhism"
     },
     {
       "value": 2,
-      "label": "Công giáo"
+      "label": "Công giáo",
+      "key": "catholic"
     },
     {
       "value": 3,
-      "label": "Tin Lành"
+      "label": "Tin Lành",
+      "key": "protestant"
     },
     {
       "value": 4,
-      "label": "Hồi giáo"
+      "label": "Hồi giáo",
+      "key": "islam"
     },
     {
       "value": 5,
-      "label": "Do Thái giáo"
+      "label": "Do Thái giáo",
+      "key": "judaism"
     },
     {
       "value": 6,
-      "label": "Ấn Độ giáo"
+      "label": "Ấn Độ giáo",
+      "key": "hinduism"
     },
     {
       "value": 7,
-      "label": "Khổng giáo"
+      "label": "Khổng giáo",
+      "key": "confucianism"
     },
     {
       "value": 8,
-      "label": "Tao giáo"
+      "label": "Tao giáo",
+      "key": "taoism"
     },
     {
       "value": 9,
-      "label": "Vô thần"
+      "label": "Vô thần",
+      "key": "atheism"
     },
     {
       "value": 10,
-      "label": "Tôn giáo khác"
+      "label": "Tôn giáo khác",
+      "key": "other"
+    }
+  ],
+  "batTuTuTruCategories": [
+    {
+      "value": 0,
+      "label": "Tài Lộc – Tiền Bạc – Kinh Doanh",
+      "key": "wealth"
+    },
+    {
+      "value": 1,
+      "label": "Sự Nghiệp – Nghề Nghiệp – Phát Triển Bản Thân",
+      "key": "career"
+    },
+    {
+      "value": 2,
+      "label": "Hôn Nhân – Tình Cảm – Con Cái",
+      "key": "marriage"
+    },
+    {
+      "value": 3,
+      "label": "Vận Hạn Năm – Tháng – Thời điểm khởi sự",
+      "key": "luckPeriod"
+    },
+    {
+      "value": 4,
+      "label": "Thiên Cơ – Căn Tu – Tâm Linh",
+      "key": "spiritual"
+    },
+    {
+      "value": 5,
+      "label": "Tuổi Hợp – Kết Hôn – Hợp Tác Làm Ăn",
+      "key": "compatibility"
+    },
+    {
+      "value": 6,
+      "label": "Chuyển Vận – Bứt Phá – Thay Đổi Cuộc Đời",
+      "key": "turningPoint"
+    },
+    {
+      "value": 7,
+      "label": "Xung Khắc Gia Đạo – Tâm Lý – Cảm Xúc",
+      "key": "familyConflict"
+    },
+    {
+      "value": 8,
+      "label": "Sinh Con – Tử Tức – Dòng Tộc",
+      "key": "children"
+    },
+    {
+      "value": 9,
+      "label": "Nghiệp Quả – Âm Phần – Nhân Quả",
+      "key": "karma"
+    },
+    {
+      "value": 10,
+      "label": "Thiên Phú – Thiên Cơ Chưa Mở – Khai Tâm",
+      "key": "talentPotential"
+    },
+    {
+      "value": 11,
+      "label": "Bệnh Tật – Sức Khỏe – Tạng Phủ",
+      "key": "health"
+    },
+    {
+      "value": 12,
+      "label": "Thần Sát – Cách Cục Đặc Biệt",
+      "key": "divineSpirit"
+    },
+    {
+      "value": 13,
+      "label": "Phong Thủy – Nhà Ở – Hướng Vận",
+      "key": "fengShui"
     }
   ]
 }

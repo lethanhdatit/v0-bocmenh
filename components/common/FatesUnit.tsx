@@ -12,6 +12,7 @@ type FatesUnitProps = {
   height?: number | string;
   className?: string;
   isAura?: boolean;
+  style?: React.CSSProperties;
 };
 
 const sizeMap = {
@@ -29,7 +30,8 @@ export const FatesUnit: React.FC<FatesUnitProps> = ({
   width,
   height,
   className = "",
-  isAura = true
+  isAura = true,
+  style,
 }) => {
   const s = sizeMap[size] || sizeMap.sm;
   const w = width ?? s.w;
@@ -49,7 +51,7 @@ export const FatesUnit: React.FC<FatesUnitProps> = ({
           alt={text}
           width={w}
           height={h}
-          style={{ width: w, height: h, display: "inline-block" }}
+          style={{ width: w, height: h, display: "inline-block", ...style }}
           className={`object-contain ${isAura ? "fate-glow" : ""}`}
         />
       )}

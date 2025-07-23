@@ -42,17 +42,20 @@ export default function DestinyForm() {
   const router = useRouter();
 
   const genders = (t("genders", { returnObjects: true }) as Array<any>) || [];
+  const categories = (t("batTuTuTruCategories", { returnObjects: true }) as Array<any>) || [];
 
+  const [name, setName] = useState("");
   const [birthPlace, setBirthPlace] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [birthTime, setBirthTime] = useState("");
   const [gender, setGender] = useState<number>(genders[0].value);
+  const [category, setCategory] = useState<number>(categories[0].value); // <-- thêm state category
   const [formError, setFormError] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setFormError(null);
-    if (!birthPlace.trim() || !birthDate) {
+    if (!name.trim() || !birthDate) {
       setFormError(t("destiny.form.validationError")); // Use namespace
       return;
     }
@@ -62,10 +65,12 @@ export default function DestinyForm() {
     try {
       // Data for the POST request
       const postData = {
-        birthPlace: birthPlace.trim(),
+        name: name.trim(), // <-- thêm name vào postData
+        // birthPlace: birthPlace.trim(),
         birthDate,
         birthTime: birthTime || undefined,
         gender: gender,
+        category: category, // <-- thêm category vào postData
       };
 
       const response = await apiClient.post("/destiny", postData);
@@ -103,6 +108,27 @@ export default function DestinyForm() {
             </div>
           )}
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* --- Name field (ở đầu) --- */}
+            <div>
+              <Label
+                htmlFor="name"
+                className="flex items-center space-x-2 text-yellow-400 font-medium mb-1.5"
+              >
+                <User className="w-5 h-5" />
+                <span>{t("destiny.form.nameLabel", "Họ và tên")}</span>
+              </Label>
+              <Input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="w-full px-4 py-3 bg-gray-800/70 border-gray-700 hover:border-yellow-600/70 focus:border-yellow-500 focus:ring-yellow-500/50 text-white placeholder-gray-500 rounded-lg transition-colors"
+                placeholder={t("destiny.form.namePlaceholder", "Nhập họ tên")}
+              />
+            </div>
+            {/* --- Các trường khác giữ nguyên --- */}
+            {/* ...birthDate, birthTime, birthPlace, gender... */}
             <div>
               <Label
                 htmlFor="birthDate"
@@ -140,7 +166,7 @@ export default function DestinyForm() {
                 {t("destiny.form.birthTimeHint")}
               </p>
             </div>
-            <div>
+            {/* <div>
               <Label
                 htmlFor="birthPlace"
                 className="flex items-center space-x-2 text-yellow-400 font-medium mb-1.5"
@@ -157,7 +183,7 @@ export default function DestinyForm() {
                 className="w-full px-4 py-3 bg-gray-800/70 border-gray-700 hover:border-yellow-600/70 focus:border-yellow-500 focus:ring-yellow-500/50 text-white placeholder-gray-500 rounded-lg transition-colors"
                 placeholder={t("destiny.form.birthPlacePlaceholder")}
               />
-            </div>
+            </div> */}
             <div className="space-y-2">
               <Label className="flex items-center space-x-2 text-yellow-400 font-medium mb-1.5">
                 <User className="w-5 h-5" />
@@ -178,6 +204,32 @@ export default function DestinyForm() {
                       className="ancient-font text-amber-800 hover:bg-amber-100"
                     >
                       {gender.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            {/* --- Category field (ở cuối) --- */}
+            <div className="space-y-2">
+              <Label className="flex items-center space-x-2 text-yellow-400 font-medium mb-1.5">
+                <Stars className="w-5 h-5" />
+                <span>{t("destiny.form.categoryLabel", "Chủ đề quan tâm")}</span>
+              </Label>
+              <Select
+                value={(category ?? categories[0].value).toString()}
+                onValueChange={(value) => setCategory(Number.parseInt(value))}
+              >
+                <SelectTrigger className="w-full px-4 py-3 bg-gray-800/70 border-gray-700 hover:border-yellow-600/70 focus:border-yellow-500 focus:ring-yellow-500/50 text-white placeholder-gray-500 rounded-lg transition-colors">
+                  <SelectValue placeholder={t("destiny.form.categoryLabel", "Chủ đề quan tâm")} />
+                </SelectTrigger>
+                <SelectContent className="bg-amber-50 border-amber-600 max-h-60 overflow-y-auto">
+                  {categories.map((cat: { value: number; label: string }) => (
+                    <SelectItem
+                      key={cat.value}
+                      value={cat.value.toString()}
+                      className="ancient-font text-amber-800 hover:bg-amber-100"
+                    >
+                      {cat.label}
                     </SelectItem>
                   ))}
                 </SelectContent>

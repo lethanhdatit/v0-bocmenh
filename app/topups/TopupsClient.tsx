@@ -148,6 +148,12 @@ export default function TopupsClient({
       showGlobalLoading(t("topups.processing"));
       try {
         await loadMemoCheckout(selectedPackage.id, value);
+        setTimeout(() => {
+        paymentRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
+      }, 250);
       } catch (error) {
         toast({
           title: t("topups.error.common"),

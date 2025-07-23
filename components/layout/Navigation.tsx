@@ -350,7 +350,7 @@ export default function Navigation() {
                     title={t("checkout.fates")}
                     className="font-semibold text-yellow-700 text-base cursor-pointer"
                   >
-                    {myFates !== null && myFates !== 0
+                    {myFates !== null
                       ? myFates.toString()
                       : "--"}
                   </span>
@@ -484,7 +484,7 @@ export default function Navigation() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-black/25 backdrop-blur-md"
+      className="fixed top-0 left-0 right-0 z-50 bg-black/55 backdrop-blur-md"
       role="navigation"
       aria-label="Main navigation"
     >

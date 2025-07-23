@@ -18,13 +18,18 @@ async function destinyApiHandler(
   const { t } = await getTranslations(["common", "destiny"]);
 
   try {
-    const { birthDate, birthTime, birthPlace, gender } = data;
+    const { name, birthDate, birthTime, gender, category } = data;
 
     // Validation
     const errors: Record<string, string> = {};
 
-    if (!birthTime || !birthDate || !birthPlace || !gender) {
-      errors.birthTime = t("destiny.error.invalidInput");
+    if (
+      !name ||
+      !birthDate ||
+      typeof gender !== "number" ||
+      typeof category !== "number"
+    ) {
+      errors.input = t("destiny.error.invalidInput");
     }
 
     if (Object.keys(errors).length > 0) {
@@ -37,9 +42,10 @@ async function destinyApiHandler(
 
     const config = await getConfig(request, session?.accessToken);
 
+    const safeBirthTime =
+      birthTime && birthTime.length >= 4 ? birthTime : "00:00";
     const timeWithSeconds =
-      birthTime.length === 5 ? birthTime + ":00" : birthTime;
-
+      safeBirthTime.length === 5 ? safeBirthTime + ":00" : safeBirthTime;
     const combinedDateTimeString = `${birthDate}T${timeWithSeconds}`;
     // const dateObjectLocal = new Date(combinedDateTimeString);
     // const birthDateTimeISO = dateObjectLocal.toISOString();
@@ -47,8 +53,9 @@ async function destinyApiHandler(
     const response = await apiServer.post(
       "/bocmenh/tuTruBatTu",
       {
+        name: name,
+        category: category,
         birthDateTime: combinedDateTimeString,
-        birthPlace: birthPlace,
         gender: gender,
       },
       config
