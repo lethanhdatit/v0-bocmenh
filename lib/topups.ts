@@ -123,6 +123,16 @@ export async function cancelTopup(
   return response.data.data;
 }
 
+export async function payService(
+  id: string
+): Promise<any> {
+  const response = await apiClient.post<{ data: any }>(
+    `/transaction/pay`,
+    { id }
+  );
+  return response.data.data;
+}
+
 export async function getTransactionStatus(
   transId: string
 ): Promise<TransactionStatusResponse> {
