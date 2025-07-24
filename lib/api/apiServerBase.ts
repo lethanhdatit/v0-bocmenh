@@ -63,11 +63,13 @@ export function baseResponse({
   data,
   message,
   errors,
+  beErrorCode,
 }: {
   status: number;
   data?: any;
   message?: string;
   errors?: any;
+  beErrorCode?: string;
 }) {
   if (status == 401) {
     return NextResponse.json(
@@ -76,6 +78,7 @@ export function baseResponse({
           success: false,
           message: message ?? "Authentication required.",
           errorCode: "AUTH_REQUIRED_RETRY",
+          beErrorCode,
           errors,
           data,
           forwardData: data,
@@ -90,6 +93,7 @@ export function baseResponse({
       encrypted: encryptData({
         success: status === 200,
         message,
+        beErrorCode,
         errors,
         data,
       } as ApiBaseResponse),
@@ -116,7 +120,8 @@ export async function handleApiServerError(
       general:
         status === 400 ? options.error400Message : options.errorCommonMessage,
     },
-    data
+    data,
+    beErrorCode: error?.data?.data[0]?.code
   };
 
   if (status === 401) {
