@@ -1,4 +1,3 @@
-
 // TuTruBatTuRequest
 export interface TuTruBatTuRequest {
   name: string;
@@ -81,11 +80,89 @@ export interface DestinyResult {
   id: string;
   servicePrice: number | undefined;
   input: TuTruBatTuRequest;
-  preData: LaSoBatTuResponse;
+  preData: PreDataModel;
   explanation: TheologyBaseResult;
 }
 
 interface Product {
   id: string;
   // ...other fields
+}
+
+export interface PreDataDate {
+  date: string; // ISO string
+  isLeapMonth: boolean;
+  dayOfWeek: {
+    code: string;
+    name: string;
+  };
+}
+
+export interface PreDataCanChiValue {
+  value: string;
+  no: number;
+  display: string;
+}
+
+export interface PreDataCanChi {
+  value: PreDataCanChiValue;
+  amDuong: {
+    value: string;
+    no: number;
+    display: string;
+  };
+  nguHanhBanMenh: {
+    value: string;
+    no: number;
+    display: string;
+  };
+  thapThan?: string[];
+  display: string;
+}
+
+export interface PreDataNapAm {
+  value: PreDataCanChiValue;
+  display: string;
+}
+
+export interface PreDataTru {
+  can: PreDataCanChi;
+  chi: PreDataCanChi;
+  napAm: PreDataNapAm;
+  vongTruongSinh: string[];
+  thanSat: string[];
+  thapThan: string[];
+  shortDisplay: string;
+  isLeap?: boolean;
+}
+
+export interface PreDataTuTru {
+  day: PreDataTru;
+  month: PreDataTru;
+  year: PreDataTru;
+  hour: PreDataTru;
+}
+
+export interface PreDataCanHour0 {
+  Can: {
+    No: number;
+    Value: number;
+    Display: string;
+  };
+  Chi: {
+    No: number;
+    Value: number;
+    Display: string;
+  };
+}
+
+export interface PreDataModel {
+  solarDate: PreDataDate;
+  lunarDate: PreDataDate;
+  isLeapMonth: boolean;
+  tuTru: PreDataTuTru;
+  canHour0: PreDataCanHour0;
+  solarTerm: string;
+  buddhistCalendar: number;
+  auspiciousHour: string;
 }

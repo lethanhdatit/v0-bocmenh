@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { InputInfoSection } from "./InputInfoSection";
 import { ExplanationSection } from "./ExplanationSection";
-import { LaSoTuTruSection } from "./LaSoTuTruSection";
+import { LaSoBatTuSection } from "./LaSoBatTuSection";
 import { DestinyResult } from "./types";
 import useSWR from "swr";
 import { apiClient } from "@/lib/api/apiClient";
@@ -100,7 +100,7 @@ export default function DestinyResultClient({ id }: { id: string }) {
         categories={categories}
         t={t}
       />
-      <LaSoTuTruSection preData={preData} t={t} />
+      <LaSoBatTuSection preData={preData} t={t} />
       <div>
         <ExplanationSection
           result={result}
