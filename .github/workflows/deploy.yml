@@ -6,7 +6,7 @@ on:
       - production
 
 jobs:
-  build_and_save_image:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -26,7 +26,7 @@ jobs:
       - name: Override .env from secret
         run: |
           echo "${{ secrets.ENV_PRODUCTION_BASE64 }}" | base64 -d > .env
-      
+
       - name: Build Docker image
         run: |
           docker-compose -f docker-compose.yml build
@@ -38,38 +38,11 @@ jobs:
           sudo chmod 777 bocmenh.tar
           ls -l bocmenh.tar
 
-      - name: Verify tar file content
-        run: |
-          if [ ! -f bocmenh.tar ] || [ ! -s bocmenh.tar ]; then
-            echo "Tar file does not exist or is empty!"
-            exit 1
-          fi
-          echo "Tar file is valid."
-
-      - name: Upload Docker image as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: bocmenh-image
-          path: bocmenh.tar
-
-  deploy_to_vm:
-    needs: build_and_save_image
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download Docker image artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: bocmenh-image
-
-      - name: List files in workspace
-        run: |
-          ls -la
-
       - name: Generate deploy directory name
         id: vars
         run: echo "DEPLOY_DIR=~/deploy-bocmenh-$(date +%s)" >> $GITHUB_ENV
-        
-      - name: Copy files to Azure VM
+
+      - name: Copy image tar to Azure VM
         uses: appleboy/scp-action@v0.1.6
         with:
           host: ${{ secrets.AZURE_VM_IP }}
@@ -92,11 +65,9 @@ jobs:
             echo "${{ secrets.AZURE_VM_PASSWORD }}" | sudo -S chown ${{ secrets.AZURE_VM_USER }}:${{ secrets.AZURE_VM_USER }} /etc/nginx/upstreams/bocmenh-upstream.conf
             echo "${{ secrets.AZURE_VM_PASSWORD }}" | sudo -S chmod 644 /etc/nginx/upstreams/bocmenh-upstream.conf
 
-            # Find current port (9500/9501) from upstream file
             CURRENT_PORT=$(grep -oP 'http://127.0.0.1:\K[0-9]+' /etc/nginx/upstreams/bocmenh-upstream.conf || echo "9500")
             echo "Current port in use: $CURRENT_PORT"
 
-            # Choose new port
             if [ "$CURRENT_PORT" -eq "9500" ]; then
               NEW_PORT=9501
             else
@@ -104,27 +75,18 @@ jobs:
             fi
             echo "Using new port: $NEW_PORT"
 
-            echo "Checking for containers using port $NEW_PORT..."
             containers_using_port=$(docker ps -a --filter "publish=$NEW_PORT" --format "{{.ID}}")
-
             if [ -n "$containers_using_port" ]; then
-                echo "Stopping and removing containers using port $NEW_PORT..."
                 echo "$containers_using_port" | xargs -r docker stop
                 echo "$containers_using_port" | xargs -r docker rm
-            else
-                echo "No containers are using port $NEW_PORT."
             fi
 
-            # Load Docker image from tar file and run it
-            echo "Loading Docker image...."
             docker load -i bocmenh.tar
 
-            # Run container on the new port
             export ACEAS=${{ secrets.API_CALL_ENCRYPTION_AES_SECRET }}
             export SESSION_SECRET=${{ secrets.SESSION_SECRET }}
             docker run -d -p $NEW_PORT:9500 --name bocmenh-temp -e FE_PORT=$NEW_PORT bocmenh:latest
 
-            # Health check
             timeout=30
             until curl -s http://localhost:$NEW_PORT > /dev/null || [ $timeout -le 0 ]; do
               echo "Waiting for app to respond on port $NEW_PORT..."
@@ -142,40 +104,22 @@ jobs:
 
             echo "✅ App is healthy on port $NEW_PORT"
 
-            # Update NGINX upstream config
             echo "proxy_pass http://127.0.0.1:$NEW_PORT;" | tee /etc/nginx/upstreams/bocmenh-upstream.conf
-
             echo "${{ secrets.AZURE_VM_PASSWORD }}" | sudo -S nginx -s reload
             echo "${{ secrets.AZURE_VM_PASSWORD }}" | sudo -S nginx -t
-            echo "NGINX reloaded and now using port $NEW_PORT"
 
-            # Wait 4s to ensure new version served
             sleep 4
 
-            # Clean up old containers
             new_container=$(docker ps --filter "name=bocmenh-temp" --format "{{.ID}}")
 
-            echo "New container ID: $new_container"
-
-            echo "Stopping the following containers:"
             docker ps --filter "name=bocmenh" --format "{{.ID}} {{.Ports}}" | grep ":$CURRENT_PORT->" | awk '{print $1}' | grep -v "$new_container" | xargs -r docker stop
-
-            echo "Removing the following containers:"
             docker ps -a --filter "name=bocmenh" --format "{{.ID}} {{.Ports}}" | grep ":$CURRENT_PORT->" | awk '{print $1}' | grep -v "$new_container" | xargs -r docker rm
-            
+
             docker container prune -f
             docker system prune -a --volumes -f
 
-            sleep 2
-
-            docker ps -a
-
-            echo "Renaming 'bocmenh-temp' to 'bocmenh'"
             docker rename bocmenh-temp bocmenh
 
-            docker ps -a
-
-            # Clean up old deploy folders
             current_dir_name=$(basename "${{ env.DEPLOY_DIR }}")
             for dir in ~/deploy-bocmenh-*; do
               dir_name=$(basename "$dir")
@@ -187,13 +131,3 @@ jobs:
 
             docker container prune -f
             docker system prune -a --volumes -f
-
-  clear_artifacts:
-    needs: deploy_to_vm
-    runs-on: ubuntu-latest
-    steps:
-      - name: Delete all workflow artifacts
-        uses: geekyeggo/delete-artifact@v2
-        with:
-          name: bocmenh-image
-          failOnError: false
