@@ -136,15 +136,23 @@ export default function DestinyForm() {
             <Clock className="w-5 h-5" />
             <span>{t("destiny.form.birthTimeLabel")}</span>
           </Label>
-          <Input
-            id="birthTime"
-            type="time"
+          <Select
             value={birthTime}
-            onChange={(e) => setBirthTime(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-800/70 border-gray-700 hover:border-yellow-600/70 focus:border-yellow-500 focus:ring-yellow-500/50 text-white rounded-lg transition-colors"
-          />
+            onValueChange={(value) => setBirthTime(value)}
+          >
+            <SelectTrigger className="w-full px-4 py-3 bg-gray-800/70 border-gray-700 hover:border-yellow-600/70 focus:border-yellow-500 focus:ring-yellow-500/50 text-white rounded-lg transition-colors">
+              <SelectValue placeholder="Chọn giờ sinh (0-23)" />
+            </SelectTrigger>
+            <SelectContent className="bg-amber-50 border-amber-600 max-h-60 overflow-y-auto">
+              {[...Array(24).keys()].map((h) => (
+                <SelectItem key={h} value={h.toString()}>
+                  {h.toString().padStart(2, "0")}h
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <p className="text-xs text-gray-400 mt-1">
-            {t("destiny.form.birthTimeHint")}
+            {t("destiny.form.birthTimeHint", "Chỉ chọn số giờ (0-23)")}
           </p>
         </div>
         {/* <div>
