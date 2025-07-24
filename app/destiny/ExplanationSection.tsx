@@ -7,9 +7,8 @@ import {
   GodInfo,
   FengShuiItem,
 } from "./types";
-import React from "react";
+import React, { forwardRef } from "react";
 import ReactMarkdown from "react-markdown";
-import { on } from "events";
 
 // Màu sắc cho ngũ hành
 const ELEMENT_COLORS: Record<string, string> = {
@@ -179,30 +178,39 @@ function FengShuiTable({ items }: { items: FengShuiItem[] }) {
 
 function LockedSectionNotice({ onPayClick }: { onPayClick?: () => void }) {
   return (
-    <div onClick={onPayClick} className={`flex flex-col items-center justify-center my-4 ${onPayClick ? "cursor-pointer" : ""}`}>
+    <div
+      onClick={onPayClick}
+      className={`flex flex-col items-center justify-center my-4 ${
+        onPayClick ? "cursor-pointer" : ""
+      }`}
+    >
       <div className="bg-yellow-100 border border-yellow-400 text-yellow-800 rounded-lg px-3 py-2 flex items-center gap-2 shadow animate-pulse">
         <LockKeyhole className="w-5 h-5 text-yellow-500" />
-        <span className="text-xs">Nội dung này đang khoá. nhấn vào đây để mở khoá</span>
+        <span className="text-xs">
+          Nội dung này đang khoá. nhấn vào đây để mở khoá
+        </span>
       </div>
     </div>
   );
 }
 
-export function ExplanationSection({
-  result,
-  t,
-  isPaid,
-  loading,
-  children,
-  onPayClick,
-}: {
-  result: TuTruAnalysisResult | undefined;
+// Define the props type for ExplanationSection
+type ExplanationSectionProps = {
+  result: TuTruAnalysisResult;
   t: any;
   isPaid: boolean;
-  loading?: boolean;
+  loading: boolean;
   children?: React.ReactNode;
   onPayClick?: () => void;
-}) {
+};
+
+export const ExplanationSection = forwardRef<
+  HTMLDivElement,
+  ExplanationSectionProps
+>(function ExplanationSection(
+  { result, t, isPaid, loading, children, onPayClick },
+  ref
+) {
   if (loading) {
     return (
       <section className="p-6 bg-gray-900/80 rounded-xl border border-yellow-500/30 shadow-lg flex flex-col items-center justify-center min-h-[200px]">
@@ -219,7 +227,10 @@ export function ExplanationSection({
   }
 
   return (
-    <section className="p-6 bg-gray-900/80 rounded-xl border border-yellow-500/30 shadow-lg">
+    <section
+      ref={ref}
+      className="p-6 bg-gray-900/80 rounded-xl border border-yellow-500/30 shadow-lg"
+    >
       <h2 className="text-2xl font-bold text-yellow-400 mb-4 flex items-center gap-2">
         <Gift className="w-6 h-6" />
         {t("destiny.result.analysis", "Luận giải chi tiết")}
@@ -238,9 +249,13 @@ export function ExplanationSection({
             <LockedSectionNotice onPayClick={onPayClick} />
           ) : (
             <>
-              <RenderKeyPoint key_point={result.day_master_analysis?.key_point} />
+              <RenderKeyPoint
+                key_point={result.day_master_analysis?.key_point}
+              />
               <RenderDetailedAnalysis
-                detailed_analysis={result.day_master_analysis?.detailed_analysis}
+                detailed_analysis={
+                  result.day_master_analysis?.detailed_analysis
+                }
               />
             </>
           )}
@@ -259,12 +274,18 @@ export function ExplanationSection({
             <LockedSectionNotice onPayClick={onPayClick} />
           ) : (
             <>
-              <RenderKeyPoint key_point={result.five_elements_analysis?.key_point} />
+              <RenderKeyPoint
+                key_point={result.five_elements_analysis?.key_point}
+              />
               <RenderDetailedAnalysis
-                detailed_analysis={result.five_elements_analysis?.detailed_analysis}
+                detailed_analysis={
+                  result.five_elements_analysis?.detailed_analysis
+                }
               />
               <div className="flex justify-center">
-                <FiveElementsBarChart analysis={result.five_elements_analysis} />
+                <FiveElementsBarChart
+                  analysis={result.five_elements_analysis}
+                />
               </div>
             </>
           )}
@@ -301,7 +322,9 @@ export function ExplanationSection({
             result.useful_and_unfavorable_gods?.key_point,
             result.useful_and_unfavorable_gods?.detailed_analysis,
             result.useful_and_unfavorable_gods?.useful_gods?.elements?.join(""),
-            result.useful_and_unfavorable_gods?.unfavorable_gods?.elements?.join("")
+            result.useful_and_unfavorable_gods?.unfavorable_gods?.elements?.join(
+              ""
+            )
           ) ? (
             <LockedSectionNotice onPayClick={onPayClick} />
           ) : (
@@ -316,9 +339,13 @@ export function ExplanationSection({
                   label="Kỵ thần"
                 />
               </div>
-              <RenderKeyPoint key_point={result.useful_and_unfavorable_gods?.key_point} />
+              <RenderKeyPoint
+                key_point={result.useful_and_unfavorable_gods?.key_point}
+              />
               <RenderDetailedAnalysis
-                detailed_analysis={result.useful_and_unfavorable_gods?.detailed_analysis}
+                detailed_analysis={
+                  result.useful_and_unfavorable_gods?.detailed_analysis
+                }
               />
             </>
           )}
@@ -415,11 +442,17 @@ export function ExplanationSection({
             <LockedSectionNotice onPayClick={onPayClick} />
           ) : (
             <>
-              <RenderKeyPoint key_point={result.improvement_suggestions?.key_point} />
-              <RenderDetailedAnalysis
-                detailed_analysis={result.improvement_suggestions?.detailed_analysis}
+              <RenderKeyPoint
+                key_point={result.improvement_suggestions?.key_point}
               />
-              <FengShuiTable items={result.improvement_suggestions?.feng_shui_items || []} />
+              <RenderDetailedAnalysis
+                detailed_analysis={
+                  result.improvement_suggestions?.detailed_analysis
+                }
+              />
+              <FengShuiTable
+                items={result.improvement_suggestions?.feng_shui_items || []}
+              />
             </>
           )}
         </section>
@@ -448,4 +481,4 @@ export function ExplanationSection({
       {children}
     </section>
   );
-}
+});

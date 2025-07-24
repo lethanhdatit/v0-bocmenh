@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import Link from "next/link";
+import { useState, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { InputInfoSection } from "./InputInfoSection";
@@ -43,7 +42,7 @@ export default function DestinyResultClient({ id }: { id: string }) {
     refreshInterval: (data: DestinyResult | undefined) => {
       const explanation = data?.explanation;
       const result = explanation?.paidResult ?? explanation?.freeResult;
-      if (!result) return 2000;
+      if (!result) return 3000;
       if (justPaid && !explanation?.paidResult) return 1000;
       return 0;
     },
@@ -63,6 +62,12 @@ export default function DestinyResultClient({ id }: { id: string }) {
       await pay(id);
       setShowPayDialog(false);
       setJustPaid(true);
+      setTimeout(() => {
+        explanationRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 2000);
       toast({
         title: t("destiny.result.paySuccessTitle", "Thanh toán thành công!"),
         description: t(
@@ -73,16 +78,34 @@ export default function DestinyResultClient({ id }: { id: string }) {
       });
       mutate();
     } catch (err: any) {
-      toast({
-        title: t("destiny.result.payErrorTitle", "Thanh toán thất bại!"),
-        description: err?.message || t("common.errorUnexpected"),
-        variant: "destructive",
-      });
+      setPaying(false);
+      setShowPayDialog(false);
+      if (err?.response?.data?.beErrorCode === "FatesNotEnough") {
+        toast({
+          title: t("destiny.result.payErrorFatesTitle", "Không đủ điểm duyên!"),
+          description: t(
+            "destiny.result.payErrorFatesDesc",
+            "Bạn cần có ít nhất {{price}} điểm duyên để mở khoá toàn bộ luận giải.",
+            { price: destinyResult?.servicePrice?.toLocaleString() || "--" }
+          ),
+          variant: "destructive",
+        });
+        return;
+      } else {
+        toast({
+          title: t("destiny.result.payErrorTitle", "Thanh toán thất bại!"),
+          description: err?.message || t("common.errorUnexpected"),
+          variant: "destructive",
+        });
+      }
     } finally {
       setPaying(false);
+      setShowPayDialog(false);
       hideGlobalLoading();
     }
   };
+
+  const explanationRef = useRef<HTMLDivElement>(null);
 
   if (isLoading)
     return <div className="text-center py-12">{t("common.loading")}</div>;
@@ -103,6 +126,7 @@ export default function DestinyResultClient({ id }: { id: string }) {
       <LaSoBatTuSection preData={preData} t={t} />
       <div>
         <ExplanationSection
+          ref={explanationRef}
           result={result}
           t={t}
           isPaid={isPaid}

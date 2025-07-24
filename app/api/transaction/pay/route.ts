@@ -35,7 +35,7 @@ async function payTheologyApiHandler(
       message: "ok",
       data: desResult,
     });
-  } catch (error) {
+  } catch (error : any | unknown) {
     return handleApiServerError(
       error,
       {

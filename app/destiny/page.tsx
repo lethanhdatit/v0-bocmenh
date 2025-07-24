@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import DestinyForm from "@/components/forms/DestinyForm";
-import ProductCard from "@/components/store/ProductCard";
-import { getProducts, type Product } from "@/lib/products";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Sparkles, Gift, ChevronRight } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
 import { getTranslations } from "@/i18n/server"; // Assuming you have a server-side translation utility
 import DestinyResultClient from "./DestinyResultClient";
 
@@ -97,13 +99,25 @@ export default async function DestinyPage({
   return (
     <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-gray-950 via-slate-900 text-gray-100">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {!id && (
-          <div className="mb-12">
-            <DestinyForm />
-          </div>
-        )}
+        <Card className="w-full max-w-lg mx-auto bg-gray-900/80 border-yellow-500/30 shadow-xl backdrop-blur-sm">
+          <CardHeader className="text-center">
+            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
+              {t("destiny.form.title")}
+            </CardTitle>
+            <CardDescription className="text-gray-300 mt-1 text-left">
+              <i>{t("features.destiny.description")}</i>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {!id && (
+              <div className="mb-12">
+                <DestinyForm />
+              </div>
+            )}
 
-        {id && <DestinyResultClient id={id} />}
+            {id && <DestinyResultClient id={id} />}
+          </CardContent>
+        </Card>
       </div>
     </main>
   );
