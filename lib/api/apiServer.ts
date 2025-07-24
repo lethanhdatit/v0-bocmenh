@@ -26,6 +26,7 @@ export async function getConfig(
     "Accept-Language",
     "X-Forwarded-For",
     "X-Forwarded-Host",
+    "X-Time-Zone-Id",
   ]
 ) {
   const headers: Record<string, string> = {
