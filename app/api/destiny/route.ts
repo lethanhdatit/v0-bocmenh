@@ -42,13 +42,11 @@ async function destinyApiHandler(
 
     const config = await getConfig(request, session?.accessToken);
 
-    const safeBirthTime =
-      birthTime && birthTime.length >= 4 ? birthTime : "00:00";
-    const timeWithSeconds =
-      safeBirthTime.length === 5 ? safeBirthTime + ":00" : safeBirthTime;
-    const combinedDateTimeString = `${birthDate}T${timeWithSeconds}`;
-    // const dateObjectLocal = new Date(combinedDateTimeString);
-    // const birthDateTimeISO = dateObjectLocal.toISOString();
+    const hour = typeof birthTime === "number"
+      ? birthTime
+      : Number.parseInt(birthTime || "0", 10);
+    const hourStr = hour.toString().padStart(2, "0");
+    const combinedDateTimeString = `${birthDate}T${hourStr}:00:00`;
 
     const response = await apiServer.post(
       "/bocmenh/tuTruBatTu",
