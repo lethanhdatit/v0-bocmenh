@@ -15,6 +15,8 @@ import { getBaseUrl } from "@/lib/infra/utils";
 import GlobalLoadingWrapper from "@/components/ui/GlobalLoadingWrapper";
 import { MyFatesProvider } from "@/contexts/MyFatesContext";
 import { LayoutVisibilityProvider } from "@/contexts/LayoutVisibilityContext";
+import { Toaster } from "@/components/ui/toaster"; // hoặc đúng đường dẫn của bạn
+
 
 const baseUrl = getBaseUrl();
 const inter = Inter({ subsets: ["latin", "vietnamese"] });
@@ -236,6 +238,7 @@ export default function RootLayout({
                     </main>
                     <Footer />
                   </div>
+                  <Toaster />
                   <AuthModals />
                   <ScrollControls />
                   <AuthSetup />
