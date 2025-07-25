@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
-import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { InputInfoSection } from "./InputInfoSection";
 import { ExplanationSection } from "./ExplanationSection";
@@ -9,24 +8,19 @@ import { LaSoBatTuSection } from "./LaSoBatTuSection";
 import { DestinyResult } from "./types";
 import useSWR from "swr";
 import { apiClient } from "@/lib/api/apiClient";
-import { usePayService } from "@/hooks/usePayService";
-import { showGlobalLoading, hideGlobalLoading } from "@/lib/utils";
-import { toast } from "@/hooks/use-toast";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { FatesUnit } from "@/components/common/FatesUnit";
+  PaymentDialog,
+  PaymentButton,
+} from "@/components/common/PaymentDialog";
+import { usePayment } from "@/hooks/usePayService";
+
+const serviceName = "Luận giải Bát tự";
 
 export default function DestinyResultClient({ id }: { id: string }) {
   const { t } = useTranslation(["common", "destiny", "attributes"]);
   const [showPayDialog, setShowPayDialog] = useState(false);
-  const [paying, setPaying] = useState(false);
   const [justPaid, setJustPaid] = useState(false);
-  const pay = usePayService();
+  const explanationRef = useRef<HTMLDivElement>(null);
 
   // SWR fetcher
   const fetchDestinyResult = useCallback(async () => {
@@ -50,68 +44,32 @@ export default function DestinyResultClient({ id }: { id: string }) {
     revalidateOnReconnect: false,
   });
 
+  // Đặt giá trị mặc định cho servicePrice để dùng cho hook
+  const servicePrice = destinyResult?.servicePrice ?? 0;
+
+  // Luôn gọi hook ở đầu component
+  const { paying, handlePay } = usePayment({
+    id,
+    serviceName,
+    servicePrice,
+    scrollToRef: explanationRef,
+    onSuccess: () => {
+      setShowPayDialog(false);
+      setJustPaid(true);
+      mutate();
+    },
+    onError: () => setShowPayDialog(false),
+  });
+
   const genders = (t("genders", { returnObjects: true }) as Array<any>) || [];
   const categories =
     (t("batTuTuTruCategories", { returnObjects: true }) as Array<any>) || [];
-
-  // Xử lý thanh toán
-  const handlePay = async () => {
-    setPaying(true);
-    showGlobalLoading(t("destiny.result.paying"));
-    try {
-      await pay(id);
-      setShowPayDialog(false);
-      setJustPaid(true);
-      setTimeout(() => {
-        explanationRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }, 2000);
-      toast({
-        title: t("destiny.result.paySuccessTitle", "Thanh toán thành công!"),
-        description: t(
-          "destiny.result.paySuccessDesc",
-          "Vui lòng chờ hệ thống cập nhật kết quả luận giải đầy đủ."
-        ),
-        variant: "default", // Sửa lại thành "default"
-      });
-      mutate();
-    } catch (err: any) {
-      setPaying(false);
-      setShowPayDialog(false);
-      if (err?.response?.data?.beErrorCode === "FatesNotEnough") {
-        toast({
-          title: t("destiny.result.payErrorFatesTitle", "Không đủ điểm duyên!"),
-          description: t(
-            "destiny.result.payErrorFatesDesc",
-            "Bạn cần có ít nhất {{price}} điểm duyên để mở khoá toàn bộ luận giải.",
-            { price: destinyResult?.servicePrice?.toLocaleString() || "--" }
-          ),
-          variant: "destructive",
-        });
-        return;
-      } else {
-        toast({
-          title: t("destiny.result.payErrorTitle", "Thanh toán thất bại!"),
-          description: err?.message || t("common.errorUnexpected"),
-          variant: "destructive",
-        });
-      }
-    } finally {
-      setPaying(false);
-      setShowPayDialog(false);
-      hideGlobalLoading();
-    }
-  };
-
-  const explanationRef = useRef<HTMLDivElement>(null);
 
   if (isLoading)
     return <div className="text-center py-12">{t("common.loading")}</div>;
   if (!destinyResult) return null;
 
-  const { servicePrice, input, preData, explanation } = destinyResult;
+  const { input, preData, explanation } = destinyResult;
   const isPaid = Boolean(explanation?.paidResult);
   const result = explanation?.paidResult ?? explanation?.freeResult;
 
@@ -124,102 +82,33 @@ export default function DestinyResultClient({ id }: { id: string }) {
         t={t}
       />
       <LaSoBatTuSection preData={preData} t={t} />
-      <div>
-        <ExplanationSection
-          ref={explanationRef}
-          result={result}
-          t={t}
-          isPaid={isPaid}
-          loading={!result}
-          onPayClick={() => setShowPayDialog(true)}
-        >
-          {!isPaid && (
-            <div className="flex flex-col items-center mt-12">
-              {/* Nút thanh toán */}
-              <Button
-                onClick={() => setShowPayDialog(true)}
-                className="bg-[#18181c] hover:bg-[#23232a] text-yellow-400 font-bold px-8 py-3 text-lg rounded-lg shadow-lg border-2 border-yellow-600 flex items-center gap-2 transition-all"
-                style={{ letterSpacing: 0.5 }}
-                disabled={paying}
-              >
-                <span className="font-bold text-lg text-yellow-700 text-base">
-                  {servicePrice?.toLocaleString() ?? "--"}
-                </span>
-                <FatesUnit
-                  type="icon"
-                  width={22}
-                  height={22}
-                  className="mr-1"
-                  isAura={true}
-                />
-
-                <span className="mx-2 text-yellow-400 font-extrabold">|</span>
-                <span className="font-semibold">
-                  {t("destiny.result.payToUnlock", "Mở khoá toàn bộ")}
-                </span>
-              </Button>
-            </div>
-          )}
-        </ExplanationSection>
-      </div>
-      {/* <div className="text-center mt-10">
-        <Link href="/destiny">
-          <Button
-            variant="outline"
-            className="bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-gray-900 border-yellow-600 hover:border-yellow-700 px-8 py-3 text-base font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-          >
-            {t("destiny.result.viewForAnother")}
-          </Button>
-        </Link>
-      </div> */}
-      {/* Dialog xác nhận thanh toán */}
-      <Dialog open={showPayDialog} onOpenChange={setShowPayDialog}>
-        <DialogContent className="bg-gradient-to-br bg-gray-900/95 backdrop-blur-md border-2 border-yellow-400 shadow-2xl">
-          <DialogHeader>
-            <DialogTitle className="text-white-900 text-xl font-bold flex items-center gap-2">
-              <FatesUnit
-                type="icon"
-                width={22}
-                height={22}
-                className="drop-shadow"
-              />
-              {t("destiny.result.payConfirmTitle", "Xác nhận")}
-            </DialogTitle>
-          </DialogHeader>
-          <div className="py-4 text-base text-white-900 font-medium">
-            {t(
-              "destiny.result.payConfirmDesc",
-              `Sử dụng ${
-                servicePrice?.toLocaleString() ?? "--"
-              } điểm duyên để mở khoá toàn bộ luận giải?`
-            )}
+      <ExplanationSection
+        ref={explanationRef}
+        result={result}
+        t={t}
+        isPaid={isPaid}
+        loading={!result}
+        onPayClick={() => setShowPayDialog(true)}
+      >
+        {!isPaid && (
+          <div className="flex flex-col items-center mt-12">
+            <PaymentButton
+              servicePrice={servicePrice}
+              onClick={() => setShowPayDialog(true)}
+              disabled={paying}
+              label={t("destiny.result.payToUnlock", "Mở khoá toàn bộ")}
+            />
           </div>
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setShowPayDialog(false)}
-              disabled={paying}
-              className="border border-gray-400 text-gray-700 bg-gray-100 hover:bg-gray-200 font-semibold"
-            >
-              {t("common.cancel")}
-            </Button>
-            <Button
-              onClick={handlePay}
-              className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-500 text-gray-900 font-bold border-2 border-yellow-600 hover:from-yellow-500 hover:to-amber-600 shadow-lg"
-              disabled={paying}
-            >
-              {paying ? (
-                <span className="flex items-center gap-2">
-                  <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-yellow-600" />
-                  {t("destiny.result.payNow", "Mở ngay")}
-                </span>
-              ) : (
-                t("destiny.result.payNow", "Mở ngay")
-              )}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+        )}
+      </ExplanationSection>
+      <PaymentDialog
+        open={showPayDialog}
+        onOpenChange={setShowPayDialog}
+        serviceName={serviceName}
+        servicePrice={servicePrice}
+        onConfirm={handlePay}
+        paying={paying}
+      />
     </div>
   );
 }

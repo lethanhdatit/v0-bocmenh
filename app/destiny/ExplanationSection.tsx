@@ -26,10 +26,14 @@ function ElementTag({
   element: string;
   children?: React.ReactNode;
 }) {
+  const colorKey =
+    typeof element === "string" && element.length > 0
+      ? element.charAt(0).toUpperCase() + element.slice(1).toLowerCase()
+      : "";
   return (
     <span
       className={`inline-block px-2 py-0.5 rounded font-semibold mr-1 mb-1 text-xs ${
-        ELEMENT_COLORS[element] || "bg-gray-200 text-gray-800"
+        ELEMENT_COLORS[colorKey] || "bg-gray-200 text-gray-800"
       }`}
     >
       {children ?? element}
@@ -46,24 +50,33 @@ function FiveElementsBarChart({
   const max = Math.max(...analysis.element_distribution.map((e) => e.count));
   return (
     <div className="flex items-center gap-3 h-18 mt-6">
-      {analysis.element_distribution.map((el) => (
-        <div key={el.element} className="flex flex-col items-center">
-          <div
-            className={`w-8 rounded-t ${
-              ELEMENT_COLORS[el.element] || "bg-gray-300"
-            }`}
-            style={{
-              height: `${(el.count / (max || 1)) * 100}%`,
-              minHeight: 12,
-              transition: "height 0.3s",
-            }}
-            title={`${el.element}: ${el.count} (${el.strength})`}
-          />
-          <span className="mt-1 font-bold text-xs">{el.count}</span>
-          <ElementTag element={el.element}>{el.element}</ElementTag>
-          <span className="text-xs text-gray-400">{el.strength}</span>
-        </div>
-      ))}
+      {analysis.element_distribution.map((el) => {
+        const colorKey =
+          typeof el.element === "string" && el.element.length > 0
+            ? el.element.charAt(0).toUpperCase() +
+              el.element.slice(1).toLowerCase()
+            : "";
+        return (
+          <div key={el.element} className="flex flex-col items-center">
+            <div
+              className={`w-8 rounded-t ${
+                ELEMENT_COLORS[colorKey] || "bg-gray-300"
+              }`}
+              style={{
+                height: `${(el.count / (max || 1)) * 100}%`,
+                minHeight: 12,
+                transition: "height 0.3s",
+              }}
+              title={`${el.element}: ${el.count} (${el.strength})`}
+            />
+            <span className="mt-1 font-bold text-xs text-white">
+              {el.count}
+            </span>
+            <ElementTag element={el.element}>{el.element}</ElementTag>
+            <span className="text-xs text-gray-300">{el.strength}</span>
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -72,19 +85,19 @@ function GodInfoBlock({ god, label }: { god: GodInfo; label: string }) {
   if (!god) return null;
   return (
     <div className="mb-3">
-      <div className="font-semibold text-base mb-1">{label}:</div>
-      <div className="flex flex-wrap gap-2 mb-1">
+      <div className="font-semibold text-orange-400 mb-2">{label}:</div>
+      <div className="flex flex-wrap gap-2 mb-2">
         {god.elements?.map((el) => (
           <ElementTag key={el} element={el} />
         ))}
       </div>
       {god.detailed_analysis && (
-        <div className="text-sm text-gray-300 mb-2">
+        <div className="text-sm text-gray-300 mb-3">
           <ReactMarkdown children={god.detailed_analysis} />
         </div>
       )}
       {god.explanation && (
-        <div className="text-sm text-gray-100 mb-1 font-bold">
+        <div className="text-sm text-gray-100 mb-2 font-bold">
           <ReactMarkdown children={god.explanation} />
         </div>
       )}
@@ -158,7 +171,7 @@ function FengShuiTable({ items }: { items: FengShuiItem[] }) {
         </thead>
         <tbody>
           {items.map((item, idx) => (
-            <tr key={idx} className="border-b border-yellow-400">
+            <tr key={idx} className="border-b border-yellow-400 text-white">
               <td className="px-2 py-1 font-semibold">{item.name}</td>
               <td className="px-2 py-1">
                 {item.elements?.map((el) => (
@@ -213,9 +226,42 @@ export const ExplanationSection = forwardRef<
 ) {
   if (loading) {
     return (
-      <section className="p-6 bg-gray-900/80 rounded-xl border border-yellow-500/30 shadow-lg flex flex-col items-center justify-center min-h-[200px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mb-4" />
-        <div className="text-yellow-300 text-lg">{t("common.loading")}</div>
+      <section className="p-6 bg-gray-900/80 rounded-xl border border-yellow-500/30 shadow-lg flex flex-col items-center justify-center min-h-[260px] relative">
+        <div className="absolute top-4 right-4 animate-pulse">
+          <Sparkles className="w-8 h-8 text-yellow-400 drop-shadow" />
+        </div>
+        <div className="animate-spin rounded-full h-14 w-14 border-b-2 border-yellow-400 mb-4" />
+        <div className="text-yellow-300 text-lg font-bold mb-2">
+          Đang tham vấn và luận giải chi tiết cho lá số bát tự tứ trụ của bạn...
+        </div>
+        <div className="text-yellow-100 text-base text-center mb-2 animate-pulse">
+          Hệ thống đang phân tích hàng triệu tổ hợp, yếu tố, và khía cạnh để
+          mang đến kết quả{" "}
+          <span className="text-yellow-400 font-semibold">cá nhân hóa</span> và{" "}
+          <span className="text-yellow-400 font-semibold">chuyên sâu</span>{" "}
+          nhất.
+        </div>
+        <div className="text-xs text-gray-300 text-center max-w-md">
+          <span className="inline-block animate-pulse">
+            ⏳ Quá trình này có thể mất <b>20 giây</b> đến <b>hơn 1 phút</b>.
+            <br />
+            <span className="text-yellow-400">Xin hãy kiên nhẫn chờ đợi!</span>
+          </span>
+        </div>
+        <div className="flex gap-1 mt-4">
+          <span
+            className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce"
+            style={{ animationDelay: "0s" }}
+          />
+          <span
+            className="w-2 h-2 bg-yellow-300 rounded-full animate-bounce"
+            style={{ animationDelay: "0.2s" }}
+          />
+          <span
+            className="w-2 h-2 bg-yellow-200 rounded-full animate-bounce"
+            style={{ animationDelay: "0.4s" }}
+          />
+        </div>
       </section>
     );
   }
@@ -389,7 +435,10 @@ export const ExplanationSection = forwardRef<
                     </thead>
                     <tbody>
                       {result.ten_year_cycles.cycles.map((cycle, idx) => (
-                        <tr key={idx} className="border-b border-yellow-400">
+                        <tr
+                          key={idx}
+                          className="border-b border-yellow-400 text-white"
+                        >
                           <td className="px-2 py-1 font-semibold">
                             {cycle.age_range}
                           </td>

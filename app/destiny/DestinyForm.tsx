@@ -82,7 +82,7 @@ export default function DestinyForm() {
   };
 
   return (
-    <>
+    <div className="space-y-10">
       {formError && (
         <div className="mb-4 p-3 bg-red-900/50 border border-red-700 text-red-200 rounded-md text-sm flex items-center gap-2">
           <AlertCircle size={18} /> {formError}
@@ -250,6 +250,6 @@ export default function DestinyForm() {
           </p>
         </div>
       )}
-    </>
+    </div>
   );
 }
