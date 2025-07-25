@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import DestinyForm from "@/components/forms/DestinyForm";
+import DestinyForm from "./DestinyForm";
 import {
   Card,
   CardContent,
@@ -99,7 +99,11 @@ export default async function DestinyPage({
   return (
     <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-gray-950 via-slate-900 text-gray-100">
       <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
-        <Card className={`w-full ${!id ? "max-w-lg" : ""} mx-auto bg-gray-900/80 border-yellow-500/30 shadow-xl backdrop-blur-sm`}>
+        <Card
+          className={`w-full ${
+            !id ? "max-w-lg" : ""
+          } mx-auto bg-gray-900/80 border-yellow-500/30 shadow-xl backdrop-blur-sm`}
+        >
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
               {t("destiny.form.title")}
@@ -109,13 +113,7 @@ export default async function DestinyPage({
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {!id && (
-              <div className="mb-12">
-                <DestinyForm />
-              </div>
-            )}
-
-            {id && <DestinyResultClient id={id} />}
+            {!id ? <DestinyForm /> : <DestinyResultClient id={id} />}
           </CardContent>
         </Card>
       </div>

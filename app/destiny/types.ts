@@ -141,6 +141,7 @@ export interface PreDataTuTru {
   month: PreDataTru;
   year: PreDataTru;
   hour: PreDataTru;
+  [key: string]: PreDataTru;
 }
 
 export interface PreDataCanHour0 {
