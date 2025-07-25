@@ -11,7 +11,7 @@ import useSWR from "swr";
 import { apiClient } from "@/lib/api/apiClient";
 import { usePayService } from "@/hooks/usePayService";
 import { showGlobalLoading, hideGlobalLoading } from "@/lib/utils";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
 import {
   Dialog,
   DialogContent,
