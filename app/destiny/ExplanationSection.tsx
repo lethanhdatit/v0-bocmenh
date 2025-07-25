@@ -180,7 +180,7 @@ function LockedSectionNotice({ onPayClick }: { onPayClick?: () => void }) {
   return (
     <div
       onClick={onPayClick}
-      className={`flex flex-col items-center justify-center my-4 ${
+      className={`flex flex-col items-start justify-center my-4 ${
         onPayClick ? "cursor-pointer" : ""
       }`}
     >
@@ -229,7 +229,7 @@ export const ExplanationSection = forwardRef<
   return (
     <section
       ref={ref}
-      className="p-6 bg-gray-900/80 rounded-xl border border-yellow-500/30 shadow-lg"
+      className="p-2 xs:p-4 md:p-6 bg-gray-900/80 rounded-xl border border-yellow-500/30 shadow-lg"
     >
       <h2 className="text-2xl font-bold text-yellow-400 mb-4 flex items-center gap-2">
         <Gift className="w-6 h-6" />

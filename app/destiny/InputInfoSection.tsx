@@ -5,7 +5,7 @@ import { formatDateTime, getGenderLabel, getCategoryLabel } from "./utils";
 
 export function InputInfoSection({ input, genders, categories, t }: any) {
   return (
-    <section className="p-6 bg-gray-900/80 rounded-xl border border-yellow-500/30 shadow-lg">
+    <section className="p-2 xs:p-4 md:p-6 bg-gray-900/80 rounded-xl border border-yellow-500/30 shadow-lg">
       <h2 className="text-2xl font-bold text-yellow-400 mb-4 flex items-center gap-2">
         <User className="w-6 h-6" />{" "}
         {t("destiny.result.inputInfo", "Thông tin mệnh chủ")}
