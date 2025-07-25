@@ -54,7 +54,7 @@ export default function FeaturesSection() {
   ]
 
   return (
-    <section id="features-section" className="py-20 px-4">
+    <section className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -69,7 +69,7 @@ export default function FeaturesSection() {
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">{t("site.description")}</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div id="features-section" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={feature.href}
