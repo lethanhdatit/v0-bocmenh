@@ -10,11 +10,11 @@ export default function FeaturedProductsSection() {
   const featuredProducts = sampleProducts.slice(0, 4) // Get first 4 products as featured
 
   return (
-    <section id="featured-products-section" className="py-12 sm:py-16 bg-gray-900/50">
+    <section className="py-12 sm:py-16 bg-gray-900/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center text-yellow-500 mb-4">{t("home.featuredProducts")}</h2>
         <p className="text-center text-gray-300 mb-10 max-w-xl mx-auto">{t("home.featuredProductsDesc")}</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <div id="featured-products-section" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {featuredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

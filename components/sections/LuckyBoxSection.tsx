@@ -51,7 +51,7 @@ export default function LuckyBoxSection() {
   }
 
   return (
-    <section id="luckybox-section" className="py-20 px-4">
+    <section className="py-20 px-4">
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -65,7 +65,7 @@ export default function LuckyBoxSection() {
           <p className="text-xl text-gray-400 mb-12">{t("luckyBox.description")}</p>
         </motion.div>
 
-        <div className="relative h-64 flex items-center justify-center">
+        <div id="luckybox-section" className="relative h-64 flex items-center justify-center">
           <AnimatePresence mode="wait">
             {!isOpened ? (
               <motion.div

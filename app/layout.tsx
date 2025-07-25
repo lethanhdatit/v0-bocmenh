@@ -10,12 +10,12 @@ import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import AuthModals from "@/components/auth/AuthModals";
 import AuthSetup from "@/components/utils/AuthSetup";
-import ScrollControls from "@/components/layout/ScrollControls";
 import { getBaseUrl } from "@/lib/infra/utils";
 import GlobalLoadingWrapper from "@/components/ui/GlobalLoadingWrapper";
 import { MyFatesProvider } from "@/contexts/MyFatesContext";
 import { LayoutVisibilityProvider } from "@/contexts/LayoutVisibilityContext";
 import { Toaster } from "@/components/ui/toaster"; // hoặc đúng đường dẫn của bạn
+import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
 
 
 const baseUrl = getBaseUrl();
@@ -235,12 +235,12 @@ export default function RootLayout({
                     <main className="flex-grow pt-16 relative">
                       {starryBackground}
                       <div className="relative z-0">{children}</div>
+                      <ScrollToTopButton />
                     </main>
                     <Footer />
                   </div>
                   <Toaster />
                   <AuthModals />
-                  <ScrollControls />
                   <AuthSetup />
                   <GlobalLoadingWrapper />
                 </LayoutVisibilityProvider>
