@@ -38,8 +38,10 @@ apiClient.interceptors.request.use(
         config.data = { encrypted: encryptData(config.data) };
       }
     }
+    
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     config.headers['X-Time-Zone-Id'] = timeZone;
+
     return config;
   },
   (error) => Promise.reject(error)

@@ -50,6 +50,11 @@ export async function getConfig(
   return { headers };
 }
 
+apiServer.interceptors.request.use((config) => {
+  config.headers["X-Api-Key"] = process.env.API_KEY || "";
+  return config;
+});
+
 apiServer.interceptors.response.use(
   (response) => {
     const data = response.data;
