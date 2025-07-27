@@ -143,9 +143,9 @@ export default function DestinyForm() {
             <SelectTrigger className="w-full px-4 py-3 bg-gray-800/70 border-gray-700 hover:border-yellow-600/70 focus:border-yellow-500 focus:ring-yellow-500/50 text-white rounded-lg transition-colors">
               <SelectValue placeholder="Chọn giờ sinh (0-23)" />
             </SelectTrigger>
-            <SelectContent className="bg-amber-50 border-amber-600 max-h-60 overflow-y-auto">
+            <SelectContent className="bg-white border-amber-600 max-h-60 overflow-y-auto">
               {[...Array(24).keys()].map((h) => (
-                <SelectItem key={h} value={h.toString()}>
+                <SelectItem key={h} value={h.toString()} className="ancient-font text-xs text-gray-800 hover:bg-amber-100">
                   {h.toString().padStart(2, "0")}h
                 </SelectItem>
               ))}
@@ -185,12 +185,12 @@ export default function DestinyForm() {
             <SelectTrigger className="w-full px-4 py-3 bg-gray-800/70 border-gray-700 hover:border-yellow-600/70 focus:border-yellow-500 focus:ring-yellow-500/50 text-white placeholder-gray-500 rounded-lg transition-colors">
               <SelectValue placeholder={t("destiny.form.genderLabel")} />
             </SelectTrigger>
-            <SelectContent className="bg-amber-50 border-amber-600 max-h-60 overflow-y-auto">
+            <SelectContent className="bg-white border-amber-600 max-h-60 overflow-y-auto">
               {genders.map((gender: { value: number; label: string }) => (
                 <SelectItem
                   key={gender.value}
                   value={gender.value.toString()}
-                  className="ancient-font text-amber-800 hover:bg-amber-100"
+                  className="ancient-font text-xs text-gray-800 hover:bg-amber-100"
                 >
                   {gender.label}
                 </SelectItem>
@@ -213,12 +213,12 @@ export default function DestinyForm() {
                 placeholder={t("destiny.form.categoryLabel", "Chủ đề quan tâm")}
               />
             </SelectTrigger>
-            <SelectContent className="bg-amber-50 border-amber-600 max-h-60 overflow-y-auto">
+            <SelectContent className="bg-white border-amber-600 max-h-60 overflow-y-auto">
               {categories.map((cat: { value: number; label: string }) => (
                 <SelectItem
                   key={cat.value}
                   value={cat.value.toString()}
-                  className="ancient-font text-amber-800 hover:bg-amber-100"
+                  className="ancient-font text-xs text-gray-800 hover:bg-amber-100"
                 >
                   {cat.label}
                 </SelectItem>

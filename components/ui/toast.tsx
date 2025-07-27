@@ -72,26 +72,54 @@ ToastAction.displayName = ToastPrimitives.Action.displayName;
 
 const ToastTitle = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Title>,
-  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title>
->(({ className, ...props }, ref) => (
-  <ToastPrimitives.Title
-    ref={ref}
-    className={cn("font-bold text-yellow-400", className)}
-    {...props}
-  />
-));
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title> & { html?: string }
+>(({ className, html, children, ...props }, ref) => {
+  if (html) {
+    return (
+      <ToastPrimitives.Title
+        ref={ref}
+        className={cn("font-bold text-yellow-400", className)}
+        {...props}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    );
+  }
+  return (
+    <ToastPrimitives.Title
+      ref={ref}
+      className={cn("font-bold text-yellow-400", className)}
+      {...props}
+    >
+      {children}
+    </ToastPrimitives.Title>
+  );
+});
 ToastTitle.displayName = ToastPrimitives.Title.displayName;
 
 const ToastDescription = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Description>,
-  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description>
->(({ className, ...props }, ref) => (
-  <ToastPrimitives.Description
-    ref={ref}
-    className={cn("text-sm opacity-95", className)}
-    {...props}
-  />
-));
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description> & { html?: string }
+>(({ className, html, children, ...props }, ref) => {
+  if (html) {
+    return (
+      <ToastPrimitives.Description
+        ref={ref}
+        className={cn("text-sm opacity-95", className)}
+        {...props}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    );
+  }
+  return (
+    <ToastPrimitives.Description
+      ref={ref}
+      className={cn("text-sm opacity-95", className)}
+      {...props}
+    >
+      {children}
+    </ToastPrimitives.Description>
+  );
+});
 ToastDescription.displayName = ToastPrimitives.Description.displayName;
 
 const ToastClose = React.forwardRef<

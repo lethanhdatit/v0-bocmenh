@@ -66,7 +66,12 @@ export default function DestinyResultClient({ id }: { id: string }) {
     (t("batTuTuTruCategories", { returnObjects: true }) as Array<any>) || [];
 
   if (isLoading)
-    return <div className="text-center py-12">{t("common.loading")}</div>;
+    return (
+      <div className="flex flex-col items-center justify-center h-full">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mb-4" />
+        <div className="text-yellow-300 text-lg">{t("common.loading")}</div>
+      </div>
+    );
   if (!destinyResult) return null;
 
   const { input, preData, explanation } = destinyResult;
