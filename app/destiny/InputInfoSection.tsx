@@ -10,30 +10,30 @@ export function InputInfoSection({ input, genders, categories, t }: any) {
         <User className="w-6 h-6" />{" "}
         {t("destiny.result.inputInfo", "Thông tin mệnh chủ")}
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-base text-gray-200">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-base">
         <div>
-          <span className="font-semibold">
+          <span className="font-semibold text-yellow-600">
             {t("destiny.form.nameLabel", "Họ và tên")}:
-          </span>{" "}
-          {input?.name}
+          </span>
+          <span className="ml-2 text-white font-medium">{input?.name}</span>
         </div>
         <div>
-          <span className="font-semibold">
+          <span className="font-semibold text-yellow-600">
             {t("destiny.form.birthDateLabel", "Ngày sinh dương lịch")}:
-          </span>{" "}
-          {formatDateTime(input?.birthDateTime)}
+          </span>
+          <span className="ml-2 text-white font-medium">{formatDateTime(input?.birthDateTime)}</span>
         </div>
         <div>
-          <span className="font-semibold">
+          <span className="font-semibold text-yellow-600">
             {t("destiny.form.genderLabel", "Giới tính")}:
-          </span>{" "}
-          {getGenderLabel(input?.gender, genders)}
+          </span>
+          <span className="ml-2 text-white font-medium">{getGenderLabel(input?.gender, genders)}</span>
         </div>
         <div>
-          <span className="font-semibold">
+          <span className="font-semibold text-yellow-600">
             {t("destiny.form.categoryLabel", "Chủ đề quan tâm")}:
-          </span>{" "}
-          {getCategoryLabel(input?.category, categories)}
+          </span>
+          <span className="ml-2 text-white font-medium">{getCategoryLabel(input?.category, categories)}</span>
         </div>
       </div>
     </section>

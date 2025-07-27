@@ -35,7 +35,7 @@ export function usePayment({
       await pay(id);
       toast({
         title: "Thanh toán thành công!",
-        description: `${serviceName} sẽ sẵn sàng trong giây lát.`,
+        description: `<span className="text-yellow-400 font-bold">${serviceName}</span> đã sẵn sàng.`,
         variant: "success",
       });
       if (scrollToRef?.current) {
@@ -51,7 +51,7 @@ export function usePayment({
       if (err?.response?.data?.beErrorCode === "FatesNotEnough") {
         toast({
           title: "Không đủ điểm duyên!",
-          description: `Bạn cần có ít nhất ${servicePrice} điểm duyên để mở khoá dịch vụ ${serviceName}.`,
+          description: `Bạn cần có ít nhất <span className="text-yellow-400 font-bold">${servicePrice}</span> điểm duyên để mở khoá dịch vụ <span className="text-yellow-400 font-bold">${serviceName}</span>.`,
           variant: "destructive",
         });
       } else {

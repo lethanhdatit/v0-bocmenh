@@ -98,7 +98,7 @@ export default async function DestinyPage({
 
   return (
     <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-gray-950 via-slate-900 text-gray-100">
-      <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
         <Card
           className={`w-full ${
             !id ? "max-w-lg" : ""
