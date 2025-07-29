@@ -34,6 +34,21 @@
       "checkoutStatusFailed": "Không thể tải trạng thái giao dịch",
       "getMyFatesFailed": "Không thể tải thông tin duyên của bạn",
       "getMemoCheckoutFailed": "Không thể tải memo checkout"
+    },
+    "history": {
+      "title": "Lịch sử nạp tiền",
+      "empty": "Chưa có lịch sử nạp tiền",
+      "emptyDescription": "Bạn chưa thực hiện giao dịch nạp duyên nào. Hãy nạp duyên để sử dụng các dịch vụ của chúng tôi.",
+      "topupNow": "Nạp duyên ngay",
+      "loading": "Đang tải lịch sử giao dịch...",
+      "orderId": "Mã GD",
+      "package": "Gói",
+      "amount": "Số tiền",
+      "provider": "Phương thức",
+      "status": "Trạng thái",
+      "createdAt": "Thời gian",
+      "viewDetail": "Chi tiết",
+      "copiedTransId": "Mã giao dịch đã được sao chép"
     }
   },
   "checkout": {
@@ -339,7 +354,37 @@
     "comingSoon": "Sắp ra mắt",
     "backToHome": "Về trang chủ",
     "showMore": "Xem thêm",
-    "showLess": "Ẩn bớt"
+    "showLess": "Ẩn bớt",
+    "copied": "Đã sao chép",
+    "copy": "Sao chép",
+    "copyFailed": "Không thể sao chép"
+  },
+  "services": {
+    "history": {
+      "title": "Lịch sử dịch vụ",
+      "empty": "Chưa có lịch sử dịch vụ",
+      "emptyDescription": "Bạn chưa sử dụng dịch vụ nào. Hãy khám phá các dịch vụ của chúng tôi.",
+      "useServiceNow": "Sử dụng dịch vụ",
+      "loading": "Đang tải lịch sử dịch vụ...",
+      "serviceId": "Mã DV",
+      "serviceName": "Dịch vụ",
+      "cost": "Chi phí",
+      "status": "Trạng thái",
+      "createdAt": "Thời gian",
+      "viewResult": "Xem kết quả",
+      "viewDetail": "Chi tiết",
+      "copiedServiceId": "Mã dịch vụ đã được sao chép"
+    },
+    "kinds": {
+      "basic": "Tra cứu cơ bản",
+      "tuTruBatTu": "Tử trụ bát tự"
+    },
+    "status": {
+      "created": "Đã tạo",
+      "analyzing": "Đang phân tích",
+      "analyzed": "Đã phân tích",
+      "failed": "Thất bại"
+    }
   },
   "store": {
     "title": "Cửa Hàng Phong Thủy",

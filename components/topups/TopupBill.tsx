@@ -1,7 +1,6 @@
 import { TransactionStatusResponse, buyTopup } from "@/lib/topups";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-import { toShortId } from "@/lib/infra/utils";
 import { getLocaleByCurrency } from "@/lib/infra/utils";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -190,7 +189,7 @@ export function TopupBill({
 
     pdf.save(
       `bill_${window.location.host.replace(":", "")}_${
-        (data?.id && toShortId(data.id)) || "export"
+        (data?.id && data.id) || "export"
       }.pdf`
     );
   };
@@ -219,7 +218,7 @@ export function TopupBill({
           {data.id && (
             <div className="flex justify-between mb-1">
               <span className="font-semibold">{t("checkout.orderId")}:</span>
-              <span>{toShortId(data.id)}</span>
+              <span>{data.id}</span>
             </div>
           )}
           {data.status && (

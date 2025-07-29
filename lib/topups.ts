@@ -74,8 +74,25 @@ export interface PaginatedBase<TDto> {
   items: TDto[];
 }
 
+export interface ServicePrice {
+  fates: number;
+  fatesDiscount?: number;
+  fatesDiscountRate?: number;
+  finalFates: number;
+}
+
+export interface ServiceHistoryItem {
+  id: string;
+  createdTs?: string;
+  status: "created" | "analyzing" | "analyzed" | "failed";
+  kind: "basic" | "tuTruBatTu";
+  servicePrice: ServicePrice
+}
+
 // Interface cho transaction history response
 export interface TransactionHistoryResponse extends PaginatedBase<TransactionStatusResponse> {}
+
+export interface ServicesHistoryResponse extends PaginatedBase<ServiceHistoryItem> {}
 
 export async function getTopupPackages(): Promise<TopupPackage[]> {
   try {
@@ -161,6 +178,16 @@ export async function getTransactionHistory(
 ): Promise<TransactionHistoryResponse> {
   const response = await apiClient.get<{ data: TransactionHistoryResponse }>(
     `/transaction/history?pageSize=${pageSize}&pageNumber=${pageNumber}`
+  );
+  return response.data.data;
+}
+
+export async function getServicesHistory(
+  pageSize: number,
+  pageNumber: number
+): Promise<ServicesHistoryResponse> {
+  const response = await apiClient.get<{ data: ServicesHistoryResponse }>(
+    `/transaction/history/services?pageSize=${pageSize}&pageNumber=${pageNumber}`
   );
   return response.data.data;
 }

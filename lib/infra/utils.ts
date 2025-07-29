@@ -168,6 +168,55 @@ export const windowUtils = {
   },
 
   /**
+   * Open URL in new tab (same window)
+   */
+  openTab: (url: string) => {
+    try {
+      const tab = window.open(url, "_blank");
+      if (!tab) {
+        // Fallback if popup blocked
+        window.location.href = url;
+      }
+      return tab;
+    } catch (error) {
+      console.warn("Failed to open tab:", error);
+      window.location.href = url;
+      return null;
+    }
+  },
+
+  /**
+   * Copy text to clipboard with modern API and fallback
+   */
+  copyToClipboard: async (text: string): Promise<boolean> => {
+    try {
+      // Modern clipboard API
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+      
+      // Fallback for older browsers or non-secure contexts
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      
+      // @ts-ignore - execCommand is deprecated but needed for fallback support
+      const successful = document.execCommand("copy");
+      document.body.removeChild(textArea);
+      return successful;
+    } catch (error) {
+      console.warn("Failed to copy to clipboard:", error);
+      return false;
+    }
+  },
+
+  /**
    * Send message to parent window (for mini windows)
    */
   sendMessageToParent: (message: any, targetOrigin?: string) => {
