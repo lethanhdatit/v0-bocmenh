@@ -58,11 +58,15 @@ async function updateProfileHandler(
     });
 
     const result = response.data.data;
-    
+
     session.name = result.displayName || result.name;
     session.avatar = result.avatar;
 
     await session.save();
+
+    if(result.needLogout){
+        session.destroy();
+    }
 
     return baseResponse({
       status: 200,
