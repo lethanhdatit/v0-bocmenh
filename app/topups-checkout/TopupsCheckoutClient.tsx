@@ -19,15 +19,21 @@ interface TopupsCheckoutClientProps {
   transId: string;
   cancel?: string;
   miniMode?: boolean;
+  autoClose?: boolean;
+  autoCloseDelay?: number; // ms, mặc định 1000ms
+  showContinuePayment?: boolean;
 }
 
 export default function TopupsCheckoutClient({
   transId,
   cancel,
   miniMode = false,
+  autoClose = false,
+  autoCloseDelay = 1000,
+  showContinuePayment = false,
 }: TopupsCheckoutClientProps) {
   const { hideNav, showNavFn, hideFooter, showFooterFn } =
-      useLayoutVisibility();
+    useLayoutVisibility();
   const { t } = useTranslation("common");
   const { data, error, isLoading } = useSWR<TransactionStatusResponse>(
     transId ? `/transaction-status?id=${transId}` : null,
@@ -50,7 +56,7 @@ export default function TopupsCheckoutClient({
     if (miniMode) {
       hideNav();
       hideFooter();
-    }else{
+    } else {
       showNavFn();
       showFooterFn();
     }
@@ -64,17 +70,41 @@ export default function TopupsCheckoutClient({
     }
   }, [isLoading, t]);
 
+  // Kiểm tra xem có phải mini window không
+  const isMiniWindow = () => {
+    try {
+      return window.opener && window.opener !== window;
+    } catch {
+      return false;
+    }
+  };
+
   useEffect(() => {
     if (data && !["processing", "new"].includes(data.status)) {
-      if (window.opener) {
-        window.opener.postMessage(
-          { type: "paymentComplete", transId },
-          window.location.origin
-        );
-        setTimeout(() => window.close(), 1000);
+      // Gửi message tới parent window
+      if (isMiniWindow()) {
+        try {
+          window.opener.postMessage(
+            { type: "paymentComplete", transId, status: data.status },
+            window.location.origin
+          );
+        } catch (error) {
+          console.warn("Failed to send message to parent window:", error);
+        }
+
+        // Auto close nếu được bật và đang trong mini window
+        if (autoClose) {
+          setTimeout(() => {
+            try {
+              window.close();
+            } catch (error) {
+              console.warn("Failed to close window:", error);
+            }
+          }, autoCloseDelay);
+        }
       }
     }
-  }, [data, transId]);
+  }, [data, transId, autoClose, autoCloseDelay]);
 
   const getStatusIcon = (status: TransactionStatusResponse["status"]) => {
     switch (status) {
@@ -157,8 +187,13 @@ export default function TopupsCheckoutClient({
 
             {/* BILL */}
             {data && (
-              <div className="w-full max-w-lg mx-auto bg-gray-50 rounded-xl border border-dashed border-gray-200 text-left text-sm font-mono p-4 mt-1">
-                <TopupBill data={data} statusColors={statusColors} showExport={true}/>
+              <div className="w-full max-w-lg mx-auto bg-gray-500 rounded-xl border border-dashed border-gray-200 text-left text-sm font-mono p-4 mt-1">
+                <TopupBill
+                  data={data}
+                  showContinuePayment={showContinuePayment}
+                  statusColors={statusColors}
+                  showExport={true}
+                />
               </div>
             )}
 
@@ -174,16 +209,12 @@ export default function TopupsCheckoutClient({
                 </Button>
               )}
 
-              {data?.status !== "processing" &&
-                data?.status !== "new" &&
-                data?.status !== "cancelled" && (
-                  <Button
-                    onClick={() => (window.location.href = "/")}
-                    className="bg-gray-800 hover:bg-gray-900 text-white"
-                  >
-                    {t("checkout.backToHome")}
-                  </Button>
-                )}
+              <Button
+                onClick={() => (window.location.href = "/")}
+                className="bg-gray-800 hover:bg-gray-900 text-white"
+              >
+                {t("checkout.backToHome")}
+              </Button>
             </div>
           </>
         )}

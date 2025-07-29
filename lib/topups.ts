@@ -1,6 +1,6 @@
 import { apiClient } from "@/lib/api/apiClient";
 import { apiServer } from "@/lib/api/apiServer";
-import { getBaseUrl } from "@/lib/infra/utils"
+import { getBaseUrl } from "@/lib/infra/utils";
 
 export interface TopupPackage {
   id: string;
@@ -74,15 +74,18 @@ export async function getTopupPackages(): Promise<TopupPackage[]> {
 }
 
 export async function buyTopup(
-  packageId: string,
-  paymentGateId: string,
+  packageId?: string,
+  paymentGateId?: string,
   miniMode: boolean = false,
+  autoClose: boolean = false,
+  id?: string | null | undefined
 ): Promise<BuyTopupResponse> {
-  const callbackUrl = `${getBaseUrl()}/topups-checkout?miniMode=${miniMode}`;
+  const callbackUrl = `${getBaseUrl()}/topups-checkout?miniMode=${miniMode}&autoClose=${autoClose}`;
   const response = await apiClient.post<{ data: BuyTopupResponse }>("/topups", {
     packageId,
     paymentGateId,
-    callbackUrl
+    callbackUrl,
+    id,
   });
   return response.data.data;
 }
@@ -123,13 +126,10 @@ export async function cancelTopup(
   return response.data.data;
 }
 
-export async function payService(
-  id: string
-): Promise<any> {
-  const response = await apiClient.post<{ data: any }>(
-    `/transaction/pay`,
-    { id }
-  );
+export async function payService(id: string): Promise<any> {
+  const response = await apiClient.post<{ data: any }>(`/transaction/pay`, {
+    id,
+  });
   return response.data.data;
 }
 

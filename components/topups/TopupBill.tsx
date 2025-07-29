@@ -1,31 +1,105 @@
-import { TransactionStatusResponse } from "@/lib/topups";
+import { TransactionStatusResponse, buyTopup } from "@/lib/topups";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import { toShortId } from "@/lib/infra/utils";
 import { getLocaleByCurrency } from "@/lib/infra/utils";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { showGlobalLoading, hideGlobalLoading } from "@/lib/utils";
 
 export function TopupBill({
   data,
   statusColors,
   showExport = false,
+  showContinuePayment = false,
+  openNewWindow = true,
 }: {
   data?: TransactionStatusResponse;
   statusColors?: { text: string; bg: string };
   showExport?: boolean;
+  showContinuePayment?: boolean;
+  openNewWindow?: boolean;
 }) {
   const { t } = useTranslation("common");
+  const { toast } = useToast();
+  const [isProcessing, setIsProcessing] = useState(false);
+
   if (!data) return null;
   const locale = getLocaleByCurrency(data.currency);
 
   const billRef = useRef<HTMLDivElement>(null);
 
+  // Kiểm tra xem có thể tiếp tục thanh toán không
+  const canContinuePayment =
+    showContinuePayment &&
+    data.status !== "cancelled" &&
+    data.status !== "paid";
+
+  // Xử lý tiếp tục thanh toán
+  const handleContinuePayment = async () => {
+    if (!data.id) {
+      toast({
+        title: t("topups.error.common"),
+        description: "Không tìm thấy mã giao dịch",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsProcessing(true);
+    showGlobalLoading(t("topups.processingPayment"));
+
+    try {
+      const { ipnLink } = await buyTopup(
+        undefined,
+        undefined,
+        true,
+        true,
+        data.id
+      );
+
+      if (openNewWindow) {
+        const scaleRate = 0.8;
+        const width = Math.round(window.innerWidth * scaleRate);
+        const height = Math.round(window.innerHeight * scaleRate);
+
+        const newWindow = window.open(
+          ipnLink,
+          "_blank",
+          `width=${width},height="100%",location=no,menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes`
+        );
+
+        if (!newWindow) {
+          toast({
+            title: t("topups.error.common"),
+            description: t("topups.popupBlocked"),
+            variant: "destructive",
+          });
+        }
+      } else {
+        window.location.href = ipnLink;
+      }
+    } catch (error) {
+      console.error("Failed to continue payment:", error);
+      toast({
+        title: t("topups.error.common"),
+        description: t("topups.purchaseFailed"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsProcessing(false);
+      hideGlobalLoading();
+    }
+  };
+
   // Lấy URL đẹp cho footer PDF
   const getRefUrl = (id?: string) => {
     try {
-      return `${window.location.origin}${id ? `/topups-checkout?transId=${id}` : ``}`;
+      return `${window.location.origin}${
+        id ? `/topups-checkout?transId=${id}` : ``
+      }`;
     } catch {
       return window.location.href;
     }
@@ -55,13 +129,15 @@ export function TopupBill({
     pdf.setFont("Roboto", "normal");
     pdf.setFontSize(28);
     pdf.setTextColor("#1e293b");
-    pdf.text(t("checkout.billingTitle"), pageWidth / 2, 48, { align: "center" });
+    pdf.text(t("checkout.billingTitle"), pageWidth / 2, 48, {
+      align: "center",
+    });
 
     // === Thêm sub tiêu đề ===
     pdf.setFont("Arial", "normal");
     pdf.setFontSize(10);
     pdf.setTextColor("#2563eb");
-    
+
     var transLink = getRefUrl(data.id);
     pdf.textWithLink(transLink, pageWidth / 2, 68, {
       url: transLink,
@@ -347,16 +423,34 @@ export function TopupBill({
           )}
         </span>
       </div>
-      {showExport && data.status === 'paid' && (
-        <div className="flex gap-2 justify-end mt-4">
+
+      {/* Các nút action */}
+      <div className="flex gap-2 justify-end mt-4">
+        {canContinuePayment && (
+          <button
+            className="px-4 py-2 rounded bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-semibold shadow disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={handleContinuePayment}
+            disabled={isProcessing}
+          >
+            {isProcessing ? (
+              <span className="flex items-center gap-2">
+                <span className="animate-spin-slow">🔮</span>
+                {t("topups.processing")}
+              </span>
+            ) : (
+              t("checkout.continuePayment", "Tiếp tục thanh toán")
+            )}
+          </button>
+        )}
+        {showExport && data.status === "paid" && (
           <button
             className="px-3 py-1 rounded bg-blue-600 hover:bg-yellow-600 text-white text-xs font-semibold shadow"
             onClick={handleExportPDF}
           >
             Export PDF
           </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
