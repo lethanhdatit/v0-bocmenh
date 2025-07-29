@@ -9,21 +9,26 @@ import { IronSession } from "iron-session";
 import { apiServer, getConfig } from "@/lib/api/apiServer";
 import { getTranslations } from "@/i18n/server";
 
-async function getCheckoutStatusHandler(
+async function getTransactionHistoryHandler(
   _data: any,
   request: NextRequest,
   session: IronSession<UserSession>
 ) {
   const { t } = await getTranslations(["common", "topups"]);
-  const { searchParams } = new URL(request.url)
-  const transId = searchParams.get("id")
 
-  try {    
+  const { searchParams } = new URL(request.url);
+  const pageSize = searchParams.get("pageSize");
+  const pageNumber = searchParams.get("pageNumber");
+
+  try {
     const config = await getConfig(request, session?.accessToken);
 
-    const response = await apiServer.get(`/transaction/${transId}`, {
-      ...config,
-    });
+    const response = await apiServer.get(
+      `/transaction/histories?pageSize=${pageSize}&pageNumber=${pageNumber}`,
+      {
+        ...config,
+      }
+    );
 
     const result = response.data.data;
 
@@ -36,7 +41,7 @@ async function getCheckoutStatusHandler(
     return handleApiServerError(
       error,
       {
-        error400Message: t("topups.error.checkoutStatusFailed"),
+        error400Message: t("topups.error.getTransactionHistoryFailed"),
         errorCommonMessage: t("topups.systemFailed"),
       },
       session,
@@ -45,6 +50,6 @@ async function getCheckoutStatusHandler(
   }
 }
 
-export const POST = withServerBase(getCheckoutStatusHandler, {
+export const GET = withServerBase(getTransactionHistoryHandler, {
   isAuthenRequired: true,
 });

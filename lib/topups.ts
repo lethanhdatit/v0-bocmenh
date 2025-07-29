@@ -62,7 +62,20 @@ export interface TransactionStatusResponse {
   fateBonusRate: number;
   providerMeta?: any;
   meta?: any;
+  createdTs?: string;
 }
+
+export interface PaginatedBase<TDto> {
+  pageNumber?: number;
+  pageSize?: number;
+  totalRecords?: number;
+  totalSelected?: number;
+  totalPages?: number;
+  items: TDto[];
+}
+
+// Interface cho transaction history response
+export interface TransactionHistoryResponse extends PaginatedBase<TransactionStatusResponse> {}
 
 export async function getTopupPackages(): Promise<TopupPackage[]> {
   try {
@@ -138,6 +151,16 @@ export async function getTransactionStatus(
 ): Promise<TransactionStatusResponse> {
   const response = await apiClient.post<{ data: TransactionStatusResponse }>(
     `/transaction/status?id=${transId}`
+  );
+  return response.data.data;
+}
+
+export async function getTransactionHistory(
+  pageSize: number,
+  pageNumber: number
+): Promise<TransactionHistoryResponse> {
+  const response = await apiClient.get<{ data: TransactionHistoryResponse }>(
+    `/transaction/history?pageSize=${pageSize}&pageNumber=${pageNumber}`
   );
   return response.data.data;
 }

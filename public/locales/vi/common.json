@@ -141,7 +141,9 @@
     "blogs": "Blogs",
     "luckybox": "Hộp May Mắn",
     "morebtn": "Thêm",
-    "topups": "Gói Nạp"
+    "topups": "Gói Nạp",
+    "topupsHistory": "Lịch sử nạp",
+    "servicesHistory": "Lịch sử sử dụng"
   },
   "auth": {
     "logout": {

@@ -187,7 +187,7 @@ export default function TopupsCheckoutClient({
 
             {/* BILL */}
             {data && (
-              <div className="w-full max-w-lg mx-auto bg-gray-500 rounded-xl border border-dashed border-gray-200 text-left text-sm font-mono p-4 mt-1">
+                            <div className="w-full max-w-lg mx-auto bg-gray-50 rounded-xl border border-dashed border-gray-200 text-left text-sm font-mono p-4 mt-1">
                 <TopupBill
                   data={data}
                   showContinuePayment={showContinuePayment}

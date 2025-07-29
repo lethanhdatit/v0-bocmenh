@@ -29,7 +29,8 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        default: "border-yellow-400 bg-yellow-50 text-gray-900 shadow-yellow-200",
+        default:
+          "border-yellow-400 bg-yellow-50 text-gray-900 shadow-yellow-200",
         destructive: "border-red-500 bg-red-600 text-white shadow-red-300",
         success: "border-green-500 bg-green-600 text-white shadow-green-300",
       },
@@ -72,13 +73,15 @@ ToastAction.displayName = ToastPrimitives.Action.displayName;
 
 const ToastTitle = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Title>,
-  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title> & { html?: string }
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title> & {
+    html?: string;
+  }
 >(({ className, html, children, ...props }, ref) => {
   if (html) {
     return (
       <ToastPrimitives.Title
         ref={ref}
-        className={cn("font-bold text-yellow-400", className)}
+        className={cn("font-bold text-yellow-600", className)}
         {...props}
         dangerouslySetInnerHTML={{ __html: html }}
       />
@@ -87,7 +90,7 @@ const ToastTitle = React.forwardRef<
   return (
     <ToastPrimitives.Title
       ref={ref}
-      className={cn("font-bold text-yellow-400", className)}
+      className={cn("font-bold text-yellow-600", className)}
       {...props}
     >
       {children}
@@ -98,7 +101,9 @@ ToastTitle.displayName = ToastPrimitives.Title.displayName;
 
 const ToastDescription = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Description>,
-  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description> & { html?: string }
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description> & {
+    html?: string;
+  }
 >(({ className, html, children, ...props }, ref) => {
   if (html) {
     return (
