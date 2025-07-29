@@ -15,8 +15,8 @@ interface HistoryPageLayoutProps {
   emptyIcon: ReactNode;
   emptyTitle: string;
   emptyDescription: string;
-  actionButtonText: string;
-  onActionClick: () => void;
+  actionButtonText?: string;
+  onActionClick?: () => void;
   totalRecords?: number;
   children: ReactNode;
   loadingMessage?: string;
@@ -112,13 +112,14 @@ export function HistoryPageLayout({
                 <p className="text-gray-300 mb-6 text-center max-w-md">
                   {emptyDescription}
                 </p>
-                <Button
-                  onClick={onActionClick}
-                  className="gap-2 bg-yellow-600 hover:bg-yellow-700 text-black font-semibold border-0 shadow-lg"
-                >
-                  <Plus className="w-4 h-4" />
-                  {actionButtonText}
-                </Button>
+                {actionButtonText && onActionClick && (
+                  <Button
+                    onClick={onActionClick}
+                    className="bg-yellow-600 hover:bg-yellow-700 text-black font-semibold border-0 shadow-lg"
+                  >
+                    {actionButtonText}
+                  </Button>
+                )}
               </section>
             ) : (
               <section className="p-2 xs:p-4 md:p-6 bg-gray-900/80 rounded-xl border border-yellow-500/30 shadow-lg">
@@ -130,14 +131,16 @@ export function HistoryPageLayout({
                       })}
                     </p>
                   )}
-                  <Button
-                    onClick={onActionClick}
-                    size="sm"
-                    className="gap-2 bg-gray-800 hover:bg-gray-700 text-yellow-400 border border-yellow-500/50 shadow-md"
-                  >
-                    <Plus className="w-4 h-4" />
-                    {actionButtonText}
-                  </Button>
+                  {actionButtonText && onActionClick && (
+                    <Button
+                      onClick={onActionClick}
+                      size="sm"
+                      className="gap-2 bg-gray-800 hover:bg-gray-700 text-yellow-400 border border-yellow-500/50 shadow-md"
+                    >
+                      <Plus className="w-4 h-4" />
+                      {actionButtonText}
+                    </Button>
+                  )}
                 </div>
                 {children}
               </section>

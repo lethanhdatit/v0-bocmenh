@@ -34,6 +34,21 @@
       "checkoutStatusFailed": "Failed to load the checkout status",
       "getMyFatesFailed": "Failed to load your fates information",
       "getMemoCheckoutFailed": "Failed to load the memo checkout information"
+    },
+    "history": {
+      "title": "Top-up History",
+      "empty": "No top-up history",
+      "emptyDescription": "You haven't made any fates top-up transactions. Top-up fates to use our services.",
+      "topupNow": "Top-up Now",
+      "loading": "Loading transaction history...",
+      "orderId": "Transaction ID",
+      "package": "Package",
+      "amount": "Amount",
+      "provider": "Provider",
+      "status": "Status",
+      "createdAt": "Time",
+      "viewDetail": "Details",
+      "copiedTransId": "Transaction ID copied"
     }
   },
   "checkout": {
@@ -341,7 +356,37 @@
     "comingSoon": "Coming Soon",
     "backToHome": "Back to Home",
     "showMore": "Show More",
-    "showLess": "Show Less"
+    "showLess": "Show Less",
+    "copied": "Copied",
+    "copy": "Copy",
+    "copyFailed": "Failed to copy"
+  },
+  "services": {
+    "history": {
+      "title": "Services History",
+      "empty": "No services history",
+      "emptyDescription": "You haven't used any services yet. Explore our services.",
+      "useServiceNow": "Use Service",
+      "loading": "Loading services history...",
+      "serviceId": "Service ID",
+      "serviceName": "Service",
+      "cost": "Cost",
+      "status": "Status",
+      "createdAt": "Time",
+      "viewResult": "View Result",
+      "viewDetail": "Details",
+      "copiedServiceId": "Service ID copied"
+    },
+    "kinds": {
+      "basic": "Basic Reading",
+      "tuTruBatTu": "Four Pillars of Destiny"
+    },
+    "status": {
+      "created": "Created",
+      "analyzing": "Analyzing",
+      "analyzed": "Analyzed",
+      "failed": "Failed"
+    }
   },
   "store": {
     "title": "Feng Shui Store",

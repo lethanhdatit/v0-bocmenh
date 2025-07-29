@@ -23,7 +23,7 @@ async function payTheologyApiHandler(
     const config = await getConfig(request, session?.accessToken);
 
     const response = await apiServer.post(
-      `/transaction/theology/${id}/paid`,
+      `/transaction/theology/${id}/pay`,
       null,
       config
     );
