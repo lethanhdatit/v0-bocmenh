@@ -13,16 +13,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { FileText, Copy, ExternalLink, Sparkles, History, CreditCard } from "lucide-react";
+import { Copy, ExternalLink, CreditCard, RefreshCw } from "lucide-react";
 import {
   getTransactionHistory,
   type TransactionHistoryResponse,
 } from "@/lib/topups";
-import {
-  formatDateTime,
-  formatCurrency,
-  windowUtils,
-} from "@/lib/infra/utils";
+import { formatDateTime, formatCurrency, windowUtils } from "@/lib/infra/utils";
 import { HistoryPageLayout } from "@/components/layouts/HistoryPageLayout";
 import { PaginationComponent } from "@/components/ui/PaginationComponent";
 import { StatusBadge } from "./StatusBadge";
@@ -39,6 +35,7 @@ export default function TopupsHistoryClient() {
     data: historyData,
     error,
     isLoading,
+    mutate,
   } = useSWR<TransactionHistoryResponse>(
     `/transaction-history?pageSize=${PAGE_SIZE}&pageNumber=${currentPage}`,
     () => getTransactionHistory(PAGE_SIZE, currentPage),
@@ -50,11 +47,14 @@ export default function TopupsHistoryClient() {
 
   const handleCopyTransactionId = async (transId: string) => {
     const success = await windowUtils.copyToClipboard(transId);
-    
+
     if (success) {
       toast({
         title: t("common.copied", "Đã sao chép"),
-        description: t("topups.history.copiedTransId", "Mã giao dịch đã được sao chép"),
+        description: t(
+          "topups.history.copiedTransId",
+          "Mã giao dịch đã được sao chép"
+        ),
         duration: 2000,
       });
     } else {
@@ -77,12 +77,16 @@ export default function TopupsHistoryClient() {
     windowUtils.openUrl("/topups?openNewWindow=0");
   };
 
+  const handleRefresh = () => {
+    mutate();
+  };
+
   const totalPages = Math.ceil((historyData?.totalRecords || 0) / PAGE_SIZE);
 
   return (
     <HistoryPageLayout
       title={t("topups.history.title", "Lịch sử nạp tiền")}
-      titleIcon={<History className="w-8 h-8 text-yellow-500" />}
+      titleIcon={<CreditCard className="w-8 h-8 text-yellow-500" />}
       isLoading={isLoading}
       error={error}
       isEmpty={!historyData?.items?.length}
@@ -95,10 +99,108 @@ export default function TopupsHistoryClient() {
       actionButtonText={t("topups.history.topupNow", "Nạp duyên ngay")}
       onActionClick={handleTopupNow}
       totalRecords={historyData?.totalRecords}
-      loadingMessage={t("topups.history.loading", "Đang tải lịch sử giao dịch...")}
+      loadingMessage={t(
+        "topups.history.loading",
+        "Đang tải lịch sử giao dịch..."
+      )}
     >
+      {/* Mobile Refresh Button */}
+      <div className="flex justify-end mb-4 lg:hidden">
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={handleRefresh}
+          disabled={isLoading}
+          className="gap-1 border-yellow-500/50 text-yellow-400 bg-yellow-500/10 text-yellow-300"
+          title={t("common.refresh", "Làm mới")}
+        >
+          <RefreshCw className={`w-4 h-4 ${isLoading ? "animate-spin" : ""}`} />
+        </Button>
+      </div>
+
       <div className="overflow-x-auto">
-        <Table>
+        {/* Mobile Card View */}
+        <div className="block lg:hidden space-y-4">
+          {historyData?.items?.map((transaction) => (
+            <div
+              key={transaction.id}
+              className="bg-gray-800/50 border border-yellow-500/20 rounded-lg p-4 space-y-3"
+            >
+              <div className="flex justify-between items-start">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-sm text-gray-200">
+                    {t("topups.history.orderId", "Mã GD")}:  {transaction.id.substring(0, 8)}...
+                  </span>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => handleCopyTransactionId(transaction.id)}
+                    className="h-6 w-6 p-0 hover:bg-yellow-500/20 text-gray-400 hover:text-yellow-400"
+                    title={t("common.copy", "Sao chép")}
+                  >
+                    <Copy className="w-3 h-3" />
+                  </Button>
+                </div>
+                <StatusBadge status={transaction.status} />
+              </div>
+
+              <div>
+                <div className="font-medium text-gray-100 text-base">
+                  {transaction.packageName}
+                </div>
+                {transaction.finalFates && (
+                  <div className="text-sm text-gray-400">
+                    {transaction.finalFates} {t("checkout.fates")}
+                  </div>
+                )}
+              </div>
+
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="font-medium text-gray-100">
+                    {formatCurrency(
+                      transaction.finalTotal,
+                      transaction.currency
+                    )}
+                  </div>
+                  {transaction.exchangeRate !== 1 && (
+                    <div className="text-sm text-gray-400">
+                      {formatCurrency(
+                        transaction.finalTotal * transaction.exchangeRate,
+                        "VND"
+                      )}
+                    </div>
+                  )}
+                </div>
+                <PaymentProviderIcon
+                  provider={transaction.provider}
+                  size="lg"
+                  showName={false}
+                />
+              </div>
+
+              <div className="flex justify-between items-center pt-2 border-t border-gray-700">
+                <div className="text-sm text-gray-200">
+                  {formatDateTime(
+                    transaction.createdTs || new Date().toISOString(),
+                    i18n.language
+                  )}
+                </div>
+                <Button
+                  size="sm"
+                  onClick={() => handleViewDetail(transaction.id)}
+                  className="gap-1 bg-gray-800 hover:bg-gray-700 text-yellow-400 border border-yellow-500/50 text-xs"
+                >
+                  <ExternalLink className="w-3 h-3" />
+                  {t("topups.history.viewDetail", "Chi tiết")}
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop Table View */}
+        <Table className="hidden lg:table">
           <TableHeader>
             <TableRow className="border-yellow-500/30">
               <TableHead className="text-yellow-400 font-semibold">
@@ -120,6 +222,18 @@ export default function TopupsHistoryClient() {
                 {t("topups.history.createdAt", "Thời gian")}
               </TableHead>
               <TableHead className="text-right text-yellow-400 font-semibold">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleRefresh}
+                  disabled={isLoading}
+                  className="gap-1 hover:border-yellow-800/50 border-yellow-500/50 text-yellow-400 hover:bg-white bg-yellow-500/10 text-yellow-300 hover:text-yellow-600"
+                  title={t("common.refresh", "Làm mới")}
+                >
+                  <RefreshCw
+                    className={`w-4 h-4 ${isLoading ? "animate-spin" : ""}`}
+                  />
+                </Button>
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -160,7 +274,10 @@ export default function TopupsHistoryClient() {
                 <TableCell>
                   <div>
                     <div className="font-medium text-gray-100">
-                      {formatCurrency(transaction.finalTotal, transaction.currency)}
+                      {formatCurrency(
+                        transaction.finalTotal,
+                        transaction.currency
+                      )}
                     </div>
                     {transaction.exchangeRate !== 1 && (
                       <div className="text-sm text-gray-400">
@@ -173,7 +290,11 @@ export default function TopupsHistoryClient() {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <PaymentProviderIcon provider={transaction.provider} />
+                  <PaymentProviderIcon
+                    provider={transaction.provider}
+                    size="lg"
+                    showName={false}
+                  />
                 </TableCell>
                 <TableCell>
                   <StatusBadge status={transaction.status} />
@@ -191,7 +312,6 @@ export default function TopupsHistoryClient() {
                     className="gap-1 bg-gray-800 hover:bg-gray-700 text-yellow-400 border border-yellow-500/50 text-xs"
                   >
                     <ExternalLink className="w-3 h-3" />
-                    {t("topups.history.viewDetail", "Chi tiết")}
                   </Button>
                 </TableCell>
               </TableRow>

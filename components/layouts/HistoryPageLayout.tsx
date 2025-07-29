@@ -37,10 +37,13 @@ export function HistoryPageLayout({
   onActionClick,
   totalRecords,
   children,
-  loadingMessage = "Đang tải dữ liệu...",
+  loadingMessage,
   showNavigation = true,
 }: HistoryPageLayoutProps) {
   const { t } = useTranslation("common");
+
+  // Use translation for default loading message if not provided
+  const defaultLoadingMessage = loadingMessage || t("common.loading.loadingData", "Đang tải dữ liệu...");
 
   if (error) {
     return (
@@ -87,10 +90,10 @@ export function HistoryPageLayout({
                 </div>
                 <div className="animate-spin rounded-full h-14 w-14 border-b-2 border-yellow-400 mb-4" />
                 <div className="text-yellow-300 text-lg font-bold mb-2">
-                  {loadingMessage}
+                  {defaultLoadingMessage}
                 </div>
                 <div className="text-yellow-100 text-base text-center mb-2 animate-pulse">
-                  Đang truy xuất dữ liệu từ hệ thống...
+                  {t("common.retrievingData", "Đang truy xuất dữ liệu từ hệ thống...")}
                 </div>
                 <div className="flex gap-1 mt-4">
                   <span

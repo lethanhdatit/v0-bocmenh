@@ -14,10 +14,9 @@ import {
 } from "@/components/common/PaymentDialog";
 import { usePayment } from "@/hooks/usePayService";
 
-const serviceName = "Luận giải Bát tự";
-
 export default function DestinyResultClient({ id }: { id: string }) {
   const { t } = useTranslation(["common", "destiny", "attributes"]);
+  const serviceName = t("destiny.serviceName", "Luận giải Bát tự");
   const [showPayDialog, setShowPayDialog] = useState(false);
   const [justPaid, setJustPaid] = useState(false);
   const explanationRef = useRef<HTMLDivElement>(null);

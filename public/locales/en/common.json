@@ -48,7 +48,8 @@
       "status": "Status",
       "createdAt": "Time",
       "viewDetail": "Details",
-      "copiedTransId": "Transaction ID copied"
+      "copiedTransId": "Transaction ID copied",
+      "refreshed": "Data updated"
     }
   },
   "checkout": {
@@ -91,6 +92,9 @@
     "note": "Note",
     "yes": "Yes",
     "no": "No",
+    "and": "and",
+    "refresh": "Refresh",
+    "refreshed": "Refreshed",
     "tryAgain": "Try Again",
     "backToHome": "Back to Home",
     "fetchError": "Failed to fetch transaction information",
@@ -280,6 +284,23 @@
       "goHome": "Go to Homepage"
     }
   },
+  "profile": {
+    "title": "Profile",
+    "name": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "changePassword": "Change Password",
+    "currentFates": "Current Fates",
+    "memberSince": "Member Since",
+    "createdAt": "Account Created",
+    "totalDays": "Total Days",
+    "days": "days",
+    "quickActions": "Quick Actions",
+    "nameUpdated": "Name updated successfully",
+    "updateFailed": "Update failed",
+    "loadFailed": "Failed to load profile information",
+    "namePlaceholder": "Enter full name"
+  },
   "site": {
     "title": "Unveil Your Destiny",
     "owner": "insight.ai.vn - Maximize your internal potential with AI",
@@ -331,6 +352,8 @@
   },
   "common": {
     "loading": "Loading...",
+    "loadingData": "Loading data...",
+    "retrievingData": "Retrieving data from system...",
     "submit": "Submit",
     "analyze": "Analyze",
     "results": "Results",
@@ -342,7 +365,6 @@
     "save": "Save",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "error": "Error",
     "errorUnexpected": "An unexpected error occurred. Please try again.",
     "success": "Success",
     "close": "Close",
@@ -359,24 +381,14 @@
     "showLess": "Show Less",
     "copied": "Copied",
     "copy": "Copy",
-    "copyFailed": "Failed to copy"
+    "copyFailed": "Failed to copy",
+    "totalRecords": "Total {{count}} record(s)",
+    "error": {
+      "loadFailed": "Failed to load data",
+      "tryAgainLater": "Please try again later"
+    }
   },
   "services": {
-    "history": {
-      "title": "History",
-      "empty": "No services history",
-      "emptyDescription": "You haven't used any services yet. Explore our services.",
-      "useServiceNow": "Use Service",
-      "loading": "Loading services history...",
-      "serviceId": "Service ID",
-      "serviceName": "Service",
-      "cost": "Cost",
-      "status": "Status",
-      "createdAt": "Time",
-      "viewResult": "View Result",
-      "viewDetail": "Details",
-      "copiedServiceId": "Service ID copied"
-    },
     "kinds": {
       "basic": "Basic Reading",
       "tuTruBatTu": "Four Pillars of Destiny"
@@ -386,6 +398,27 @@
       "analyzing": "Analyzing",
       "analyzed": "Analyzed",
       "failed": "Failed"
+    },
+    "history": {
+      "title": "History",
+      "empty": "No services history",
+      "emptyDescription": "You haven't used any services yet. Explore our services.",
+      "useServiceNow": "Use Service",
+      "loading": "Loading services history...",
+      "serviceId": "Service ID",
+      "serviceName": "Service",
+      "cost": "Cost",
+      "paymentStatus": "Payment",
+      "status": "Status",
+      "createdAt": "Time",
+      "viewResult": "View Result",
+      "viewDetail": "Details",
+      "copiedServiceId": "Service ID copied",
+      "free": "Free",
+      "freeService": "Free service",
+      "paid": "Paid",
+      "unpaid": "Unpaid",
+      "refreshed": "Data updated"
     }
   },
   "store": {
@@ -434,7 +467,6 @@
     },
     "productDetails": "Product Details",
     "quantity": "Quantity",
-    "description": "Description",
     "attributes": "Attributes",
     "noReviews": "No reviews yet.",
     "writeReview": "Write a Review",
@@ -515,6 +547,7 @@
     }
   },
   "destiny": {
+    "serviceName": "Four Pillars Analysis",
     "form": {
       "title": "Personal Destiny Reading",
       "subtitle": "Uncover the secrets of your life path and purpose",
@@ -531,7 +564,8 @@
       "validationError": "Name and Birth Date are required.",
       "birthPlaceLabel": "Birth Place",
       "genderLabel": "Gender",
-      "birthPlacePlaceholder": "Example: district 1, HCMC"
+      "birthPlacePlaceholder": "Example: district 1, HCMC",
+      "birthTimeSelectPlaceholder": "Select birth hour (0-23)"
     },
     "result": {
       "titleFor": "Destiny Reading for {name}",
@@ -549,7 +583,63 @@
         "register": "Create Account"
       },
       "disclaimer": "This reading is for entertainment purposes only",
-      "viewForAnother": "Read for Someone Else"
+      "viewForAnother": "Read for Someone Else",
+      "inputInfo": "Birth Chart Information",
+      "explanation": "Four Pillars Analysis",
+      "battuChart": "Four Pillars Chart",
+      "laSoBatTu": "Four Pillars Chart",
+      "solarDate": "Solar Date", 
+      "lunarDate": "Lunar Date",
+      "solarTerm": "Solar Term",
+      "thienCan": "Heavenly Stems",
+      "amDuongCan": "Yin Yang Stems",
+      "nguHanhCan": "Five Elements Stems", 
+      "diaChi": "Earthly Branches",
+      "amDuongChi": "Yin Yang Branches",
+      "nguHanhChi": "Five Elements Branches",
+      "thapThan": "Ten Gods",
+      "napAm": "Hidden Elements",
+      "truongSinh": "Life Cycle",
+      "thanSat": "Symbolic Stars",
+      "truNam": "Year Pillar",
+      "truThang": "Month Pillar", 
+      "truNgay": "Day Pillar",
+      "truGio": "Hour Pillar",
+      "leapMonth": "Leap",
+      "buddhistCalendar": "Buddhist Calendar",
+      "auspiciousHour": "Auspicious Hour",
+      "canHour0": "Stem Hour 0h",
+      "payToUnlock": "Unlock Full Reading",
+      "lockedContent": "This content is locked. Click here to unlock",
+      "fengShui": {
+        "itemName": "Item Name",
+        "element": "Five Elements",
+        "material": "Material",
+        "purpose": "Purpose",
+        "usage": "Usage Instructions"
+      },
+      "cycles": {
+        "period": "Period",
+        "canChi": "Stems & Branches",
+        "element": "Five Elements",
+        "analysis": "Analysis"
+      },
+      "gods": {
+        "useful": "Useful Gods",
+        "unfavorable": "Unfavorable Gods"
+      },
+      "loading": {
+        "analyzing": "Consulting and providing detailed analysis for your Four Pillars chart...",
+        "systemAnalyzing": "The system is analyzing millions of combinations, factors, and aspects to provide the most",
+        "personalized": "personalized",
+        "comprehensive": "comprehensive",
+        "best": "results",
+        "timeEstimate": "This process may take",
+        "timeMin": "20 seconds",
+        "timeTo": "to",
+        "timeMax": "more than 1 minute",
+        "patience": "Please be patient!"
+      }
     },
     "meta": {
       "descriptionFor": "Personal destiny reading for {name} - Discover your life path, personality traits, and cosmic guidance",

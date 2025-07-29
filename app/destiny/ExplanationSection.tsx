@@ -81,7 +81,7 @@ function FiveElementsBarChart({
   );
 }
 
-function GodInfoBlock({ god, label }: { god: GodInfo; label: string }) {
+function GodInfoBlock({ god, label, t }: { god: GodInfo; label: string; t: any }) {
   if (!god) return null;
   return (
     <div className="mb-3">
@@ -153,7 +153,7 @@ function RenderDetailedAnalysis({
   );
 }
 
-function FengShuiTable({ items }: { items: FengShuiItem[] }) {
+function FengShuiTable({ items, t }: { items: FengShuiItem[]; t: any }) {
   if (!items?.length) return null;
   return (
     <div className="overflow-x-auto mt-2 mb-4">
@@ -161,12 +161,12 @@ function FengShuiTable({ items }: { items: FengShuiItem[] }) {
         <thead>
           <tr className="bg-yellow-900/30 text-yellow-300">
             <th className="px-2 py-1 border-b border-yellow-400">
-              Tên vật phẩm
+              {t("destiny.result.fengShui.itemName", "Tên vật phẩm")}
             </th>
-            <th className="px-2 py-1 border-b border-yellow-400">Ngũ hành</th>
-            <th className="px-2 py-1 border-b border-yellow-400">Chất liệu</th>
-            <th className="px-2 py-1 border-b border-yellow-400">Công dụng</th>
-            <th className="px-2 py-1 border-b border-yellow-400">Cách dùng</th>
+            <th className="px-2 py-1 border-b border-yellow-400">{t("destiny.result.fengShui.element", "Ngũ hành")}</th>
+            <th className="px-2 py-1 border-b border-yellow-400">{t("destiny.result.fengShui.material", "Chất liệu")}</th>
+            <th className="px-2 py-1 border-b border-yellow-400">{t("destiny.result.fengShui.purpose", "Công dụng")}</th>
+            <th className="px-2 py-1 border-b border-yellow-400">{t("destiny.result.fengShui.usage", "Cách dùng")}</th>
           </tr>
         </thead>
         <tbody>
@@ -189,7 +189,7 @@ function FengShuiTable({ items }: { items: FengShuiItem[] }) {
   );
 }
 
-function LockedSectionNotice({ onPayClick }: { onPayClick?: () => void }) {
+function LockedSectionNotice({ onPayClick, t }: { onPayClick?: () => void; t: any }) {
   return (
     <div
       onClick={onPayClick}
@@ -200,7 +200,7 @@ function LockedSectionNotice({ onPayClick }: { onPayClick?: () => void }) {
       <div className="bg-yellow-100 border border-yellow-400 text-yellow-800 rounded-lg px-3 py-2 flex items-center gap-2 shadow animate-pulse">
         <LockKeyhole className="w-5 h-5 text-yellow-500" />
         <span className="text-xs">
-          Nội dung này đang khoá. nhấn vào đây để mở khoá
+          {t("destiny.result.lockedContent", "Nội dung này đang khoá. nhấn vào đây để mở khoá")}
         </span>
       </div>
     </div>
@@ -232,20 +232,19 @@ export const ExplanationSection = forwardRef<
         </div>
         <div className="animate-spin rounded-full h-14 w-14 border-b-2 border-yellow-400 mb-4" />
         <div className="text-yellow-300 text-lg font-bold mb-2">
-          Đang tham vấn và luận giải chi tiết cho lá số bát tự tứ trụ của bạn...
+          {t("destiny.result.loading.analyzing", "Đang tham vấn và luận giải chi tiết cho lá số bát tự tứ trụ của bạn...")}
         </div>
         <div className="text-yellow-100 text-base text-center mb-2 animate-pulse">
-          Hệ thống đang phân tích hàng triệu tổ hợp, yếu tố, và khía cạnh để
-          mang đến kết quả{" "}
-          <span className="text-yellow-400 font-semibold">cá nhân hóa</span> và{" "}
-          <span className="text-yellow-400 font-semibold">chuyên sâu</span>{" "}
-          nhất.
+          {t("destiny.result.loading.systemAnalyzing", "Hệ thống đang phân tích hàng triệu tổ hợp, yếu tố, và khía cạnh để mang đến kết quả")}{" "}
+          <span className="text-yellow-400 font-semibold">{t("destiny.result.loading.personalized", "cá nhân hóa")}</span> {t("common.and", "và")}{" "}
+          <span className="text-yellow-400 font-semibold">{t("destiny.result.loading.comprehensive", "chuyên sâu")}</span>{" "}
+          {t("destiny.result.loading.best", "nhất")}.
         </div>
         <div className="text-xs text-gray-300 text-center max-w-md">
           <span className="inline-block animate-pulse">
-            ⏳ Quá trình này có thể mất <b>20 giây</b> đến <b>hơn 1 phút</b>.
+            ⏳ {t("destiny.result.loading.timeEstimate", "Quá trình này có thể mất")} <b>{t("destiny.result.loading.timeMin", "20 giây")}</b> {t("destiny.result.loading.timeTo", "đến")} <b>{t("destiny.result.loading.timeMax", "hơn 1 phút")}</b>.
             <br />
-            <span className="text-yellow-400">Xin hãy kiên nhẫn chờ đợi!</span>
+            <span className="text-yellow-400">{t("destiny.result.loading.patience", "Xin hãy kiên nhẫn chờ đợi!")}</span>
           </span>
         </div>
         <div className="flex gap-1 mt-4">
@@ -292,7 +291,7 @@ export const ExplanationSection = forwardRef<
             result.day_master_analysis?.key_point,
             result.day_master_analysis?.detailed_analysis
           ) ? (
-            <LockedSectionNotice onPayClick={onPayClick} />
+            <LockedSectionNotice onPayClick={onPayClick} t={t} />
           ) : (
             <>
               <RenderKeyPoint
@@ -317,7 +316,7 @@ export const ExplanationSection = forwardRef<
             result.five_elements_analysis?.key_point,
             result.five_elements_analysis?.detailed_analysis
           ) ? (
-            <LockedSectionNotice onPayClick={onPayClick} />
+            <LockedSectionNotice onPayClick={onPayClick} t={t} />
           ) : (
             <>
               <RenderKeyPoint
@@ -347,7 +346,7 @@ export const ExplanationSection = forwardRef<
             result.ten_gods_analysis?.key_point,
             result.ten_gods_analysis?.detailed_analysis
           ) ? (
-            <LockedSectionNotice onPayClick={onPayClick} />
+            <LockedSectionNotice onPayClick={onPayClick} t={t} />
           ) : (
             <>
               <RenderKeyPoint key_point={result.ten_gods_analysis?.key_point} />
@@ -372,17 +371,19 @@ export const ExplanationSection = forwardRef<
               ""
             )
           ) ? (
-            <LockedSectionNotice onPayClick={onPayClick} />
+            <LockedSectionNotice onPayClick={onPayClick} t={t} />
           ) : (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                 <GodInfoBlock
                   god={result.useful_and_unfavorable_gods?.useful_gods}
-                  label="Dụng thần"
+                  label={t("destiny.result.gods.useful", "Dụng thần")}
+                  t={t}
                 />
                 <GodInfoBlock
                   god={result.useful_and_unfavorable_gods?.unfavorable_gods}
-                  label="Kỵ thần"
+                  label={t("destiny.result.gods.unfavorable", "Kỵ thần")}
+                  t={t}
                 />
               </div>
               <RenderKeyPoint
@@ -407,7 +408,7 @@ export const ExplanationSection = forwardRef<
             result.ten_year_cycles?.key_point,
             result.ten_year_cycles?.detailed_analysis
           ) ? (
-            <LockedSectionNotice onPayClick={onPayClick} />
+            <LockedSectionNotice onPayClick={onPayClick} t={t} />
           ) : (
             <>
               <RenderKeyPoint key_point={result.ten_year_cycles?.key_point} />
@@ -420,16 +421,16 @@ export const ExplanationSection = forwardRef<
                     <thead>
                       <tr className="bg-yellow-900/30 text-yellow-300">
                         <th className="px-2 py-1 border-b border-yellow-400">
-                          Giai đoạn
+                          {t("destiny.result.cycles.period", "Giai đoạn")}
                         </th>
                         <th className="px-2 py-1 border-b border-yellow-400">
-                          Can Chi
+                          {t("destiny.result.cycles.canChi", "Can Chi")}
                         </th>
                         <th className="px-2 py-1 border-b border-yellow-400">
-                          Ngũ hành
+                          {t("destiny.result.cycles.element", "Ngũ hành")}
                         </th>
                         <th className="px-2 py-1 border-b border-yellow-400">
-                          Phân tích
+                          {t("destiny.result.cycles.analysis", "Phân tích")}
                         </th>
                       </tr>
                     </thead>
@@ -467,7 +468,7 @@ export const ExplanationSection = forwardRef<
             result.career_guidance?.key_point,
             result.career_guidance?.detailed_analysis
           ) ? (
-            <LockedSectionNotice onPayClick={onPayClick} />
+            <LockedSectionNotice onPayClick={onPayClick} t={t} />
           ) : (
             <>
               <RenderKeyPoint key_point={result.career_guidance?.key_point} />
@@ -488,7 +489,7 @@ export const ExplanationSection = forwardRef<
             result.improvement_suggestions?.key_point,
             result.improvement_suggestions?.detailed_analysis
           ) ? (
-            <LockedSectionNotice onPayClick={onPayClick} />
+            <LockedSectionNotice onPayClick={onPayClick} t={t} />
           ) : (
             <>
               <RenderKeyPoint
@@ -501,6 +502,7 @@ export const ExplanationSection = forwardRef<
               />
               <FengShuiTable
                 items={result.improvement_suggestions?.feng_shui_items || []}
+                t={t}
               />
             </>
           )}
@@ -516,7 +518,7 @@ export const ExplanationSection = forwardRef<
             result.conclusion?.key_point,
             result.conclusion?.detailed_analysis
           ) ? (
-            <LockedSectionNotice onPayClick={onPayClick} />
+            <LockedSectionNotice onPayClick={onPayClick} t={t} />
           ) : (
             <>
               <RenderKeyPoint key_point={result.conclusion?.key_point} />

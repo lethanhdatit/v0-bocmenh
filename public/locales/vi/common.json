@@ -48,7 +48,8 @@
       "status": "Trạng thái",
       "createdAt": "Thời gian",
       "viewDetail": "Chi tiết",
-      "copiedTransId": "Mã giao dịch đã được sao chép"
+      "copiedTransId": "Mã giao dịch đã được sao chép",
+      "refreshed": "Dữ liệu đã được cập nhật"
     }
   },
   "checkout": {
@@ -91,6 +92,9 @@
     "note": "Ghi chú",
     "yes": "Có",
     "no": "Không",
+    "and": "và",
+    "refresh": "Làm mới",
+    "refreshed": "Đã làm mới",
     "tryAgain": "Thử lại",
     "backToHome": "Về trang chủ",
     "fetchError": "Không lấy được thông tin giao dịch",
@@ -278,6 +282,23 @@
       "goHome": "Về Trang Chủ"
     }
   },
+  "profile": {
+    "title": "Thông tin cá nhân",
+    "name": "Họ và tên",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "changePassword": "Đổi mật khẩu",
+    "currentFates": "Duyên hiện có",
+    "memberSince": "Thành viên từ",
+    "createdAt": "Ngày tạo tài khoản",
+    "totalDays": "Số ngày tích lũy",
+    "days": "ngày",
+    "quickActions": "Thao tác nhanh",
+    "nameUpdated": "Tên đã được cập nhật",
+    "updateFailed": "Cập nhật thất bại",
+    "loadFailed": "Không thể tải thông tin profile",
+    "namePlaceholder": "Nhập họ và tên"
+  },
   "site": {
     "title": "Khám Phá Vận Mệnh Của Bạn",
     "owner": "insight.ai.vn - Tối đa tiềm năng nội tại bằng AI",
@@ -329,6 +350,8 @@
   },
   "common": {
     "loading": "Đang tải...",
+    "loadingData": "Đang tải dữ liệu...",
+    "retrievingData": "Đang truy xuất dữ liệu từ hệ thống...",
     "submit": "Gửi",
     "analyze": "Phân tích",
     "results": "Kết quả",
@@ -340,7 +363,6 @@
     "save": "Lưu",
     "cancel": "Hủy",
     "confirm": "Xác nhận",
-    "error": "Lỗi",
     "errorUnexpected": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.",
     "success": "Thành công",
     "close": "Đóng",
@@ -357,24 +379,14 @@
     "showLess": "Ẩn bớt",
     "copied": "Đã sao chép",
     "copy": "Sao chép",
-    "copyFailed": "Không thể sao chép"
+    "copyFailed": "Không thể sao chép",
+    "totalRecords": "Tổng cộng {{count}} bản ghi",
+    "error": {
+      "loadFailed": "Không thể tải dữ liệu",
+      "tryAgainLater": "Vui lòng thử lại sau"
+    }
   },
   "services": {
-    "history": {
-      "title": "Lịch sử",
-      "empty": "Chưa có lịch sử dịch vụ",
-      "emptyDescription": "Bạn chưa sử dụng dịch vụ nào. Hãy khám phá các dịch vụ của chúng tôi.",
-      "useServiceNow": "Sử dụng dịch vụ",
-      "loading": "Đang tải lịch sử dịch vụ...",
-      "serviceId": "Mã DV",
-      "serviceName": "Dịch vụ",
-      "cost": "Chi phí",
-      "status": "Trạng thái",
-      "createdAt": "Thời gian",
-      "viewResult": "Xem kết quả",
-      "viewDetail": "Chi tiết",
-      "copiedServiceId": "Mã dịch vụ đã được sao chép"
-    },
     "kinds": {
       "basic": "Tra cứu cơ bản",
       "tuTruBatTu": "Tử trụ bát tự"
@@ -384,6 +396,27 @@
       "analyzing": "Đang phân tích",
       "analyzed": "Đã phân tích",
       "failed": "Thất bại"
+    },
+    "history": {
+      "title": "Lịch sử",
+      "empty": "Chưa có lịch sử dịch vụ",
+      "emptyDescription": "Bạn chưa sử dụng dịch vụ nào. Hãy khám phá các dịch vụ của chúng tôi.",
+      "useServiceNow": "Sử dụng dịch vụ",
+      "loading": "Đang tải lịch sử dịch vụ...",
+      "serviceId": "Mã DV",
+      "serviceName": "Dịch vụ",
+      "cost": "Chi phí",
+      "paymentStatus": "Thanh toán",
+      "status": "Trạng thái",
+      "createdAt": "Thời gian",
+      "viewResult": "Xem kết quả",
+      "viewDetail": "Chi tiết",
+      "copiedServiceId": "Mã dịch vụ đã được sao chép",
+      "free": "Miễn phí",
+      "freeService": "Dịch vụ miễn phí",
+      "paid": "Đã thanh toán",
+      "unpaid": "Chưa thanh toán",
+      "refreshed": "Dữ liệu đã được cập nhật"
     }
   },
   "store": {
@@ -494,6 +527,7 @@
     }
   },
   "destiny": {
+    "serviceName": "Luận giải Bát tự",
     "form": {
       "title": "Bóc Mệnh Cá Nhân",
       "subtitle": "Khám phá bí mật về con đường và mục đích cuộc đời của bạn",
@@ -510,7 +544,8 @@
       "validationError": "Tên và Ngày sinh là bắt buộc.",
       "birthPlaceLabel": "Nơi sinh",
       "genderLabel": "Giới tính",
-      "birthPlacePlaceholder": "Ví dụ: Quận 1, Hồ Chí Minh"
+      "birthPlacePlaceholder": "Ví dụ: Quận 1, Hồ Chí Minh",
+      "birthTimeSelectPlaceholder": "Chọn giờ sinh (0-23)"
     },
     "result": {
       "titleFor": "Bóc mệnh cho {name}",
@@ -528,7 +563,63 @@
         "register": "Tạo tài khoản"
       },
       "disclaimer": "Kết quả này chỉ mang tính chất giải trí",
-      "viewForAnother": "Bóc mệnh cho người khác"
+      "viewForAnother": "Bóc mệnh cho người khác",
+      "inputInfo": "Thông tin mệnh chủ",
+      "explanation": "Luận giải Bát tự Tứ trụ",
+      "battuChart": "Lá số Bát tự Tứ trụ",
+      "laSoBatTu": "Lá số Bát tự",
+      "solarDate": "Dương lịch", 
+      "lunarDate": "Âm lịch",
+      "solarTerm": "Tiết khí",
+      "thienCan": "Thiên can",
+      "amDuongCan": "Âm Dương Can",
+      "nguHanhCan": "Ngũ hành Can", 
+      "diaChi": "Địa chi",
+      "amDuongChi": "Âm Dương Chi",
+      "nguHanhChi": "Ngũ hành Chi",
+      "thapThan": "Thập thần",
+      "napAm": "Nạp âm",
+      "truongSinh": "Trường sinh",
+      "thanSat": "Thần sát",
+      "truNam": "Trụ Năm",
+      "truThang": "Trụ Tháng", 
+      "truNgay": "Trụ Ngày",
+      "truGio": "Trụ Giờ",
+      "leapMonth": "Nhuận",
+      "buddhistCalendar": "Lịch Phật giáo",
+      "auspiciousHour": "Giờ hoàng đạo",
+      "canHour0": "Can giờ 0h",
+      "payToUnlock": "Mở khoá toàn bộ",
+      "lockedContent": "Nội dung này đang khoá. nhấn vào đây để mở khoá",
+      "fengShui": {
+        "itemName": "Tên vật phẩm",
+        "element": "Ngũ hành",
+        "material": "Chất liệu",
+        "purpose": "Công dụng",
+        "usage": "Cách dùng"
+      },
+      "cycles": {
+        "period": "Giai đoạn",
+        "canChi": "Can Chi",
+        "element": "Ngũ hành",
+        "analysis": "Phân tích"
+      },
+      "gods": {
+        "useful": "Dụng thần",
+        "unfavorable": "Kỵ thần"
+      },
+      "loading": {
+        "analyzing": "Đang tham vấn và luận giải chi tiết cho lá số bát tự tứ trụ của bạn...",
+        "systemAnalyzing": "Hệ thống đang phân tích hàng triệu tổ hợp, yếu tố, và khía cạnh để mang đến kết quả",
+        "personalized": "cá nhân hóa",
+        "comprehensive": "chuyên sâu",
+        "best": "nhất",
+        "timeEstimate": "Quá trình này có thể mất",
+        "timeMin": "20 giây",
+        "timeTo": "đến",
+        "timeMax": "hơn 1 phút",
+        "patience": "Xin hãy kiên nhẫn chờ đợi!"
+      }
     },
     "meta": {
       "descriptionFor": "Bóc mệnh cá nhân cho {name} - Khám phá con đường cuộc đời, đặc điểm tính cách và hướng dẫn vũ trụ",
