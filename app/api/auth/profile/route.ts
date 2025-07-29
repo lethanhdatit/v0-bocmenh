@@ -20,7 +20,6 @@ export async function GET(request: NextRequest) {
         id: session.id,
         email: session.email,
         name: session.name,
-        isPremium: session.isPremium,
         isLoggedIn: session.isLoggedIn,
       },
     }

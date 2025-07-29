@@ -86,6 +86,7 @@ export interface ServiceHistoryItem {
   createdTs?: string;
   status: "created" | "analyzing" | "analyzed" | "failed";
   kind: "basic" | "tuTruBatTu";
+  isPaid: boolean;
   servicePrice: ServicePrice
 }
 

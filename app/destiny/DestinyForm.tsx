@@ -141,7 +141,7 @@ export default function DestinyForm() {
             onValueChange={(value) => setBirthTime(value)}
           >
             <SelectTrigger className="w-full px-4 py-3 bg-gray-800/70 border-gray-700 hover:border-yellow-600/70 focus:border-yellow-500 focus:ring-yellow-500/50 text-white rounded-lg transition-colors">
-              <SelectValue placeholder="Chọn giờ sinh (0-23)" />
+              <SelectValue placeholder={t("destiny.form.birthTimeSelectPlaceholder", "Chọn giờ sinh (0-23)")} />
             </SelectTrigger>
             <SelectContent className="bg-white border-amber-600 max-h-60 overflow-y-auto">
               {[...Array(24).keys()].map((h) => (

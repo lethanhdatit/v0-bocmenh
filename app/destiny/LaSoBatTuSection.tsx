@@ -3,13 +3,6 @@
 import { Stars } from "lucide-react";
 import { PreDataModel, PreDataTru } from "./types";
 
-const COLS = [
-	{ key: "year", label: "Trụ Năm" },
-	{ key: "month", label: "Trụ Tháng" },
-	{ key: "day", label: "Trụ Ngày" },
-	{ key: "hour", label: "Trụ Giờ" },
-];
-
 function getTru(preData: PreDataModel, col: string): PreDataTru | undefined {
 	return preData?.tuTru?.[col as keyof typeof preData.tuTru];
 }
@@ -83,6 +76,12 @@ export function LaSoBatTuSection({
 	preData: PreDataModel;
 	t: any;
 }) {
+	const COLS = [
+		{ key: "year", label: t("destiny.result.truNam", "Trụ Năm") },
+		{ key: "month", label: t("destiny.result.truThang", "Trụ Tháng") },
+		{ key: "day", label: t("destiny.result.truNgay", "Trụ Ngày") },
+		{ key: "hour", label: t("destiny.result.truGio", "Trụ Giờ") },
+	];
 	return (
 		<section className="p-2 xs:p-4 md:p-6 bg-gray-900/80 rounded-xl border border-yellow-500/30 shadow-lg">
 			<h2 className="text-lg xs:text-xl md:text-2xl font-bold text-yellow-400 mb-4 flex items-center gap-2">
@@ -94,7 +93,7 @@ export function LaSoBatTuSection({
 					<thead>
 						<tr className="bg-orange-600 text-white">
 							<th className="px-3 py-2 border-r border-white text-base font-bold w-40">
-								Lá số Bát tự
+								{t("destiny.result.laSoBatTu", "Lá số Bát tự")}
 							</th>
 							{COLS.map((col) => (
 								<th key={col.key} className="px-3 py-2 text-base font-bold">
@@ -107,7 +106,7 @@ export function LaSoBatTuSection({
 						{/* Dương lịch */}
 						<tr>
 							<td className="bg-orange-100 font-semibold border-r border-yellow-200">
-								Dương lịch
+								{t("destiny.result.solarDate", "Dương lịch")}
 							</td>
 							<td>{preData?.solarDate?.date?.slice(0, 10) ?? "--"}</td>
 							<td>{preData?.solarDate?.date?.slice(0, 10) ?? "--"}</td>
@@ -117,7 +116,7 @@ export function LaSoBatTuSection({
 						{/* Âm lịch */}
 						<tr>
 							<td className="bg-orange-100 font-semibold border-r border-yellow-200">
-								Âm lịch
+								{t("destiny.result.lunarDate", "Âm lịch")}
 							</td>
 							<td>{preData?.lunarDate?.date?.slice(0, 10) ?? "--"}</td>
 							<td>{preData?.lunarDate?.date?.slice(0, 10) ?? "--"}</td>
@@ -127,14 +126,14 @@ export function LaSoBatTuSection({
 						{/* Tiết khí */}
 						<tr>
 							<td className="bg-orange-100 font-semibold border-r border-yellow-200">
-								Tiết khí
+								{t("destiny.result.solarTerm", "Tiết khí")}
 							</td>
 							<td colSpan={4}>{preData?.solarTerm ?? "--"}</td>
 						</tr>
 						{/* Thiên can */}
 						<tr>
 							<td className="bg-orange-100 font-semibold border-r border-yellow-200">
-								Thiên can
+								{t("destiny.result.thienCan", "Thiên can")}
 							</td>
 							{COLS.map((col) => (
 								<TruCell
@@ -148,7 +147,7 @@ export function LaSoBatTuSection({
 						{/* Âm Dương Can */}
 						<tr>
 							<td className="bg-orange-100 font-semibold border-r border-yellow-200">
-								Âm Dương Can
+								{t("destiny.result.amDuongCan", "Âm Dương Can")}
 							</td>
 							{COLS.map((col) => (
 								<TruAmDuong
@@ -161,7 +160,7 @@ export function LaSoBatTuSection({
 						{/* Ngũ hành Can */}
 						<tr>
 							<td className="bg-orange-100 font-semibold border-r border-yellow-200">
-								Ngũ hành Can
+								{t("destiny.result.nguHanhCan", "Ngũ hành Can")}
 							</td>
 							{COLS.map((col) => (
 								<TruNguHanh
@@ -174,7 +173,7 @@ export function LaSoBatTuSection({
 						{/* Địa chi */}
 						<tr>
 							<td className="bg-orange-100 font-semibold border-r border-yellow-200">
-								Địa chi
+								{t("destiny.result.diaChi", "Địa chi")}
 							</td>
 							{COLS.map((col) => (
 								<TruCell
@@ -188,7 +187,7 @@ export function LaSoBatTuSection({
 						{/* Âm Dương Chi */}
 						<tr>
 							<td className="bg-orange-100 font-semibold border-r border-yellow-200">
-								Âm Dương Chi
+								{t("destiny.result.amDuongChi", "Âm Dương Chi")}
 							</td>
 							{COLS.map((col) => (
 								<TruAmDuong
@@ -201,7 +200,7 @@ export function LaSoBatTuSection({
 						{/* Ngũ hành Chi */}
 						<tr>
 							<td className="bg-orange-100 font-semibold border-r border-yellow-200">
-								Ngũ hành Chi
+								{t("destiny.result.nguHanhChi", "Ngũ hành Chi")}
 							</td>
 							{COLS.map((col) => (
 								<TruNguHanh
@@ -214,7 +213,7 @@ export function LaSoBatTuSection({
 						{/* Thập thần */}
 						<tr>
 							<td className="bg-orange-100 font-semibold border-r border-yellow-200">
-								Thập thần
+								{t("destiny.result.thapThan", "Thập thần")}
 							</td>
 							{COLS.map((col) => (
 								<TruThapThan key={col.key} tru={getTru(preData, col.key)} />
@@ -223,7 +222,7 @@ export function LaSoBatTuSection({
 						{/* Nạp âm */}
 						<tr>
 							<td className="bg-orange-100 font-semibold border-r border-yellow-200">
-								Nạp âm
+								{t("destiny.result.napAm", "Nạp âm")}
 							</td>
 							{COLS.map((col) => (
 								<TruCell
@@ -236,7 +235,7 @@ export function LaSoBatTuSection({
 						{/* Trường sinh */}
 						<tr>
 							<td className="bg-orange-100 font-semibold border-r border-yellow-200">
-								Trường sinh
+								{t("destiny.result.truongSinh", "Trường sinh")}
 							</td>
 							{COLS.map((col) => (
 								<TruVongTruongSinh
@@ -248,7 +247,7 @@ export function LaSoBatTuSection({
 						{/* Thần sát */}
 						<tr>
 							<td className="bg-orange-100 font-semibold border-r border-yellow-200">
-								Thần sát
+								{t("destiny.result.thanSat", "Thần sát")}
 							</td>
 							{COLS.map((col) => (
 								<TruThanSat key={col.key} tru={getTru(preData, col.key)} />
@@ -260,27 +259,27 @@ export function LaSoBatTuSection({
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-2 xs:gap-4 text-xs xs:text-sm bg-yellow-100 text-gray-900 mt-4 xs:mt-6 rounded-lg p-2 xs:p-4 shadow border border-yellow-300 break-words">
 				<div>
 					<div>
-						<b>Dương lịch:</b> {preData?.solarDate?.date?.slice(0, 10) ?? "--"}{" "}
+						<b>{t("destiny.result.solarDate", "Dương lịch")}:</b> {preData?.solarDate?.date?.slice(0, 10) ?? "--"}{" "}
 						({preData?.solarDate?.dayOfWeek?.name ?? ""})
 					</div>
 					<div>
-						<b>Âm lịch:</b> {preData?.lunarDate?.date?.slice(0, 10) ?? "--"} (
+						<b>{t("destiny.result.lunarDate", "Âm lịch")}:</b> {preData?.lunarDate?.date?.slice(0, 10) ?? "--"} (
 						{preData?.lunarDate?.dayOfWeek?.name ?? ""})
-						{preData?.lunarDate?.isLeapMonth ? " (Nhuận)" : ""}
+						{preData?.lunarDate?.isLeapMonth ? ` (${t("destiny.result.leapMonth", "Nhuận")})` : ""}
 					</div>
 					<div>
-						<b>Tiết khí:</b> {preData?.solarTerm ?? "--"}
+						<b>{t("destiny.result.solarTerm", "Tiết khí")}:</b> {preData?.solarTerm ?? "--"}
 					</div>
 					<div>
-						<b>Lịch Phật giáo:</b> {preData?.buddhistCalendar ?? "--"}
+						<b>{t("destiny.result.buddhistCalendar", "Lịch Phật giáo")}:</b> {preData?.buddhistCalendar ?? "--"}
 					</div>
 				</div>
 				<div>
 					<div>
-						<b>Giờ hoàng đạo:</b> {preData?.auspiciousHour ?? "--"}
+						<b>{t("destiny.result.auspiciousHour", "Giờ hoàng đạo")}:</b> {preData?.auspiciousHour ?? "--"}
 					</div>
 					<div>
-						<b>Can giờ 0h:</b>{" "}
+						<b>{t("destiny.result.canHour0", "Can giờ 0h")}:</b>{" "}
 						{preData?.canHour0
 							? `${preData.canHour0.Can.Display} ${preData.canHour0.Chi.Display}`
 							: "--"}

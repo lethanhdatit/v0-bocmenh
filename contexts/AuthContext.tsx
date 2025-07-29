@@ -7,6 +7,7 @@ import {
   useState,
   useEffect,
   useCallback,
+  useRef,
 } from "react";
 import { apiClient, setGlobalLogoutHandler } from "@/lib/api/apiClient";
 import type { UserSession } from "@/lib/session/sessionOptions";
@@ -65,10 +66,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserSession | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthActionLoading, setIsAuthActionLoading] = useState(false);
+  const [hasInitialized, setHasInitialized] = useState(false);
   const { fetchMyFates, setMyFates } = useMyFates();
 
   const { t } = useTranslation();
   const router = useRouter();
+
+  // Add a ref to track if we've already called fetchUserProfile
+  const isInitializingRef = useRef(false);
 
   // Modal states
   const [activeModal, setActiveModal] = useState<AuthModalType>(null);
@@ -80,39 +85,48 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   >(null);
 
   const fetchUserProfile = useCallback(async () => {
+    if (hasInitialized || isInitializingRef.current) {
+      return;
+    }
+    isInitializingRef.current = true;
     setIsLoading(true);
     try {
       const response = await apiClient.get("/auth/profile");
       if (response.data.success && response.data.user) {
         setUser(response.data.user);
+        // Call fetchMyFates directly without dependency
         fetchMyFates();
       } else {
         setUser(null);
       }
     } catch (error) {
-      await logout();
       console.error("Failed to fetch user profile:", error);
+      setUser(null);
     } finally {
       setIsLoading(false);
+      setHasInitialized(true);
+      isInitializingRef.current = false;
     }
-  }, []);
+  }, [hasInitialized, fetchMyFates]); // Include hasInitialized to prevent multiple calls
 
   useEffect(() => {
+    // Only run once on mount, ignore hasInitialized and fetchUserProfile dependencies
     fetchUserProfile();
-  }, [fetchUserProfile]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const logout = async (): Promise<void> => {
+  const logout = useCallback(async (): Promise<void> => {
     setIsAuthActionLoading(true);
     try {
       await apiClient.post("/auth/logout");
       setUser(null);
+      // Call setMyFates directly without dependency
       setMyFates(0);
     } catch (error) {
       console.error("Logout failed:", error);
     } finally {
       setIsAuthActionLoading(false);
     }
-  };
+  }, []); // Remove setMyFates dependency to prevent cycles  // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setGlobalLogoutHandler(logout);

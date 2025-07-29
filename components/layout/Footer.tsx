@@ -164,7 +164,7 @@ export default function Footer() {
                     initial={{ opacity: 0, y: 10 }} // Adjusted animation direction for opening upwards
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute bottom-full right-0 mb-2 w-44 bg-gray-900 border border-gray-700 rounded-lg shadow-xl py-1.5 z-50"
+                    className="absolute bottom-full right-0 sm:right-0 sm:left-auto left-0 mb-2 w-44 bg-gray-900 border border-gray-700 rounded-lg shadow-xl py-1.5 z-50"
                   >
                     {languages.map((lang) => (
                       <button
