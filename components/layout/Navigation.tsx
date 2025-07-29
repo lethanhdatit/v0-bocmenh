@@ -12,7 +12,7 @@ import {
   Heart,
   ChevronDown,
   CreditCard,
-  History,
+  FileText,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTranslation } from "react-i18next";
@@ -438,7 +438,7 @@ export default function Navigation() {
                     onClick={() => setIsUserMenuOpen(false)}
                     role="menuitem"
                   >
-                    <History className="w-4 h-4" aria-hidden="true" />
+                    <FileText className="w-4 h-4" aria-hidden="true" />
                     <span>{t("nav.servicesHistory")}</span>
                   </Link>
                   <Link

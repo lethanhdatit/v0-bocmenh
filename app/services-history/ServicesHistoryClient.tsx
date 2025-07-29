@@ -106,8 +106,8 @@ export default function ServicesHistoryClient() {
         "services.history.emptyDescription",
         "Bạn chưa sử dụng dịch vụ nào. Hãy khám phá các dịch vụ của chúng tôi."
       )}
-      actionButtonText={t("services.history.useServiceNow", "Sử dụng dịch vụ")}
-      onActionClick={handleUseServiceNow}
+    //   actionButtonText={t("services.history.useServiceNow", "Sử dụng dịch vụ")}
+    //   onActionClick={handleUseServiceNow}
       totalRecords={historyData?.totalRecords}
       loadingMessage={t("services.history.loading", "Đang tải lịch sử dịch vụ...")}
     >
