@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, AlertCircle, Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { HistoryNavigation } from "./HistoryNavigation";
 
 interface HistoryPageLayoutProps {
   title: string;
@@ -20,6 +21,7 @@ interface HistoryPageLayoutProps {
   totalRecords?: number;
   children: ReactNode;
   loadingMessage?: string;
+  showNavigation?: boolean;
 }
 
 export function HistoryPageLayout({
@@ -36,6 +38,7 @@ export function HistoryPageLayout({
   totalRecords,
   children,
   loadingMessage = "Đang tải dữ liệu...",
+  showNavigation = true,
 }: HistoryPageLayoutProps) {
   const { t } = useTranslation("common");
 
@@ -76,6 +79,7 @@ export function HistoryPageLayout({
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
+            {showNavigation && <HistoryNavigation />}
             {isLoading ? (
               <section className="p-6 bg-gray-900/80 rounded-xl border border-yellow-500/30 shadow-lg flex flex-col items-center justify-center min-h-[260px] relative">
                 <div className="absolute top-4 right-4 animate-pulse">

@@ -13,7 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { History, CreditCard, ExternalLink, Copy } from "lucide-react";
+import { FileText, Copy, ExternalLink, Sparkles, History, CreditCard } from "lucide-react";
 import {
   getTransactionHistory,
   type TransactionHistoryResponse,

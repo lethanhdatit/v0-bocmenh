@@ -36,7 +36,7 @@
       "getMemoCheckoutFailed": "Failed to load the memo checkout information"
     },
     "history": {
-      "title": "Top-up History",
+      "title": "History",
       "empty": "No top-up history",
       "emptyDescription": "You haven't made any fates top-up transactions. Top-up fates to use our services.",
       "topupNow": "Top-up Now",
@@ -363,7 +363,7 @@
   },
   "services": {
     "history": {
-      "title": "Services History",
+      "title": "History",
       "empty": "No services history",
       "emptyDescription": "You haven't used any services yet. Explore our services.",
       "useServiceNow": "Use Service",
