@@ -39,7 +39,7 @@ interface AuthContextType {
     confirmPassword?: string
   ) => Promise<AuthResult>;
   logout: () => Promise<void>;
-  refreshUser: () => Promise<void>;
+  refreshUser: (forceRefresh?: boolean) => Promise<void>;
 
   // Modal management
   activeModal: AuthModalType;
@@ -67,7 +67,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthActionLoading, setIsAuthActionLoading] = useState(false);
   const [hasInitialized, setHasInitialized] = useState(false);
-  const { fetchMyFates, setMyFates } = useMyFates();
+  
+  // Safely get MyFates context, might be null during initialization
+  const myFatesContext = useMyFates();
+  const fetchMyFates = myFatesContext?.fetchMyFates;
+  const setMyFates = myFatesContext?.setMyFates;
 
   const { t } = useTranslation();
   const router = useRouter();
@@ -84,8 +88,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     string | null
   >(null);
 
-  const fetchUserProfile = useCallback(async () => {
-    if (hasInitialized || isInitializingRef.current) {
+  const fetchUserProfile = useCallback(async (forceRefresh = false) => {
+    if (!forceRefresh && (hasInitialized || isInitializingRef.current)) {
       return;
     }
     isInitializingRef.current = true;
@@ -94,8 +98,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await apiClient.get("/auth/profile");
       if (response.data.success && response.data.user) {
         setUser(response.data.user);
-        // Call fetchMyFates directly without dependency
-        fetchMyFates();
+        // Call fetchMyFates if available
+        if (fetchMyFates) {
+          fetchMyFates();
+        }
       } else {
         setUser(null);
       }
@@ -107,7 +113,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setHasInitialized(true);
       isInitializingRef.current = false;
     }
-  }, [hasInitialized, fetchMyFates]); // Include hasInitialized to prevent multiple calls
+  }, []); // Remove all dependencies to prevent re-creation and cycles
 
   useEffect(() => {
     // Only run once on mount, ignore hasInitialized and fetchUserProfile dependencies
@@ -119,8 +125,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       await apiClient.post("/auth/logout");
       setUser(null);
-      // Call setMyFates directly without dependency
-      setMyFates(0);
+      // Call setMyFates if available
+      if (setMyFates) {
+        setMyFates(0);
+      }
     } catch (error) {
       console.error("Logout failed:", error);
     } finally {
@@ -174,7 +182,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (response.data.success && response.data.data) {
         setUser(response.data.data);
 
-        fetchMyFates();
+        if (fetchMyFates) {
+          fetchMyFates();
+        }
 
         // Handle success callbacks
         if (onLoginSuccessCallback) {
@@ -226,7 +236,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (response.data.success && response.data.data) {
         setUser(response.data.data);
 
-        fetchMyFates();
+        if (fetchMyFates) {
+          fetchMyFates();
+        }
 
         // Handle success callbacks
         if (onLoginSuccessCallback) {
@@ -264,7 +276,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     login,
     register,
     logout,
-    refreshUser: fetchUserProfile,
+    refreshUser: (forceRefresh?: boolean) => fetchUserProfile(forceRefresh),
 
     // Modal management
     activeModal,

@@ -282,6 +282,23 @@
       "goHome": "Về Trang Chủ"
     }
   },
+  "profile": {
+    "title": "Thông tin cá nhân",
+    "name": "Họ và tên",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "changePassword": "Đổi mật khẩu",
+    "currentFates": "Duyên hiện có",
+    "memberSince": "Thành viên từ",
+    "createdAt": "Ngày tạo tài khoản",
+    "totalDays": "Số ngày tích lũy",
+    "days": "ngày",
+    "quickActions": "Thao tác nhanh",
+    "nameUpdated": "Tên đã được cập nhật",
+    "updateFailed": "Cập nhật thất bại",
+    "loadFailed": "Không thể tải thông tin profile",
+    "namePlaceholder": "Nhập họ và tên"
+  },
   "site": {
     "title": "Khám Phá Vận Mệnh Của Bạn",
     "owner": "insight.ai.vn - Tối đa tiềm năng nội tại bằng AI",

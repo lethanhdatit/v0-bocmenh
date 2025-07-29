@@ -7,7 +7,8 @@ export interface UserSession {
   accessToken?: string
   isPremium?: boolean
   isLoggedIn?: boolean
-  language?: "vi" | "en"
+  language?: "vi" | "en",
+  avatar?: string
 }
 
 export const sessionOptions: SessionOptions = {

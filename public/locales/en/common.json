@@ -284,6 +284,23 @@
       "goHome": "Go to Homepage"
     }
   },
+  "profile": {
+    "title": "Profile",
+    "name": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "changePassword": "Change Password",
+    "currentFates": "Current Fates",
+    "memberSince": "Member Since",
+    "createdAt": "Account Created",
+    "totalDays": "Total Days",
+    "days": "days",
+    "quickActions": "Quick Actions",
+    "nameUpdated": "Name updated successfully",
+    "updateFailed": "Update failed",
+    "loadFailed": "Failed to load profile information",
+    "namePlaceholder": "Enter full name"
+  },
   "site": {
     "title": "Unveil Your Destiny",
     "owner": "insight.ai.vn - Maximize your internal potential with AI",
