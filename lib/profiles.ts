@@ -21,6 +21,8 @@ export async function getUserProfile(): Promise<UserProfile> {
 export async function updateUserProfile(data: {
   displayName?: string;
   avatar?: string;
+  password?: string;
+  newPassword?: string;
 }): Promise<UserProfile> {
   const response = await apiClient.put<{ data: UserProfile }>(`/profile`, data);
   return response.data.data;

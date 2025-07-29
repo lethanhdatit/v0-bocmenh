@@ -279,7 +279,8 @@
       "requestNewLink": "Yêu cầu liên kết mới",
       "successTitle": "Đặt Lại Thành Công",
       "redirectMessage": "Bạn sẽ được chuyển hướng về trang chủ trong 3 giây...",
-      "goHome": "Về Trang Chủ"
+      "goHome": "Về Trang Chủ",
+      "error": "Kiểm tra lại thông tin"
     }
   },
   "profile": {
@@ -288,6 +289,23 @@
     "email": "Email",
     "password": "Mật khẩu",
     "changePassword": "Đổi mật khẩu",
+    "currentPassword": "Mật khẩu hiện tại",
+    "newPassword": "Mật khẩu mới",
+    "confirmNewPassword": "Xác nhận mật khẩu mới",
+    "currentPasswordPlaceholder": "Nhập mật khẩu hiện tại",
+    "newPasswordPlaceholder": "Nhập mật khẩu mới",
+    "confirmNewPasswordPlaceholder": "Nhập lại mật khẩu mới",
+    "currentPasswordRequired": "Vui lòng nhập mật khẩu hiện tại",
+    "newPasswordInvalid": "Mật khẩu mới phải có ít nhất 6 ký tự",
+    "confirmPasswordMismatch": "Mật khẩu xác nhận không khớp",
+    "newPasswordSameAsCurrent": "Mật khẩu mới phải khác mật khẩu hiện tại",
+    "passwordChangeSuccess": "Đổi mật khẩu thành công",
+    "passwordChangeFailed": "Đổi mật khẩu thất bại",
+    "passwordStrengthLabel": "Độ mạnh",
+    "passwordWeak": "Yếu",
+    "passwordFair": "Trung bình", 
+    "passwordGood": "Tốt",
+    "passwordStrong": "Mạnh",
     "currentFates": "Duyên hiện có",
     "memberSince": "Thành viên từ",
     "createdAt": "Ngày tạo tài khoản",
