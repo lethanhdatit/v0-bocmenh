@@ -11,6 +11,8 @@ import {
   Settings,
   Heart,
   ChevronDown,
+  CreditCard,
+  History,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTranslation } from "react-i18next";
@@ -420,6 +422,24 @@ export default function Navigation() {
                   >
                     <Settings className="w-4 h-4" aria-hidden="true" />
                     <span>{t("nav.profile")}</span>
+                  </Link>
+                  <Link
+                    href="/topups-history"
+                    className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-300 hover:text-yellow-400 hover:bg-gray-800 transition-colors"
+                    onClick={() => setIsUserMenuOpen(false)}
+                    role="menuitem"
+                  >
+                    <CreditCard className="w-4 h-4" aria-hidden="true" />
+                    <span>{t("nav.topupsHistory")}</span>
+                  </Link>
+                  <Link
+                    href="/services-history"
+                    className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-300 hover:text-yellow-400 hover:bg-gray-800 transition-colors"
+                    onClick={() => setIsUserMenuOpen(false)}
+                    role="menuitem"
+                  >
+                    <History className="w-4 h-4" aria-hidden="true" />
+                    <span>{t("nav.servicesHistory")}</span>
                   </Link>
                   <Link
                     href="/wishlist"

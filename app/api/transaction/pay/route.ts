@@ -39,7 +39,7 @@ async function payTheologyApiHandler(
     return handleApiServerError(
       error,
       {
-        error400Message: t("destiny.error.theologyFailed"),
+        error400Message: t("destiny.error.payTopupFailed"),
         errorCommonMessage: t("destiny.systemFailed"),
       },
       session,

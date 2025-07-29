@@ -143,7 +143,9 @@
     "blogs": "Blogs",
     "luckybox": "Lucky Box",
     "morebtn": "More",
-    "topups": "Buy Fates"
+    "topups": "Buy Fates",
+    "topupsHistory": "Top-up History",
+    "servicesHistory": "Services History"
   },
   "auth": {
     "logout": {

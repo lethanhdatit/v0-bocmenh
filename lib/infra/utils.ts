@@ -66,3 +66,136 @@ export function getBaseUrl(): string {
   // Fallback for development
   return "http://localhost:3000";
 }
+
+// === DATETIME UTILITIES ===
+
+/**
+ * Get datetime locale mapping for i18n languages
+ */
+export function getDateTimeLocale(language?: string): string {
+  const localeMap: Record<string, string> = {
+    vi: "vi-VN",
+    en: "en-US",
+    zh: "zh-CN",
+    ja: "ja-JP",
+    ko: "ko-KR",
+    th: "th-TH",
+    id: "id-ID",
+  };
+
+  return localeMap[language || "en"] || navigator?.language || "en-US";
+}
+
+/**
+ * Format UTC datetime string to user's locale and timezone
+ */
+export function formatDateTime(utcString: string, language?: string): string {
+  try {
+    const date = new Date(utcString);
+    const locale = getDateTimeLocale(language);
+
+    return new Intl.DateTimeFormat(locale, {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    }).format(date);
+  } catch {
+    return utcString;
+  }
+}
+
+/**
+ * Format currency with proper locale
+ */
+export function formatCurrency(amount: number, currency: string): string {
+  const locale = getLocaleByCurrency(currency);
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+  }).format(amount);
+}
+
+// === WINDOW UTILITIES ===
+
+/**
+ * Check if current window is a popup/mini window
+ */
+export function isMiniWindow(): boolean {
+  try {
+    return (
+      typeof window !== "undefined" &&
+      window.opener &&
+      window.opener !== window
+    );
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Safe window operations with error handling
+ */
+export const windowUtils = {
+  /**
+   * Open URL in new window/tab
+   */
+  openUrl: (url: string, newWindow = true, windowFeatures?: string) => {
+    try {
+      if (newWindow) {
+        const defaultFeatures =
+          windowFeatures ||
+          `width=${Math.round(window.innerWidth * 0.8)},height=${Math.round(
+            window.innerHeight * 0.8
+          )},location=no,menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes`;
+
+        const popup = window.open(url, "_blank", defaultFeatures);
+        if (!popup) {
+          // Fallback if popup blocked
+          window.location.href = url;
+        }
+        return popup;
+      } else {
+        window.location.href = url;
+        return null;
+      }
+    } catch (error) {
+      console.warn("Failed to open URL:", error);
+      return null;
+    }
+  },
+
+  /**
+   * Send message to parent window (for mini windows)
+   */
+  sendMessageToParent: (message: any, targetOrigin?: string) => {
+    try {
+      if (isMiniWindow()) {
+        window.opener.postMessage(
+          message,
+          targetOrigin || window.location.origin
+        );
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.warn("Failed to send message to parent:", error);
+      return false;
+    }
+  },
+
+  /**
+   * Close current window (for mini windows)
+   */
+  closeWindow: () => {
+    try {
+      window.close();
+      return true;
+    } catch (error) {
+      console.warn("Failed to close window:", error);
+      return false;
+    }
+  },
+};

@@ -3,7 +3,7 @@ import { getSession } from "@/lib/session/session";
 import type { UserSession } from "@/lib/session/sessionOptions";
 import { encryptData, decryptData } from "@/lib/infra/encryption"; // Assuming this is for encrypting responses
 import { IronSession } from "iron-session";
-import { type ApiBaseResponse } from "@/lib/api/apiClient" 
+import { type ApiBaseResponse } from "@/lib/api/apiClient";
 
 type ApiHandler<T = any> = (
   data: T | undefined,
@@ -121,7 +121,12 @@ export async function handleApiServerError(
         status === 400 ? options.error400Message : options.errorCommonMessage,
     },
     data,
-    beErrorCode: error?.data?.data[0]?.code
+    beErrorCode:
+      (error?.data &&
+        typeof error.data === "object" &&
+        Array.isArray(error.data.data) &&
+        error.data.data[0]?.code) ||
+      undefined,
   };
 
   if (status === 401) {

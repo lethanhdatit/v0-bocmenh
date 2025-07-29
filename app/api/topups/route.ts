@@ -17,12 +17,12 @@ async function buyTopupHandler(
    const { t } = await getTranslations(["common", "topups"]);
 
   try {
-    const { packageId, paymentGateId, callbackUrl } = data;
+    const { id, packageId, paymentGateId, callbackUrl } = data;
 
     // Validation
     const errors: Record<string, string> = {};
 
-    if (!packageId || !paymentGateId) {
+    if (!id && (!packageId || !paymentGateId)) {
       errors.birthTime = t("topups.error.invalidInput");
     }
 
@@ -36,13 +36,22 @@ async function buyTopupHandler(
 
     const config = await getConfig(request, session?.accessToken);    
 
+    // Helper function để chỉ thêm field có giá trị
+    const addIfValid = (obj: any, key: string, value: any) => {
+      if (value && (typeof value === 'string' ? value.trim() : value)) {
+        obj[key] = value;
+      }
+    };
+
+    const payload: any = {};
+    addIfValid(payload, 'id', id);
+    addIfValid(payload, 'topupPackageId', packageId);
+    addIfValid(payload, 'provider', paymentGateId);
+    addIfValid(payload, 'callbackUrl', callbackUrl);
+
     const response = await apiServer.post(
       "/transaction/topups",
-      {
-        topupPackageId: packageId,
-        provider: paymentGateId,
-        callbackUrl: callbackUrl
-      },
+      payload,
       config
     );
 

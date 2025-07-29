@@ -1,6 +1,6 @@
 import { apiClient } from "@/lib/api/apiClient";
 import { apiServer } from "@/lib/api/apiServer";
-import { getBaseUrl } from "@/lib/infra/utils"
+import { getBaseUrl } from "@/lib/infra/utils";
 
 export interface TopupPackage {
   id: string;
@@ -62,7 +62,20 @@ export interface TransactionStatusResponse {
   fateBonusRate: number;
   providerMeta?: any;
   meta?: any;
+  createdTs?: string;
 }
+
+export interface PaginatedBase<TDto> {
+  pageNumber?: number;
+  pageSize?: number;
+  totalRecords?: number;
+  totalSelected?: number;
+  totalPages?: number;
+  items: TDto[];
+}
+
+// Interface cho transaction history response
+export interface TransactionHistoryResponse extends PaginatedBase<TransactionStatusResponse> {}
 
 export async function getTopupPackages(): Promise<TopupPackage[]> {
   try {
@@ -74,15 +87,18 @@ export async function getTopupPackages(): Promise<TopupPackage[]> {
 }
 
 export async function buyTopup(
-  packageId: string,
-  paymentGateId: string,
+  packageId?: string,
+  paymentGateId?: string,
   miniMode: boolean = false,
+  autoClose: boolean = false,
+  id?: string | null | undefined
 ): Promise<BuyTopupResponse> {
-  const callbackUrl = `${getBaseUrl()}/topups-checkout?miniMode=${miniMode}`;
+  const callbackUrl = `${getBaseUrl()}/topups-checkout?miniMode=${miniMode}&autoClose=${autoClose}`;
   const response = await apiClient.post<{ data: BuyTopupResponse }>("/topups", {
     packageId,
     paymentGateId,
-    callbackUrl
+    callbackUrl,
+    id,
   });
   return response.data.data;
 }
@@ -123,13 +139,10 @@ export async function cancelTopup(
   return response.data.data;
 }
 
-export async function payService(
-  id: string
-): Promise<any> {
-  const response = await apiClient.post<{ data: any }>(
-    `/transaction/pay`,
-    { id }
-  );
+export async function payService(id: string): Promise<any> {
+  const response = await apiClient.post<{ data: any }>(`/transaction/pay`, {
+    id,
+  });
   return response.data.data;
 }
 
@@ -138,6 +151,16 @@ export async function getTransactionStatus(
 ): Promise<TransactionStatusResponse> {
   const response = await apiClient.post<{ data: TransactionStatusResponse }>(
     `/transaction/status?id=${transId}`
+  );
+  return response.data.data;
+}
+
+export async function getTransactionHistory(
+  pageSize: number,
+  pageNumber: number
+): Promise<TransactionHistoryResponse> {
+  const response = await apiClient.get<{ data: TransactionHistoryResponse }>(
+    `/transaction/history?pageSize=${pageSize}&pageNumber=${pageNumber}`
   );
   return response.data.data;
 }
