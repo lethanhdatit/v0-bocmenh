@@ -126,22 +126,24 @@ export default function TopupsHistoryClient() {
               key={transaction.id}
               className="bg-gray-800/50 border border-yellow-500/20 rounded-lg p-4 space-y-3"
             >
-              <div className="flex justify-between items-start">
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-sm text-gray-200">
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-1 flex-1 min-w-0">
+                  <span className="font-mono text-sm text-gray-200 truncate">
                     {t("topups.history.orderId", "Mã GD")}:  {transaction.id.substring(0, 8)}...
                   </span>
                   <Button
                     size="sm"
                     variant="ghost"
                     onClick={() => handleCopyTransactionId(transaction.id)}
-                    className="h-6 w-6 p-0 hover:bg-yellow-500/20 text-gray-400 hover:text-yellow-400"
+                    className="h-6 w-6 p-0 hover:bg-yellow-500/20 text-gray-400 hover:text-yellow-400 flex-shrink-0"
                     title={t("common.copy", "Sao chép")}
                   >
                     <Copy className="w-3 h-3" />
                   </Button>
                 </div>
-                <StatusBadge status={transaction.status} />
+                <div className="flex-shrink-0 ml-2">
+                  <StatusBadge status={transaction.status} />
+                </div>
               </div>
 
               <div>
