@@ -15,7 +15,7 @@ export default function EmailViewerPage() {
     // For demo purposes, we'll simulate some emails
     const mockEmails = [
       {
-        to: "demo@bocmenh.com",
+        to: "demo@insight.ai.vn",
         subject: "Đặt lại mật khẩu - Bóc Mệnh",
         html: `<div style="font-family: Arial, sans-serif;">
           <h2>🔮 Bóc Mệnh - Đặt lại mật khẩu</h2>
@@ -140,8 +140,8 @@ export default function EmailViewerPage() {
               <code className="bg-gray-800 px-2 py-1 rounded">/auth/forgot-password</code>
             </p>
             <p>
-              • Sử dụng email: <code className="bg-gray-800 px-2 py-1 rounded">demo@bocmenh.com</code> hoặc{" "}
-              <code className="bg-gray-800 px-2 py-1 rounded">premium@bocmenh.com</code>
+              • Sử dụng email: <code className="bg-gray-800 px-2 py-1 rounded">demo@insight.ai.vn</code> hoặc{" "}
+              <code className="bg-gray-800 px-2 py-1 rounded">premium@insight.ai.vn</code>
             </p>
             <p>• Trong production, emails sẽ được gửi qua dịch vụ email thực tế</p>
           </div>

@@ -127,7 +127,7 @@ export default function HelpPageClient() {
             <p className="text-gray-300 mb-4">{content.pleaseContactUs}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="mailto:support@bocmenh.com"
+                href="mailto:support@insight.ai.vn"
                 className="inline-flex items-center justify-center px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-black-300 font-medium rounded-lg transition-colors"
               >
                 {content.sendSupportEmail}

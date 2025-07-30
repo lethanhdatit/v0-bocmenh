@@ -14,7 +14,7 @@ const users: Array<{
 }> = [
   {
     id: "demo-user-1",
-    email: "demo@bocmenh.com",
+    email: "demo@insight.ai.vn",
     password: Buffer.from("123456").toString("base64"),
     name: "Người Dùng Demo",
     createdAt: new Date().toISOString(),
@@ -22,7 +22,7 @@ const users: Array<{
   },
   {
     id: "premium-user-1",
-    email: "premium@bocmenh.com",
+    email: "premium@insight.ai.vn",
     password: Buffer.from("123456").toString("base64"),
     name: "Thành Viên Premium",
     createdAt: new Date().toISOString(),
