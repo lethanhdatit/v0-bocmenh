@@ -593,18 +593,18 @@ export default function ProfileClient() {
             </div>
           </div>
 
-          <DialogFooter className="space-x-2">
+          <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-2">
             <Button
               onClick={handleCloseChangePassword}
               variant="outline"
-              className="border-gray-600 hover:text-white text-gray-600 hover:bg-gray-800"
+              className="border-gray-600 hover:text-white text-gray-600 hover:bg-gray-800 flex-1"
             >
               {t("common.cancel", "Hủy")}
             </Button>
             <Button
               onClick={handleChangePassword}
               disabled={isUpdating}
-              className="bg-yellow-600 hover:bg-yellow-700 text-white"
+              className="bg-yellow-600 hover:bg-yellow-700 text-white flex-1"
             >
               {isUpdating ? (
                 <>
