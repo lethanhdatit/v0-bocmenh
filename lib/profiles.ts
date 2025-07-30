@@ -1,6 +1,4 @@
 import { apiClient } from "@/lib/api/apiClient";
-import { apiServer } from "@/lib/api/apiServer";
-import { getBaseUrl } from "@/lib/infra/utils";
 
 // Profile related interfaces
 export interface UserProfile {

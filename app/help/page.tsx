@@ -3,18 +3,18 @@ import HelpPageClient from "./HelpPageClient"
 import type { Metadata } from "next"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { t } = await getTranslations(["help", "common"])
+  const { t } = await getTranslations(["help", "root"])
 
   return {
-    title: `${t("help:title")} - Bóc Mệnh`,
-    description: t("help:title"),
+    title: `${t("root.title")} - Bóc Mệnh`,
+    description: t("root.title"),
     openGraph: {
-      title: `${t("help:title")} - Bóc Mệnh`,
-      description: t("help:title"),
+      title: `${t("root.title")} - Bóc Mệnh`,
+      description: t("root.title"),
     },
     twitter: {
-      title: `${t("help:title")} - Bóc Mệnh`,
-      description: t("help:title"),
+      title: `${t("root.title")} - Bóc Mệnh`,
+      description: t("root.title"),
     },
   }
 }
