@@ -15,7 +15,7 @@ async function sendEmailVerificationHandler(
   request: NextRequest,
   session: IronSession<UserSession>
 ) {
-  const { t } = await getTranslations(["common", "auth"]);
+  const { t } = await getTranslations(["common"]);
 
   try {
     const { email } = data;

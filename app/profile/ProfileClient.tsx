@@ -45,7 +45,7 @@ import { formatDateTime } from "@/lib/infra/utils";
 const fetcher = () => getUserProfile();
 
 export default function ProfileClient() {
-  const { t, i18n } = useTranslation(["common", "auth"]);
+  const { t, i18n } = useTranslation(["common"]);
   const { user, refreshUser } = useAuth();
   const { myFates } = useMyFates();
   const { openTopup } = useTopupWindow();

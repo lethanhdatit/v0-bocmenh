@@ -14,7 +14,7 @@ async function getTransactionHistoryHandler(
   request: NextRequest,
   session: IronSession<UserSession>
 ) {
-  const { t } = await getTranslations(["common", "topups"]);
+  const { t } = await getTranslations(["common"]);
 
   const { searchParams } = new URL(request.url);
   const pageSize = searchParams.get("pageSize");

@@ -20,6 +20,17 @@ export function setGlobalLogoutHandler(handler: typeof globalLogoutHandler) {
   globalLogoutHandler = handler;
 }
 
+// Global language state for API client
+let currentLanguage: string = "vi";
+
+export function setApiClientLanguage(language: string) {
+  currentLanguage = language;
+}
+
+export function getApiClientLanguage(): string {
+  return currentLanguage;
+}
+
 export const apiClient = axios.create({
   baseURL: "/api",
   headers: {
@@ -27,7 +38,7 @@ export const apiClient = axios.create({
   },
 });
 
-// Request interceptor for encryption
+// Request interceptor for encryption and language headers
 apiClient.interceptors.request.use(
   (config) => {
     if (
@@ -41,6 +52,9 @@ apiClient.interceptors.request.use(
     
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     config.headers['X-Time-Zone-Id'] = timeZone;
+    
+    // Set Accept-Language header based on current language
+    config.headers['Accept-Language'] = currentLanguage === "vi" ? "vi-VN,vi;q=0.9,en;q=0.8" : "en-US,en;q=0.9,vi;q=0.8";
 
     return config;
   },

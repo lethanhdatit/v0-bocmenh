@@ -14,7 +14,7 @@ async function buyTopupHandler(
   request: NextRequest,
   session: IronSession<UserSession>
 ) {
-   const { t } = await getTranslations(["common", "topups"]);
+   const { t } = await getTranslations(["common"]);
 
   try {
     const { id, packageId, paymentGateId, callbackUrl } = data;
@@ -80,7 +80,7 @@ async function getMyFatesHandler(
   request: NextRequest,
   session: IronSession<UserSession>
 ) {
-  const { t } = await getTranslations(["common", "topups"]);
+  const { t } = await getTranslations(["common"]);
 
   try {    
     const config = await getConfig(request, session?.accessToken);

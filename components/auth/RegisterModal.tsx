@@ -28,7 +28,10 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { sendEmailVerification, confirmEmailVerification } from "@/lib/emailVerification";
+import {
+  sendEmailVerification,
+  confirmEmailVerification,
+} from "@/lib/emailVerification";
 
 type RegistrationStep = "email" | "otp" | "form";
 
@@ -81,22 +84,30 @@ export default function RegisterModal() {
     setIsLoadingVerification(true);
 
     try {
-      const response = await sendEmailVerification({ email: verificationEmail });
+      const response = await sendEmailVerification({
+        email: verificationEmail,
+      });
       if (response.success) {
         setCurrentStep("otp");
         setResendCountdown(300); // 5 minutes countdown
-        setMessage(t("auth.emailVerification.success"));
+        setMessage(t("auth.emailVerification.successSent"));
       } else {
-        setErrors({ email: response.message || t("auth.emailVerification.failed") });
+        setErrors({
+          email: response.message || t("auth.emailVerification.failed"),
+        });
       }
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || t("auth.emailVerification.systemError");
+      const errorMessage =
+        error.response?.data?.message ||
+        t("auth.emailVerification.systemError");
       const errorCode = error?.response?.data?.beErrorCode;
-      
+
       if (errorCode === "EmailAlreadyExists") {
         setErrors({ email: t("auth.emailVerification.emailExists") });
       } else if (errorCode === "SpamEmailSending") {
-        setErrors({ email: t("auth.emailVerification.spamPrevention", { seconds: 300 }) });
+        setErrors({
+          email: t("auth.emailVerification.spamPrevention", { seconds: 300 }),
+        });
         setResendCountdown(300);
       } else {
         setErrors({ email: errorMessage });
@@ -120,23 +131,27 @@ export default function RegisterModal() {
     setIsLoadingVerification(true);
 
     try {
-      const response = await confirmEmailVerification({ 
-        email: verificationEmail, 
-        otp: otp 
+      const response = await confirmEmailVerification({
+        email: verificationEmail,
+        otp: otp,
       });
-      
+
       if (response.success) {
         setIsEmailVerified(true);
         setCurrentStep("form");
-        setFormData(prev => ({ ...prev, email: verificationEmail }));
+        setFormData((prev) => ({ ...prev, email: verificationEmail }));
         setMessage(t("auth.emailVerification.success"));
       } else {
-        setErrors({ otp: response.message || t("auth.emailVerification.failed") });
+        setErrors({
+          otp: response.message || t("auth.emailVerification.failed"),
+        });
       }
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || t("auth.emailVerification.systemError");
+      const errorMessage =
+        error.response?.data?.message ||
+        t("auth.emailVerification.systemError");
       const errorCode = error?.response?.data?.beErrorCode;
-      
+
       if (errorCode === "ExpiredOtp") {
         setErrors({ otp: t("auth.emailVerification.otpExpired") });
       } else if (errorCode === "InvalidOtp") {
@@ -152,20 +167,26 @@ export default function RegisterModal() {
   // Handle resend OTP
   const handleResendOTP = async () => {
     if (resendCountdown > 0) return;
-    
+
     setErrors({});
     setIsLoadingVerification(true);
 
     try {
-      const response = await sendEmailVerification({ email: verificationEmail });
+      const response = await sendEmailVerification({
+        email: verificationEmail,
+      });
       if (response.success) {
         setResendCountdown(300);
         setMessage(t("auth.emailVerification.success"));
       } else {
-        setErrors({ general: response.message || t("auth.emailVerification.failed") });
+        setErrors({
+          general: response.message || t("auth.emailVerification.failed"),
+        });
       }
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || t("auth.emailVerification.systemError");
+      const errorMessage =
+        error.response?.data?.message ||
+        t("auth.emailVerification.systemError");
       setErrors({ general: errorMessage });
     } finally {
       setIsLoadingVerification(false);
@@ -204,15 +225,17 @@ export default function RegisterModal() {
       );
       if (!result.success) {
         setErrors(
-          result.errors || ({ system: result.message } as Record<string, string>)
+          result.errors ||
+            ({ system: result.message } as Record<string, string>)
         );
       } else {
         setMessage(result.message!);
       }
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || t("auth.register.systemError");
+      const errorMessage =
+        error.response?.data?.message || t("auth.register.systemError");
       const errorCode = error?.response?.data?.beErrorCode;
-      
+
       if (errorCode === "UnverifiedEmail") {
         setErrors({ general: t("auth.register.unverifiedEmail") });
         setCurrentStep("email");
@@ -288,7 +311,10 @@ export default function RegisterModal() {
   ];
 
   const renderEmailVerificationStep = () => (
-    <form onSubmit={handleSendOTP} className="space-y-3 sm:space-y-4 py-2 sm:py-4">
+    <form
+      onSubmit={handleSendOTP}
+      className="space-y-3 sm:space-y-4 py-2 sm:py-3"
+    >
       {/* <div className="text-center mb-3 sm:mb-4">
         <Mail className="mx-auto mb-2 text-yellow-400" size={28} />
         <h3 className="text-base sm:text-lg font-semibold text-yellow-400">
@@ -299,8 +325,11 @@ export default function RegisterModal() {
         </p>
       </div> */}
 
-      <div>
-        <Label htmlFor="verification-email" className="text-gray-300 text-sm sm:text-base">
+      <div className="flex flex-col gap-2">
+        <Label
+          htmlFor="verification-email"
+          className="text-gray-300 text-sm sm:text-base"
+        >
           {t("auth.emailVerification.enterEmail")}
         </Label>
         <Input
@@ -344,7 +373,10 @@ export default function RegisterModal() {
   );
 
   const renderOTPVerificationStep = () => (
-    <form onSubmit={handleVerifyOTP} className="space-y-3 sm:space-y-4 py-2 sm:py-4">
+    <form
+      onSubmit={handleVerifyOTP}
+      className="space-y-3 sm:space-y-4 py-2 sm:py-3"
+    >
       {/* <div className="text-center mb-3 sm:mb-4">
         <CheckCircle className="mx-auto mb-2 text-yellow-400" size={28} />
         <h3 className="text-base sm:text-lg font-semibold text-yellow-400">
@@ -355,8 +387,11 @@ export default function RegisterModal() {
         </p>
       </div> */}
 
-      <div>
-        <Label htmlFor="otp-input" className="text-gray-300 text-sm sm:text-base">
+      <div className="flex flex-col gap-2">
+        <Label
+          htmlFor="otp-input"
+          className="text-gray-300 text-sm sm:text-base"
+        >
           {t("auth.emailVerification.enterOtp")}
         </Label>
         <Input
@@ -388,13 +423,16 @@ export default function RegisterModal() {
         <Button
           type="button"
           variant="outline"
-          onClick={() => setCurrentStep("email")}
-          className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-800 text-sm sm:text-base py-2 sm:py-3"
+          onClick={() => {
+            resetModal();
+            setCurrentStep("email");
+          }}
+          className="flex-1 border bg-transparent border-gray-600 hover:border-gray-500 text-white rounded-lg transition-colors text-sm py-2 sm:py-3"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           {t("auth.emailVerification.backToEmail")}
         </Button>
-        
+
         <Button
           type="submit"
           disabled={isLoadingVerification}
@@ -414,7 +452,9 @@ export default function RegisterModal() {
       <div className="text-center">
         {resendCountdown > 0 ? (
           <p className="text-xs sm:text-sm text-gray-400">
-            {t("auth.emailVerification.resendCountdown", { seconds: resendCountdown })}
+            {t("auth.emailVerification.resendCountdown", {
+              seconds: resendCountdown,
+            })}
           </p>
         ) : (
           <Button
@@ -671,15 +711,16 @@ export default function RegisterModal() {
           type="button"
           variant="outline"
           onClick={() => {
+            resetModal();
             setCurrentStep("email");
             setIsEmailVerified(false);
           }}
-          className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-800"
+          className="flex-1 bg-transparent border-gray-600 hover:border-gray-500 text-white rounded-lg transition-colors text-sm py-2 sm:py-3"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           {t("auth.register.changeEmail")}
         </Button>
-        
+
         <Button
           type="submit"
           disabled={isLoading}
@@ -714,20 +755,27 @@ export default function RegisterModal() {
             {t("auth.register.title")}
           </DialogTitle>
           <DialogDescription className="text-sm sm:text-base text-gray-400">
-            {currentStep === "email" && t("auth.emailVerification.enterEmailDescription")}
-            {currentStep === "otp" && t("auth.emailVerification.enterOtpDescription", { email: verificationEmail })}
+            {currentStep === "email" &&
+              t("auth.emailVerification.enterEmailDescription")}
+            {currentStep === "otp" &&
+              t("auth.emailVerification.enterOtpDescription", {
+                email: verificationEmail,
+              })}
             {currentStep === "form" && t("auth.register.subtitle")}
           </DialogDescription>
         </DialogHeader>
 
         {/* Error Message */}
-        {Object.keys(errors).length > 0 && (
+        {/* {Object.keys(errors).length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 mb-4 flex items-start gap-2"
           >
-            <AlertCircle size={16} className="text-red-400 mt-0.5 flex-shrink-0" />
+            <AlertCircle
+              size={16}
+              className="text-red-400 mt-0.5 flex-shrink-0"
+            />
             <div className="min-w-0 flex-1">
               <p className="text-red-400 text-sm">{message}</p>
               <div className="mt-1">
@@ -741,7 +789,7 @@ export default function RegisterModal() {
               </div>
             </div>
           </motion.div>
-        )}
+        )} */}
 
         {/* Success Message */}
         {message && !Object.keys(errors).length && (

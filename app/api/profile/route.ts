@@ -14,7 +14,7 @@ async function getProfileHandler(
   request: NextRequest,
   session: IronSession<UserSession>
 ) {
-  const { t } = await getTranslations(["common", "auth"]);
+  const { t } = await getTranslations(["common"]);
 
   try {
     const config = await getConfig(request, session?.accessToken);
@@ -34,7 +34,7 @@ async function getProfileHandler(
     return handleApiServerError(
       error,
       {
-        error400Message: t("auth.profile.getProfileFailed", "Không thể tải thông tin profile"),
+        error400Message: t("common.profile.getProfileFailed", "Không thể tải thông tin profile"),
         errorCommonMessage: t("common.systemFailed"),
       },
       session,
@@ -48,7 +48,7 @@ async function updateProfileHandler(
   request: NextRequest,
   session: IronSession<UserSession>
 ) {
-  const { t } = await getTranslations(["common", "auth"]);
+  const { t } = await getTranslations(["common"]);
 
   try {
     const config = await getConfig(request, session?.accessToken);
