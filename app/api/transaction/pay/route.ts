@@ -15,7 +15,7 @@ async function payTheologyApiHandler(
   request: NextRequest,
   session: IronSession<UserSession>
 ) {
- const { t } = await getTranslations(["common", "topups"]);
+ const { t } = await getTranslations(["common"]);
 
   try {
     const { id } = data;

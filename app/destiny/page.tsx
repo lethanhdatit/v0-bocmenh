@@ -19,21 +19,21 @@ export async function generateMetadata({
   searchParams: { [key: string]: string | string[] | undefined };
   params: { locale: string };
 }): Promise<Metadata> {
-  const { t } = await getTranslations(["common", "destiny"]);
+  const { t } = await getTranslations(["common"]);
 
   const name = searchParams?.name as string;
 
   if (name) {
     return {
-      title: t("destiny.result.titleFor", { name }),
-      description: t("destiny.meta.descriptionFor", { name }),
-      keywords: t("destiny.meta.keywordsFor", { name }).split(", "),
+      title: t("common:destiny.result.titleFor", { name }),
+      description: t("common:destiny.meta.descriptionFor", { name }),
+      keywords: t("common:destiny.meta.keywordsFor", { name }).split(", "),
     };
   }
   return {
-    title: t("destiny.pageTitle"),
-    description: t("destiny.meta.descriptionDefault"),
-    keywords: t("destiny.meta.keywordsDefault").split(", "),
+    title: t("common:destiny.pageTitle"),
+    description: t("common:destiny.meta.descriptionDefault"),
+    keywords: t("common:destiny.meta.keywordsDefault").split(", "),
   };
 }
 
@@ -92,7 +92,7 @@ export default async function DestinyPage({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const { t } = await getTranslations(["common", "destiny", "attributes"]);
+  const { t } = await getTranslations(["common"]);
 
   const id = searchParams?.id as string | undefined;
 
@@ -106,10 +106,10 @@ export default async function DestinyPage({
         >
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
-              {t("destiny.form.title")}
+              {t("common:destiny.form.title")}
             </CardTitle>
             <CardDescription className="text-gray-300 mt-1 text-left">
-              <i>{t("features.destiny.description")}</i>
+              <i>{t("common:features.destiny.description")}</i>
             </CardDescription>
           </CardHeader>
           <CardContent>

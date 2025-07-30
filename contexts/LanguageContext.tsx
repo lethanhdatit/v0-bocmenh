@@ -4,7 +4,9 @@ import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { setLanguage as setServerLanguage, getLanguage as getServerLanguage } from "@/lib/languageActions"
-import i18n, { initPromise } from "@/lib/infra/i18n"
+import { setApiClientLanguage } from "@/lib/api/apiClient"
+import i18n, { loadTranslationResources } from "@/lib/infra/i18n"
+import { cacheManager } from "@/lib/utils/i18n-cache"
 
 type Language = "vi" | "en"
 
@@ -13,6 +15,12 @@ interface LanguageContextType {
   setLanguage: (lang: Language) => void
   t: (key: string) => string
   isLoading: boolean
+  cacheInfo: {
+    isCached: boolean
+    cacheSize?: number
+    timestamp?: number
+  }
+  refreshTranslations: () => Promise<void>
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
@@ -21,6 +29,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>("vi")
   const [isLoading, setIsLoading] = useState(true)
   const [isI18nReady, setIsI18nReady] = useState(false)
+  const [cacheInfo, setCacheInfo] = useState(cacheManager.getClientCacheInfo())
+
+  const refreshTranslations = async () => {
+    await cacheManager.refreshTranslations()
+    setCacheInfo(cacheManager.getClientCacheInfo())
+  }
 
   // Initialize i18n first, then get translation function
   useEffect(() => {
@@ -28,8 +42,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       try {
         setIsLoading(true)
 
-        // Wait for i18n to be fully initialized first
-        await initPromise
+        // Load translation resources first
+        const resourcesLoaded = await loadTranslationResources()
+        
+        if (!resourcesLoaded) {
+          throw new Error("Failed to load translation resources")
+        }
 
         // Now fetch language from server
         const { language: serverLanguage } = await getServerLanguage()
@@ -40,12 +58,16 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
           await i18n.changeLanguage(finalLanguage)
         }
 
+        // Set language in API client for Accept-Language header
+        setApiClientLanguage(finalLanguage)
+
         setLanguageState(finalLanguage)
         setIsI18nReady(true)
       } catch (error) {
         console.error("Failed to initialize i18n:", error)
-        // Fallback to default
+        // Fallback to default without crashing
         setLanguageState("vi")
+        setApiClientLanguage("vi")
         if (i18n && typeof i18n.changeLanguage === "function") {
           try {
             await i18n.changeLanguage("vi")
@@ -77,6 +99,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         if (i18n && typeof i18n.changeLanguage === "function") {
           await i18n.changeLanguage(lang)
         }
+
+        // Update API client language for Accept-Language header
+        setApiClientLanguage(lang)
       } else {
         console.error("Failed to save language to server:", result.error)
       }
@@ -97,7 +122,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <LanguageContextProvider language={language} setLanguage={setLanguage} isLoading={isLoading}>
+    <LanguageContextProvider 
+      language={language} 
+      setLanguage={setLanguage} 
+      isLoading={isLoading}
+      cacheInfo={cacheInfo}
+      refreshTranslations={refreshTranslations}
+    >
       {children}
     </LanguageContextProvider>
   )
@@ -109,11 +140,19 @@ function LanguageContextProvider({
   language,
   setLanguage,
   isLoading,
+  cacheInfo,
+  refreshTranslations,
 }: {
   children: React.ReactNode
   language: Language
   setLanguage: (lang: Language) => void
   isLoading: boolean
+  cacheInfo: {
+    isCached: boolean
+    cacheSize?: number
+    timestamp?: number
+  }
+  refreshTranslations: () => Promise<void>
 }) {
   const { t } = useTranslation() // Now safe to call since i18n is ready
 
@@ -124,6 +163,8 @@ function LanguageContextProvider({
         setLanguage,
         t,
         isLoading,
+        cacheInfo,
+        refreshTranslations,
       }}
     >
       {children}

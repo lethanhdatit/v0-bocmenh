@@ -15,7 +15,7 @@ async function registerPostHandler(
   request: NextRequest,
   session: IronSession<UserSession>
 ) {
-  const { t } = await getTranslations(["common", "auth"]);
+  const { t } = await getTranslations(["common"]);
 
   try {
     const { email, password, name, confirmPassword } = data;
