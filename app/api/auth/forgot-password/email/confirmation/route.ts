@@ -10,7 +10,7 @@ import { getTranslations } from "@/i18n/server";
 import { IronSession } from "iron-session";
 import { isValidEmail } from "@/lib/infra/validators";
 
-async function resetPasswordHandler(
+async function sendEmailConfirmationHandler(
   data: any,
   request: NextRequest,
   session: IronSession<UserSession>
@@ -18,23 +18,23 @@ async function resetPasswordHandler(
   const { t } = await getTranslations(["common"]);
 
   try {
-    const { email, password } = data;
+    const { email, otp } = data;
 
     // Validation
     const errors: Record<string, string> = {};
 
     if (!email || !isValidEmail(email)) {
-      errors.email = t("auth.emailVerification.invalidEmail");
+      errors.email = t("auth.emailConfirmation.invalidEmail");
     }
 
-    if (!password) {
-      errors.password = t("auth.emailVerification.invalidPassword");
+    if (!otp) {
+      errors.otp = t("auth.emailConfirmation.invalidOtp");
     }
 
     if (Object.keys(errors).length > 0) {
       return baseResponse({
         status: 400,
-        message: t("auth.emailVerification.invalidData"),
+        message: t("auth.emailConfirmation.invalidData"),
         errors,
       });
     }
@@ -42,21 +42,21 @@ async function resetPasswordHandler(
     const config = await getConfig(request, session?.accessToken);
 
     const response = await apiServer.post(
-      "/account/password/recovery",
-      { email, password },
+      "/account/password/recovery/email/confirmation",
+      { email, otp, module: "BocMenh" },
       config
     );
 
     return baseResponse({
       status: 200,
-      message: t("auth.resetPassword.successTitle"),
+      message: t("auth.emailConfirmation.success"),
       data: response.data.data,
     });
   } catch (error) {
     return handleApiServerError(
       error,
       {
-        error400Message: t("auth.resetPassword.failedTitle"),
+        error400Message: t("auth.emailConfirmation.failed"),
         errorCommonMessage: t("auth.systemFailed"),
       },
       session,
@@ -65,6 +65,6 @@ async function resetPasswordHandler(
   }
 }
 
-export const POST = withServerBase(resetPasswordHandler, {
+export const POST = withServerBase(sendEmailConfirmationHandler, {
   isAuthenRequired: false,
 });

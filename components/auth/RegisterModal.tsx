@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/dialog";
 import {
   Loader2,
-  AlertCircle,
   Eye,
   EyeOff,
   Mail,
@@ -89,7 +88,7 @@ export default function RegisterModal() {
       });
       if (response.success) {
         setCurrentStep("otp");
-        setResendCountdown(300); // 5 minutes countdown
+        setResendCountdown(120); 
         setMessage(t("auth.emailVerification.successSent"));
       } else {
         setErrors({
@@ -106,9 +105,9 @@ export default function RegisterModal() {
         setErrors({ email: t("auth.emailVerification.emailExists") });
       } else if (errorCode === "SpamEmailSending") {
         setErrors({
-          email: t("auth.emailVerification.spamPrevention", { seconds: 300 }),
+          email: t("auth.emailVerification.spamPrevention", { seconds: 120 }),
         });
-        setResendCountdown(300);
+        setResendCountdown(120);
       } else {
         setErrors({ email: errorMessage });
       }
@@ -176,7 +175,7 @@ export default function RegisterModal() {
         email: verificationEmail,
       });
       if (response.success) {
-        setResendCountdown(300);
+        setResendCountdown(120);
         setMessage(t("auth.emailVerification.success"));
       } else {
         setErrors({
