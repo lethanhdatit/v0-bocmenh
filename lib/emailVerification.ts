@@ -6,7 +6,8 @@ export interface EmailVerificationRequest {
 
 export interface EmailConfirmationRequest {
   email: string;
-  otp: string;
+  password?: string;
+  otp?: string;
 }
 
 export interface EmailVerificationResponse {
@@ -30,6 +31,36 @@ export async function confirmEmailVerification(
 ): Promise<EmailVerificationResponse> {
   const response = await apiClient.post<EmailVerificationResponse>(
     `/auth/email/confirmation`,
+    data
+  );
+  return response.data;
+}
+
+export async function sendForgotPasswordEmailVerification(
+  data: EmailVerificationRequest
+): Promise<EmailVerificationResponse> {
+  const response = await apiClient.post<EmailVerificationResponse>(
+    `/auth/forgot-password/email/verification`,
+    data
+  );
+  return response.data;
+}
+
+export async function confirmForgotPasswordEmailVerification(
+  data: EmailConfirmationRequest
+): Promise<EmailVerificationResponse> {
+  const response = await apiClient.post<EmailVerificationResponse>(
+    `/auth/forgot-password/email/confirmation`,
+    data
+  );
+  return response.data;
+}
+
+export async function resetPassword(
+  data: EmailConfirmationRequest
+): Promise<EmailVerificationResponse> {
+  const response = await apiClient.post<EmailVerificationResponse>(
+    `/auth/forgot-password`,
     data
   );
   return response.data;

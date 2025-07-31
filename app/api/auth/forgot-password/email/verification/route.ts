@@ -10,7 +10,7 @@ import { getTranslations } from "@/i18n/server";
 import { IronSession } from "iron-session";
 import { isValidEmail } from "@/lib/infra/validators";
 
-async function resetPasswordHandler(
+async function sendEmailVerificationHandler(
   data: any,
   request: NextRequest,
   session: IronSession<UserSession>
@@ -18,17 +18,13 @@ async function resetPasswordHandler(
   const { t } = await getTranslations(["common"]);
 
   try {
-    const { email, password } = data;
+    const { email } = data;
 
     // Validation
     const errors: Record<string, string> = {};
 
     if (!email || !isValidEmail(email)) {
       errors.email = t("auth.emailVerification.invalidEmail");
-    }
-
-    if (!password) {
-      errors.password = t("auth.emailVerification.invalidPassword");
     }
 
     if (Object.keys(errors).length > 0) {
@@ -42,21 +38,21 @@ async function resetPasswordHandler(
     const config = await getConfig(request, session?.accessToken);
 
     const response = await apiServer.post(
-      "/account/password/recovery",
-      { email, password },
+      "/account/password/recovery/email/verification",
+      { email, module: "BocMenh" },
       config
     );
 
     return baseResponse({
       status: 200,
-      message: t("auth.resetPassword.successTitle"),
+      message: t("auth.emailVerification.success"),
       data: response.data.data,
     });
   } catch (error) {
     return handleApiServerError(
       error,
       {
-        error400Message: t("auth.resetPassword.failedTitle"),
+        error400Message: t("auth.emailVerification.failed"),
         errorCommonMessage: t("auth.systemFailed"),
       },
       session,
@@ -65,6 +61,6 @@ async function resetPasswordHandler(
   }
 }
 
-export const POST = withServerBase(resetPasswordHandler, {
+export const POST = withServerBase(sendEmailVerificationHandler, {
   isAuthenRequired: false,
 });
