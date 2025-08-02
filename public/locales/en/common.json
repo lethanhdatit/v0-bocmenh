@@ -478,6 +478,7 @@
     "viewDetails": "View Details",
     "noResults": "No results found.",
     "comingSoon": "Coming Soon",
+    "maintenance": "Under Maintenance",
     "backToHome": "Back to Home",
     "showMore": "Show More",
     "showLess": "Show Less",
@@ -1053,5 +1054,17 @@
       "label": "Feng Shui – Housing – Directional Luck",
       "key": "fengShui"
     }
-  ]
+  ],
+  "comingSoon": {
+    "description": "This feature is being developed with many exciting improvements. Please come back later!",
+    "estimatedLaunch": "Estimated launch",
+    "exploreOther": "In the meantime, explore other features:",
+    "viewAllFeatures": "View all features"
+  },
+  "maintenance": {
+    "description": "This feature is currently under maintenance to provide a better experience. Please come back later!",
+    "estimatedTime": "Estimated time",
+    "exploreOther": "In the meantime, explore other features:",
+    "viewAllFeatures": "View all features"
+  }
 }

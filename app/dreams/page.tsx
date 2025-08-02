@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
+import { getBaseUrl } from "@/lib/infra/utils"
+import { getFeatureConfig } from "@/lib/features/feature-flags"
+import { ComingSoonPage } from "@/components/features/ComingSoonPage"
 import DreamForm from "@/components/forms/DreamForm"
 import DreamJournal from "@/components/sections/DreamJournal"
 import DreamTips from "@/components/sections/DreamTips"
-import { getBaseUrl } from "@/lib/infra/utils"
 
 const baseUrl = getBaseUrl();
 
@@ -14,6 +16,19 @@ export const metadata: Metadata = {
 }
 
 export default function DreamsPage() {
+  const featureConfig = getFeatureConfig('/dreams');
+  
+  // Nếu feature coming soon, hiển thị coming soon page
+  if (featureConfig?.status === 'coming-soon') {
+    return (
+      <ComingSoonPage 
+        title={featureConfig.title}
+        description={featureConfig.description}
+        estimatedLaunch={featureConfig.estimatedLaunch}
+      />
+    );
+  }
+
   return (
     <main className="min-h-screen pt-20 pb-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

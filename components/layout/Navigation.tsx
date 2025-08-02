@@ -22,6 +22,11 @@ import { formatShortNumber } from "@/lib/infra/utils";
 import { useTopupWindow } from "@/hooks/use-topup-window";
 import { FatesUnit } from "@/components/common/FatesUnit";
 import { useLayoutVisibility } from "@/contexts/LayoutVisibilityContext";
+import { ComingSoonNavBadge, MaintenanceNavBadge } from "@/components/features/ComingSoonBadge";
+import { useFeature } from "@/lib/features/use-feature";
+import { BADGE_CONFIG } from "@/lib/features/badge-config";
+import type { BadgePosition, BadgeSize, BadgeDistance } from "@/lib/features/badge-config";
+import { isFeatureMaintenance } from "@/lib/features/feature-flags";
 
 export default function Navigation() {
   const { showNav } = useLayoutVisibility();
@@ -56,6 +61,99 @@ export default function Navigation() {
   const animationFrameRef = useRef<number | null>(null);
   const isFirstRender = useRef(true);
   const { openTopup } = useTopupWindow();
+
+  // Component for navigation items with coming soon and maintenance support
+  const NavItem = ({ 
+    item, 
+    className = "",
+    onClick = () => {},
+    role = "menuitem",
+    badgePosition = BADGE_CONFIG.navigation.position,
+    badgeSize = BADGE_CONFIG.navigation.size,
+    badgeDistance = BADGE_CONFIG.navigation.distance
+  }: { 
+    item: { href: string; label: string }; 
+    className?: string;
+    onClick?: () => void;
+    role?: string;
+    badgePosition?: BadgePosition;
+    badgeSize?: BadgeSize;
+    badgeDistance?: BadgeDistance;
+  }) => {
+    const { isComingSoon, isMaintenance } = useFeature(item.href);
+    const isDisabled = isComingSoon || isMaintenance;
+    
+    // Dynamic padding based on badge position and distance
+    const getPadding = () => {
+      if (!isDisabled) return '';
+      
+      const paddingMap = {
+        'near': {
+          'top-right': 'pr-2 pt-0.5',
+          'top-center': 'pt-0.5',
+          'top-left': 'pl-2 pt-0.5',
+          'bottom-right': 'pr-2 pb-0.5',
+          'bottom-center': 'pb-0.5',
+          'bottom-left': 'pl-2 pb-0.5',
+          'inline-left': 'pl-2',
+          'inline-center': '',
+          'inline-right': 'pr-2'
+        },
+        'normal': {
+          'top-right': 'pr-3 pt-1',
+          'top-center': 'pt-1',
+          'top-left': 'pl-3 pt-1',
+          'bottom-right': 'pr-3 pb-1',
+          'bottom-center': 'pb-1',
+          'bottom-left': 'pl-3 pb-1',
+          'inline-left': 'pl-3',
+          'inline-center': '',
+          'inline-right': 'pr-3'
+        },
+        'far': {
+          'top-right': 'pr-4 pt-1.5',
+          'top-center': 'pt-1.5',
+          'top-left': 'pl-4 pt-1.5',
+          'bottom-right': 'pr-4 pb-1.5',
+          'bottom-center': 'pb-1.5',
+          'bottom-left': 'pl-4 pb-1.5',
+          'inline-left': 'pl-4',
+          'inline-center': '',
+          'inline-right': 'pr-4'
+        }
+      };
+      
+      return paddingMap[badgeDistance][badgePosition];
+    };
+    
+    return (
+      <Link
+        href={item.href}
+        className={`group ${className} ${isDisabled ? 'pointer-events-none opacity-60' : ''}`}
+        role={role}
+        onClick={onClick}
+        aria-current={pathname === item.href ? "page" : undefined}
+      >
+        <span className={`relative inline-block ${getPadding()}`}>
+          {item.label}
+          {isComingSoon && (
+            <ComingSoonNavBadge 
+              position={badgePosition}
+              size={badgeSize}
+              distance={badgeDistance}
+            />
+          )}
+          {isMaintenance && (
+            <MaintenanceNavBadge 
+              position={badgePosition}
+              size={badgeSize}
+              distance={badgeDistance}
+            />
+          )}
+        </span>
+      </Link>
+    );
+  };
 
   const handleLogout = async () => {
     setIsUserMenuOpen(false);
@@ -562,20 +660,14 @@ export default function Navigation() {
                 >
                   {visibleItems.map((item) => (
                     <li key={item.href} role="none">
-                      <Link
-                        href={item.href}
+                      <NavItem
+                        item={item}
                         className={`text-sm font-medium transition-colors hover:text-yellow-400 whitespace-nowrap ${
                           pathname === item.href
                             ? "text-yellow-400"
                             : "text-gray-300"
                         }`}
-                        role="menuitem"
-                        aria-current={
-                          pathname === item.href ? "page" : undefined
-                        }
-                      >
-                        {item.label}
-                      </Link>
+                      />
                     </li>
                   ))}
                 </ul>
@@ -618,22 +710,16 @@ export default function Navigation() {
                           aria-orientation="vertical"
                         >
                           {overflowItems.map((item) => (
-                            <Link
+                            <NavItem
                               key={item.href}
-                              href={item.href}
+                              item={item}
                               className={`block px-4 py-2 text-sm transition-colors hover:text-yellow-400 hover:bg-gray-800 ${
                                 pathname === item.href
                                   ? "text-yellow-400"
                                   : "text-gray-300"
                               }`}
                               onClick={() => setIsOverflowMenuOpen(false)}
-                              role="menuitem"
-                              aria-current={
-                                pathname === item.href ? "page" : undefined
-                              }
-                            >
-                              {item.label}
-                            </Link>
+                            />
                           ))}
                         </motion.div>
                       )}
@@ -747,17 +833,13 @@ export default function Navigation() {
           >
             <nav className="px-4 py-4 space-y-4" role="none">
               {navItems.map((item) => (
-                <Link
+                <NavItem
                   key={item.href}
-                  href={item.href}
+                  item={item}
                   className={`block text-sm font-medium transition-colors hover:text-yellow-400 ${
                     pathname === item.href ? "text-yellow-400" : "text-gray-300"
                   }`}
-                  role="menuitem"
-                  aria-current={pathname === item.href ? "page" : undefined}
-                >
-                  {item.label}
-                </Link>
+                />
               ))}
             </nav>
           </motion.div>

@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLayoutVisibility } from "@/contexts/LayoutVisibilityContext";
+import { isFeatureComingSoon, isFeatureMaintenance } from "@/lib/features/feature-flags";
+import { ComingSoonNavBadge, MaintenanceNavBadge } from "@/components/features/ComingSoonBadge";
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -98,20 +100,46 @@ export default function Footer() {
               </Link>
             </div>
             <ul className="space-y-2">
-              {footerLinks.slice(0, 2).map(
-                (
-                  link // Example: First 2 links
-                ) => (
-                  <li key={link.href}>
+              {footerLinks.slice(0, 2).map((link) => {
+                const isComingSoon = isFeatureComingSoon(link.href);
+                const isMaintenance = isFeatureMaintenance(link.href);
+                const isDisabled = isComingSoon || isMaintenance;
+                return (
+                  <li key={link.href} className="relative">
                     <Link
                       href={link.href}
-                      className="hover:text-yellow-500 transition-colors text-sm"
+                      className={`hover:text-yellow-500 transition-colors text-sm inline-block pr-16 ${
+                        isDisabled ? 'opacity-60' : ''
+                      }`}
+                      {...(isDisabled && {
+                        onClick: (e) => e.preventDefault(),
+                        'aria-disabled': true,
+                        className: `text-gray-500 cursor-not-allowed text-sm inline-block pr-16 ${
+                          isDisabled ? 'opacity-60' : ''
+                        }`,
+                      })}
                     >
                       {t(link.labelKey)}
                     </Link>
+                    {isComingSoon && (
+                      <ComingSoonNavBadge 
+                        position="inline-right" 
+                        size="xs" 
+                        distance="far"
+                        className="text-xs"
+                      />
+                    )}
+                    {isMaintenance && (
+                      <MaintenanceNavBadge 
+                        position="inline-right" 
+                        size="xs" 
+                        distance="far"
+                        className="text-xs"
+                      />
+                    )}
                   </li>
-                )
-              )}
+                );
+              })}
             </ul>
           </div>
           <div>
@@ -119,20 +147,46 @@ export default function Footer() {
               {t("site.title")}
             </h3>
             <ul className="space-y-2">
-              {footerLinks.slice(2, footerLinks.length).map(
-                (
-                  link // Example: Remaining links
-                ) => (
-                  <li key={link.href}>
+              {footerLinks.slice(2, footerLinks.length).map((link) => {
+                const isComingSoon = isFeatureComingSoon(link.href);
+                const isMaintenance = isFeatureMaintenance(link.href);
+                const isDisabled = isComingSoon || isMaintenance;
+                return (
+                  <li key={link.href} className="relative">
                     <Link
                       href={link.href}
-                      className="hover:text-yellow-500 transition-colors text-sm"
+                      className={`hover:text-yellow-500 transition-colors text-sm inline-block pr-16 ${
+                        isDisabled ? 'opacity-60' : ''
+                      }`}
+                      {...(isDisabled && {
+                        onClick: (e) => e.preventDefault(),
+                        'aria-disabled': true,
+                        className: `text-gray-500 cursor-not-allowed text-sm inline-block pr-16 ${
+                          isDisabled ? 'opacity-60' : ''
+                        }`,
+                      })}
                     >
                       {t(link.labelKey)}
                     </Link>
+                    {isComingSoon && (
+                      <ComingSoonNavBadge 
+                        position="inline-right" 
+                        size="xs" 
+                        distance="far"
+                        className="text-xs"
+                      />
+                    )}
+                    {isMaintenance && (
+                      <MaintenanceNavBadge 
+                        position="inline-right" 
+                        size="xs" 
+                        distance="far"
+                        className="text-xs"
+                      />
+                    )}
                   </li>
-                )
-              )}
+                );
+              })}
             </ul>
           </div>
           <div className="col-span-2 md:col-span-2 flex flex-col items-start md:items-end">
