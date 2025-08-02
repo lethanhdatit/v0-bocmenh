@@ -475,7 +475,10 @@
     "viewDetails": "Xem chi tiết",
     "noResults": "Không tìm thấy kết quả.",
     "comingSoon": "Sắp ra mắt",
+    "maintenance": "Đang bảo trì",
     "backToHome": "Về trang chủ",
+    "goBack": "Quay lại",
+    "explore": "Khám phá",
     "showMore": "Xem thêm",
     "showLess": "Ẩn bớt",
     "copied": "Đã sao chép",
@@ -1047,5 +1050,17 @@
       "label": "Phong Thủy – Nhà Ở – Hướng Vận",
       "key": "fengShui"
     }
-  ]
+  ],
+  "comingSoon": {
+    "description": "Tính năng này đang được phát triển với nhiều cải tiến thú vị. Hãy quay lại sau nhé!",
+    "estimatedLaunch": "Dự kiến ra mắt",
+    "exploreOther": "Trong thời gian chờ đợi, hãy khám phá các tính năng khác:",
+    "viewAllFeatures": "Xem tất cả tính năng"
+  },
+  "maintenance": {
+    "description": "Tính năng này hiện đang được bảo trì để mang đến trải nghiệm tốt hơn. Vui lòng quay lại sau!",
+    "estimatedTime": "Thời gian dự kiến",
+    "exploreOther": "Trong thời gian chờ đợi, hãy khám phá các tính năng khác:",
+    "viewAllFeatures": "Xem tất cả tính năng"
+  }
 }

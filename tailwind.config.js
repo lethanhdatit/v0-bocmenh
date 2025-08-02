@@ -75,6 +75,8 @@ module.exports = {
         float: "float 6s ease-in-out infinite",
         twinkle: "twinkle 2s ease-in-out infinite alternate",
         "lotus-glow": "lotus-glow 3s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "spin-slow": "spin 3s linear infinite",
       },
       keyframes: {
         float: {
@@ -88,6 +90,18 @@ module.exports = {
         "lotus-glow": {
           "0%, 100%": { filter: "drop-shadow(0 0 5px #ff69b4)" },
           "50%": { filter: "drop-shadow(0 0 20px #ff69b4)" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { 
+            opacity: "0.8",
+            transform: "scale(1)",
+            boxShadow: "0 0 10px rgba(245, 158, 11, 0.5)"
+          },
+          "50%": { 
+            opacity: "1",
+            transform: "scale(1.05)",
+            boxShadow: "0 0 20px rgba(245, 158, 11, 0.8)"
+          },
         },
       },
       borderRadius: {
