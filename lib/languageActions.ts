@@ -1,56 +1,75 @@
 "use server"
 
-import { getSession } from "@/lib/session/session"
+import { 
+  getLanguageCookies,
+  updateLanguage as updateLanguageCookies,
+  clearLanguageCookies,
+} from "@/lib/session/language-cookies"
+import { 
+  type SupportedLanguageCode 
+} from "@/lib/i18n/language-config"
 
-export async function setLanguage(language: "vi" | "en") {
+export async function setLanguage(language: SupportedLanguageCode) {
   try {
-    const session = await getSession()
-    session.language = language
-    await session.save()
-    return { success: true }
+    const result = await updateLanguageCookies(language)
+    if (result.success) {
+      return { success: true }
+    } else {
+      return { success: false, error: result.error }
+    }
   } catch (error) {
-    console.error("Failed to save language to session:", error)
+    console.error("Failed to save language:", error)
     return { success: false, error: "Failed to save language" }
   }
 }
 
-export async function getLanguage(): Promise<{ language: "vi" | "en"; hasSession: boolean }> {
+export async function getLanguage(): Promise<{ 
+  language: SupportedLanguageCode
+  hasSession: boolean
+  isDetected: boolean 
+}> {
   try {
-    const session = await getSession()
-
-    // Check if session has any data (indicating it's been initialized)
-    const hasSession = !!(session.id || session.email || session.isLoggedIn || session.language)
-
-    // Always return a language, default to "vi" if not set
-    const language = session.language || "vi"
-
-    // If no language is set in session, set it to default
-    if (!session.language) {
-      session.language = "vi"
-      await session.save()
+    const { language, isDetected, userHasSetLanguage } = await getLanguageCookies()
+    
+    // Only consider as "no session" if user has never set language AND we haven't detected
+    const hasRealSession = userHasSetLanguage || isDetected
+    
+    return { 
+      language, 
+      hasSession: hasRealSession,
+      isDetected 
     }
-
-    return { language, hasSession }
   } catch (error) {
-    console.error("Failed to get language from session:", error)
-    return { language: "vi", hasSession: false }
+    console.error("Failed to get language:", error)
+    // Fallback
+    const { language: fallbackLang } = await getLanguageCookies()
+    return { language: fallbackLang, hasSession: false, isDetected: false }
   }
 }
 
-// New function to initialize language session for new users
+// Function to initialize language for new users (auto-detection happens in getLanguageCookies)
 export async function initializeLanguageSession() {
   try {
-    const session = await getSession()
-
-    // Only initialize if no language is set
-    if (!session.language) {
-      session.language = "vi"
-      await session.save()
+    const { language, isDetected } = await getLanguageCookies()
+    
+    return { 
+      success: true, 
+      language, 
+      isDetected 
     }
-
-    return { success: true, language: session.language }
   } catch (error) {
-    console.error("Failed to initialize language session:", error)
-    return { success: false, error: "Failed to initialize language session" }
+    console.error("Failed to initialize language:", error)
+    return { success: false, error: "Failed to initialize language" }
+  }
+}
+
+// New function to clear language preferences (for user to reset)
+export async function resetLanguagePreferences() {
+  try {
+    const result = await clearLanguageCookies()
+    return result
+  } catch (error) {
+    console.error("Failed to reset language preferences:", error)
+    return { success: false, error: "Failed to reset language preferences" }
   }
 }

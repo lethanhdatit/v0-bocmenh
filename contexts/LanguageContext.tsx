@@ -7,12 +7,15 @@ import { setLanguage as setServerLanguage, getLanguage as getServerLanguage } fr
 import { setApiClientLanguage } from "@/lib/api/apiClient"
 import i18n, { loadTranslationResources } from "@/lib/infra/i18n"
 import { cacheManager } from "@/lib/utils/i18n-cache"
-
-type Language = "vi" | "en"
+import { 
+  getDefaultLanguageConfig,
+  getEnabledLanguages,
+  type SupportedLanguageCode 
+} from "@/lib/i18n/language-config"
 
 interface LanguageContextType {
-  language: Language
-  setLanguage: (lang: Language) => void
+  language: SupportedLanguageCode
+  setLanguage: (lang: SupportedLanguageCode) => void
   t: (key: string) => string
   isLoading: boolean
   cacheInfo: {
@@ -21,15 +24,20 @@ interface LanguageContextType {
     timestamp?: number
   }
   refreshTranslations: () => Promise<void>
+  availableLanguages: ReturnType<typeof getEnabledLanguages>
+  isDetectedLanguage: boolean
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("vi")
+  const [language, setLanguageState] = useState<SupportedLanguageCode>(
+    getDefaultLanguageConfig().code as SupportedLanguageCode
+  )
   const [isLoading, setIsLoading] = useState(true)
   const [isI18nReady, setIsI18nReady] = useState(false)
   const [cacheInfo, setCacheInfo] = useState(cacheManager.getClientCacheInfo())
+  const [isDetectedLanguage, setIsDetectedLanguage] = useState(false)
 
   const refreshTranslations = async () => {
     await cacheManager.refreshTranslations()
@@ -49,9 +57,28 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
           throw new Error("Failed to load translation resources")
         }
 
-        // Now fetch language from server
-        const { language: serverLanguage } = await getServerLanguage()
-        const finalLanguage = serverLanguage || "vi"
+        // Now fetch language from server (with auto-detection)
+        const { language: serverLanguage, isDetected, hasSession } = await getServerLanguage()
+        let finalLanguage = serverLanguage || getDefaultLanguageConfig().code as SupportedLanguageCode
+        let isActuallyDetected = isDetected
+
+        // Only do client-side detection if:
+        // 1. Server didn't detect (SSR)
+        // 2. User has never set a language preference (no session/cookies)
+        // 3. We're on client-side
+        if (!isDetected && !hasSession && typeof window !== "undefined") {
+          const { detectBrowserLanguage } = await import("@/lib/i18n/language-config")
+          const detectedLang = detectBrowserLanguage()
+          
+          // Only use detected language if it's different from default
+          if (detectedLang !== getDefaultLanguageConfig().code) {
+            finalLanguage = detectedLang as SupportedLanguageCode
+            isActuallyDetected = true
+            
+            // Save the client-detected language
+            await setServerLanguage(finalLanguage)
+          }
+        }
 
         // Set language in i18n
         if (i18n && typeof i18n.changeLanguage === "function") {
@@ -62,15 +89,21 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         setApiClientLanguage(finalLanguage)
 
         setLanguageState(finalLanguage)
+        setIsDetectedLanguage(isActuallyDetected)
         setIsI18nReady(true)
+
+        if (isActuallyDetected) {
+          console.log(`Auto-detected browser language: ${finalLanguage}`)
+        }
       } catch (error) {
         console.error("Failed to initialize i18n:", error)
         // Fallback to default without crashing
-        setLanguageState("vi")
-        setApiClientLanguage("vi")
+        const defaultLang = getDefaultLanguageConfig().code as SupportedLanguageCode
+        setLanguageState(defaultLang)
+        setApiClientLanguage(defaultLang)
         if (i18n && typeof i18n.changeLanguage === "function") {
           try {
-            await i18n.changeLanguage("vi")
+            await i18n.changeLanguage(defaultLang)
           } catch (i18nError) {
             console.error("Failed to set default language:", i18nError)
           }
@@ -84,7 +117,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     initializeI18n()
   }, [])
 
-  const setLanguage = async (lang: Language) => {
+  const setLanguage = async (lang: SupportedLanguageCode) => {
     try {
       setIsLoading(true)
 
@@ -102,6 +135,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
         // Update API client language for Accept-Language header
         setApiClientLanguage(lang)
+
+        // Reset detected flag since user manually changed language
+        setIsDetectedLanguage(false)
       } else {
         console.error("Failed to save language to server:", result.error)
       }
@@ -128,6 +164,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       isLoading={isLoading}
       cacheInfo={cacheInfo}
       refreshTranslations={refreshTranslations}
+      availableLanguages={getEnabledLanguages()}
+      isDetectedLanguage={isDetectedLanguage}
     >
       {children}
     </LanguageContextProvider>
@@ -142,10 +180,12 @@ function LanguageContextProvider({
   isLoading,
   cacheInfo,
   refreshTranslations,
+  availableLanguages,
+  isDetectedLanguage,
 }: {
   children: React.ReactNode
-  language: Language
-  setLanguage: (lang: Language) => void
+  language: SupportedLanguageCode
+  setLanguage: (lang: SupportedLanguageCode) => void
   isLoading: boolean
   cacheInfo: {
     isCached: boolean
@@ -153,6 +193,8 @@ function LanguageContextProvider({
     timestamp?: number
   }
   refreshTranslations: () => Promise<void>
+  availableLanguages: ReturnType<typeof getEnabledLanguages>
+  isDetectedLanguage: boolean
 }) {
   const { t } = useTranslation() // Now safe to call since i18n is ready
 
@@ -165,6 +207,8 @@ function LanguageContextProvider({
         isLoading,
         cacheInfo,
         refreshTranslations,
+        availableLanguages,
+        isDetectedLanguage,
       }}
     >
       {children}

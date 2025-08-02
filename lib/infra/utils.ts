@@ -69,21 +69,18 @@ export function getBaseUrl(): string {
 
 // === DATETIME UTILITIES ===
 
+import { getDateLocale } from "@/lib/i18n/language-config";
+
 /**
  * Get datetime locale mapping for i18n languages
+ * @deprecated Use getDateLocale from language-config instead
  */
 export function getDateTimeLocale(language?: string): string {
-  const localeMap: Record<string, string> = {
-    vi: "vi-VN",
-    en: "en-US",
-    zh: "zh-CN",
-    ja: "ja-JP",
-    ko: "ko-KR",
-    th: "th-TH",
-    id: "id-ID",
-  };
-
-  return localeMap[language || "en"] || navigator?.language || "en-US";
+  if (language) {
+    return getDateLocale(language);
+  }
+  
+  return navigator?.language || "en-US";
 }
 
 /**
@@ -92,7 +89,7 @@ export function getDateTimeLocale(language?: string): string {
 export function formatDateTime(utcString: string, language?: string): string {
   try {
     const date = new Date(utcString);
-    const locale = getDateTimeLocale(language);
+    const locale = language ? getDateLocale(language) : getDateTimeLocale();
 
     return new Intl.DateTimeFormat(locale, {
       year: "numeric",

@@ -9,7 +9,7 @@ import {
   useCallback,
   useRef,
 } from "react";
-import { apiClient, setGlobalLogoutHandler } from "@/lib/api/apiClient";
+import { apiClient } from "@/lib/api/apiClient";
 import type { UserSession } from "@/lib/session/sessionOptions";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
@@ -61,6 +61,12 @@ interface AuthResult {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export let globalLogoutHandler: (() => void | Promise<void>) | null = null;
+
+function setGlobalLogoutHandler(handler: typeof globalLogoutHandler) {
+  globalLogoutHandler = handler;
+}
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserSession | null>(null);

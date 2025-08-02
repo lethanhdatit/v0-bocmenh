@@ -1,8 +1,13 @@
 // Helper for server-side translations with enhanced caching
 import { createInstance, type i18n as I18nInstanceType } from "i18next";
 import resourcesToBackend from "i18next-resources-to-backend";
-import i18nConfig from "../next-i18next.config";
 import { getLanguage as getServerLanguage } from "@/lib/languageActions";
+import { 
+  getDefaultLanguageConfig,
+  getEnabledLanguages,
+  I18N_NAMESPACES,
+  type SupportedLanguageCode
+} from "@/lib/i18n/language-config";
 
 // Multi-level cache for i18n instances
 const i18nInstances = new Map<string, I18nInstanceType>();
@@ -72,8 +77,8 @@ const cachedResourceLoader = (language: string, namespace: string) => {
 };
 
 async function initI18next(
-  locale: string,
-  namespaces: string | string[] = "common"
+  locale: SupportedLanguageCode,
+  namespaces: string | string[] = [...I18N_NAMESPACES]
 ) {
   const cacheKey = `${locale}-${Array.isArray(namespaces) ? namespaces.join(',') : namespaces}`;
   
@@ -91,13 +96,16 @@ async function initI18next(
   }
 
   try {
+    const defaultLang = getDefaultLanguageConfig();
+    const enabledLanguages = getEnabledLanguages();
+    
     const instance = createInstance();
     await instance
       .use(resourcesToBackend(cachedResourceLoader))
       .init({
         lng: locale,
-        fallbackLng: i18nConfig.i18n.defaultLocale,
-        supportedLngs: i18nConfig.i18n.locales,
+        fallbackLng: defaultLang.code,
+        supportedLngs: enabledLanguages.map(lang => lang.code),
         defaultNS: Array.isArray(namespaces) ? namespaces[0] : namespaces,
         ns: namespaces,
         interpolation: {
@@ -114,7 +122,8 @@ async function initI18next(
   } catch (error) {
     console.error(`Failed to initialize i18n for ${locale}:`, error);
     // Return fallback instance
-    const fallbackKey = `${i18nConfig.i18n.defaultLocale}-${Array.isArray(namespaces) ? namespaces.join(',') : namespaces}`;
+    const defaultLang = getDefaultLanguageConfig();
+    const fallbackKey = `${defaultLang.code}-${Array.isArray(namespaces) ? namespaces.join(',') : namespaces}`;
     if (lruInstanceCache.has(fallbackKey)) {
       return lruInstanceCache.get(fallbackKey)!;
     }
@@ -123,14 +132,7 @@ async function initI18next(
 }
 
 export async function getTranslations(
-  namespaces: string | string[] = [
-    "common",
-    "terms", 
-    "privacy",
-    "help",
-    "about",
-    "contact"
-  ]
+  namespaces: string | string[] = [...I18N_NAMESPACES]
 ) {
   try {
     const { language: locale } = await getServerLanguage();
@@ -158,9 +160,10 @@ export async function getTranslations(
     console.error("Error getting translations:", error);
     // Fallback to default locale với cached instance
     try {
-      const i18n = await initI18next(i18nConfig.i18n.defaultLocale, namespaces);
+      const defaultLang = getDefaultLanguageConfig();
+      const i18n = await initI18next(defaultLang.code as SupportedLanguageCode, namespaces);
       const cachedT = (key: string, options?: any): string => {
-        const cacheKey = `${i18nConfig.i18n.defaultLocale}-${key}-${JSON.stringify(options || {})}`;
+        const cacheKey = `${defaultLang.code}-${key}-${JSON.stringify(options || {})}`;
         
         if (lruTranslationCache.has(cacheKey)) {
           return lruTranslationCache.get(cacheKey)!;
@@ -188,13 +191,13 @@ export async function getTranslations(
   }
 }
 
-export async function getLocale() {
+export async function getLocale(): Promise<SupportedLanguageCode> {
   try {
     const { language } = await getServerLanguage();
     return language;
   } catch (error) {
     console.error("Error getting locale:", error);
-    return i18nConfig.i18n.defaultLocale;
+    return getDefaultLanguageConfig().code as SupportedLanguageCode;
   }
 }
 
