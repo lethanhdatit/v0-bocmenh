@@ -7,6 +7,12 @@ import {
   hideGlobalLoading,
   getIsLoading,
 } from "@/lib/utils";
+import {
+  getDefaultLanguageConfig,
+  getAcceptLanguageHeader,
+  type SupportedLanguageCode,
+} from "@/lib/i18n/language-config";
+import { globalLogoutHandler } from "@/contexts/AuthContext";
 
 let globalAuthPromptHandler: ((options?: any) => void) | null = null;
 
@@ -14,20 +20,15 @@ export function setGlobalAuthPrompt(handler: typeof globalAuthPromptHandler) {
   globalAuthPromptHandler = handler;
 }
 
-let globalLogoutHandler: (() => void | Promise<void>) | null = null;
-
-export function setGlobalLogoutHandler(handler: typeof globalLogoutHandler) {
-  globalLogoutHandler = handler;
-}
-
 // Global language state for API client
-let currentLanguage: string = "vi";
+let currentLanguage: SupportedLanguageCode = getDefaultLanguageConfig()
+  .code as SupportedLanguageCode;
 
-export function setApiClientLanguage(language: string) {
+export function setApiClientLanguage(language: SupportedLanguageCode) {
   currentLanguage = language;
 }
 
-export function getApiClientLanguage(): string {
+export function getApiClientLanguage(): SupportedLanguageCode {
   return currentLanguage;
 }
 
@@ -49,12 +50,13 @@ apiClient.interceptors.request.use(
         config.data = { encrypted: encryptData(config.data) };
       }
     }
-    
+
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    config.headers['X-Time-Zone-Id'] = timeZone;
-    
-    // Set Accept-Language header based on current language
-    config.headers['Accept-Language'] = currentLanguage === "vi" ? "vi-VN,vi;q=0.9,en;q=0.8" : "en-US,en;q=0.9,vi;q=0.8";
+    config.headers["X-Time-Zone-Id"] = timeZone;
+
+    // Set Accept-Language header based on current language using config
+    config.headers["Accept-Language"] =
+      getAcceptLanguageHeader(currentLanguage);
 
     return config;
   },
@@ -99,7 +101,7 @@ apiClient.interceptors.response.use(
     ) {
       originalRequest._retry = true; // Mark to prevent infinite loops
       originalRequest.data = data.forwardData;
-      
+
       if (globalAuthPromptHandler) {
         const needReloading = getIsLoading();
 

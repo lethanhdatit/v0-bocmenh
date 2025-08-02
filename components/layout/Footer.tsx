@@ -12,7 +12,13 @@ import { ComingSoonNavBadge, MaintenanceNavBadge } from "@/components/features/C
 
 export default function Footer() {
   const { t } = useTranslation();
-  const { language, setLanguage, isLoading: langIsLoading } = useLanguage();
+  const { 
+    language, 
+    setLanguage, 
+    isLoading: langIsLoading,
+    availableLanguages,
+    isDetectedLanguage 
+  } = useLanguage();
   const { showFooter } = useLayoutVisibility();
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
   const langMenuRef = useRef<HTMLDivElement>(null);
@@ -25,15 +31,10 @@ export default function Footer() {
     { href: "/terms", labelKey: "footer.terms" },
   ];
 
-  const languages = [
-    { code: "vi", name: "Tiếng Việt", flag: "🇻🇳" },
-    { code: "en", name: "English", flag: "🇺🇸" },
-  ];
-
-  const currentLang = languages.find((l) => l.code === language);
+  const currentLang = availableLanguages.find((l) => l.code === language);
   const currentYear = new Date().getFullYear();
 
-  const handleLanguageChange = async (lang: "vi" | "en") => {
+  const handleLanguageChange = async (lang: typeof language) => {
     setShowLanguageMenu(false);
     await setLanguage(lang);
   };
@@ -220,11 +221,11 @@ export default function Footer() {
                     exit={{ opacity: 0, y: 10 }}
                     className="absolute bottom-full right-0 sm:right-0 sm:left-auto left-0 mb-2 w-44 bg-gray-900 border border-gray-700 rounded-lg shadow-xl py-1.5 z-50"
                   >
-                    {languages.map((lang) => (
+                    {availableLanguages.map((lang) => (
                       <button
                         key={lang.code}
                         onClick={() =>
-                          handleLanguageChange(lang.code as "vi" | "en")
+                          handleLanguageChange(lang.code as typeof language)
                         }
                         className={`w-full text-left px-3.5 py-2 text-sm transition-colors flex items-center space-x-2.5 ${
                           language === lang.code
@@ -236,6 +237,9 @@ export default function Footer() {
                         <span>{lang.name}</span>
                         {language === lang.code && (
                           <span className="ml-auto text-yellow-500">✓</span>
+                        )}
+                        {language === lang.code && isDetectedLanguage && (
+                          <span className="text-xs text-blue-400">(Auto)</span>
                         )}
                       </button>
                     ))}

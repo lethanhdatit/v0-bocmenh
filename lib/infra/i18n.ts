@@ -1,9 +1,14 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import { 
+  getDefaultLanguageConfig, 
+  getEnabledLanguages, 
+  I18N_NAMESPACES 
+} from "@/lib/i18n/language-config";
 
 // Cache cho translation resources
 const TRANSLATION_CACHE_KEY = "i18n_translations_cache";
-const CACHE_VERSION = "1.0.5"; // Tăng version này khi có thay đổi translation
+const CACHE_VERSION = "1.0.7"; // Tăng version này khi có thay đổi translation
 const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 24 giờ
 
 interface CachedTranslations {
@@ -12,13 +17,15 @@ interface CachedTranslations {
   resources: any;
 }
 
+const defaultLang = getDefaultLanguageConfig();
+
 // Initialize i18next without resources first
 const isInitialized = i18n.use(initReactI18next).init({
   resources: {}, // Empty initially, will be populated by LanguageContext
-  fallbackLng: "vi",
+  fallbackLng: defaultLang.code,
   defaultNS: "common",
-  ns: ["common", "terms", "privacy", "help", "about", "contact"],
-  lng: "vi", // Default language, will be set by LanguageContext
+  ns: [...I18N_NAMESPACES],
+  lng: defaultLang.code, // Default language, will be set by LanguageContext
 
   interpolation: {
     escapeValue: false, // React already escapes
@@ -110,68 +117,45 @@ export async function loadTranslationResources(): Promise<boolean> {
       return true;
     }
     
-    // Load translation files dynamically from public folder
-    const responses = await Promise.all([
-      fetch("/locales/vi/common.json"),
-      fetch("/locales/en/common.json"),
-      fetch("/locales/vi/terms.json"),
-      fetch("/locales/en/terms.json"),
-      fetch("/locales/vi/privacy.json"),
-      fetch("/locales/en/privacy.json"),
-      fetch("/locales/vi/help.json"),
-      fetch("/locales/en/help.json"),
-      fetch("/locales/vi/about.json"),
-      fetch("/locales/en/about.json"),
-      fetch("/locales/vi/contact.json"),
-      fetch("/locales/en/contact.json"),
-    ]);
+    const enabledLanguages = getEnabledLanguages();
+    
+    // Dynamically load translation files for enabled languages
+    const loadPromises: Promise<Response>[] = [];
+    
+    enabledLanguages.forEach(lang => {
+      I18N_NAMESPACES.forEach(namespace => {
+        loadPromises.push(fetch(`/locales/${lang.code}/${namespace}.json`));
+      });
+    });
+
+    const responses = await Promise.all(loadPromises);
 
     // Kiểm tra tất cả response đều OK
     if (!responses.every(r => r.ok)) {
       throw new Error("Some translation files failed to load");
     }
 
-    const [
-      viCommon,
-      enCommon,
-      viTerms,
-      enTerms,
-      viPrivacy,
-      enPrivacy,
-      viHelp,
-      enHelp,
-      viAbout,
-      enAbout,
-      viContact,
-      enContact,
-    ] = await Promise.all(responses.map(r => r.json()));
+    const jsonData = await Promise.all(responses.map(r => r.json()));
 
-    const resources = {
-      vi: {
-        common: viCommon,
-        terms: viTerms,
-        privacy: viPrivacy,
-        help: viHelp,
-        about: viAbout,
-        contact: viContact,
-      },
-      en: {
-        common: enCommon,
-        terms: enTerms,
-        privacy: enPrivacy,
-        help: enHelp,
-        about: enAbout,
-        contact: enContact,
-      },
-    };
+    // Build resources object dynamically
+    const resources: any = {};
+    
+    let dataIndex = 0;
+    enabledLanguages.forEach(lang => {
+      resources[lang.code] = {};
+      I18N_NAMESPACES.forEach(namespace => {
+        resources[lang.code][namespace] = jsonData[dataIndex];
+        dataIndex++;
+      });
+    });
 
     // Add resources to i18n instance
     Object.keys(resources).forEach((lng) => {
-      Object.keys(resources[lng as keyof typeof resources]).forEach((ns) => {
+      Object.keys(resources[lng]).forEach((ns) => {
         i18n.addResourceBundle(
           lng,
           ns,
-          resources[lng as keyof typeof resources][ns as keyof typeof resources.vi],
+          resources[lng][ns],
           true,
           true
         );

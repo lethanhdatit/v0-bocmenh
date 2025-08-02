@@ -1,4 +1,5 @@
 import type { SessionOptions } from "iron-session"
+import type { SupportedLanguageCode } from "@/lib/i18n/language-config"
 
 export interface UserSession {
   id?: string
@@ -7,7 +8,6 @@ export interface UserSession {
   accessToken?: string
   isPremium?: boolean
   isLoggedIn?: boolean
-  language?: "vi" | "en",
   avatar?: string
 }
 
