@@ -153,6 +153,8 @@ export interface ApiBaseResponse {
   data?: any;
   forwardData?: any;
   beErrorCode?: string;
+  beErrorMetaData?: any;
+  beErrorMessage?: string;
   error?: string;
   errorCode?: string;
   errors?: Record<string, string>;

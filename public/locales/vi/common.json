@@ -275,7 +275,9 @@
       "otpIncorrect": "Mã OTP không chính xác",
       "spamPrevention": "Vui lòng đợi {{seconds}} giây trước khi gửi lại",
       "systemError": "Lỗi hệ thống, vui lòng thử lại sau",
-      "verificationExpired": "Xác thực đã hết hạn, vui lòng thực hiện lại"
+      "verificationExpired": "Xác thực đã hết hạn, vui lòng thực hiện lại",
+      "deliveryInfo": "Email có thể mất vài phút để đến hộp thư của bạn. Nếu không thấy email, vui lòng kiểm tra thư mục spam/junk hoặc thư rác.",
+      "patientWait": "Hãy kiên nhẫn chờ đợi và kiểm tra kỹ trong hộp thư rác nếu không nhận được email trong vòng 5 phút."
     },
     "emailConfirmation": {
       "invalidEmail": "Email không hợp lệ",

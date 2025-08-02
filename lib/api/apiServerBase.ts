@@ -64,12 +64,16 @@ export function baseResponse({
   message,
   errors,
   beErrorCode,
+  beErrorMetaData,
+  beErrorMessage,
 }: {
   status: number;
   data?: any;
   message?: string;
   errors?: any;
   beErrorCode?: string;
+  beErrorMetaData?: any;
+  beErrorMessage?: string;
 }) {
   if (status == 401) {
     return NextResponse.json(
@@ -79,6 +83,8 @@ export function baseResponse({
           message: message ?? "Authentication required.",
           errorCode: "AUTH_REQUIRED_RETRY",
           beErrorCode,
+          beErrorMetaData,
+          beErrorMessage,
           errors,
           data,
           forwardData: data,
@@ -94,6 +100,8 @@ export function baseResponse({
         success: status === 200,
         message,
         beErrorCode,
+        beErrorMetaData,
+        beErrorMessage,
         errors,
         data,
       } as ApiBaseResponse),
@@ -112,6 +120,11 @@ export async function handleApiServerError(
   data?: any | null | undefined
 ) {
   const status = error?.status ?? 500;
+  const beError =
+    error?.data &&
+    typeof error.data === "object" &&
+    Array.isArray(error.data.data) &&
+    error.data.data[0];
   let errRes = {
     status,
     message:
@@ -121,12 +134,9 @@ export async function handleApiServerError(
         status === 400 ? options.error400Message : options.errorCommonMessage,
     },
     data,
-    beErrorCode:
-      (error?.data &&
-        typeof error.data === "object" &&
-        Array.isArray(error.data.data) &&
-        error.data.data[0]?.code) ||
-      undefined,
+    beErrorCode: beError?.code || undefined,
+    beErrorMetaData: beError?.metaData || undefined,
+    beErrorMessage: beError?.description || undefined,
   };
 
   if (status === 401) {

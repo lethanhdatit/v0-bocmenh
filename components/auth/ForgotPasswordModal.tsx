@@ -31,6 +31,8 @@ import {
 
 type ForgotPasswordStep = "email" | "otp" | "resetPassword" | "success";
 
+const WaitToResend = 120;
+
 export default function ForgotPasswordModal() {
   const { t } = useTranslation();
   const { activeModal, closeAuthModal, openLoginModal } = useAuth();
@@ -82,7 +84,7 @@ export default function ForgotPasswordModal() {
       });
       if (response.success) {
         setCurrentStep("otp");
-        setResendCountdown(120); // 5 minutes countdown
+        setResendCountdown(WaitToResend); // 5 minutes countdown
         setMessage(t("auth.forgotPassword.otpSent"));
       } else {
         setErrors({
@@ -93,14 +95,16 @@ export default function ForgotPasswordModal() {
       const errorMessage =
         error.response?.data?.message || t("auth.forgotPassword.systemError");
       const errorCode = error?.response?.data?.beErrorCode;
+      const errorMetaData = error?.response?.data?.beErrorMetaData;
+      const remainingTime = errorMetaData?.waitTimeInSeconds || WaitToResend;
 
       if (errorCode === "UserNotFound") {
         setErrors({ email: t("auth.forgotPassword.userNotFound") });
       } else if (errorCode === "SpamEmailSending") {
         setErrors({
-          email: t("auth.emailVerification.spamPrevention", { seconds: 120 }),
+          email: t("auth.emailVerification.spamPrevention", { seconds: remainingTime }),
         });
-        setResendCountdown(120);
+        setResendCountdown(remainingTime);
       } else {
         setErrors({ email: errorMessage });
       }
@@ -167,7 +171,7 @@ export default function ForgotPasswordModal() {
         email: verificationEmail,
       });
       if (response.success) {
-        setResendCountdown(120);
+        setResendCountdown(WaitToResend);
         setMessage(t("auth.forgotPassword.otpResent"));
       } else {
         setErrors({
@@ -355,6 +359,17 @@ export default function ForgotPasswordModal() {
         </Alert>
       )}
 
+      {/* Show delivery info when OTP was sent successfully */}
+      {message && (
+        <Alert className="border-blue-500/50 bg-blue-500/10">
+          <Mail className="h-4 w-4 text-blue-400" />
+          <AlertDescription className="text-blue-400 text-sm space-y-2">
+            <p>{t("auth.emailVerification.deliveryInfo")}</p>
+            <p className="font-medium">{t("auth.emailVerification.patientWait")}</p>
+          </AlertDescription>
+        </Alert>
+      )}
+
       <Button
         type="submit"
         disabled={isLoadingVerification || !verificationEmail}
@@ -423,6 +438,15 @@ export default function ForgotPasswordModal() {
           </AlertDescription>
         </Alert>
       )}
+
+      {/* Delivery information */}
+      <Alert className="border-blue-500/50 bg-blue-500/10">
+        <Mail className="h-4 w-4 text-blue-400" />
+        <AlertDescription className="text-blue-400 text-sm space-y-2">
+          <p>{t("auth.emailVerification.deliveryInfo")}</p>
+          <p className="font-medium">{t("auth.emailVerification.patientWait")}</p>
+        </AlertDescription>
+      </Alert>
 
       <div className="flex flex-col gap-2">
         <Button

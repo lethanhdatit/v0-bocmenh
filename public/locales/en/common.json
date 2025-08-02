@@ -278,7 +278,9 @@
       "otpIncorrect": "Incorrect OTP code",
       "spamPrevention": "Please wait {{seconds}} seconds before resending",
       "systemError": "System error, please try again later",
-      "verificationExpired": "Verification has expired, please try again"
+      "verificationExpired": "Verification has expired, please try again",
+      "deliveryInfo": "The email may take a few minutes to arrive in your inbox. If you don't see the email, please check your spam/junk folder.",
+      "patientWait": "Please be patient and check your spam folder thoroughly if you don't receive the email within 5 minutes."
     },
     "emailConfirmation": {
       "invalidEmail": "Invalid email format",

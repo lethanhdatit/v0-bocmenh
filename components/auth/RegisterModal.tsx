@@ -15,6 +15,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   Loader2,
   Eye,
@@ -33,6 +34,8 @@ import {
 } from "@/lib/emailVerification";
 
 type RegistrationStep = "email" | "otp" | "form";
+
+const WaitToResend = 120;
 
 export default function RegisterModal() {
   const { t } = useTranslation();
@@ -88,7 +91,7 @@ export default function RegisterModal() {
       });
       if (response.success) {
         setCurrentStep("otp");
-        setResendCountdown(120); 
+        setResendCountdown(WaitToResend); 
         setMessage(t("auth.emailVerification.successSent"));
       } else {
         setErrors({
@@ -100,14 +103,16 @@ export default function RegisterModal() {
         error.response?.data?.message ||
         t("auth.emailVerification.systemError");
       const errorCode = error?.response?.data?.beErrorCode;
+      const errorMetaData = error?.response?.data?.beErrorMetaData;
+      const remainingTime = errorMetaData?.waitTimeInSeconds || WaitToResend;
 
       if (errorCode === "EmailAlreadyExists") {
         setErrors({ email: t("auth.emailVerification.emailExists") });
       } else if (errorCode === "SpamEmailSending") {
         setErrors({
-          email: t("auth.emailVerification.spamPrevention", { seconds: 120 }),
+          email: t("auth.emailVerification.spamPrevention", { seconds: remainingTime }),
         });
-        setResendCountdown(120);
+        setResendCountdown(remainingTime);
       } else {
         setErrors({ email: errorMessage });
       }
@@ -175,7 +180,7 @@ export default function RegisterModal() {
         email: verificationEmail,
       });
       if (response.success) {
-        setResendCountdown(120);
+        setResendCountdown(WaitToResend);
         setMessage(t("auth.emailVerification.success"));
       } else {
         setErrors({
@@ -354,6 +359,17 @@ export default function RegisterModal() {
         )}
       </div>
 
+      {/* Show delivery info when OTP was sent successfully */}
+      {message && (
+        <Alert className="border-blue-500/50 bg-blue-500/10">
+          <Mail className="h-4 w-4 text-blue-400" />
+          <AlertDescription className="text-blue-400 text-sm space-y-2">
+            <p>{t("auth.emailVerification.deliveryInfo")}</p>
+            <p className="font-medium">{t("auth.emailVerification.patientWait")}</p>
+          </AlertDescription>
+        </Alert>
+      )}
+
       <Button
         type="submit"
         disabled={isLoadingVerification}
@@ -417,6 +433,15 @@ export default function RegisterModal() {
           <p className="text-red-400 text-xs mt-1">{errors.otp}</p>
         )}
       </div>
+
+      {/* Delivery information */}
+      <Alert className="border-blue-500/50 bg-blue-500/10">
+        <Mail className="h-4 w-4 text-blue-400" />
+        <AlertDescription className="text-blue-400 text-sm space-y-2">
+          <p>{t("auth.emailVerification.deliveryInfo")}</p>
+          <p className="font-medium">{t("auth.emailVerification.patientWait")}</p>
+        </AlertDescription>
+      </Alert>
 
       <div className="flex flex-col sm:flex-row gap-2">
         <Button
