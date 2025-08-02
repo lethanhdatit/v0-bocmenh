@@ -144,7 +144,7 @@ export default function LoginModal() {
           </motion.div>
         )}
 
-        <form onSubmit={handleLogin} className="space-y-4 py-4">
+        <form onSubmit={handleLogin} className="space-y-4 py-4" autoComplete="on">
           {/* Email Field */}
           <div>
             <Label
@@ -161,7 +161,9 @@ export default function LoginModal() {
               value={formData.email}
               onChange={handleInputChange}
               required
-              autoComplete="username"
+              autoComplete="email username"
+              autoCapitalize="none"
+              spellCheck="false"
               className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 ${
                 errors.email
                   ? "border-red-500 focus:border-red-400"
@@ -198,6 +200,8 @@ export default function LoginModal() {
                 onChange={handleInputChange}
                 required
                 autoComplete="current-password"
+                autoCapitalize="none"
+                spellCheck="false"
                 className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 pr-12 ${
                   errors.password
                     ? "border-red-500 focus:border-red-400"

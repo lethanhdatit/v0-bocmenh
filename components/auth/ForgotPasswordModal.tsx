@@ -13,6 +13,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -312,6 +313,7 @@ export default function ForgotPasswordModal() {
     <form
       onSubmit={handleSendOTP}
       className="space-y-3 sm:space-y-4 py-2 sm:py-3"
+      autoComplete="on"
     >
       {/* <div className="text-center mb-3 sm:mb-4">
         <Mail className="mx-auto mb-2 text-yellow-400" size={28} />
@@ -330,6 +332,7 @@ export default function ForgotPasswordModal() {
         <Input
           id="verification-email"
           type="email"
+          name="email"
           value={verificationEmail}
           onChange={(e) => {
             setVerificationEmail(e.target.value);
@@ -338,6 +341,9 @@ export default function ForgotPasswordModal() {
             }
           }}
           required
+          autoComplete="email username"
+          autoCapitalize="none"
+          spellCheck="false"
           className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 text-sm sm:text-base ${
             errors.email
               ? "border-red-500 focus:border-red-400"
@@ -408,6 +414,7 @@ export default function ForgotPasswordModal() {
           type="text"
           inputMode="numeric"
           pattern="[0-9]*"
+          autoComplete="one-time-code"
           maxLength={6}
           value={otp}
           onChange={(e) => {
@@ -492,7 +499,10 @@ export default function ForgotPasswordModal() {
   );
 
   const renderResetPasswordForm = () => (
-    <form onSubmit={handleResetPassword} className="space-y-4 py-4">
+    <form onSubmit={handleResetPassword} className="space-y-4 py-4" autoComplete="on">
+      {/* Hidden field to help browsers associate credentials */}
+      <input type="hidden" name="username" value={formData.email} autoComplete="username" />
+      
       {/* <div className="text-center mb-4">
         <Lock className="mx-auto mb-2 text-yellow-400" size={28} />
         <h3 className="text-lg font-semibold text-yellow-400">
@@ -516,6 +526,9 @@ export default function ForgotPasswordModal() {
             value={formData.password}
             onChange={handleInputChange}
             required
+            autoComplete="new-password"
+            autoCapitalize="none"
+            spellCheck="false"
             className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 pr-10 ${
               errors.password
                 ? "border-red-500 focus:border-red-400"
@@ -573,6 +586,9 @@ export default function ForgotPasswordModal() {
             value={formData.confirmPassword}
             onChange={handleInputChange}
             required
+            autoComplete="new-password"
+            autoCapitalize="none"
+            spellCheck="false"
             className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 pr-10 ${
               errors.confirmPassword
                 ? "border-red-500 focus:border-red-400"
@@ -672,6 +688,12 @@ export default function ForgotPasswordModal() {
           <DialogTitle className="text-xl sm:text-2xl font-bold text-yellow-400">
             {getStepTitle()}
           </DialogTitle>
+          <DialogDescription className="text-gray-400 text-sm sm:text-base">
+            {currentStep === "email" && t("auth.forgotPassword.enterEmailDescription")}
+            {currentStep === "otp" && t("auth.emailVerification.enterOtpDescription", { email: verificationEmail })}
+            {currentStep === "resetPassword" && t("auth.forgotPassword.resetPasswordDescription")}
+            {currentStep === "success" && t("auth.forgotPassword.successDescription")}
+          </DialogDescription>
         </DialogHeader>
 
         <div className="px-2 sm:px-4">
