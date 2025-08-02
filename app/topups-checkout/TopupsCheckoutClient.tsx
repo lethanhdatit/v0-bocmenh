@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import { CheckCircle, XCircle, Loader2, AlertCircle } from "lucide-react";
 import { TopupBill } from "@/components/topups/TopupBill";
 import { useLayoutVisibility } from "@/contexts/LayoutVisibilityContext";
+import { useMyFates } from "@/contexts/MyFatesContext";
 
 interface TopupsCheckoutClientProps {
   transId: string;
@@ -45,6 +46,7 @@ export default function TopupsCheckoutClient({
       revalidateOnReconnect: false,
     }
   );
+  const { fetchMyFates } = useMyFates();
 
   useEffect(() => {
     if (cancel === "1") {
@@ -78,6 +80,23 @@ export default function TopupsCheckoutClient({
       return false;
     }
   };
+
+  useEffect(() => {
+    if (isMiniWindow()) return;
+
+    const handler = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return;
+      if (event.data?.type === "paymentComplete") {
+        fetchMyFates();
+        window.removeEventListener("message", handler);
+      }
+    };
+    window.addEventListener("message", handler);
+
+    return () => {
+      window.removeEventListener("message", handler);
+    };
+  }, [isMiniWindow]);
 
   useEffect(() => {
     if (data && !["processing", "new"].includes(data.status)) {
@@ -187,7 +206,7 @@ export default function TopupsCheckoutClient({
 
             {/* BILL */}
             {data && (
-                            <div className="w-full max-w-lg mx-auto bg-gray-50 rounded-xl border border-dashed border-gray-200 text-left text-sm font-mono p-4 mt-1">
+              <div className="w-full max-w-lg mx-auto bg-gray-50 rounded-xl border border-dashed border-gray-200 text-left text-sm font-mono p-4 mt-1">
                 <TopupBill
                   data={data}
                   showContinuePayment={showContinuePayment}
