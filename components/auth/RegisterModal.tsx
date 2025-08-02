@@ -318,6 +318,7 @@ export default function RegisterModal() {
     <form
       onSubmit={handleSendOTP}
       className="space-y-3 sm:space-y-4 py-2 sm:py-3"
+      autoComplete="on"
     >
       {/* <div className="text-center mb-3 sm:mb-4">
         <Mail className="mx-auto mb-2 text-yellow-400" size={28} />
@@ -339,6 +340,7 @@ export default function RegisterModal() {
         <Input
           id="verification-email"
           type="email"
+          name="email"
           value={verificationEmail}
           onChange={(e) => {
             setVerificationEmail(e.target.value);
@@ -347,6 +349,9 @@ export default function RegisterModal() {
             }
           }}
           required
+          autoComplete="email username"
+          autoCapitalize="none"
+          spellCheck="false"
           className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 text-sm sm:text-base ${
             errors.email
               ? "border-red-500 focus:border-red-400"
@@ -412,6 +417,9 @@ export default function RegisterModal() {
         <Input
           id="otp-input"
           type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          autoComplete="one-time-code"
           value={otp}
           onChange={(e) => {
             const value = e.target.value.replace(/\D/g, "").slice(0, 6);
@@ -496,7 +504,10 @@ export default function RegisterModal() {
   );
 
   const renderRegistrationForm = () => (
-    <form onSubmit={handleRegister} className="space-y-4 py-4">
+    <form onSubmit={handleRegister} className="space-y-4 py-4" autoComplete="on">
+      {/* Hidden field to help browsers associate credentials */}
+      <input type="hidden" name="username" value={formData.email} autoComplete="username" />
+      
       <div className="text-center mb-4">
         <CheckCircle className="mx-auto mb-2 text-green-400" size={32} />
         <p className="text-sm text-green-400">
@@ -520,6 +531,9 @@ export default function RegisterModal() {
           value={formData.name}
           onChange={handleInputChange}
           required
+          autoComplete="given-name"
+          autoCapitalize="words"
+          spellCheck="false"
           className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 ${
             errors.name
               ? "border-red-500 focus:border-red-400"
@@ -553,6 +567,7 @@ export default function RegisterModal() {
           name="email"
           value={formData.email}
           readOnly
+          autoComplete="email username"
           className="bg-gray-700/50 border-gray-600 text-gray-300 cursor-not-allowed"
         />
       </div>
@@ -575,6 +590,8 @@ export default function RegisterModal() {
             onChange={handleInputChange}
             required
             autoComplete="new-password"
+            autoCapitalize="none"
+            spellCheck="false"
             className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 pr-12 ${
               errors.password
                 ? "border-red-500 focus:border-red-400"
@@ -660,6 +677,8 @@ export default function RegisterModal() {
             onChange={handleInputChange}
             required
             autoComplete="new-password"
+            autoCapitalize="none"
+            spellCheck="false"
             className={`bg-gray-800/70 border-gray-700 text-white placeholder-gray-500 pr-12 ${
               errors.confirmPassword
                 ? "border-red-500 focus:border-red-400"
