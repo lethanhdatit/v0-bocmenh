@@ -14,10 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
     description: "❓ Trung tâm hỗ trợ Bóc Mệnh với đầy đủ câu hỏi thường gặp, hướng dẫn sử dụng dịch vụ bói toán, phong thủy. Giải đáp mọi thắc mắc về tài khoản, thanh toán, dịch vụ.",
     keywords: "trung tâm hỗ trợ, câu hỏi thường gặp, FAQ, hướng dẫn sử dụng, hỗ trợ khách hàng, giải đáp thắc mắc, liên hệ hỗ trợ",
     ogImage: "/og-help.jpg",
-    canonicalUrl: `${baseUrl}/help`,
+    canonicalUrl: "/help",
     alternateLanguages: {
-      vi: `${baseUrl}/help`,
-      en: `${baseUrl}/help`,
+      vi: `/help`,
+      en: `/help`,
     },
   })
 }

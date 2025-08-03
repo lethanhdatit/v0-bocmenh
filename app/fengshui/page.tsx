@@ -1,17 +1,18 @@
 import { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import FengShuiPageClient from "./FengShuiPageClient"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
-  
   return createSEOMetadata({
     title: "Phong Thủy Tổng Hợp - Công Cụ & Hướng Dẫn Phong Thủy Việt Nam | Bóc Mệnh",
     description: "🏠 Khám phá nghệ thuật Phong Thủy cổ truyền. Tính số quẻ, chọn hướng nhà, góc tài lộc, Cửu Tinh Phi Phủ. Hướng dẫn chi tiết để tạo không gian sống hài hòa.",
     keywords: "phong thủy việt nam, số quẻ cá nhân, hướng nhà tốt, góc tài lộc, cửu tinh phi phủ, ngũ hành, phong thủy nhà ở, lịch phong thủy",
     ogImage: "/imgs/fengshui-og.jpg",
-    canonicalUrl: "/fengshui"
+    canonicalUrl: "/fengshui",
+    alternateLanguages: {
+      vi: `/fengshui`,
+      en: `/fengshui`,
+    },
   })
 }
 

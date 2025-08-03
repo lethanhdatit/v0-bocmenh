@@ -14,10 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
     description: "🌟 Tìm hiểu về Bóc Mệnh - Nền tảng AI tiên phong trong lĩnh vực bói toán, phong thủy, tarot tại Việt Nam. Đội ngũ chuyên gia giàu kinh nghiệm, công nghệ AI hiện đại.",
     keywords: "về bóc mệnh, AI bói toán, công ty phong thủy, đội ngũ chuyên gia, công nghệ AI, lịch sử phát triển, tầm nhìn sứ mệnh, nền tảng uy tín",
     ogImage: "/og-about.jpg",
-    canonicalUrl: `${baseUrl}/about`,
+    canonicalUrl: "/about",
     alternateLanguages: {
-      vi: `${baseUrl}/about`,
-      en: `${baseUrl}/about`,
+      vi: `/about`,
+      en: `/about`,
     },
   })
 }

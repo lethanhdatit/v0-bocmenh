@@ -10,10 +10,10 @@ export const metadata: Metadata = createSEOMetadata({
   description: "⭐ Tạo biểu đồ sao cá nhân chi tiết với AI chiêm tinh học. Phân tích cung hoàng đạo, hành tinh, góc độ để hiểu rõ tính cách, vận mệnh và tiềm năng của bạn.",
   keywords: "biểu đồ sao, chiêm tinh học, astrology, cung hoàng đạo, bản đồ sao, natal chart, hành tinh, góc độ chiêm tinh, tính cách theo sao, vận mệnh theo sao",
   ogImage: "/og-astrology.jpg",
-  canonicalUrl: `${baseUrl}/astrology`,
+  canonicalUrl: "/astrology",
   alternateLanguages: {
-    vi: `${baseUrl}/astrology`,
-    en: `${baseUrl}/astrology`,
+    vi: `/astrology`,
+    en: `/astrology`,
   },
 })
 

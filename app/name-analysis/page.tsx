@@ -1,17 +1,18 @@
 import type { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import NameAnalysisForm from "@/components/forms/NameAnalysisForm"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
-  
   return createSEOMetadata({
     title: "Phân Tích Thần Số Học Tên - Khám Phá Bí Mật Trong Tên | Bóc Mệnh",
     description: "🔢 Phân tích thần số học tên miễn phí. Khám phá số định mệnh, số cá tính, số linh hồn từ tên của bạn. Hiểu rõ tính cách, tài năng và vận mệnh qua từng chữ cái.",
     keywords: "phân tích tên thần số học, số định mệnh tên, phân tích tên miễn phí, thần số học vietnam, numerology name, số cá tính, số linh hồn, bói tên, xem tên tuổi",
     ogImage: "/imgs/name-analysis-og.jpg",
-    canonicalUrl: "/name-analysis"
+    canonicalUrl: "/name-analysis",
+    alternateLanguages: {
+      vi: `/name-analysis`,
+      en: `/name-analysis`,
+    },
   })
 }
 

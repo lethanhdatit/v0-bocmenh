@@ -1,10 +1,8 @@
 import { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import FengShuiPageClient from "./FengShuiPageClient"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
   
   return createSEOMetadata({
     title: "Phong Thủy Tổng Hợp - Công Cụ & Hướng Dẫn Phong Thủy Việt Nam | Bóc Mệnh",

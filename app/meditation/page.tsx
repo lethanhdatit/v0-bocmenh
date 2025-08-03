@@ -1,17 +1,18 @@
 import { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import MeditationPageClient from "./MeditationPageClient"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
-  
   return createSEOMetadata({
     title: "Thiền Định Cá Nhân Hóa - Hướng Dẫn Thiền Theo Tâm Linh | Bóc Mệnh",
     description: "🧘‍♀️ Khám phá phương pháp thiền phù hợp với bạn. AI phân tích và đề xuất bài thiền cá nhân hóa dựa trên mục tiêu, kinh nghiệm và thời gian của bạn.",
     keywords: "thiền định cá nhân hóa, hướng dẫn thiền, meditation vietnam, thiền tâm linh, thiền cho người mới, thiền giảm stress, mindfulness vietnam",
     ogImage: "/imgs/meditation-og.jpg",
-    canonicalUrl: "/meditation"
+    canonicalUrl: "/meditation",
+    alternateLanguages: {
+      vi: `/meditation`,
+      en: `/meditation`,
+    },
   })
 }
 

@@ -10,10 +10,10 @@ export const metadata: Metadata = createSEOMetadata({
   description: "📜 Điều khoản và điều kiện sử dụng dịch vụ Bóc Mệnh. Quy định pháp lý, quyền và nghĩa vụ của người dùng khi sử dụng các dịch vụ bói toán, phong thủy online.",
   keywords: "điều khoản dịch vụ, điều kiện sử dụng, quy định pháp lý, thỏa thuận người dùng, quyền và nghĩa vụ",
   ogImage: "/og-terms.jpg",
-  canonicalUrl: `${baseUrl}/terms`,
+  canonicalUrl: "/terms",
   alternateLanguages: {
-    vi: `${baseUrl}/terms`,
-    en: `${baseUrl}/terms`,
+    vi: `/terms`,
+    en: `/terms`,
   },
 })
 

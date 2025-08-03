@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import TopupsCheckoutClient from "./TopupsCheckoutClient";
-import { getTranslations } from "@/i18n/server";
 import { createSEOMetadata } from "@/lib/seo/metadata";
+import { getTranslations } from "@/i18n/server";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo");
-
   return createSEOMetadata({
     title: "Thanh Toán Điểm Duyên - Checkout An Toàn | Bóc Mệnh",
     description:
@@ -14,6 +12,10 @@ export async function generateMetadata(): Promise<Metadata> {
       "thanh toán điểm duyên, checkout bóc mệnh, vietqr, paypal payment, banking vietnam, visa checkout, giao dịch an toàn, payment gateway",
     ogImage: "/imgs/checkout-og.jpg",
     canonicalUrl: "/topups-checkout",
+    alternateLanguages: {
+      vi: `/topups-checkout`,
+      en: `/topups-checkout`,
+    },
     noindex: true, // Không index trang checkout
   });
 }

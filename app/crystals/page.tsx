@@ -1,17 +1,18 @@
 import { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import CrystalsPageClient from "./CrystalsPageClient"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
-  
   return createSEOMetadata({
     title: "Đá Quý Chữa Lành - Hướng Dẫn Chọn Đá Quý Theo Tâm Linh | Bóc Mệnh",
     description: "💎 Khám phá sức mạnh chữa lành của đá quý. AI gợi ý đá phù hợp với cung hoàng đạo, chakra và mục đích cá nhân. Hướng dẫn sử dụng và bảo quản đá quý.",
     keywords: "đá quý chữa lành, crystal healing vietnam, đá quý theo cung hoàng đạo, chakra healing, đá quý tâm linh, đá phong thủy, crystal therapy",
     ogImage: "/imgs/crystals-og.jpg",
-    canonicalUrl: "/crystals"
+    canonicalUrl: "/crystals",
+    alternateLanguages: {
+      vi: `/crystals`,
+      en: `/crystals`,
+    },
   })
 }
 

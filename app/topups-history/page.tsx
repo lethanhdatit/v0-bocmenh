@@ -1,17 +1,19 @@
 import { Metadata } from "next";
-import { getTranslations } from "@/i18n/server";
 import { createSEOMetadata } from "@/lib/seo/metadata";
+import { getTranslations } from "@/i18n/server";
 import TopupsHistoryClient from "./TopupsHistoryClient";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo");
-  
   return createSEOMetadata({
     title: "Lịch Sử Nạp Điểm Duyên - Quản Lý Giao Dịch | Bóc Mệnh",
     description: "📊 Xem lịch sử giao dịch nạp điểm duyên của bạn. Theo dõi trạng thái thanh toán, số dư tài khoản và các giao dịch đã thực hiện.",
     keywords: "lịch sử nạp tiền, giao dịch điểm duyên, quản lý tài khoản, transaction history, payment history, bóc mệnh account",
     ogImage: "/imgs/history-og.jpg",
     canonicalUrl: "/topups-history",
+    alternateLanguages: {
+      vi: `/topups-history`,
+      en: `/topups-history`,
+    },
     noindex: true // Không index vì là trang cá nhân
   });
 }

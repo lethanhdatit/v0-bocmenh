@@ -10,10 +10,10 @@ export const metadata: Metadata = createSEOMetadata({
   description: "📋 Tìm hiểu cách Bóc Mệnh thu thập, sử dụng và bảo vệ thông tin cá nhân của bạn. Cam kết minh bạch về chính sách bảo mật và quyền riêng tư người dùng.",
   keywords: "chính sách bảo mật, quyền riêng tư, bảo vệ thông tin, GDPR, bảo mật dữ liệu, điều khoản sử dụng",
   ogImage: "/og-privacy.jpg",
-  canonicalUrl: `${baseUrl}/privacy`,
+  canonicalUrl: "/privacy",
   alternateLanguages: {
-    vi: `${baseUrl}/privacy`,
-    en: `${baseUrl}/privacy`,
+    vi: `/privacy`,
+    en: `/privacy`,
   },
 })
 

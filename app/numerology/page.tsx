@@ -10,10 +10,10 @@ export const metadata: Metadata = createSEOMetadata({
   description: "🔢 Phân tích thần số học AI dựa trên tên và ngày sinh. Khám phá số đường đời, số định mệnh, số linh hồn, số may mắn và dự báo tương lai chính xác nhất.",
   keywords: "thần số học, numerology, số đường đời, số định mệnh, số linh hồn, số cá tính, số may mắn, phân tích tên, chu kỳ cá nhân, AI thần số",
   ogImage: "/og-numerology.jpg",
-  canonicalUrl: `${baseUrl}/numerology`,
+  canonicalUrl: "/numerology",
   alternateLanguages: {
-    vi: `${baseUrl}/numerology`,
-    en: `${baseUrl}/numerology`,
+    vi: `/numerology`,
+    en: `/numerology`,
   },
 })
 

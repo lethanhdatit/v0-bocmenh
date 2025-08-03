@@ -1,10 +1,8 @@
 import { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import MeditationPageClient from "./MeditationPageClient"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
   
   return createSEOMetadata({
     title: "Thiền Định Cá Nhân Hóa - Hướng Dẫn Thiền Theo Tâm Linh | Bóc Mệnh",
