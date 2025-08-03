@@ -10,6 +10,18 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
 }
 
 @layer base {
@@ -91,4 +103,98 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer components {
+  .mystical-card {
+    @apply bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 hover:border-yellow-500/50 transition-all duration-300;
+  }
+
+  .mystical-button {
+    @apply bg-gradient-to-r from-yellow-500 to-amber-500 text-black font-semibold py-3 px-6 rounded-full hover:from-amber-500 hover:to-yellow-500 transition-all duration-300 transform hover:scale-105;
+  }
+
+  .lotus-pond {
+    background: radial-gradient(ellipse at center, rgba(255, 105, 180, 0.1) 0%, transparent 70%);
+  }
+}
+
+/* Custom animations for GlobalLoading */
+@keyframes spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse 2s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 2s ease-in-out infinite;
+}
+
+/* Gradient radial utility */
+.bg-gradient-radial {
+  background: radial-gradient(var(--tw-gradient-stops));
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 10s linear infinite;
+}
+
+.fate-glow {
+  filter:
+    drop-shadow(0 0 2px #ffe066)
+    drop-shadow(0 0 4px #ffd700);
+  animation: fateGlowPulse 0.5s infinite alternate;
+}
+
+@keyframes fateGlowPulse {
+  0% {
+    filter:
+      drop-shadow(0 0 2px #ffe066)
+      drop-shadow(0 0 4px #ffd700);
+  }
+  100% {
+    filter:
+      drop-shadow(0 0 3px #ffe066)
+      drop-shadow(0 0 5px #ffd700);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
 }

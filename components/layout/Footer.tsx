@@ -126,7 +126,7 @@ export default function Footer() {
                       <ComingSoonNavBadge 
                         position="inline-right" 
                         size="xs" 
-                        distance="far"
+                        distance="normal"
                         className="text-xs"
                       />
                     )}
@@ -134,7 +134,7 @@ export default function Footer() {
                       <MaintenanceNavBadge 
                         position="inline-right" 
                         size="xs" 
-                        distance="far"
+                        distance="normal"
                         className="text-xs"
                       />
                     )}
@@ -173,7 +173,7 @@ export default function Footer() {
                       <ComingSoonNavBadge 
                         position="inline-right" 
                         size="xs" 
-                        distance="far"
+                        distance="normal"
                         className="text-xs"
                       />
                     )}
@@ -181,7 +181,7 @@ export default function Footer() {
                       <MaintenanceNavBadge 
                         position="inline-right" 
                         size="xs" 
-                        distance="far"
+                        distance="normal"
                         className="text-xs"
                       />
                     )}
