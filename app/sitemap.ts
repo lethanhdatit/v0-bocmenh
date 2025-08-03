@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next'
 import { getBaseUrl } from '@/lib/infra/utils'
-import { getEnabledLanguages } from '@/lib/i18n/language-config'
 
 const baseUrl = getBaseUrl()
 
@@ -133,24 +132,19 @@ const routes = [
   },
 ]
 
-export default function sitemap({ 
-  params 
-}: { 
-  params: { locale: string } 
-}): MetadataRoute.Sitemap {
+export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date().toISOString()
-  const locale = params.locale
   
   return routes.map((route) => ({
-    url: `${baseUrl}/${locale}${route.url}`,
+    url: `${baseUrl}${route.url}`,
     lastModified: currentDate,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
     alternates: {
-      languages: getEnabledLanguages().reduce((acc, lang) => {
-        acc[lang.hreflang] = `${baseUrl}/${lang.code}${route.url}`
-        return acc
-      }, {} as Record<string, string>),
+      languages: {
+        vi: `${baseUrl}${route.url}`,
+        en: `${baseUrl}${route.url}`,
+      },
     },
   }))
 }

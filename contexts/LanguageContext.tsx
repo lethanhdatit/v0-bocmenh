@@ -3,7 +3,6 @@
 import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useRouter, usePathname } from "next/navigation"
 import { setLanguage as setServerLanguage, getLanguage as getServerLanguage } from "@/lib/languageActions"
 import { setApiClientLanguage } from "@/lib/api/apiClient"
 import i18n, { loadTranslationResources } from "@/lib/infra/i18n"
@@ -11,8 +10,6 @@ import { cacheManager } from "@/lib/utils/i18n-cache"
 import { 
   getDefaultLanguageConfig,
   getEnabledLanguages,
-  isLanguageSupported,
-  detectBrowserLanguage,
   type SupportedLanguageCode 
 } from "@/lib/i18n/language-config"
 
@@ -33,30 +30,10 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-interface LanguageProviderProps {
-  children: React.ReactNode
-  initialLocale?: SupportedLanguageCode
-}
-
-export function LanguageProvider({ children, initialLocale }: LanguageProviderProps) {
-  const router = useRouter()
-  const pathname = usePathname()
-  
-  // Get locale from URL or use initialLocale or default
-  const getLocaleFromUrl = (): SupportedLanguageCode => {
-    if (initialLocale) return initialLocale
-    
-    const segments = pathname.split('/').filter(Boolean)
-    const urlLocale = segments[0]
-    
-    if (urlLocale && isLanguageSupported(urlLocale)) {
-      return urlLocale as SupportedLanguageCode
-    }
-    
-    return getDefaultLanguageConfig().code as SupportedLanguageCode
-  }
-
-  const [language, setLanguageState] = useState<SupportedLanguageCode>(getLocaleFromUrl())
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  const [language, setLanguageState] = useState<SupportedLanguageCode>(
+    getDefaultLanguageConfig().code as SupportedLanguageCode
+  )
   const [isLoading, setIsLoading] = useState(true)
   const [isI18nReady, setIsI18nReady] = useState(false)
   const [cacheInfo, setCacheInfo] = useState(cacheManager.getClientCacheInfo())
@@ -80,72 +57,55 @@ export function LanguageProvider({ children, initialLocale }: LanguageProviderPr
           throw new Error("Failed to load translation resources")
         }
 
-        // Get current locale from URL
-        const currentLocale = getLocaleFromUrl()
+        // Now fetch language from server (with auto-detection)
+        const { language: serverLanguage, isDetected, hasSession } = await getServerLanguage()
+        let finalLanguage = serverLanguage || getDefaultLanguageConfig().code as SupportedLanguageCode
+        let isActuallyDetected = isDetected
 
-        // If no initial locale provided, check for language detection
-        if (!initialLocale) {
-          // Fetch language from server/cookies
-          const { language: serverLanguage, isDetected, hasSession } = await getServerLanguage()
-          let finalLanguage = serverLanguage || currentLocale
-          let isActuallyDetected = isDetected
-
-          // Only do client-side detection if:
-          // 1. Server didn't detect (SSR)
-          // 2. User has never set a language preference (no session/cookies)
-          // 3. We're on client-side
-          // 4. Current URL locale is default (meaning user hasn't explicitly chosen)
-          if (!isDetected && !hasSession && typeof window !== "undefined" && currentLocale === getDefaultLanguageConfig().code) {
-            const detectedLang = detectBrowserLanguage()
+        // Only do client-side detection if:
+        // 1. Server didn't detect (SSR)
+        // 2. User has never set a language preference (no session/cookies)
+        // 3. We're on client-side
+        if (!isDetected && !hasSession && typeof window !== "undefined") {
+          const { detectBrowserLanguage } = await import("@/lib/i18n/language-config")
+          const detectedLang = detectBrowserLanguage()
+          
+          // Only use detected language if it's different from default
+          if (detectedLang !== getDefaultLanguageConfig().code) {
+            finalLanguage = detectedLang as SupportedLanguageCode
+            isActuallyDetected = true
             
-            // Only use detected language if it's different from default
-            if (detectedLang !== getDefaultLanguageConfig().code) {
-              finalLanguage = detectedLang as SupportedLanguageCode
-              isActuallyDetected = true
-              
-              // Save the client-detected language
-              await setServerLanguage(finalLanguage)
-              
-              // Navigate to detected language URL
-              const newPath = pathname.replace(`/${currentLocale}`, `/${finalLanguage}`)
-              router.replace(newPath)
-              setLanguageState(finalLanguage)
-              setIsDetectedLanguage(isActuallyDetected)
-            }
-          } else {
-            setLanguageState(finalLanguage as SupportedLanguageCode)
-            setIsDetectedLanguage(isActuallyDetected)
+            // Save the client-detected language
+            await setServerLanguage(finalLanguage)
           }
-        } else {
-          // Use provided initial locale
-          setLanguageState(currentLocale)
-          // Save to server for consistency
-          await setServerLanguage(currentLocale)
         }
 
         // Set language in i18n
         if (i18n && typeof i18n.changeLanguage === "function") {
-          await i18n.changeLanguage(language)
+          await i18n.changeLanguage(finalLanguage)
         }
 
         // Set language in API client for Accept-Language header
-        setApiClientLanguage(language)
+        setApiClientLanguage(finalLanguage)
+
+        setLanguageState(finalLanguage)
+        setIsDetectedLanguage(isActuallyDetected)
         setIsI18nReady(true)
 
-        if (isDetectedLanguage) {
-          console.log(`Auto-detected browser language: ${language}`)
+        if (isActuallyDetected) {
+          console.log(`Auto-detected browser language: ${finalLanguage}`)
         }
       } catch (error) {
         console.error("Failed to initialize i18n:", error)
-        // Fallback to current locale without crashing
-        const fallbackLang = getLocaleFromUrl()
-        setLanguageState(fallbackLang)
-        setApiClientLanguage(fallbackLang)
+        // Fallback to default without crashing
+        const defaultLang = getDefaultLanguageConfig().code as SupportedLanguageCode
+        setLanguageState(defaultLang)
+        setApiClientLanguage(defaultLang)
         if (i18n && typeof i18n.changeLanguage === "function") {
           try {
-            await i18n.changeLanguage(fallbackLang)
+            await i18n.changeLanguage(defaultLang)
           } catch (i18nError) {
-            console.error("Failed to set fallback language:", i18nError)
+            console.error("Failed to set default language:", i18nError)
           }
         }
         setIsI18nReady(true)
@@ -155,7 +115,7 @@ export function LanguageProvider({ children, initialLocale }: LanguageProviderPr
     }
 
     initializeI18n()
-  }, [initialLocale, router, pathname])
+  }, [])
 
   const setLanguage = async (lang: SupportedLanguageCode) => {
     try {
@@ -175,20 +135,6 @@ export function LanguageProvider({ children, initialLocale }: LanguageProviderPr
 
         // Update API client language for Accept-Language header
         setApiClientLanguage(lang)
-
-        // Navigate to new language URL
-        const segments = pathname.split('/').filter(Boolean)
-        const currentLocale = segments[0]
-        
-        if (isLanguageSupported(currentLocale)) {
-          // Replace current locale with new one
-          const newPath = pathname.replace(`/${currentLocale}`, `/${lang}`)
-          router.push(newPath)
-        } else {
-          // Add locale to beginning of path
-          const newPath = `/${lang}${pathname}`
-          router.push(newPath)
-        }
 
         // Reset detected flag since user manually changed language
         setIsDetectedLanguage(false)

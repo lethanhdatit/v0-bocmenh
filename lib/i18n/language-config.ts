@@ -4,7 +4,7 @@
  */
 
 export interface LanguageConfig {
-  /** Language code (ISO 639-1) - used in URL prefix */
+  /** Language code (ISO 639-1) */
   code: string
   /** Display name in native language */
   name: string
@@ -22,12 +22,6 @@ export interface LanguageConfig {
   isDefault?: boolean
   /** Browser language codes that should map to this language */
   browserCodes: string[]
-  /** SEO hreflang attribute value */
-  hreflang: string
-  /** Currency code for this locale */
-  currency?: string
-  /** Direction (ltr/rtl) */
-  direction: 'ltr' | 'rtl'
 }
 
 /**
@@ -44,10 +38,7 @@ export const SUPPORTED_LANGUAGES: LanguageConfig[] = [
     dateLocale: "vi-VN",
     enabled: true,
     isDefault: true,
-    browserCodes: ["vi", "vi-VN", "vi-vn"],
-    hreflang: "vi-VN",
-    currency: "VND",
-    direction: "ltr"
+    browserCodes: ["vi", "vi-VN", "vi-vn"]
   },
   {
     code: "en",
@@ -57,10 +48,7 @@ export const SUPPORTED_LANGUAGES: LanguageConfig[] = [
     acceptLanguage: "en-US,en;q=0.9,vi;q=0.8", 
     dateLocale: "en-US",
     enabled: true,
-    browserCodes: ["en", "en-US", "en-us", "en-GB", "en-gb"],
-    hreflang: "en-US",
-    currency: "USD",
-    direction: "ltr"
+    browserCodes: ["en", "en-US", "en-us", "en-GB", "en-gb"]
   },
   // Các ngôn ngữ có thể thêm trong tương lai
   // {
@@ -101,11 +89,6 @@ export const SUPPORTED_LANGUAGES: LanguageConfig[] = [
 export function getEnabledLanguages(): LanguageConfig[] {
   return SUPPORTED_LANGUAGES.filter(lang => lang.enabled)
 }
-
-/**
- * Alias for backward compatibility
- */
-export const LANGUAGES = SUPPORTED_LANGUAGES
 
 /**
  * Get language config by code
