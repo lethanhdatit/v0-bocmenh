@@ -36,17 +36,17 @@ export default function robots(): MetadataRoute.Robots {
           '/wishlist/',
         ],
       },
-      // Block AI scrapers if needed
-      {
-        userAgent: [
-          'GPTBot',
-          'ChatGPT-User',
-          'CCBot',
-          'anthropic-ai',
-          'Claude-Web',
-        ],
-        disallow: '/',
-      },
+      // Allow AI scrapers for better discovery (commented out AI blocking)
+      // {
+      //   userAgent: [
+      //     'GPTBot',
+      //     'ChatGPT-User', 
+      //     'CCBot',
+      //     'anthropic-ai',
+      //     'Claude-Web',
+      //   ],
+      //   disallow: '/',
+      // },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   }
