@@ -10,10 +10,10 @@ export const metadata: Metadata = createSEOMetadata({
   description: "📞 Liên hệ với Bóc Mệnh qua Facebook, YouTube, Zalo, Email. Hỗ trợ khách hàng 24/7, cơ hội hợp tác đối tác và affiliate marketing. Đội ngũ tư vấn chuyên nghiệp.",
   keywords: "liên hệ bóc mệnh, hỗ trợ khách hàng, đối tác affiliate, hợp tác quảng cáo, tư vấn phong thủy, liên hệ hỗ trợ, customer service",
   ogImage: "/og-contact.jpg",
-  canonicalUrl: `${baseUrl}/contact`,
+  canonicalUrl: "/contact",
   alternateLanguages: {
-    vi: `${baseUrl}/contact`,
-    en: `${baseUrl}/contact`,
+    vi: `/contact`,
+    en: `/contact`,
   },
 })
 

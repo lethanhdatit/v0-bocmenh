@@ -10,10 +10,10 @@ export const metadata: Metadata = createSEOMetadata({
   description: "🛍️ Khám phá cửa hàng phong thủy online với hàng ngàn sản phẩm may mắn theo mệnh Kim Mộc Thủy Hỏa Thổ. Đá quý, vòng tay, tượng phong thủy, cây cảnh may mắn. Giao hàng toàn quốc.",
   keywords: "cửa hàng phong thủy, đá quý phong thủy, vòng tay may mắn, tượng phong thủy, cây cảnh phong thủy, sản phẩm theo mệnh, đồ phong thủy online, tài lộc, bình an",
   ogImage: "/og-store.jpg",
-  canonicalUrl: `${baseUrl}/store`,
+  canonicalUrl: "/store",
   alternateLanguages: {
-    vi: `${baseUrl}/store`,
-    en: `${baseUrl}/store`,
+    vi: `/store`,
+    en: `/store`,
   },
 })
 

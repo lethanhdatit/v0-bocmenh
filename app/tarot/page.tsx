@@ -12,10 +12,10 @@ export const metadata: Metadata = createSEOMetadata({
   description: "🔮 Rút bài Tarot AI để khám phá tương lai, tình yêu, sự nghiệp chính xác nhất. Giải mã thông điệp từ vũ trụ với 78 lá bài Tarot mystical. Bói bài online miễn phí.",
   keywords: "bói tarot online, rút bài tarot, AI tarot, bói bài mystical, tương lai, tình yêu, sự nghiệp, tarot reading, lá bài tarot, bói toán tarot",
   ogImage: "/og-tarot.jpg",
-  canonicalUrl: `${baseUrl}/tarot`,
+  canonicalUrl: "/tarot",
   alternateLanguages: {
-    vi: `${baseUrl}/tarot`,
-    en: `${baseUrl}/tarot`,
+    vi: `/tarot`,
+    en: `/tarot`,
   },
 })
 

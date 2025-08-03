@@ -1,13 +1,11 @@
 import { getTopupPackages, getPaymentGates } from "@/lib/topups";
 import TopupsClient from "./TopupsClient";
 import type { Metadata } from "next";
-import { getTranslations } from "@/i18n/server";
 import { createSEOMetadata } from "@/lib/seo/metadata";
+import { getTranslations } from "@/i18n/server";
 import { FatesUnit } from "@/components/common/FatesUnit";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo");
-
   return createSEOMetadata({
     title: "Nạp Điểm Duyên - Mua Gói Dịch Vụ Premium | Bóc Mệnh",
     description:
@@ -16,6 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
       "nạp điểm duyên, mua gói premium, cổng vietqr, thanh toán paypal, banking online, visa payment, dịch vụ bói toán, gói ưu đãi, bóc mệnh premium, nạp tiền online, payment vietnam",
     ogImage: "/imgs/topups-og.jpg",
     canonicalUrl: "/topups",
+    alternateLanguages: {
+      vi: `/topups`,
+      en: `/topups`,
+    },
   });
 }
 

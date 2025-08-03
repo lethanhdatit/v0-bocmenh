@@ -1,17 +1,18 @@
 import { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import HoroscopePageClient from "./HoroscopePageClient"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
-  
   return createSEOMetadata({
     title: "Tử Vi Hàng Ngày - Horoscope Cung Hoàng Đạo | Bóc Mệnh",
     description: "Xem tử vi hàng ngày miễn phí theo 12 cung hoàng đạo. Dự báo tình yêu, sự nghiệp, sức khỏe và tài chính. Khám phá vận mệnh và nhận lời khuyên hữu ích.",
     keywords: "tử vi hàng ngày, horoscope vietnam, cung hoàng đạo, dự báo tử vi, tử vi miễn phí, zodiac signs, astrology vietnam, tử vi tình yêu, tử vi sự nghiệp, tử vi tài chính",
     ogImage: "/imgs/horoscope-og.jpg",
-    canonicalUrl: "/horoscope"
+    canonicalUrl: "/horoscope",
+    alternateLanguages: {
+      vi: `/horoscope`,
+      en: `/horoscope`,
+    },
   })
 }
 

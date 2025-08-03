@@ -1,10 +1,8 @@
 import { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import CompatibilityPageClient from "./CompatibilityPageClient"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
   
   return createSEOMetadata({
     title: "Tương Hợp Tình Yêu - Kiểm Tra Độ Hợp Cung Hoàng Đạo & Thần Số | Bóc Mệnh",

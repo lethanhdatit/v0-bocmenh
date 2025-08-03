@@ -1,17 +1,18 @@
 import { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import CompatibilityPageClient from "./CompatibilityPageClient"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
-  
   return createSEOMetadata({
     title: "Tương Hợp Tình Yêu - Kiểm Tra Độ Hợp Cung Hoàng Đạo & Thần Số | Bóc Mệnh",
     description: "💕 Khám phá mức độ tương hợp tình yêu qua thần số học và cung hoàng đạo. Phân tích tính cách, giao tiếp và tương lai của mối quan hệ. Báo cáo chi tiết về tình yêu, tình bạn.",
     keywords: "tương hợp tình yêu, cung hoàng đạo hợp nhau, thần số học tình yêu, kiểm tra độ hợp, tính cách cung hoàng đạo, love compatibility vietnam",
     ogImage: "/imgs/compatibility-og.jpg",
-    canonicalUrl: "/compatibility"
+    canonicalUrl: "/compatibility",
+    alternateLanguages: {
+      vi: `/compatibility`,
+      en: `/compatibility`,
+    },
   })
 }
 

@@ -1,17 +1,18 @@
 import type { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import MovingDateForm from "@/components/forms/MovingDateForm"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
-  
   return createSEOMetadata({
     title: "Chọn Ngày Chuyển Nhà Tốt - Phong Thủy Chuyển Nhà | Bóc Mệnh",
     description: "🏠 Chọn ngày chuyển nhà tốt theo phong thủy và thần số học. Tính toán dựa trên ngày sinh để tìm ngày chuyển nhà may mắn, thuận lợi nhất cho gia đình.",
     keywords: "chọn ngày chuyển nhà, phong thủy chuyển nhà, ngày tốt chuyển nhà, xem ngày chuyển nhà, tính ngày chuyển nhà hợp tuổi, ngày lành chuyển nhà",
     ogImage: "/imgs/moving-date-og.jpg",
-    canonicalUrl: "/moving-date"
+    canonicalUrl: "/moving-date",
+    alternateLanguages: {
+      vi: `/moving-date`,
+      en: `/moving-date`,
+    },
   })
 }
 

@@ -1,10 +1,8 @@
 import { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import CrystalsPageClient from "./CrystalsPageClient"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
   
   return createSEOMetadata({
     title: "Đá Quý Chữa Lành - Hướng Dẫn Chọn Đá Quý Theo Tâm Linh | Bóc Mệnh",

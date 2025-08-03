@@ -1,28 +1,18 @@
 import { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import PalmistryPageClient from "./PalmistryPageClient"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
-  
   return createSEOMetadata({
     title: "Xem Tướng Bàn Tay - Phán Đoán Vận Mệnh Qua Lòng Bàn Tay | Bóc Mệnh",
     description: "Xem tướng bàn tay miễn phí với AI. Phân tích 4 đường chính, dạng bàn tay, đoán tính cách và vận mệnh. Nghệ thuật xem tướng cổ xưa với công nghệ hiện đại.",
     keywords: "xem tướng bàn tay, phán đoán vận mệnh, đường đời, đường tình, đường trí, đường vận mệnh, xem tướng miễn phí, AI xem tướng, palmistry vietnam, dạng bàn tay, tính cách qua bàn tay, nghệ thuật xem tướng",
-    category: "fortune-telling",
-    openGraph: {
-      title: "Xem Tướng Bàn Tay - Khám Phá Vận Mệnh Qua Lòng Bàn Tay",
-      description: "Phân tích chuyên sâu các đường nét trên bàn tay. Đoán tính cách, vận mệnh và tương lai với độ chính xác cao.",
-      images: [
-        {
-          url: '/imgs/palmistry-og.jpg',
-          width: 1200,
-          height: 630,
-          alt: 'Xem Tướng Bàn Tay - Bóc Mệnh'
-        }
-      ]
-    }
+    ogImage: "/imgs/palmistry-og.jpg",
+    canonicalUrl: "/palmistry",
+    alternateLanguages: {
+      vi: `/palmistry`,
+      en: `/palmistry`,
+    },
   })
 }
 

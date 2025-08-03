@@ -10,10 +10,10 @@ export const metadata: Metadata = createSEOMetadata({
   description: "🔮 Mỗi người là một hộp bí ẩn - Khám phá vận mệnh qua AI bói toán ⭐ Giải mơ ⭐ Thần số học ⭐ Tarot ⭐ Phong thủy ⭐ Xem tướng số online chính xác nhất VN",
   keywords: "bóc mệnh, xem bói online, giải mơ, thần số học, tarot online, phong thủy, xem tướng, AI bói toán, vận mệnh, chiêm tinh, khám phá bản thân, bói bài online, tử vi",
   ogImage: "/og-home.jpg",
-  canonicalUrl: baseUrl,
+  canonicalUrl: "/",
   alternateLanguages: {
-    vi: baseUrl,
-    en: baseUrl,
+    vi: `/`,
+    en: `/`,
   },
 })
 

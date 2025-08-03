@@ -14,10 +14,10 @@ export const metadata: Metadata = createSEOMetadata({
   description: "🌙 Giải mã giấc mơ của bạn với AI thông minh nhất! Khám phá thông điệp từ tiềm thức, ý nghĩa tâm linh và lời khuyên từ giấc mơ. Dịch vụ giải mơ online chính xác #1 VN.",
   keywords: "giải mơ AI, giấc mơ, ý nghĩa giấc mơ, phân tích giấc mơ, giải mơ online, thông điệp tiềm thức, chiêm bao, mơ thấy gì, giải mơ miễn phí",
   ogImage: "/og-dreams.jpg",
-  canonicalUrl: `${baseUrl}/dreams`,
+  canonicalUrl: "/dreams",
   alternateLanguages: {
-    vi: `${baseUrl}/dreams`,
-    en: `${baseUrl}/dreams`,
+    vi: `/dreams`,
+    en: `/dreams`,
   },
 })
 

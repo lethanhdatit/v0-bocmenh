@@ -94,7 +94,7 @@ function FeatureCard({ feature, index }: { feature: any, index: number }) {
       viewport={{ once: true }}
       className="group relative bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-4 sm:p-6 hover:border-yellow-500/50 transition-all duration-300 hover:transform hover:scale-105 flex flex-col min-h-[200px] sm:min-h-[220px] h-full"
     >
-      {/* Status badges - chỉ hiển thị trên desktop */}
+      {/* Status badges - responsive hiển thị trên tất cả thiết bị */}
       {isComingSoon && (
         <div className="absolute top-2 sm:top-3 right-2 sm:right-3 z-20">
           <ComingSoonBadge variant="floating" size="sm" />

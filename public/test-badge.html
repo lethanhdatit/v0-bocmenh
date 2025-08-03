@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test ComingSoonBadge Responsive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .animate-pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                opacity: 1;
+                box-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
+            }
+            50% {
+                opacity: 0.8;
+                box-shadow: 0 0 30px rgba(245, 158, 11, 0.8);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 p-4">
+    <h1 class="text-white text-2xl mb-8">Test ComingSoonBadge Responsive</h1>
+    
+    <!-- Test different screen sizes -->
+    <div class="space-y-6">
+        
+        <!-- Card container như trong FeaturesSection -->
+        <div class="bg-gray-800 rounded-lg p-4 relative">
+            <h3 class="text-white text-lg mb-2">Feature Card với Badge</h3>
+            <p class="text-gray-400">This simulates a feature card from FeaturesSection</p>
+            
+            <!-- Badge positioned như trong code -->
+            <div class="absolute top-2 sm:top-3 right-2 sm:right-3 z-20">
+                <!-- ComingSoonBadge equivalent -->
+                <div class="flex px-1.5 py-0.5 text-xs sm:px-2 sm:py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-medium rounded-full shadow-lg border-white/20 backdrop-blur-sm animate-pulse-glow">
+                    <div class="flex items-center gap-1">
+                        <span class="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-white/80 rounded-full animate-bounce"></span>
+                        <span class="whitespace-nowrap">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Test tại breakpoints khác nhau -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-gray-800 rounded-lg p-4 relative">
+                <h4 class="text-white">Mobile: < 640px</h4>
+                <p class="text-gray-400 text-sm">Badge should be smaller but visible</p>
+                <div class="absolute top-2 right-2 z-20">
+                    <div class="flex px-1.5 py-0.5 text-xs bg-gradient-to-r from-amber-500 to-orange-500 text-white font-medium rounded-full">
+                        <span class="w-1 h-1 bg-white/80 rounded-full mr-1"></span>
+                        <span>Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-800 rounded-lg p-4 relative">
+                <h4 class="text-white">Desktop: ≥ 640px</h4>
+                <p class="text-gray-400 text-sm">Badge should be larger</p>
+                <div class="absolute top-3 right-3 z-20">
+                    <div class="flex px-2 py-1 text-xs bg-gradient-to-r from-amber-500 to-orange-500 text-white font-medium rounded-full">
+                        <span class="w-1.5 h-1.5 bg-white/80 rounded-full mr-1"></span>
+                        <span>Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Viewport size indicator -->
+    <div class="fixed bottom-4 left-4 bg-blue-600 text-white px-3 py-1 rounded text-sm">
+        <span class="sm:hidden">Mobile (&lt; 640px)</span>
+        <span class="hidden sm:inline">Desktop (≥ 640px)</span>
+    </div>
+    
+</body>
+</html>

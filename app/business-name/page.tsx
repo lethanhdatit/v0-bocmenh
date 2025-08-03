@@ -1,17 +1,18 @@
 import type { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import BusinessNameForm from "@/components/forms/BusinessNameForm"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
-  
   return createSEOMetadata({
     title: "Phân Tích Tên Doanh Nghiệp - Thần Số Học Kinh Doanh | Bóc Mệnh",
     description: "Phân tích tên doanh nghiệp theo thần số học miễn phí. Khám phá năng lượng cốt lõi, tiềm năng thành công và chiến lược phát triển tối ưu cho công ty của bạn.",
     keywords: "phân tích tên doanh nghiệp, thần số học kinh doanh, tên công ty, phong thủy doanh nghiệp, số định mệnh công ty, marketing thần số học, chiến lược kinh doanh, thần số học vietnam, business numerology",
     ogImage: "/imgs/business-name-og.jpg",
-    canonicalUrl: "/business-name"
+    canonicalUrl: "/business-name",
+     alternateLanguages: {
+      vi: `/business-name`,
+      en: `/business-name`,
+    },
   })
 }
 

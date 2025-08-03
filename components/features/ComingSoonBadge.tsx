@@ -37,10 +37,10 @@ export function ComingSoonBadge({
   };
 
   const sizeStyles = {
-    xs: 'px-1.5 py-0.5 text-xs',
-    sm: 'px-2 py-1 text-xs',
-    md: 'px-3 py-1.5 text-sm', 
-    lg: 'px-4 py-2 text-base'
+    xs: 'px-1 py-0.5 text-xs sm:px-1.5 sm:py-0.5',
+    sm: 'px-1.5 py-0.5 text-xs sm:px-2 sm:py-1',
+    md: 'px-2 py-1 text-xs sm:px-3 sm:py-1.5 sm:text-sm', 
+    lg: 'px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base'
   };
 
   // Different colors and text for different types
@@ -72,13 +72,13 @@ export function ComingSoonBadge({
       baseStyles[variant],
       // Size
       sizeStyles[size],
-      // Responsive: ẩn trên mobile để tránh chen chúc
-      variant === 'floating' && "hidden sm:flex",
+      // Responsive: hiển thị trên tất cả màn hình, có thể điều chỉnh size trên mobile
+      variant === 'floating' && "flex",
       className
     )}>
       <div className="flex items-center gap-1">
         <span className={cn(
-          "w-1.5 h-1.5 bg-white/80 rounded-full",
+          "w-1 h-1 sm:w-1.5 sm:h-1.5 bg-white/80 rounded-full",
           type === 'coming-soon' ? "animate-bounce" : "animate-ping"
         )} />
         <span className="whitespace-nowrap">{config.text}</span>

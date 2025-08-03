@@ -1,18 +1,19 @@
 import type { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import WeddingDateForm from "@/components/forms/WeddingDateForm"
 import { Calendar, Heart, Star, Sparkles } from "lucide-react"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
-  
   return createSEOMetadata({
     title: "Chọn Ngày Cưới Hợp Tuổi - Phong Thủy Ngày Cưới | Bóc Mệnh",
     description: "🎎 Chọn ngày cưới hợp tuổi theo thần số học và phong thủy. Phân tích ngày cưới tốt nhất cho cặp đôi, tính toán độ hợp và lời khuyên màu sắc, hướng cưới.",
     keywords: "chọn ngày cưới, ngày cưới hợp tuổi, phong thủy ngày cưới, thần số học cưới hỏi, tính ngày cưới, ngày tốt cưới hỏi, xem ngày cưới, wedding date vietnam",
     ogImage: "/imgs/wedding-date-og.jpg",
-    canonicalUrl: "/wedding-date"
+    canonicalUrl: "/wedding-date",
+    alternateLanguages: {
+      vi: `/wedding-date`,
+      en: `/wedding-date`,
+    },
   })
 }
 

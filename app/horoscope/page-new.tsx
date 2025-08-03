@@ -1,10 +1,8 @@
 import { Metadata } from "next"
-import { getTranslations } from "@/i18n/server"
 import { createSEOMetadata } from "@/lib/seo/metadata"
 import HoroscopePageClient from "./HoroscopePageClient"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("seo")
   
   return createSEOMetadata({
     title: "Tử Vi Hàng Ngày - Horoscope Cung Hoàng Đạo | Bóc Mệnh",
