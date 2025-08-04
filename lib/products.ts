@@ -1,5 +1,5 @@
 export interface ProductAttribute {
-  type: string // e.g., 'mệnh', 'tử vi', 'numerology', 'mục đích', 'sao xấu', 'menhKhac'
+  type: string // e.g., 'mệnh', 'bát tự', 'numerology', 'mục đích', 'sao xấu', 'menhKhac'
   value: string // e.g., 'Kim', 'Tý', 'Số 1', 'Tài Lộc', 'Thái Tuế', 'Thổ'
   description?: string // Optional description for the attribute's effect
 }

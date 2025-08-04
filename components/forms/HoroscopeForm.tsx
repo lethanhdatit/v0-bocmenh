@@ -43,7 +43,7 @@ export default function HoroscopeForm() {
       const result = await response.json()
 
       if (!response.ok) {
-        throw new Error(result.error || "Đã xảy ra lỗi khi tạo dự báo tử vi")
+        throw new Error(result.error || "Đã xảy ra lỗi khi tạo dự báo bát tự")
       }
 
       setResult(result.data)
@@ -91,7 +91,7 @@ export default function HoroscopeForm() {
           transition={{ duration: 0.5 }}
           className="bg-white/10 backdrop-blur-lg rounded-xl p-6 shadow-xl"
         >
-          <h2 className="text-2xl font-bold text-center mb-6 text-white">Xem Tử Vi Của Bạn</h2>
+          <h2 className="text-2xl font-bold text-center mb-6 text-white">Xem Bát Tự Của Bạn</h2>
 
           {error && <div className="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-100">{error}</div>}
 
@@ -158,7 +158,7 @@ export default function HoroscopeForm() {
                     Đang tạo dự báo...
                   </>
                 ) : (
-                  "Xem Tử Vi"
+                  "Xem Bát Tự"
                 )}
               </button>
             </div>
@@ -172,7 +172,7 @@ export default function HoroscopeForm() {
           className="bg-white/10 backdrop-blur-lg rounded-xl p-6 shadow-xl"
         >
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-white">Tử Vi {getForecastTypeText(result.type)}</h2>
+            <h2 className="text-2xl font-bold text-white">Bát Tự {getForecastTypeText(result.type)}</h2>
             <button
               onClick={() => setResult(null)}
               className="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-white transition-colors"
@@ -341,7 +341,7 @@ export default function HoroscopeForm() {
               onClick={() => setResult(null)}
               className="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-medium rounded-lg shadow-lg"
             >
-              Xem Tử Vi Khác
+              Xem Bát Tự Khác
             </button>
           </div>
         </motion.div>

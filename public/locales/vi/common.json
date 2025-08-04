@@ -9,7 +9,7 @@
     "bonusDirect": "tặng",
     "bonusPercent": "tặng thêm",
     "title": "Nạp Duyên - Bóc Mệnh",
-    "description": "Chọn gói nạp duyên để sử dụng các dịch vụ tử vi, phong thủy, bói toán trên Bóc Mệnh.",
+    "description": "Chọn gói nạp duyên để sử dụng các dịch vụ bát tự, phong thủy, huyền học trên Bóc Mệnh.",
     "pageTitle": "Chọn Gói Nạp Duyên",
     "fatesUnit": "duyên",
     "bonus": "Thưởng",
@@ -50,7 +50,12 @@
       "viewDetail": "Chi tiết",
       "copiedTransId": "Mã giao dịch đã được sao chép",
       "refreshed": "Dữ liệu đã được cập nhật"
-    }
+    },
+    "agreeToTerms": "Tôi đồng ý với",
+    "termsOfService": "Điều khoản dịch vụ",
+    "and": "và",
+    "privacyPolicy": "Chính sách bảo mật",
+    "agreeTermsError": "Vui lòng đồng ý với điều khoản dịch vụ và chính sách bảo mật để tiếp tục."
   },
   "checkout": {
     "billingTitle": "Hoa Don Dien Tu",
@@ -151,7 +156,7 @@
     "businessName": "Tên Doanh Nghiệp",
     "astrology": "Chiêm Tinh",
     "palmistry": "Xem Tướng",
-    "horoscope": "Tử Vi",
+    "horoscope": "Bát Tự",
     "language": "Ngôn ngữ",
     "profile": "Hồ sơ",
     "history": "Lịch sử xem",

@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return createSEOMetadata({
     title: "Trung Tâm Hỗ Trợ - Bóc Mệnh | Câu Hỏi Thường Gặp & Hướng Dẫn",
-    description: "❓ Trung tâm hỗ trợ Bóc Mệnh với đầy đủ câu hỏi thường gặp, hướng dẫn sử dụng dịch vụ bói toán, phong thủy. Giải đáp mọi thắc mắc về tài khoản, thanh toán, dịch vụ.",
+    description: "❓ Trung tâm hỗ trợ Bóc Mệnh với đầy đủ câu hỏi thường gặp, hướng dẫn sử dụng dịch vụ huyền học, phong thủy. Giải đáp mọi thắc mắc về tài khoản, thanh toán, dịch vụ.",
     keywords: "trung tâm hỗ trợ, câu hỏi thường gặp, FAQ, hướng dẫn sử dụng, hỗ trợ khách hàng, giải đáp thắc mắc, liên hệ hỗ trợ",
     ogImage: "/og-help.jpg",
     canonicalUrl: "/help",
@@ -38,7 +38,7 @@ export default async function HelpPage() {
       answer: "Vào trang Nạp Duyên, chọn gói phù hợp và thanh toán qua các phương thức được hỗ trợ như chuyển khoản, ví điện tử."
     },
     {
-      question: "Độ chính xác của dịch vụ AI bói toán như thế nào?",
+      question: "Độ chính xác của dịch vụ AI huyền học như thế nào?",
       answer: "Dịch vụ AI của chúng tôi được phát triển dựa trên hàng ngàn năm tri thức phong thủy, kết hợp công nghệ hiện đại để đạt độ chính xác cao nhất."
     }
   ];

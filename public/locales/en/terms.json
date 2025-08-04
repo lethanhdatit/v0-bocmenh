@@ -16,75 +16,129 @@
       "items": [
         "Users can read content on BMP, use some free services, and use filters to find suitable (affiliate) products without logging in.",
         "To use all free services, including diagnostic features, analysis, product recommendations suitable for your destiny sign, usage history, etc., you must register as a member and provide accurate information.",
-        "To use advanced services (more detailed interpretations, more in-depth analysis), you must pay a service fee (one-time payment, purchase points for multiple uses).",
-        "You are responsible for maintaining the confidentiality of your login information.",
-        "BMP is not responsible for any risks arising from password disclosure."
+        "To use advanced services (more detailed interpretations, more in-depth analysis), you must purchase Fates Points to use paid services.",
+        "You are responsible for maintaining the confidentiality of your login information and not sharing your account.",
+        "BMP is not responsible for any risks arising from information leakage due to user error."
       ]
     },
     "userRights": {
       "title": "3. User Rights and Obligations",
       "items": [
-        "Use the service in accordance with Vietnamese law and good customs.",
+        "Use services in accordance with Vietnamese laws and good customs.",
         "Do not copy or distribute BMP content in any form without permission.",
-        "Do not engage in any harmful conduct, disrupt the service, or attack the system."
+        "Do not perform harmful acts, disrupt services, or attack the system.",
+        "Provide accurate information when registering and using services.",
+        "Comply with regulations on using Fates Points and payments."
       ]
     },
     "userConduct": {
       "title": "4. User Conduct Rules",
       "intro": "When using BMP, you agree not to:",
       "items": [
-        "Violate any applicable laws or regulations.",
-        "Infringe upon the privacy, intellectual property rights, or any other rights of others.",
-        "Post, transmit, or distribute any unlawful, harmful, threatening, abusive, harassing, defamatory, vulgar, obscene, hateful, discriminatory, or otherwise objectionable content.",
-        "Impersonate any person or entity."
+        "Violate any laws or regulations.",
+        "Infringe on privacy, intellectual property rights, or any other rights of others.",
+        "Post, transmit, or distribute any illegal, harmful, threatening, abusive, harassing, defamatory, vulgar, hateful, discriminatory, or objectionable content.",
+        "Impersonate any individual or organization.",
+        "Engage in fraudulent activities or abuse the Fates Points system.",
+        "Use automated software, bots, or similar tools to manipulate the system."
       ]
     },
     "serviceDescription": {
-      "title": "5. Service Description and Fees",
+      "title": "5. Service Description and Fates Points System",
       "items": [
-        "Basic service (free): Preliminary view of interpretation results; limited usage.",
-        "Advanced service (paid): Detailed interpretation of destiny, feng shui, compatibility; tarot toolkit; PDF report generation.",
-        "The price list and payment methods are clearly posted on the “Pricing & Payment Methods” page.",
-        "Payment via MoMo, VNPay, international cards... Refunds are processed according to the service cancellation policy."
+        "Free services: View basic interpretation results with limited daily/monthly usage.",
+        "Paid services: Detailed destiny, feng shui, compatibility interpretations; advanced tarot tools; PDF report export; unlimited history storage.",
+        "Fates Points System: BMP uses an internal currency called 'Fates Points' to pay for premium services. 1 Fates Point = 1,000 VND.",
+        "Purchasing Fates Points: Users deposit real money (VND) to receive corresponding Fates Points through authorized payment gateways (Paypal, VietQR, Banking, Visa/Mastercard).",
+        "Using Fates Points: Fates Points are automatically deducted when using paid services. Insufficient Fates Points will prevent service usage.",
+        "Non-refundable Fates Points: Once successfully purchased, Fates Points cannot be converted back to cash or transferred to others.",
+        "Validity period: Fates Points are valid permanently from the purchase date and do not expire."
+      ]
+    },
+    "paymentTerms": {
+      "title": "6. Payment Terms and Fates Points",
+      "items": [
+        "Terms acceptance: Making a Fates Points purchase transaction means you have read, understood, and fully accepted these terms of service.",
+        "Non-reversible nature: After a Fates Points purchase transaction is confirmed successful, the transaction cannot be cancelled, reversed, or refunded.",
+        "User responsibility: Users are responsible for carefully checking transaction information and deposit amount before confirming payment.",
+        "Error handling: In case of technical errors leading to money deduction but no Fates Points credit, BMP will investigate and resolve within 72 business hours.",
+        "Transaction security: All transactions are SSL/TLS encrypted, payment information is processed through PCI DSS certified partners.",
+        "Transaction history: Users can review complete history of point purchases and service usage in the 'History' section of their personal account.",
+        "Customer support: BMP commits to supporting users in resolving payment-related issues during business hours (8:00-17:30, Mon-Fri)."
+      ]
+    },
+    "userResponsibilities": {
+      "title": "7. User Responsibilities and Rights Regarding Fates Points",
+      "items": [
+        "Account management: Users are responsible for securing login information and not sharing accounts with third parties.",
+        "Legal use: Fates Points may only be used to pay for official BMP services, not for illegal purposes.",
+        "History access rights: Users have the right to view and export data history of point purchases and service usage at any time.",
+        "Support rights: Users have the right to technical support for issues related to Fates Points and services.",
+        "Reporting obligations: Users have the obligation to report immediately if they detect anomalies in their Fates Points account.",
+        "Complaint rights: Users have the right to complain about Fates Points-related issues and receive resolution within 7 business days."
       ]
     },
     "affiliateAdvertising": {
-      "title": "6. Affiliate & Advertising",
+      "title": "8. Affiliate & Advertising",
       "items": [
-        "Affiliate products related to interpretation results are clearly tagged “Affiliate”.",
-        "Advertising complies with the Advertising Law, is not misleading, and does not violate good customs.",
-        "BMP is not responsible for products provided by affiliate partners."
+        "Affiliate products related to interpretation results are clearly marked \"Affiliate\".",
+        "Advertising complies with Advertising Law, does not cause confusion, and does not violate good customs.",
+        "BMP is not responsible for products provided by affiliate partners.",
+        "All affiliate purchase transactions are unrelated to BMP's Fates Points system."
       ]
     },
     "intellectualProperty": {
-      "title": "7. Intellectual Property",
+      "title": "9. Intellectual Property",
       "content": [
-        "BMP and all of its content, including text, images, graphics, logos, icons, audio, video, source code, design, layout, and software, are the property of BMP or its licensors and are protected by intellectual property laws.",
-        "Users may not reuse content, except with written permission."
+        "BMP and all content of BMP, including text, images, graphics, logos, icons, audio, video, source code, design, layout, and software, are the property of BMP or its licensors and are protected by intellectual property law.",
+        "Users may not reuse, copy, distribute, modify, or create derivative products from BMP content without written permission.",
+        "AI algorithms and interpretation databases are proprietary intellectual property of BMP."
       ]
     },
     "disclaimer": {
-      "title": "8. Disclaimer",
+      "title": "10. Disclaimer",
       "content": [
-        "Interpretation data is for reference purposes only; results cannot be guaranteed to be 100% accurate.",
-        "BMP is not responsible for any damages resulting from your complete reliance on the interpretation results.",
-        "BMP is provided \"as is\" and \"as available\" without any warranties, express or implied. BMP does not warrant that its services will be uninterrupted, timely, secure, or error-free."
+        "Reference nature: All interpretation results, destiny analysis, predictions and consultations on BMP are provided for entertainment and reference purposes only, not professional advice on finance, health, legal or important life decisions.",
+        "No accuracy guarantee: BMP does not guarantee the accuracy, completeness or suitability of any information, predictions or results provided through the service.",
+        "Personal responsibility: Users are fully responsible for all decisions and actions based on information from BMP. BMP encourages users to seek expert advice in specific fields when making important decisions.",
+        "Not a substitute for professional consultation: BMP services do not replace medical, psychological, financial, or legal consultation from licensed professionals."
+      ]
+    },
+    "limitationOfLiability": {
+      "title": "11. Limitation of Liability",
+      "items": [
+        "Service results: Interpretation results are for reference only, based on AI algorithms and user-provided data. BMP is not responsible for user decisions based on these results.",
+        "Service interruptions: BMP does not guarantee 24/7 continuous service operation due to system maintenance, upgrades, or force majeure incidents.",
+        "Fates Points loss: BMP is not responsible for Fates Points loss due to users disclosing login information or using unsafe public computers.",
+        "Compensation limits: In all cases, BMP's total compensation liability does not exceed the total amount paid by the user in the past 12 months.",
+        "Indirect damage disclaimer: BMP is not responsible for indirect, incidental, special, or consequential damages arising from service use.",
+        "Force majeure disclaimer: BMP is not responsible for incidents due to natural disasters, war, epidemics, national network failures, or other force majeure causes."
       ]
     },
     "termination": {
-      "title": "9. Termination and Suspension",
-      "content": "BMP reserves the right to refuse, suspend, or terminate accounts that violate these terms without prior notice."
+      "title": "12. Termination and Suspension",
+      "content": [
+        "BMP reserves the right to refuse, suspend, or terminate accounts that violate these terms without prior notice.",
+        "In case of account termination due to serious violations, remaining Fates Points will not be refunded.",
+        "Users have the right to request account closure at any time, but Fates Points will not be refunded."
+      ]
     },
     "generalTerms": {
-      "title": "10. General Terms",
+      "title": "13. General Terms",
       "content": [
-        "Applicable law: Law on Information Technology, Law on Cybersecurity, Law on Personal Data Protection, and related guiding documents in Vietnam.",
-        "Any disputes arising will be prioritized for resolution through mediation. If unsuccessful, legal action will be initiated at the People's Court where BMP is headquartered."
+        "Applicable law: Information Technology Law, Cybersecurity Law, Personal Data Protection Law, E-commerce Law, and guidance documents in Vietnam.",
+        "Dispute resolution: All arising disputes will prioritize mediation; if unsuccessful, litigation will be filed at the People's Court where BMP is headquartered.",
+        "Validity: These Terms are effective from publication and apply until notice of changes."
       ]
     },
     "policyChanges": {
-      "title": "11. Policy Changes",
-      "content": "BMP reserves the right to amend these Terms at any time by posting the revised version on the website. You are responsible for regularly reviewing these Terms for any amendments. Your continued use of the website after amendments are posted will be deemed your acceptance of such amendments."
+      "title": "14. Policy Changes",
+      "content": [
+        "BMP reserves the right to amend these Terms at any time by posting revised versions on the website. Users are responsible for regularly checking for updates.",
+        "Important changes regarding Fates Points and payments will be notified via email to registered users.",
+        "Your continued use of the website after amendments are posted will be deemed your acceptance of such amendments.",
+        "Users have the right to stop using the service if they disagree with changes, but Fates Points will not be refunded."
+      ]
     }
   }
 }

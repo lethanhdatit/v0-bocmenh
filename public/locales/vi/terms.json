@@ -16,9 +16,9 @@
       "items": [
         "Người dùng có thể đọc các nội dung trên BMP, sử dụng một số dịch vụ miễn phí, sử dụng bộ lọc để tìm sản phẩm (affiliate) phù hợp mà không cần đăng nhập.",
         "Để sử dụng toàn bộ các dịch vụ miễn phí bao gồm các tính năng chuẩn đoán, phân tích, đề xuất sản phẩm phù hợp cung-mệnh, lịch sử sử dụng, …bạn phải đăng ký thành viên và cung cấp thông tin chính xác.",
-        "Để sử dụng dịch vụ nâng cao (luận giải chi tiết hơn, phân tích sâu rộng hơn) bạn phải thanh toán để trả phí dịch vụ (thanh toán một lần, mua điểm để sử dụng nhiều lần).",
-        "Bạn chịu trách nhiệm bảo mật thông tin đăng nhập.",
-        "BMP không chịu trách nhiệm nếu có rủi ro phát sinh từ việc lộ mật khẩu."
+        "Để sử dụng dịch vụ nâng cao (luận giải chi tiết hơn, phân tích sâu rộng hơn) bạn phải nạp điểm Duyên để sử dụng các dịch vụ trả phí.",
+        "Bạn chịu trách nhiệm bảo mật thông tin đăng nhập và không chia sẻ tài khoản.",
+        "BMP không chịu trách nhiệm nếu có rủi ro phát sinh từ việc lộ thông tin đăng nhập do lỗi của người dùng."
       ]
     },
     "userRights": {
@@ -26,7 +26,9 @@
       "items": [
         "Sử dụng dịch vụ phù hợp với quy định của pháp luật Việt Nam và thuần phong mỹ tục.",
         "Không sao chép, phát tán nội dung BMP dưới bất kỳ hình thức nào mà không được phép.",
-        "Không thực hiện hành vi gây hại, làm gián đoạn dịch vụ, tấn công hệ thống."
+        "Không thực hiện hành vi gây hại, làm gián đoạn dịch vụ, tấn công hệ thống.",
+        "Cung cấp thông tin chính xác khi đăng ký và sử dụng dịch vụ.",
+        "Tuân thủ các quy định về sử dụng điểm Duyên và thanh toán."
       ]
     },
     "userConduct": {
@@ -36,55 +38,107 @@
         "Vi phạm bất kỳ luật hoặc quy định nào.",
         "Xâm phạm quyền riêng tư, quyền sở hữu trí tuệ hoặc bất kỳ quyền nào khác của người khác.",
         "Đăng tải, truyền bá hoặc phân phối bất kỳ nội dung bất hợp pháp, gây hại, đe dọa, lạm dụng, quấy rối, phỉ báng, tục tĩu, thù hận, phân biệt đối xử hoặc gây khó chịu nào.",
-        "Mạo danh bất kỳ cá nhân hoặc tổ chức nào."
+        "Mạo danh bất kỳ cá nhân hoặc tổ chức nào.",
+        "Thực hiện các hành vi gian lận, lạm dụng hệ thống điểm Duyên.",
+        "Sử dụng phần mềm tự động, bot hoặc các công cụ tương tự để thao túng hệ thống."
       ]
     },
     "serviceDescription": {
-      "title": "5. Mô tả dịch vụ và phí",
+      "title": "5. Mô tả dịch vụ và hệ thống điểm Duyên",
       "items": [
-        "Dịch vụ cơ bản (miễn phí): Xem sơ bộ kết quả luận giải; giới hạn lượt.",
-        "Dịch vụ nâng cao (có phí): Luận giải chi tiết vận mệnh, phong thủy, tương hợp; bộ công cụ tarot; xuất bản báo cáo PDF.",
-        "Bảng giá và phương thức thanh toán được niêm yết rõ ràng tại trang “Giá & Phương thức thanh toán”.",
-        "Thanh toán qua cổng MoMo, VNPay, thẻ quốc tế… Hoàn trả theo chính sách hủy dịch vụ."
+        "Dịch vụ miễn phí: Xem sơ bộ kết quả luận giải cơ bản, giới hạn số lượt sử dụng theo ngày/tháng.",
+        "Dịch vụ trả phí: Luận giải chi tiết vận mệnh, phong thủy, tương hợp; bộ công cụ tarot nâng cao; xuất báo cáo PDF; lưu trữ lịch sử không giới hạn.",
+        "Hệ thống điểm Duyên: BMP sử dụng đơn vị tiền tệ nội bộ là 'điểm Duyên' (Fates Points) để thanh toán các dịch vụ trả phí. 1 điểm Duyên = 1.000 VNĐ.",
+        "Nạp điểm Duyên: Người dùng nạp tiền thật (VNĐ) để nhận điểm Duyên tương ứng thông qua các cổng thanh toán được ủy quyền (Paypal, VietQR, Banking, thẻ Visa/Mastercard).",
+        "Sử dụng điểm Duyên: Điểm Duyên được khấu trừ tự động khi sử dụng dịch vụ trả phí. Không đủ điểm Duyên sẽ không thể sử dụng dịch vụ.",
+        "Điểm Duyên không được hoàn lại: Một khi đã nạp thành công, điểm Duyên không thể chuyển đổi ngược lại thành tiền mặt, không thể chuyển nhượng cho người khác.",
+        "Hạn sử dụng: Điểm Duyên có hiệu lực vĩnh viễn kể từ ngày nạp thành công, không bị hết hạn."
+      ]
+    },
+    "paymentTerms": {
+      "title": "6. Điều khoản thanh toán và điểm Duyên",
+      "items": [
+        "Chấp nhận điều khoản: Việc thực hiện giao dịch nạp điểm Duyên đồng nghĩa với việc bạn đã đọc, hiểu và chấp nhận đầy đủ các điều khoản dịch vụ này.",
+        "Tính bất khả hủy ngang: Sau khi giao dịch nạp điểm Duyên được xác nhận thành công, giao dịch không thể hủy bỏ, hoàn tác hay đòi lại tiền.",
+        "Trách nhiệm người dùng: Người dùng có trách nhiệm kiểm tra kỹ thông tin giao dịch, số tiền nạp trước khi xác nhận thanh toán.",
+        "Xử lý lỗi giao dịch: Trong trường hợp lỗi kỹ thuật dẫn đến trừ tiền nhưng không cộng điểm Duyên, BMP sẽ điều tra và khắc phục trong vòng 72 giờ làm việc.",
+        "Bảo mật giao dịch: Mọi giao dịch được mã hóa SSL/TLS, thông tin thanh toán được xử lý qua đối tác được cấp phép PCI DSS.",
+        "Lịch sử giao dịch: Người dùng có thể xem lại toàn bộ lịch sử nạp điểm và sử dụng dịch vụ tại mục 'Lịch sử' trong tài khoản cá nhân.",
+        "Hỗ trợ khách hàng: BMP cam kết hỗ trợ người dùng giải quyết các vấn đề liên quan đến thanh toán trong giờ hành chính (8:00-17:30, Thứ 2-6)."
+      ]
+    },
+    "userResponsibilities": {
+      "title": "7. Trách nhiệm và quyền lợi người dùng về điểm Duyên",
+      "items": [
+        "Quản lý tài khoản: Người dùng chịu trách nhiệm bảo mật thông tin đăng nhập, không chia sẻ tài khoản với bên thứ ba.",
+        "Sử dụng hợp pháp: Điểm Duyên chỉ được sử dụng để thanh toán các dịch vụ chính thức của BMP, không được dùng vào mục đích bất hợp pháp.",
+        "Quyền truy cập lịch sử: Người dùng có quyền xem, xuất dữ liệu lịch sử nạp điểm và sử dụng dịch vụ bất kỳ lúc nào.",
+        "Quyền được hỗ trợ: Người dùng có quyền được hỗ trợ kỹ thuật về các vấn đề liên quan đến điểm Duyên và dịch vụ.",
+        "Nghĩa vụ báo cáo: Người dùng có nghĩa vụ báo cáo ngay lập tức nếu phát hiện bất thường trong tài khoản điểm Duyên.",
+        "Quyền khiếu nại: Người dùng có quyền khiếu nại về các vấn đề liên quan đến điểm Duyên và được giải quyết trong vòng 7 ngày làm việc."
       ]
     },
     "affiliateAdvertising": {
-      "title": "6. Affiliate & quảng cáo",
+      "title": "8. Affiliate & quảng cáo",
       "items": [
-        "Sản phẩm affiliate liên quan đến kết quả luận giải được gắn thẻ “Affiliate” rõ ràng.",
+        "Sản phẩm affiliate liên quan đến kết quả luận giải được gắn thẻ \"Affiliate\" rõ ràng.",
         "Quảng cáo tuân thủ Luật Quảng cáo, không gây nhầm lẫn, không vi phạm thuần phong mỹ tục.",
-        "BMP không chịu trách nhiệm về các sản phẩm do đối tác affiliate cung cấp."
+        "BMP không chịu trách nhiệm về các sản phẩm do đối tác affiliate cung cấp.",
+        "Mọi giao dịch mua hàng affiliate không liên quan đến hệ thống điểm Duyên của BMP."
       ]
     },
     "intellectualProperty": {
-      "title": "7. Sở hữu trí tuệ",
+      "title": "9. Sở hữu trí tuệ",
       "content": [
         "BMP và toàn bộ nội dung của BMP, bao gồm văn bản, hình ảnh, đồ họa, logo, biểu tượng, âm thanh, video, mã nguồn, thiết kế, bố cục và phần mềm, là tài sản của BMP hoặc các bên cấp phép của BMP và được bảo vệ bởi luật sở hữu trí tuệ.",
-        "Người dùng không được tái sử dụng, trừ khi có văn bản cho phép."
+        "Người dùng không được tái sử dụng, sao chép, phân phối, chỉnh sửa hoặc tạo ra các sản phẩm phái sinh từ nội dung của BMP mà không có sự cho phép bằng văn bản.",
+        "Thuật toán AI và cơ sở dữ liệu luận giải là tài sản trí tuệ độc quyền của BMP."
       ]
     },
     "disclaimer": {
-      "title": "8. Miễn trừ trách nhiệm",
+      "title": "10. Tuyên bố miễn trừ trách nhiệm",
       "content": [
-        "Dữ liệu luận giải mang tính tham khảo; kết quả không thể đảm bảo chính xác 100%.",
-        "BMP không chịu trách nhiệm về thiệt hại do bạn tin tưởng hoàn toàn vào kết quả luận giải.",
-        "BMP được cung cấp \"nguyên trạng\" và \"có sẵn\" mà không có bất kỳ bảo đảm nào, rõ ràng hoặc ngụ ý. BMP không đảm bảo rằng BMP sẽ không bị gián đoạn, kịp thời, an toàn hoặc không có lỗi."
+        "Tính chất tham khảo: Tất cả kết quả luận giải, phân tích vận mệnh, dự đoán và tư vấn trên BMP được cung cấp chỉ với mục đích giải trí và tham khảo, không phải lời khuyên chuyên môn về tài chính, y tế, pháp lý hay các quyết định quan trọng trong cuộc sống.",
+        "Không đảm bảo độ chính xác: BMP không đảm bảo tính chính xác, đầy đủ hay phù hợp của bất kỳ thông tin, dự đoán hay kết quả nào được cung cấp thông qua dịch vụ.",
+        "Trách nhiệm cá nhân: Người dùng hoàn toàn chịu trách nhiệm về mọi quyết định và hành động dựa trên thông tin từ BMP. BMP khuyến khích người dùng tham khảo ý kiến chuyên gia trong các lĩnh vực cụ thể khi đưa ra quyết định quan trọng.",
+        "Không thay thế tư vấn chuyên nghiệp: Dịch vụ của BMP không thay thế cho tư vấn y tế, tâm lý, tài chính, pháp lý từ các chuyên gia được cấp phép."
+      ]
+    },
+    "limitationOfLiability": {
+      "title": "11. Giới hạn trách nhiệm",
+      "items": [
+        "Về kết quả dịch vụ: Kết quả luận giải mang tính tham khảo, dựa trên thuật toán AI và dữ liệu người dùng cung cấp. BMP không chịu trách nhiệm về các quyết định của người dùng dựa trên kết quả này.",
+        "Về gián đoạn dịch vụ: BMP không đảm bảo dịch vụ hoạt động liên tục 24/7 do bảo trì hệ thống, nâng cấp hoặc sự cố bất khả kháng.",
+        "Về mất mát điểm Duyên: BMP không chịu trách nhiệm về mất mát điểm Duyên do người dùng tiết lộ thông tin đăng nhập, sử dụng máy tính công cộng không an toàn.",
+        "Giới hạn bồi thường: Trong mọi trường hợp, tổng trách nhiệm bồi thường của BMP không vượt quá tổng số tiền người dùng đã thanh toán trong 12 tháng gần nhất.",
+        "Miễn trừ thiệt hại gián tiếp: BMP không chịu trách nhiệm về các thiệt hại gián tiếp, ngẫu nhiên, đặc biệt hoặc hậu quả phát sinh từ việc sử dụng dịch vụ.",
+        "Miễn trừ force majeure: BMP không chịu trách nhiệm về các sự cố do thiên tai, chiến tranh, dịch bệnh, sự cố mạng quốc gia, hoặc các nguyên nhân bất khả kháng khác."
       ]
     },
     "termination": {
-      "title": "9. Chấm dứt và tạm ngưng",
-      "content": "BMP có quyền từ chối, tạm ngưng hoặc khóa tài khoản vi phạm điều khoản mà không cần thông báo trước."
+      "title": "12. Chấm dứt và tạm ngưng",
+      "content": [
+        "BMP có quyền từ chối, tạm ngưng hoặc khóa tài khoản vi phạm điều khoản mà không cần thông báo trước.",
+        "Trong trường hợp tài khoản bị khóa do vi phạm nghiêm trọng, điểm Duyên còn lại sẽ không được hoàn trả.",
+        "Người dùng có quyền yêu cầu khóa tài khoản bất kỳ lúc nào, nhưng điểm Duyên sẽ không được hoàn trả."
+      ]
     },
     "generalTerms": {
-      "title": "10. Điều khoản chung",
+      "title": "13. Điều khoản chung",
       "content": [
-        "Luật áp dụng: Luật Công nghệ thông tin, Luật An ninh mạng, Luật Bảo vệ dữ liệu cá nhân và các văn bản hướng dẫn tại Việt Nam.",
-        "Mọi tranh chấp phát sinh sẽ ưu tiên hòa giải, nếu không thành công sẽ khởi kiện tại Tòa án Nhân dân nơi BMP đặt trụ sở."
+        "Luật áp dụng: Luật Công nghệ thông tin, Luật An ninh mạng, Luật Bảo vệ dữ liệu cá nhân, Luật Thương mại điện tử và các văn bản hướng dẫn tại Việt Nam.",
+        "Giải quyết tranh chấp: Mọi tranh chấp phát sinh sẽ ưu tiên hòa giải, nếu không thành công sẽ khởi kiện tại Tòa án Nhân dân nơi BMP đặt trụ sở.",
+        "Tính hiệu lực: Điều khoản này có hiệu lực kể từ khi được công bố và áp dụng đến khi có thông báo thay đổi."
       ]
     },
     "policyChanges": {
-      "title": "11. Thay đổi chính sách",
-      "content": "BMP có quyền sửa đổi Điều khoản này bất cứ lúc nào bằng cách đăng bản sửa đổi lên website. Bạn có trách nhiệm thường xuyên xem xét Điều khoản này để biết các bản sửa đổi. Việc bạn tiếp tục sử dụng website sau khi các bản sửa đổi được đăng tải sẽ được coi là sự chấp nhận của bạn đối với các bản sửa đổi đó."
+      "title": "14. Thay đổi chính sách",
+      "content": [
+        "BMP có quyền sửa đổi Điều khoản này bất cứ lúc nào bằng cách đăng bản sửa đổi lên website. Người dùng có trách nhiệm kiểm tra thường xuyên để cập nhật các thay đổi.",
+        "Các thay đổi quan trọng về điểm Duyên và thanh toán sẽ được thông báo qua email đến người dùng đã đăng ký.",
+        "Việc bạn tiếp tục sử dụng website sau khi các bản sửa đổi được đăng tải sẽ được coi là sự chấp nhận của bạn đối với các bản sửa đổi đó.",
+        "Người dùng có quyền ngừng sử dụng dịch vụ nếu không đồng ý với các thay đổi, nhưng điểm Duyên sẽ không được hoàn trả."
+      ]
     }
   }
 }

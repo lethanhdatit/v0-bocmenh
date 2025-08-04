@@ -717,7 +717,7 @@ export default function RegisterModal() {
             name="agreeToTerms"
             checked={formData.agreeToTerms}
             onChange={handleInputChange}
-            className={`w-4 h-4 mt-0.5 text-yellow-500 bg-gray-800 border-gray-600 rounded focus:ring-yellow-500 focus:ring-2 ${
+            className={`w-4 h-4 mt-0.5 text-yellow-500 bg-gray-400 border-gray-600 rounded focus:ring-yellow-500 focus:ring-2 ${
               errors.agreeToTerms ? "border-red-500" : ""
             }`}
           />

@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn',
     short_name: 'Bóc Mệnh',
-    description: 'Nền tảng AI bói toán hàng đầu Việt Nam - Khám phá vận mệnh, giải mơ, thần số học, tarot, phong thủy online',
+    description: 'Nền tảng AI huyền học hàng đầu Việt Nam - Khám phá vận mệnh, giải mơ, thần số học, tarot, phong thủy online',
     start_url: '/',
     display: 'standalone',
     background_color: '#000000',

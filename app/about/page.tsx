@@ -10,9 +10,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getTranslations(["common"])
 
   return createSEOMetadata({
-    title: "Về Chúng Tôi - Bóc Mệnh | Nền Tảng AI Bói Toán Hàng Đầu Việt Nam",
-    description: "🌟 Tìm hiểu về Bóc Mệnh - Nền tảng AI tiên phong trong lĩnh vực bói toán, phong thủy, tarot tại Việt Nam. Đội ngũ chuyên gia giàu kinh nghiệm, công nghệ AI hiện đại.",
-    keywords: "về bóc mệnh, AI bói toán, công ty phong thủy, đội ngũ chuyên gia, công nghệ AI, lịch sử phát triển, tầm nhìn sứ mệnh, nền tảng uy tín",
+    title: "Về Chúng Tôi - Bóc Mệnh | Nền Tảng AI Huyền Học Hàng Đầu Việt Nam",
+    description: "🌟 Tìm hiểu về Bóc Mệnh - Nền tảng AI tiên phong trong lĩnh vực huyền học, phong thủy, tarot tại Việt Nam. Đội ngũ chuyên gia giàu kinh nghiệm, công nghệ AI hiện đại.",
+    keywords: "về bóc mệnh, AI huyền học, công ty phong thủy, đội ngũ chuyên gia, công nghệ AI, lịch sử phát triển, tầm nhìn sứ mệnh, nền tảng uy tín",
     ogImage: "/og-about.jpg",
     canonicalUrl: "/about",
     alternateLanguages: {
@@ -27,7 +27,7 @@ const aboutStructuredData = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
   name: "Về Bóc Mệnh",
-  description: "Thông tin về công ty Bóc Mệnh - nền tảng AI bói toán hàng đầu Việt Nam",
+  description: "Thông tin về công ty Bóc Mệnh - nền tảng AI huyền học hàng đầu Việt Nam",
   url: `${baseUrl}/about`,
   mainEntity: {
     "@type": "Organization",
@@ -40,9 +40,9 @@ const aboutStructuredData = {
       "@type": "Place",
       name: "Việt Nam"
     },
-    description: "Nền tảng AI tiên phong trong lĩnh vực bói toán, phong thủy, tarot tại Việt Nam",
+    description: "Nền tảng AI tiên phong trong lĩnh vực huyền học, phong thủy, tarot tại Việt Nam",
     slogan: "Mỗi người là một hộp bí ẩn",
-    mission: "Mang đến những dịch vụ bói toán chính xác, hiện đại nhất cho người Việt",
+    mission: "Mang đến những dịch vụ huyền học chính xác, hiện đại nhất cho người Việt",
     areaServed: {
       "@type": "Country",
       name: "Vietnam"

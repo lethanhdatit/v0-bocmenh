@@ -7,7 +7,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return createSEOMetadata({
     title: "Thanh Toán Điểm Duyên - Checkout An Toàn | Bóc Mệnh",
     description:
-      "🛒 Hoàn tất thanh toán gói điểm duyên với hệ thống bảo mật cao. Hỗ trợ Momo, Banking, Visa. Giao dịch nhanh chóng, an toàn và đáng tin cậy.",
+      "🛒 Hoàn tất thanh toán gói điểm duyên với hệ thống bảo mật cao. Hỗ trợ Paypal, VietQR, Banking, Visa. Giao dịch nhanh chóng, an toàn và đáng tin cậy.",
     keywords:
       "thanh toán điểm duyên, checkout bóc mệnh, vietqr, paypal payment, banking vietnam, visa checkout, giao dịch an toàn, payment gateway",
     ogImage: "/imgs/checkout-og.jpg",
