@@ -15,7 +15,7 @@ async function destinyApiHandler(
   request: NextRequest,
   session: IronSession<UserSession>
 ) {
-  const { t } = await getTranslations(["common", "destiny"]);
+  const { t } = await getTranslations(["common"]);
 
   try {
     const { name, birthDate, birthTime, gender, category } = data;

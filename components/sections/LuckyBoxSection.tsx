@@ -1,44 +1,56 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Gift, Sparkles, Star } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { apiClient } from "@/lib/api/apiClient"
 
 export default function LuckyBoxSection() {
   const { t } = useTranslation()
   const [isOpened, setIsOpened] = useState(false)
   const [luckyNumber, setLuckyNumber] = useState<number | null>(null)
   const [message, setMessage] = useState<string>("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [isFirstTime, setIsFirstTime] = useState(true)
+  const [statusMessage, setStatusMessage] = useState<string>("")
 
-  const messages = useMemo(() => {
-    const translatedMessages = t("luckyBox.messages", { returnObjects: true })
-    const result = Array.isArray(translatedMessages) ? translatedMessages : []
-    return result
-  }, [t])
-
-  const openLuckyBox = () => {
-    if (isOpened) {
+  const openLuckyBox = async () => {
+    if (isOpened || isLoading) {
       return
     }
 
-    // Fallback messages nếu translation không load được
-    const fallbackMessages = [
-      "Hôm nay là ngày may mắn của bạn!",
-      "Điều tốt đẹp đang đến với bạn!",
-      "Hãy tin tưởng vào trực giác của mình!",
-      "Cơ hội mới sẽ xuất hiện sớm thôi!",
-      "Tình yêu và hạnh phúc đang chờ đợi bạn!",
-    ]
+    setIsLoading(true)
 
-    const availableMessages = messages.length > 0 ? messages : fallbackMessages
+    try {
+      const response = await getLuckyBox()
+      
+      if (response.success && response.data) {
+        const { luckyNumber: num, messageIndex, isFirstTime: firstTime } = response.data
+        
+        // Get messages from translation
+        const translatedMessages = t("luckyBox.messages", { returnObjects: true })
+        const messageArray = Array.isArray(translatedMessages) ? translatedMessages : []
 
-    const randomNumber = Math.floor(Math.random() * 99) + 1
-    const randomMessage = availableMessages[Math.floor(Math.random() * availableMessages.length)]
+        const selectedMessage = messageArray[messageIndex % messageArray.length]
 
-    setLuckyNumber(randomNumber)
-    setMessage(randomMessage)
-    setIsOpened(true)
+        setLuckyNumber(num)
+        setMessage(selectedMessage || messageArray[0])
+        setIsFirstTime(firstTime)
+        setIsOpened(true)
+        
+        if (!firstTime) {
+          setStatusMessage(t("luckyBox.alreadyOpened"))
+        }
+      } else {
+        throw new Error(response.message || 'Failed to get lucky box result')
+      }
+    } catch (error) {
+      console.error('Lucky box error:', error)
+      setStatusMessage("Không thể mở hộp may mắn. Vui lòng thử lại sau.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const resetBox = () => {
@@ -47,6 +59,8 @@ export default function LuckyBoxSection() {
     setTimeout(() => {
       setLuckyNumber(null)
       setMessage("")
+      setIsFirstTime(true)
+      setStatusMessage("")
     }, 300)
   }
 
@@ -59,13 +73,91 @@ export default function LuckyBoxSection() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-yellow-500 to-amber-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-yellow-500 to-amber-500 bg-clip-text text-transparent  tracking-wide">
             {t("luckyBox.title")}
           </h2>
-          <p className="text-xl text-gray-400 mb-12">{t("luckyBox.description")}</p>
+          <p className="text-xl text-gray-300 mb-12 font-light italic">{t("luckyBox.description")}</p>
+          
+          {/* Mystical Background Elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <motion.div
+              animate={{ 
+                rotate: 360,
+                scale: [1, 1.1, 1],
+                opacity: [0.2, 0.4, 0.2]
+              }}
+              transition={{ 
+                duration: 8,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "linear"
+              }}
+              className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full"
+              style={{
+                background: `conic-gradient(from 0deg, 
+                  rgba(234, 179, 8, 0.3) 0deg, 
+                  transparent 45deg,
+                  rgba(234, 179, 8, 0.5) 90deg,
+                  transparent 135deg,
+                  rgba(234, 179, 8, 0.3) 180deg,
+                  transparent 225deg,
+                  rgba(234, 179, 8, 0.6) 270deg,
+                  transparent 315deg,
+                  rgba(234, 179, 8, 0.3) 360deg)`,
+                border: '3px dashed rgba(234, 179, 8, 0.6)',
+                borderRadius: '50%'
+              }}
+            >
+              {/* Inner spinning dots */}
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                className="absolute inset-4 border-2 border-dotted border-yellow-400/80 rounded-full"
+              />
+              <div className="absolute top-2 left-1/2 w-3 h-3 bg-yellow-400 rounded-full transform -translate-x-1/2"></div>
+              <div className="absolute bottom-2 left-1/2 w-2 h-2 bg-amber-500 rounded-full transform -translate-x-1/2"></div>
+              <div className="absolute left-2 top-1/2 w-2 h-2 bg-yellow-300 rounded-full transform -translate-y-1/2"></div>
+              <div className="absolute right-2 top-1/2 w-3 h-3 bg-amber-400 rounded-full transform -translate-y-1/2"></div>
+            </motion.div>
+            <motion.div
+              animate={{ 
+                rotate: -360,
+                scale: [1, 1.2, 1],
+                opacity: [0.2, 0.5, 0.2]
+              }}
+              transition={{ 
+                duration: 12,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "linear"
+              }}
+              className="absolute top-3/4 right-1/4 w-48 h-48 rounded-full"
+              style={{
+                background: `conic-gradient(from 180deg, 
+                  rgba(245, 158, 11, 0.4) 0deg, 
+                  transparent 60deg,
+                  rgba(245, 158, 11, 0.6) 120deg,
+                  transparent 180deg,
+                  rgba(245, 158, 11, 0.5) 240deg,
+                  transparent 300deg,
+                  rgba(245, 158, 11, 0.4) 360deg)`,
+                border: '2px solid rgba(245, 158, 11, 0.7)',
+                borderRadius: '50%'
+              }}
+            >
+              {/* Outer spinning markers */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                className="absolute inset-2 border border-dashed border-amber-300/70 rounded-full"
+              />
+              <div className="absolute top-1 left-1/2 w-4 h-1 bg-amber-400 rounded-full transform -translate-x-1/2"></div>
+              <div className="absolute bottom-1 left-1/2 w-3 h-1 bg-orange-400 rounded-full transform -translate-x-1/2"></div>
+              <div className="absolute left-1 top-1/2 w-1 h-4 bg-amber-300 rounded-full transform -translate-y-1/2"></div>
+              <div className="absolute right-1 top-1/2 w-1 h-3 bg-yellow-400 rounded-full transform -translate-y-1/2"></div>
+            </motion.div>
+          </div>
         </motion.div>
 
-        <div id="luckybox-section" className="relative h-64 flex items-center justify-center">
+        <div id="luckybox-section" className="relative h-96 flex items-center justify-center">
           <AnimatePresence mode="wait">
             {!isOpened ? (
               <motion.div
@@ -81,35 +173,73 @@ export default function LuckyBoxSection() {
                 }}
               >
                 <div className="relative">
+                  {/* Mystical Aura */}
                   <motion.div
                     animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.5, 0.8, 0.5],
+                      scale: [1, 1.3, 1],
+                      opacity: [0.3, 0.6, 0.3],
+                      rotate: [0, 360]
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 4,
                       repeat: Number.POSITIVE_INFINITY,
                       ease: "easeInOut",
                     }}
-                    className="absolute -inset-4 bg-gradient-to-r from-yellow-500/30 to-amber-500/30 rounded-3xl blur-xl"
+                    className="absolute -inset-8 bg-gradient-to-r from-yellow-500/40 via-amber-500/40 to-orange-500/40 rounded-full blur-2xl"
                   />
-                  <div className="relative w-64 h-64 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-3xl p-8 shadow-2xl flex flex-col items-center justify-center">
-                    <Gift className="w-24 h-24 text-black" />
-                    <p className="text-black font-semibold text-lg mt-4">{t("luckyBox.button")}</p>
-                  </div>
+                  
+                  {/* Sacred Geometry */}
                   <motion.div
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                    className="absolute -top-4 -right-4"
-                  >
-                    <Sparkles className="w-8 h-8 text-yellow-500" />
-                  </motion.div>
+                    transition={{ duration: 15, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                    className="absolute -inset-6 border-2 border-yellow-400/40 rounded-full"
+                  />
                   <motion.div
                     animate={{ rotate: -360 }}
-                    transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                    className="absolute -bottom-4 -left-4"
+                    transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                    className="absolute -inset-4 border border-amber-400/30 rounded-full"
+                  />
+                  
+                  {/* Main Box */}
+                  <div className="relative w-72 h-72 bg-gradient-to-br from-yellow-500 via-amber-500 to-orange-500 rounded-3xl p-8 shadow-2xl border border-yellow-400/50 flex flex-col items-center justify-center">
+                    <motion.div
+                      animate={{ 
+                        scale: [1, 1.1, 1],
+                        filter: ["hue-rotate(0deg)", "hue-rotate(15deg)", "hue-rotate(0deg)"]
+                      }}
+                      transition={{ 
+                        duration: 3,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <Gift className="w-28 h-28 text-white drop-shadow-lg" />
+                    </motion.div>
+                    <p className="text-white font-semibold text-lg mt-4 tracking-wide drop-shadow-md">
+                      {isLoading ? "Đang mở..." : t("luckyBox.button")}
+                    </p>
+                  </div>
+                  
+                  {/* Floating Elements */}
+                  <motion.div
+                    animate={{ rotate: 360, y: [-5, 5, -5] }}
+                    transition={{ 
+                      rotate: { duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "linear" },
+                      y: { duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }
+                    }}
+                    className="absolute -top-6 -right-6"
                   >
-                    <Star className="w-6 h-6 text-amber-500" />
+                    <Sparkles className="w-10 h-10 text-yellow-400 drop-shadow-lg" />
+                  </motion.div>
+                  <motion.div
+                    animate={{ rotate: -360, y: [5, -5, 5] }}
+                    transition={{ 
+                      rotate: { duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "linear" },
+                      y: { duration: 2.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }
+                    }}
+                    className="absolute -bottom-6 -left-6"
+                  >
+                    <Star className="w-8 h-8 text-amber-400 drop-shadow-lg" />
                   </motion.div>
                 </div>
               </motion.div>
@@ -119,25 +249,126 @@ export default function LuckyBoxSection() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1, transition: { duration: 0.4, ease: "easeOut" } }}
                 exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.3 } }}
-                className="absolute w-full max-w-md bg-gray-900/80 backdrop-blur-sm border border-yellow-500/50 rounded-3xl p-8"
+                className="absolute w-full max-w-2xl bg-gradient-to-br from-gray-900/90 via-purple-900/50 to-gray-900/90 backdrop-blur-lg border border-purple-400/30 rounded-3xl p-8 shadow-2xl"
               >
+                {/* Mystical Border Animation */}
+                <motion.div
+                  animate={{
+                    background: [
+                      "linear-gradient(0deg, rgba(168, 85, 247, 0.3), rgba(251, 191, 36, 0.3))",
+                      "linear-gradient(90deg, rgba(168, 85, 247, 0.3), rgba(251, 191, 36, 0.3))",
+                      "linear-gradient(180deg, rgba(168, 85, 247, 0.3), rgba(251, 191, 36, 0.3))",
+                      "linear-gradient(270deg, rgba(168, 85, 247, 0.3), rgba(251, 191, 36, 0.3))",
+                      "linear-gradient(360deg, rgba(168, 85, 247, 0.3), rgba(251, 191, 36, 0.3))"
+                    ]
+                  }}
+                  transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                  className="absolute inset-0 rounded-3xl opacity-50 blur-sm"
+                />
+                
+                {/* Focus Animation & Status Message */}
+                <AnimatePresence>
+                  {statusMessage && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -20, scale: 0.9 }}
+                      animate={{ 
+                        opacity: 1, 
+                        y: 0, 
+                        scale: 1,
+                        transition: { 
+                          duration: 0.5,
+                          type: "spring",
+                          stiffness: 200 
+                        }
+                      }}
+                      exit={{ opacity: 0, y: -20, scale: 0.9 }}
+                      className="mb-6 p-4 bg-orange-500/20 border border-orange-500/50 rounded-xl relative overflow-hidden"
+                    >
+                      <motion.div
+                        animate={{ 
+                          boxShadow: [
+                            "0 0 0 0 rgba(251, 146, 60, 0.4)",
+                            "0 0 0 15px rgba(251, 146, 60, 0)",
+                            "0 0 0 0 rgba(251, 146, 60, 0)"
+                          ]
+                        }}
+                        transition={{ 
+                          duration: 2,
+                          repeat: 2,
+                          ease: "easeInOut"
+                        }}
+                        className="text-orange-200 text-sm text-center font-medium "
+                      >
+                        {statusMessage}
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                  className="text-center"
                 >
-                  <p className="text-sm text-gray-400 mb-2">{t("luckyBox.luckyNumber")}</p>
-                  <div className="text-6xl font-bold text-yellow-500 mb-4">{luckyNumber}</div>
+                  <p className="text-sm text-purple-300 mb-3  tracking-wide">{t("luckyBox.luckyNumber")}</p>
+                  <motion.div 
+                    className="text-7xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent mb-6 "
+                    animate={statusMessage ? {
+                      scale: [1, 1.15, 1],
+                      filter: [
+                        "drop-shadow(0 0 10px rgba(234, 179, 8, 0.5))",
+                        "drop-shadow(0 0 25px rgba(234, 179, 8, 0.8))",
+                        "drop-shadow(0 0 10px rgba(234, 179, 8, 0.5))"
+                      ]
+                    } : {}}
+                    transition={{ 
+                      duration: 1.5,
+                      repeat: statusMessage ? 2 : 0,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    {luckyNumber}
+                  </motion.div>
                 </motion.div>
 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="mt-6"
+                  className="mt-8"
                 >
-                  <p className="text-sm text-gray-400 mb-2">{t("luckyBox.message")}</p>
-                  <p className="text-white text-center leading-relaxed min-h-[48px]">{message}</p>
+                  <p className="text-sm text-purple-300 mb-4  tracking-wide text-center">{t("luckyBox.message")}</p>
+                  <motion.div 
+                    className="bg-gradient-to-br from-purple-800/30 to-indigo-800/30 rounded-xl p-6 border border-purple-400/20"
+                    animate={statusMessage ? {
+                      scale: [1, 1.02, 1],
+                      boxShadow: [
+                        "0 0 20px rgba(168, 85, 247, 0.2)",
+                        "0 0 40px rgba(168, 85, 247, 0.4)",
+                        "0 0 20px rgba(168, 85, 247, 0.2)"
+                      ]
+                    } : {}}
+                    transition={{ 
+                      duration: 2,
+                      repeat: statusMessage ? 1 : 0,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    <motion.p 
+                      className="text-gray-100 text-center leading-relaxed text-base font-light tracking-wide min-h-[120px] flex items-center justify-center"
+                      animate={statusMessage ? {
+                        color: ["#f3f4f6", "#fde047", "#f3f4f6"]
+                      } : {}}
+                      transition={{ 
+                        duration: 2,
+                        repeat: statusMessage ? 1 : 0,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      {message}
+                    </motion.p>
+                  </motion.div>
                 </motion.div>
 
                 <motion.button
@@ -145,9 +376,9 @@ export default function LuckyBoxSection() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
                   onClick={resetBox}
-                  className="mt-6 text-yellow-500 hover:text-yellow-400 transition-colors text-sm"
+                  className="mt-8 text-purple-400 hover:text-purple-300 transition-colors text-sm tracking-wide mx-auto block relative z-10 cursor-pointer"
                 >
-                  {t("luckyBox.tryAgain")}
+                  {isFirstTime ? t("luckyBox.tryAgain") : "Xem lại"}
                 </motion.button>
               </motion.div>
             )}
@@ -156,4 +387,13 @@ export default function LuckyBoxSection() {
       </div>
     </section>
   )
+}
+
+async function getLuckyBox(): Promise<any> {
+  try {
+    const response = await apiClient.get('/lucky-box');
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 }
