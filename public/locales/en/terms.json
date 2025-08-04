@@ -46,25 +46,25 @@
     "serviceDescription": {
       "title": "5. Service Description and Fates Points System",
       "items": [
-        "Free services: View basic interpretation results with limited daily/monthly usage.",
-        "Paid services: Detailed destiny, feng shui, compatibility interpretations; advanced tarot tools; PDF report export; unlimited history storage.",
-        "Fates Points System: BMP uses an internal currency called 'Fates Points' to pay for premium services. 1 Fates Point = 1,000 VND.",
-        "Purchasing Fates Points: Users deposit real money (VND) to receive corresponding Fates Points through authorized payment gateways (Paypal, VietQR, Banking, Visa/Mastercard).",
-        "Using Fates Points: Fates Points are automatically deducted when using paid services. Insufficient Fates Points will prevent service usage.",
-        "Non-refundable Fates Points: Once successfully purchased, Fates Points cannot be converted back to cash or transferred to others.",
-        "Validity period: Fates Points are valid permanently from the purchase date and do not expire."
+        "Free services: Preliminary results of basic divination are provided.",
+        "Paid services: Detailed analysis of destiny, feng shui, compatibility; advanced tarot toolset.",
+        "Fates Points system: BMP uses an internal currency called 'Fates Points' to pay for paid services. Exchange rates may vary depending on the purchase package. Please refer to the 'Top-up Packages' section for more details.",
+        "Top-up Fates Points: Users can purchase Fates Points with real money (VND) via authorized payment gateways (Paypal, VietQR, Banking, Visa/Mastercard).",
+        "Using Fates Points: Fates Points will be deducted (with your confirmation) when using paid services. Services cannot be used without sufficient Fates Points.",
+        "Fates Points are non-refundable: Once successfully topped up, Fates Points cannot be converted back into cash and cannot be transferred to others.",
+        "Validity: Fates Points remain valid indefinitely from the date of successful top-up and do not expire."
       ]
     },
     "paymentTerms": {
       "title": "6. Payment Terms and Fates Points",
       "items": [
-        "Terms acceptance: Making a Fates Points purchase transaction means you have read, understood, and fully accepted these terms of service.",
-        "Non-reversible nature: After a Fates Points purchase transaction is confirmed successful, the transaction cannot be cancelled, reversed, or refunded.",
-        "User responsibility: Users are responsible for carefully checking transaction information and deposit amount before confirming payment.",
-        "Error handling: In case of technical errors leading to money deduction but no Fates Points credit, BMP will investigate and resolve within 72 business hours.",
-        "Transaction security: All transactions are SSL/TLS encrypted, payment information is processed through PCI DSS certified partners.",
-        "Transaction history: Users can review complete history of point purchases and service usage in the 'History' section of their personal account.",
-        "Customer support: BMP commits to supporting users in resolving payment-related issues during business hours (8:00-17:30, Mon-Fri)."
+        "Acceptance of terms: By completing a Fates Points top-up transaction, you confirm that you have read, understood, and fully accepted these terms of service.",
+        "Irrevocability: Once a Fates Points top-up transaction is successfully confirmed, it cannot be canceled, reversed, or refunded.",
+        "User responsibility: Users are responsible for carefully checking transaction details and the top-up amount before confirming payment.",
+        "Transaction error handling: In the event of a technical error causing a deduction of funds without adding Fates Points, BMP will investigate and resolve the issue within a maximum of 24 working hours.",
+        "Transaction security: All transactions are encrypted via SSL/TLS, and payment information is processed through PCI DSS-certified partners.",
+        "Transaction history: Users can review their entire top-up and service usage history in the 'History' section of their personal account.",
+        "Customer support: BMP is committed to supporting users in resolving any payment-related issues 24/7."
       ]
     },
     "userResponsibilities": {

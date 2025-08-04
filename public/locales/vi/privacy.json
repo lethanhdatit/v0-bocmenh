@@ -71,11 +71,10 @@
     {
       "title": "5. Bảo mật thông tin thanh toán và điểm Duyên",
       "points": [
-        "Mã hóa đầu cuối: Tất cả giao dịch điểm Duyên được mã hóa SSL/TLS 256-bit.",
+        "Mã hóa đầu cuối: Tất cả giao dịch điểm Duyên được mã hóa SSL/TLS 256-bit, token-based 2 chiều.",
         "Không lưu trữ thông tin thẻ: BMP không lưu trữ số thẻ, CVV hay thông tin nhạy cảm khác.",
         "Giám sát giao dịch: Hệ thống tự động phát hiện các giao dịch bất thường.",
-        "Sao lưu dữ liệu: Lịch sử điểm Duyên được sao lưu hàng ngày tại nhiều địa điểm.",
-        "Kiểm tra bảo mật: Thực hiện đánh giá bảo mật định kỳ 6 tháng/lần."
+        "Sao lưu dữ liệu: Lịch sử điểm Duyên được sao lưu định kỳ."
       ]
     },
     {
@@ -95,9 +94,8 @@
       "points": [
         "Dữ liệu tài khoản: Lưu giữ trong suốt thời gian tài khoản hoạt động + 5 năm sau khi đóng.",
         "Lịch sử giao dịch điểm Duyên: Lưu giữ vĩnh viễn để phục vụ kiểm toán và pháp lý.",
-        "Dữ liệu luận giải: Lưu giữ 7 năm hoặc cho đến khi người dùng yêu cầu xóa.",
+        "Dữ liệu luận giải: Lưu giữ vĩnh viễn hoặc cho đến khi người dùng yêu cầu xóa.",
         "Nhật ký hệ thống: Lưu giữ 2 năm để phục vụ bảo mật và phân tích sự cố.",
-        "Dữ liệu marketing: Xóa ngay lập tức khi người dùng từ chối nhận thông tin.",
         "Sao lưu an toàn: Tất cả dữ liệu được sao lưu mã hóa tại hạ tầng đám mây có chứng chỉ ISO 27001."
       ]
     },
@@ -108,7 +106,7 @@
         "Cookie phân tích: Google Analytics để hiểu hành vi người dùng (có thể từ chối).",
         "Cookie quảng cáo: Để hiển thị quảng cáo phù hợp (có thể từ chối).",
         "Pixel tracking: Để đo lường hiệu quả email marketing (chỉ khi đồng ý).",
-        "Cách quản lý: Người dùng có thể quản lý cookie qua cài đặt trình duyệt hoặc trung tâm quyền riêng tư.",
+        "Cách quản lý: Người dùng có thể quản lý cookie qua cài đặt trình duyệt.",
         "Không bán dữ liệu: BMP cam kết không bán thông tin cookie cho bên thứ ba."
       ]
     },
@@ -117,7 +115,6 @@
       "points": [
         "Chính sách bảo mật 24/7: Giám sát liên tục các hoạt động đáng ngờ.",
         "Ứng phó vi phạm dữ liệu: Thông báo cho người dùng trong vòng 72 giờ nếu có sự cố.",
-        "Kiểm tra nội bộ: Audit bảo mật hàng quý bởi đội ngũ chuyên gia độc lập.",
         "Cập nhật bảo mật: Hệ thống được cập nhật bản vá bảo mật đều đặn."
       ]
     },
@@ -125,9 +122,8 @@
       "title": "10. Chuyển giao dữ liệu quốc tế",
       "points": [
         "Máy chủ chính: Đặt tại Việt Nam, tuân thủ đầy đủ pháp luật địa phương.",
-        "Sao lưu quốc tế: Có thể lưu trữ sao lưu tại Singapore, Nhật Bản với mức bảo mật tương đương.",
+        "Sao lưu quốc tế: Có thể lưu trữ sao lưu tại Singapore với mức bảo mật tương đương.",
         "Bảo vệ chuyển giao: Mọi chuyển giao dữ liệu được mã hóa và có hợp đồng bảo mật.",
-        "Quyền từ chối: Người dùng có quyền yêu cầu không chuyển giao dữ liệu ra nước ngoài.",
         "Thông báo minh bạch: Mọi thay đổi về vị trí lưu trữ sẽ được thông báo trước 30 ngày."
       ]
     },

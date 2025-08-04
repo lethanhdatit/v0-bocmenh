@@ -71,11 +71,10 @@
     {
       "title": "5. Payment Information and Fates Points Security",
       "points": [
-        "End-to-end encryption: All Fates Points transactions are encrypted with SSL/TLS 256-bit.",
-        "No card information storage: BMP does not store card numbers, CVV or other sensitive information.",
-        "Transaction monitoring: System automatically detects unusual transactions.",
-        "Data backup: Fates Points history is backed up daily at multiple locations.",
-        "Security audits: Conduct security assessments every 6 months."
+        "End-to-end encryption: All Fates Points transactions are encrypted using 256-bit SSL/TLS with two-way token-based authentication.",
+        "No card information stored: BMP does not store card numbers, CVV codes, or any other sensitive information.",
+        "Transaction monitoring: The system automatically detects unusual or suspicious transactions.",
+        "Data backup: Fates Points history is regularly backed up."
       ]
     },
     {
@@ -93,42 +92,39 @@
     {
       "title": "7. Data Retention and Storage",
       "points": [
-        "Account data: Retained throughout account activity period + 5 years after closure.",
-        "Fates Points transaction history: Retained permanently for audit and legal purposes.",
-        "Interpretation data: Retained for 7 years or until user requests deletion.",
-        "System logs: Retained for 2 years for security and incident analysis.",
-        "Marketing data: Deleted immediately when user refuses to receive information.",
-        "Secure backup: All data is encrypted and backed up on ISO 27001 certified cloud infrastructure."
+        "Account data: Retained throughout the lifetime of the account and for 5 years after deactivation.",
+        "Fates Points transaction history: Permanently retained for auditing and legal purposes.",
+        "Divination data: Retained permanently or until the user requests deletion.",
+        "System logs: Retained for 2 years for security and incident analysis purposes.",
+        "Secure backups: All data is backed up with encryption on ISO 27001-certified cloud infrastructure."
       ]
     },
     {
       "title": "8. Cookies and Tracking Technologies",
       "points": [
-        "Essential cookies: To maintain login sessions and account security.",
-        "Analytics cookies: Google Analytics to understand user behavior (can be declined).",
-        "Advertising cookies: To display relevant ads (can be declined).",
-        "Pixel tracking: To measure email marketing effectiveness (only with consent).",
-        "Management options: Users can manage cookies through browser settings or privacy center.",
-        "No data selling: BMP commits not to sell cookie information to third parties."
+        "Essential cookies: Used to maintain login sessions and account security.",
+        "Analytics cookies: Google Analytics is used to understand user behavior (can be declined).",
+        "Advertising cookies: Used to display relevant ads (can be declined).",
+        "Pixel tracking: Used to measure the effectiveness of email marketing (only with consent).",
+        "Management options: Users can manage cookies through their browser settings.",
+        "No data selling: BMP is committed to not selling cookie information to third parties."
       ]
     },
     {
       "title": "9. Security and Incident Response",
       "points": [
         "24/7 security policy: Continuous monitoring of suspicious activities.",
-        "Data breach response: Notify users within 72 hours if incidents occur.",
-        "Internal audits: Quarterly security audits by independent expert teams.",
-        "Security updates: System regularly updated with security patches."
+        "Data breach response: Users will be notified within 72 hours in case of an incident.",
+        "Security updates: The system is regularly updated with security patches."
       ]
     },
     {
       "title": "10. International Data Transfer",
       "points": [
         "Primary servers: Located in Vietnam, fully compliant with local laws.",
-        "International backup: May store backups in Singapore, Japan with equivalent security levels.",
-        "Transfer protection: All data transfers are encrypted and have security contracts.",
-        "Right to refuse: Users have the right to request no data transfer abroad.",
-        "Transparent notification: Any changes in storage location will be notified 30 days in advance."
+        "International backups: Backups may be stored in Singapore with equivalent security standards.",
+        "Transfer protection: All data transfers are encrypted and governed by confidentiality agreements.",
+        "Transparent notifications: Any changes to storage locations will be announced at least 30 days in advance."
       ]
     },
     {
