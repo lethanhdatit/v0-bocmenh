@@ -5,9 +5,9 @@ import HoroscopePageClient from "./HoroscopePageClient"
 export async function generateMetadata(): Promise<Metadata> {
   
   return createSEOMetadata({
-    title: "Tử Vi Hàng Ngày - Horoscope Cung Hoàng Đạo | Bóc Mệnh",
-    description: "Xem tử vi hàng ngày miễn phí theo 12 cung hoàng đạo. Dự báo tình yêu, sự nghiệp, sức khỏe và tài chính. Khám phá vận mệnh và nhận lời khuyên hữu ích.",
-    keywords: "tử vi hàng ngày, horoscope vietnam, cung hoàng đạo, dự báo tử vi, tử vi miễn phí, zodiac signs, astrology vietnam, tử vi tình yêu, tử vi sự nghiệp, tử vi tài chính",
+    title: "Bát Tự Hàng Ngày - Horoscope Cung Hoàng Đạo | Bóc Mệnh",
+    description: "Xem bát tự hàng ngày miễn phí theo 12 cung hoàng đạo. Dự báo tình yêu, sự nghiệp, sức khỏe và tài chính. Khám phá vận mệnh và nhận lời khuyên hữu ích.",
+    keywords: "bát tự hàng ngày, horoscope vietnam, cung hoàng đạo, dự báo bát tự, bát tự miễn phí, zodiac signs, astrology vietnam, bát tự tình yêu, bát tự sự nghiệp, bát tự tài chính",
     ogImage: "/imgs/horoscope-og.jpg",
     canonicalUrl: "/horoscope"
   })
@@ -20,8 +20,8 @@ export default function HoroscopePage() {
       {
         "@type": "Service",
         "@id": "https://bocmenh.com/horoscope#service",
-        "name": "Tử Vi Hàng Ngày",
-        "description": "Dịch vụ xem tử vi hàng ngày theo 12 cung hoàng đạo, dự báo vận mệnh và đưa ra lời khuyên",
+        "name": "Bát Tự Hàng Ngày",
+        "description": "Dịch vụ xem bát tự hàng ngày theo 12 cung hoàng đạo, dự báo vận mệnh và đưa ra lời khuyên",
         "provider": {
           "@type": "Organization",
           "name": "Bóc Mệnh",
@@ -34,17 +34,17 @@ export default function HoroscopePage() {
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "VND",
-          "description": "Xem tử vi hàng ngày miễn phí"
+          "description": "Xem bát tự hàng ngày miễn phí"
         },
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
-          "name": "Dịch Vụ Tử Vi",
+          "name": "Dịch Vụ Bát Tự",
           "itemListElement": [
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Tử Vi Tình Yêu",
+                "name": "Bát Tự Tình Yêu",
                 "description": "Dự báo và lời khuyên về chuyện tình cảm"
               }
             },
@@ -52,7 +52,7 @@ export default function HoroscopePage() {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Tử Vi Sự Nghiệp",
+                "name": "Bát Tự Sự Nghiệp",
                 "description": "Dự báo về công việc và cơ hội thăng tiến"
               }
             },
@@ -60,7 +60,7 @@ export default function HoroscopePage() {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Tử Vi Tài Chính",
+                "name": "Bát Tự Tài Chính",
                 "description": "Dự báo về vận may tài lộc và đầu tư"
               }
             },
@@ -68,7 +68,7 @@ export default function HoroscopePage() {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Tử Vi Sức Khỏe",
+                "name": "Bát Tự Sức Khỏe",
                 "description": "Lời khuyên về sức khỏe và tinh thần"
               }
             }
@@ -78,8 +78,8 @@ export default function HoroscopePage() {
       {
         "@type": "WebPage",
         "@id": "https://bocmenh.com/horoscope",
-        "name": "Tử Vi Hàng Ngày - Horoscope Cung Hoàng Đạo",
-        "description": "Trang xem tử vi hàng ngày theo 12 cung hoàng đạo với dự báo chi tiết",
+        "name": "Bát Tự Hàng Ngày - Horoscope Cung Hoàng Đạo",
+        "description": "Trang xem bát tự hàng ngày theo 12 cung hoàng đạo với dự báo chi tiết",
         "url": "https://bocmenh.com/horoscope",
         "inLanguage": "vi",
         "isPartOf": {
@@ -99,7 +99,7 @@ export default function HoroscopePage() {
             {
               "@type": "ListItem",
               "position": 2,
-              "name": "Tử Vi Hàng Ngày",
+              "name": "Bát Tự Hàng Ngày",
               "item": "https://bocmenh.com/horoscope"
             }
           ]
@@ -113,10 +113,10 @@ export default function HoroscopePage() {
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Tử vi hàng ngày có chính xác không?",
+            "name": "Bát tự hàng ngày có chính xác không?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Tử vi chỉ mang tính chất tham khảo và hướng dẫn. Độ chính xác phụ thuộc vào nhiều yếu tố và cuộc sống của bạn vẫn do chính bạn quyết định."
+              "text": "Bát tự chỉ mang tính chất tham khảo và hướng dẫn. Độ chính xác phụ thuộc vào nhiều yếu tố và cuộc sống của bạn vẫn do chính bạn quyết định."
             }
           },
           {
@@ -129,10 +129,10 @@ export default function HoroscopePage() {
           },
           {
             "@type": "Question",
-            "name": "Tử vi dự báo những gì?",
+            "name": "Bát tự dự báo những gì?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Tử vi thường dự báo về tình yêu, sự nghiệp, sức khỏe, tài chính và các xu hướng tổng quát trong cuộc sống dựa trên cung hoàng đạo của bạn."
+              "text": "Bát tự thường dự báo về tình yêu, sự nghiệp, sức khỏe, tài chính và các xu hướng tổng quát trong cuộc sống dựa trên cung hoàng đạo của bạn."
             }
           }
         ]

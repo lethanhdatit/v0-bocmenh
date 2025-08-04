@@ -7,7 +7,7 @@ export const BADGE_CONFIG = {
   navigation: {
     position: 'top-left' as const,
     size: 'xs' as const,
-    distance: 'far' as const,
+    distance: 'normal' as const,
   },
   
   // Default configuration for feature cards

@@ -27,6 +27,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, data: horoscope })
   } catch (error) {
     console.error("Error generating horoscope:", error)
-    return NextResponse.json({ error: "Đã xảy ra lỗi khi tạo dự báo tử vi" }, { status: 500 })
+    return NextResponse.json({ error: "Đã xảy ra lỗi khi tạo dự báo bát tự" }, { status: 500 })
   }
 }

@@ -6,9 +6,9 @@ import { createSEOMetadata, createServiceStructuredData, createBreadcrumbStructu
 const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = createSEOMetadata({
-  title: "Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn | Dịch Vụ Bói Toán Online #1 Việt Nam",
-  description: "🔮 Mỗi người là một hộp bí ẩn - Khám phá vận mệnh qua AI bói toán ⭐ Giải mơ ⭐ Thần số học ⭐ Tarot ⭐ Phong thủy ⭐ Xem tướng số online chính xác nhất VN",
-  keywords: "bóc mệnh, xem bói online, giải mơ, thần số học, tarot online, phong thủy, xem tướng, AI bói toán, vận mệnh, chiêm tinh, khám phá bản thân, bói bài online, tử vi",
+  title: "Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn | Dịch Vụ Huyền Học Online #1 Việt Nam",
+  description: "🔮 Mỗi người là một hộp bí ẩn - Khám phá vận mệnh qua AI huyền học ⭐ Giải mơ ⭐ Thần số học ⭐ Tarot ⭐ Phong thủy ⭐ Xem tướng số online chính xác nhất VN",
+  keywords: "bóc mệnh, xem bói online, giải mơ, thần số học, tarot online, phong thủy, xem tướng, AI huyền học, vận mệnh, chiêm tinh, khám phá bản thân, bói bài online, bát tự",
   ogImage: "/og-home.jpg",
   canonicalUrl: "/",
   alternateLanguages: {
@@ -24,7 +24,7 @@ const structuredData = {
   name: "Bóc Mệnh",
   alternateName: ["Boc Menh", "Khám phá vận mệnh"],
   url: baseUrl,
-  description: "Nền tảng AI bói toán hàng đầu Việt Nam - Khám phá vận mệnh, giải mơ, thần số học, tarot, phong thủy online",
+  description: "Nền tảng AI huyền học hàng đầu Việt Nam - Khám phá vận mệnh, giải mơ, thần số học, tarot, phong thủy online",
   inLanguage: ["vi", "en"],
   potentialAction: {
     "@type": "SearchAction",
@@ -41,7 +41,7 @@ const structuredData = {
       width: 512,
       height: 512,
     },
-    description: "Nền tảng bói toán AI hàng đầu Việt Nam",
+    description: "Nền tảng huyền học AI hàng đầu Việt Nam",
     foundingDate: "2024",
     contactPoint: {
       "@type": "ContactPoint",
@@ -58,7 +58,7 @@ const structuredData = {
   mainEntity: {
     "@type": "ItemList",
     name: "Dịch vụ Bóc Mệnh",
-    description: "Các dịch vụ bói toán và phong thủy AI hàng đầu",
+    description: "Các dịch vụ huyền học và phong thủy AI hàng đầu",
     numberOfItems: 12,
     itemListElement: [
       {
@@ -134,7 +134,7 @@ const structuredData = {
     lowPrice: "0",
     highPrice: "500000",
     offerCount: "50+",
-    description: "Dịch vụ bói toán từ miễn phí đến cao cấp"
+    description: "Dịch vụ huyền học từ miễn phí đến cao cấp"
   }
 }
 

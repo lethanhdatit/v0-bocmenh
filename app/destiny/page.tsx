@@ -30,8 +30,8 @@ export async function generateMetadata({
   if (id && name) {
     return createSEOMetadata({
       title: `Vận Mệnh Của ${name} - Bóc Mệnh | Phân Tích Chi Tiết Số Mệnh`,
-      description: `🔮 Khám phá vận mệnh chi tiết của ${name} qua AI bói toán. Phân tích tính cách, sự nghiệp, tình yêu, tài lộc và lời khuyên phong thủy cá nhân hóa.`,
-      keywords: `vận mệnh ${name}, bóc mệnh cá nhân, phân tích số mệnh, tử vi ${name}, AI bói toán, khám phá bản thân`,
+      description: `🔮 Khám phá vận mệnh chi tiết của ${name} qua AI huyền học. Phân tích tính cách, sự nghiệp, tình yêu, tài lộc và lời khuyên phong thủy cá nhân hóa.`,
+      keywords: `vận mệnh ${name}, bóc mệnh cá nhân, phân tích số mệnh, bát tự ${name}, AI huyền học, khám phá bản thân`,
       ogImage: "/og-destiny-result.jpg",
       canonicalUrl: `${baseUrl}/destiny?id=${id}`,
       alternateLanguages: {
@@ -43,8 +43,8 @@ export async function generateMetadata({
 
   return createSEOMetadata({
     title: "Bóc Mệnh Cá Nhân - AI Phân Tích Vận Mệnh Qua Ngày Sinh | Bóc Mệnh",
-    description: "🌟 Khám phá vận mệnh của bạn với AI bói toán chính xác nhất! Nhập thông tin để nhận phân tích chi tiết về tính cách, sự nghiệp, tình yêu, tài lộc và lời khuyên phong thủy.",
-    keywords: "bóc mệnh cá nhân, xem vận mệnh, AI bói toán, phân tích ngày sinh, tử vi online, khám phá bản thân, số mệnh cá nhân, phong thủy cá nhân",
+    description: "🌟 Khám phá vận mệnh của bạn với AI huyền học chính xác nhất! Nhập thông tin để nhận phân tích chi tiết về tính cách, sự nghiệp, tình yêu, tài lộc và lời khuyên phong thủy.",
+    keywords: "bóc mệnh cá nhân, xem vận mệnh, AI huyền học, phân tích ngày sinh, bát tự online, khám phá bản thân, số mệnh cá nhân, phong thủy cá nhân",
     ogImage: "/og-destiny.jpg",
     canonicalUrl: `${baseUrl}/destiny`,
     alternateLanguages: {
@@ -119,7 +119,7 @@ export default async function DestinyPage({
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: id ? "Kết Quả Bóc Mệnh Cá Nhân" : "Bóc Mệnh Cá Nhân",
-    description: id ? "Xem kết quả phân tích vận mệnh chi tiết" : "Khám phá vận mệnh của bạn với AI bói toán",
+    description: id ? "Xem kết quả phân tích vận mệnh chi tiết" : "Khám phá vận mệnh của bạn với AI huyền học",
     url: `${baseUrl}/destiny${id ? `?id=${id}` : ''}`,
     mainEntity: {
       "@type": "Service",

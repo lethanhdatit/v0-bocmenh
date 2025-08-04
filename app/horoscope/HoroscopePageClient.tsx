@@ -11,7 +11,7 @@ export default function HoroscopePageClient() {
   const tabs = [
     { id: "overview", label: "Tổng Quan" },
     { id: "zodiac", label: "Cung Hoàng Đạo" },
-    { id: "form", label: "Xem Tử Vi" },
+    { id: "form", label: "Xem Bát Tự" },
   ]
 
   return (
@@ -23,7 +23,7 @@ export default function HoroscopePageClient() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Tử Vi Hàng Ngày
+          Bát Tự Hàng Ngày
         </motion.h1>
 
         <motion.p
@@ -32,7 +32,7 @@ export default function HoroscopePageClient() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          Khám phá dự báo tử vi cá nhân dựa trên cung hoàng đạo của bạn. Nhận thông tin chi tiết về tình yêu, sự nghiệp,
+          Khám phá dự báo bát tự cá nhân dựa trên cung hoàng đạo của bạn. Nhận thông tin chi tiết về tình yêu, sự nghiệp,
           sức khỏe và tài chính.
         </motion.p>
 
@@ -62,13 +62,13 @@ export default function HoroscopePageClient() {
               transition={{ duration: 0.5 }}
               className="bg-white/10 backdrop-blur-md rounded-2xl p-8 mb-8"
             >
-              <h2 className="text-2xl font-bold text-white mb-6">Tử Vi Là Gì?</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">Bát Tự Là Gì?</h2>
               <div className="grid md:grid-cols-2 gap-6 text-white/90">
                 <div>
                   <h3 className="text-lg font-semibold mb-3 text-purple-300">Khái Niệm</h3>
                   <p className="mb-4">
-                    Tử vi là môn học dự báo vận mệnh dựa trên vị trí các thiên thể tại thời điểm sinh. Trong văn hóa
-                    phương Tây, tử vi được gọi là horoscope và dựa trên 12 cung hoàng đạo.
+                    Bát tự là môn học dự báo vận mệnh dựa trên vị trí các thiên thể tại thời điểm sinh. Trong văn hóa
+                    phương Tây, bát tự được gọi là horoscope và dựa trên 12 cung hoàng đạo.
                   </p>
                 </div>
                 <div>
@@ -84,7 +84,7 @@ export default function HoroscopePageClient() {
 
               <div className="mt-6 p-4 bg-gradient-to-r from-purple-600/20 to-indigo-600/20 rounded-xl">
                 <p className="text-white/80 text-sm">
-                  <strong>Lưu ý:</strong> Tử vi chỉ mang tính chất tham khảo và hướng dẫn. Cuộc sống của bạn vẫn do chính
+                  <strong>Lưu ý:</strong> Bát tự chỉ mang tính chất tham khảo và hướng dẫn. Cuộc sống của bạn vẫn do chính
                   bạn quyết định và tạo ra.
                 </p>
               </div>
@@ -134,7 +134,7 @@ export default function HoroscopePageClient() {
                   onClick={() => setActiveTab("form")}
                   className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-medium rounded-lg shadow-lg"
                 >
-                  Xem Tử Vi Của Bạn
+                  Xem Bát Tự Của Bạn
                 </button>
               </div>
             </motion.div>
@@ -145,7 +145,7 @@ export default function HoroscopePageClient() {
 
         <div className="text-center text-purple-300/70 text-sm">
           <p>
-            Lưu ý: Dự báo tử vi chỉ mang tính chất tham khảo và giải trí. Mọi quyết định trong cuộc sống đều nên dựa
+            Lưu ý: Dự báo bát tự chỉ mang tính chất tham khảo và giải trí. Mọi quyết định trong cuộc sống đều nên dựa
             trên sự cân nhắc kỹ lưỡng của bạn.
           </p>
         </div>

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: "Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn",
   description:
-    "Khám phá vận mệnh, giải mơ, xem tướng số và nhiều tính năng thú vị khác tại Bóc Mệnh. Dịch vụ bói toán online chính xác và uy tín nhất Việt Nam.",
+    "Khám phá vận mệnh, giải mơ, xem tướng số và nhiều tính năng thú vị khác tại Bóc Mệnh. Dịch vụ huyền học online chính xác và uy tín nhất Việt Nam.",
   keywords:
     "bóc mệnh, vận mệnh, giải mơ, tướng số, phong thủy, tarot, thần số học, chiêm tinh, xem bói online",
   authors: [{ name: "Bóc Mệnh Team" }],
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     siteName: "Bóc Mệnh",
     title: "Bóc Mệnh - Khám Phá Vận Mệnh Của Bạn",
     description:
-      "Khám phá vận mệnh, giải mơ, xem tướng số và nhiều tính năng thú vị khác. Dịch vụ bói toán online chính xác nhất.",
+      "Khám phá vận mệnh, giải mơ, xem tướng số và nhiều tính năng thú vị khác. Dịch vụ huyền học online chính xác nhất.",
     images: [
       {
         url: "/og-image.jpg",
@@ -209,7 +209,7 @@ export default function RootLayout({
               },
               mainEntity: {
                 "@type": "Service",
-                name: "Dịch vụ bói toán online",
+                name: "Dịch vụ huyền học online",
                 description:
                   "Cung cấp dịch vụ bóc mệnh, giải mơ, xem tướng số, phong thủy online",
                 provider: {

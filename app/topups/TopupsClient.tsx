@@ -48,6 +48,7 @@ export default function TopupsClient({
     paymentGates.find((gate) => gate.active === true)?.id ?? null
   );
   const [isBuying, setIsBuying] = useState(false);
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
   const paymentRef = useRef<HTMLButtonElement>(null);
   const [selectedMemoCheckout, setSelectedMemoCheckout] =
     useState<MemoCheckoutResponse | null>(null);
@@ -83,6 +84,15 @@ export default function TopupsClient({
       toast({
         title: t("topups.error.common"),
         description: t("topups.selectPackageAndGate"),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!agreeToTerms) {
+      toast({
+        title: t("topups.error.common"),
+        description: t("topups.agreeTermsError"),
         variant: "destructive",
       });
       return;
@@ -144,6 +154,7 @@ export default function TopupsClient({
 
   const handleSelectPaymentGate = async (value: string) => {
     setSelectedPaymentGate(value);
+    setAgreeToTerms(false);
     if (selectedPackage) {
       showGlobalLoading(t("topups.processing"));
       try {
@@ -168,6 +179,7 @@ export default function TopupsClient({
 
   const handleSelectPackage = async (pkg: TopupPackage) => {
     setSelectedPackage(pkg);
+    setAgreeToTerms(false);
     showGlobalLoading(t("topups.processing"));
     try {
       await loadMemoCheckout(pkg.id, selectedPaymentGate ?? "");
@@ -376,10 +388,43 @@ export default function TopupsClient({
           ) : (
             <p className="text-yellow-700">{t("topups.noPaymentGates")}</p>
           )}
+
+          {/* Terms Agreement */}
+          <div className="mt-6 mb-4">
+            <label className="flex items-start space-x-3 text-gray-700">
+              <input
+                type="checkbox"
+                checked={agreeToTerms}
+                onChange={(e) => setAgreeToTerms(e.target.checked)}
+                className="w-4 h-4 mt-0.5 text-yellow-500 bg-white border-yellow-300 rounded focus:ring-yellow-500 focus:ring-2"
+              />
+              <span className="text-sm">
+                {t("topups.agreeToTerms")}{" "}
+                <a
+                  href="/terms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-yellow-600 hover:text-yellow-500 transition-colors font-medium underline"
+                >
+                  {t("topups.termsOfService")}
+                </a>{" "}
+                {t("topups.and")}{" "}
+                <a
+                  href="/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-yellow-600 hover:text-yellow-500 transition-colors font-medium underline"
+                >
+                  {t("topups.privacyPolicy")}
+                </a>
+              </span>
+            </label>
+          </div>
+
           <Button
             ref={paymentRef}
             onClick={handleBuy}
-            disabled={!selectedPackage || !selectedPaymentGate || isBuying}
+            disabled={!selectedPackage || !selectedPaymentGate || !agreeToTerms || isBuying}
             className="mystical-button w-full mt-2 text-lg shadow-lg"
           >
             {isBuying ? (

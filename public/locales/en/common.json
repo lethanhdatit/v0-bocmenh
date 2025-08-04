@@ -49,7 +49,12 @@
       "viewDetail": "Details",
       "copiedTransId": "Transaction ID copied",
       "refreshed": "Data updated"
-    }
+    },
+    "agreeToTerms": "I agree to the",
+    "termsOfService": "Terms of Service",
+    "and": "and",
+    "privacyPolicy": "Privacy Policy",
+    "agreeTermsError": "Please agree to the Terms of Service and Privacy Policy to continue."
   },
   "checkout": {
     "billingTitle": "Electronic Invoice",

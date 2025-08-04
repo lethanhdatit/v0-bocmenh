@@ -165,7 +165,7 @@ export const FEATURE_FLAGS: Record<FeaturePath, FeatureConfig> = {
   '/horoscope': {
     path: '/horoscope',
     status: 'coming-soon',
-    title: 'Tử Vi Hằng Ngày',
+    title: 'Bát Tự Hằng Ngày',
     titleKey: 'features.horoscope.title',
     estimatedLaunch: 'Q2 2025'
   },

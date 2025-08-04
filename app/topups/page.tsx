@@ -7,11 +7,11 @@ import { FatesUnit } from "@/components/common/FatesUnit";
 
 export async function generateMetadata(): Promise<Metadata> {
   return createSEOMetadata({
-    title: "Nạp Điểm Duyên - Mua Gói Dịch Vụ Premium | Bóc Mệnh",
+    title: "Nạp Điểm Duyên - Mở khoá luận giải chi tiết | Bóc Mệnh",
     description:
-      "💳 Nạp điểm duyên để trải nghiệm đầy đủ các dịch vụ bói toán cao cấp. Thanh toán an toàn qua Momo, Banking, Visa. Gói ưu đãi từ 50K với nhiều quyền lợi hấp dẫn.",
+      "💳 Nạp điểm duyên để trải nghiệm đầy đủ các dịch vụ huyền học cao cấp. Thanh toán an toàn qua Paypal, VietQR, Banking, Visa. Gói ưu đãi từ 50K với nhiều quyền lợi hấp dẫn.",
     keywords:
-      "nạp điểm duyên, mua gói premium, cổng vietqr, thanh toán paypal, banking online, visa payment, dịch vụ bói toán, gói ưu đãi, bóc mệnh premium, nạp tiền online, payment vietnam",
+      "nạp điểm duyên, mở khoá luận giải chi tiết, cổng vietqr, thanh toán paypal, banking online, visa payment, dịch vụ huyền học, gói ưu đãi, bóc mệnh premium, nạp tiền online, payment vietnam",
     ogImage: "/imgs/topups-og.jpg",
     canonicalUrl: "/topups",
     alternateLanguages: {
@@ -42,9 +42,9 @@ export default async function TopupsPage({ searchParams }: TopupsPageProps) {
       {
         "@type": "Product",
         "@id": "https://bocmenh.com/topups#product",
-        name: "Điểm Duyên - Dịch Vụ Bói Toán Premium",
+        name: "Điểm Duyên - Dịch Vụ Huyền Học Luận Giải Chuyên Sâu",
         description:
-          "Điểm duyên để sử dụng các dịch vụ bói toán cao cấp như xem tử vi, bói bài tarot, phân tích vận mệnh chi tiết",
+          "Điểm duyên để sử dụng các dịch vụ huyền học cao cấp như xem bát tự, bói bài tarot, phân tích vận mệnh chi tiết",
         brand: {
           "@type": "Brand",
           name: "Bóc Mệnh",
@@ -76,7 +76,7 @@ export default async function TopupsPage({ searchParams }: TopupsPageProps) {
         "@id": "https://bocmenh.com/topups",
         name: "Nạp Điểm Duyên - Mua Gói Dịch Vụ Premium",
         description:
-          "Trang nạp điểm duyên để trải nghiệm đầy đủ các dịch vụ bói toán cao cấp",
+          "Trang nạp điểm duyên để trải nghiệm đầy đủ các dịch vụ huyền học cao cấp",
         url: "https://bocmenh.com/topups",
         inLanguage: "vi",
         isPartOf: {
@@ -128,7 +128,7 @@ export default async function TopupsPage({ searchParams }: TopupsPageProps) {
             name: "Điểm duyên là gì?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Điểm duyên là đơn vị tiền tệ ảo trong hệ thống Bóc Mệnh, được sử dụng để trải nghiệm các dịch vụ bói toán cao cấp như xem tử vi chi tiết, bói bài tarot, phân tích vận mệnh.",
+              text: "Điểm duyên là đơn vị tiền tệ ảo trong hệ thống Bóc Mệnh, được sử dụng để trải nghiệm các dịch vụ huyền học cao cấp như xem bát tự chi tiết, bói bài tarot, phân tích vận mệnh.",
             },
           },
           {
@@ -136,7 +136,7 @@ export default async function TopupsPage({ searchParams }: TopupsPageProps) {
             name: "Có những phương thức thanh toán nào?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Chúng tôi hỗ trợ thanh toán qua Momo, Banking online, thẻ Visa/Mastercard và các ví điện tử phổ biến tại Việt Nam.",
+              text: "Chúng tôi hỗ trợ thanh toán qua Paypal, VietQR, Banking online, thẻ Visa/Mastercard và các ví điện tử phổ biến tại Việt Nam.",
             },
           },
           {
@@ -170,7 +170,7 @@ export default async function TopupsPage({ searchParams }: TopupsPageProps) {
         "@id": "https://bocmenh.com#organization",
         name: "Bóc Mệnh",
         url: "https://bocmenh.com",
-        description: "Nền tảng bói toán AI hàng đầu Việt Nam",
+        description: "Nền tảng huyền học AI hàng đầu Việt Nam",
         contactPoint: {
           "@type": "ContactPoint",
           contactType: "Customer Service",

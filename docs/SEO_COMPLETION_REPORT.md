@@ -19,7 +19,7 @@
 6. ✅ **Tarot** (`/tarot`) - Priority 0.8
 7. ✅ **Phong Thủy** (`/fengshui`) - Priority 0.8
 8. ✅ **Xem Tướng** (`/palmistry`) - Priority 0.8
-9. ✅ **Tử Vi** (`/horoscope`) - Priority 0.8
+9. ✅ **Bát Tự** (`/horoscope`) - Priority 0.8
 10. ✅ **Chiêm Tinh** (`/astrology`) - Priority 0.8
 
 ### 💝 Dịch Vụ Bổ Sung

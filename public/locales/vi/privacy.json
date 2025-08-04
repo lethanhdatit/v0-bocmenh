@@ -1,42 +1,46 @@
 {
   "meta_title": "Chính sách bảo mật - Bóc Mệnh",
-  "meta_description": "Tìm hiểu cách Bóc Mệnh (BMP) thu thập, sử dụng và bảo vệ thông tin cá nhân của bạn khi sử dụng dịch vụ tại bocmenh.com.",
+  "meta_description": "Tìm hiểu cách Bóc Mệnh (BMP) thu thập, sử dụng và bảo vệ thông tin cá nhân của bạn, bao gồm hệ thống điểm Duyên (Fates Points) khi sử dụng dịch vụ tại bocmenh.com.",
   "page_title": "Chính sách bảo mật",
   "subtitle": "Bóc Mệnh tại bocmenh.com và toàn bộ hệ sinh thái Bóc Mệnh (từ giờ gọi tắt là BMP)",
-  "intro_p1": "Khi sử dụng dịch vụ của BMP, bạn tin tưởng cung cấp thông tin của bạn cho BMP. BMP hiểu rằng đây là một trách nhiệm lớn và BMP nỗ lực bảo vệ thông tin của bạn cũng như để bạn nắm quyền kiểm soát.",
-  "intro_p2": "Chính sách bảo mật này nhằm mục đích giúp bạn hiểu rõ những thông tin mà BMP thu thập, lý do BMP thu thập và cách bạn có thể cập nhật, quản lý, xuất và xóa thông tin của mình.",
+  "intro_p1": "Khi sử dụng dịch vụ của BMP và hệ thống điểm Duyên (Fates Points), bạn tin tưởng cung cấp thông tin của bạn cho BMP. BMP hiểu rằng đây là một trách nhiệm lớn và BMP nỗ lực bảo vệ thông tin của bạn cũng như để bạn nắm quyền kiểm soát.",
+  "intro_p2": "Chính sách bảo mật này nhằm mục đích giúp bạn hiểu rõ những thông tin mà BMP thu thập, lý do BMP thu thập và cách bạn có thể cập nhật, quản lý, xuất và xóa thông tin của mình, bao gồm các dữ liệu giao dịch điểm Duyên.",
   "sections": [
     {
       "title": "1. Phạm vi áp dụng",
       "points": [
         "Áp dụng cho mọi thông tin cá nhân mà người dùng cung cấp khi đăng ký, sử dụng dịch vụ của BMP hoặc bất kỳ dịch vụ, trang con, ứng dụng di động hay API liên quan.",
-        "Chính sách bảo mật thông tin cá nhân này áp dụng đối với mọi thiết bị, trang web hoặc ứng dụng trực tuyến của BMP, bao gồm các dịch vụ mà BMP cung cấp qua website và các ứng dụng di động. Chính sách bảo mật này áp dụng bất kể bạn sử dụng máy tính, điện thoại di động, máy tính bảng, TV hay thiết bị khác để truy cập dịch vụ của BMP.",
-        "Chính sách này không áp dụng cho các liên kết đến trang khác ngoài hệ sinh thái của BMP."
+        "Chính sách bảo mật thông tin cá nhân này áp dụng đối với mọi thiết bị, trang web hoặc ứng dụng trực tuyến của BMP, bao gồm các dịch vụ mà BMP cung cấp qua website và các ứng dụng di động.",
+        "Chính sách này không áp dụng cho các liên kết đến trang khác ngoài hệ sinh thái của BMP.",
+        "Áp dụng đặc biệt cho hệ thống điểm Duyên (Fates Points) và các giao dịch thanh toán liên quan."
       ]
     },
     {
       "title": "2. Thông tin BMP thu thập",
       "subsections": [
         {
-          "title": "a. Thông tin bạn tự nguyện cung cấp một cách có ý thức",
+          "title": "2.1. Thông tin cá nhân cơ bản",
           "points": [
-            "Họ và tên, ngày/tháng/năm sinh (dương lịch), giờ sinh (nếu có), …",
-            "Giới tính, tôn giáo, vị trí sinh sống, hướng nhà.",
-            "Hình ảnh bàn tay, khuôn mặt, nhà cửa; mô tả giấc mơ, trạng thái và mong muốn cá nhân.",
-            "Thông tin tài khoản: email, mật khẩu (đã băm mã), số điện thoại (nếu có)."
+            "Họ tên, email khi đăng ký tài khoản.",
+            "Thông tin sinh học: ngày sinh, giờ sinh, nơi sinh, ... để cung cấp dịch vụ luận giải.",
+            "Địa chỉ IP, thông tin thiết bị, trình duyệt để đảm bảo bảo mật."
           ]
         },
         {
-          "title": "b. Thông tin tự động thu thập",
+          "title": "2.2. Thông tin giao dịch và điểm Duyên",
           "points": [
-            "Dữ liệu kỹ thuật: địa chỉ IP, trình duyệt, hệ điều hành, log truy cập, cookie và công nghệ tương tự trong phạm vi thuộc BMP.",
-            "Lịch sử sử dụng: các dịch vụ đã trải nghiệm, thời gian, kết quả luận giải."
+            "Lịch sử nạp điểm Duyên: số tiền, thời gian, phương thức thanh toán.",
+            "Lịch sử sử dụng dịch vụ: loại dịch vụ, số điểm Duyên tiêu thụ, thời gian sử dụng.",
+            "Thông tin thanh toán: được xử lý qua đối tác và không lưu trữ thông tin thẻ tại BMP.",
+            "Mã giao dịch và trạng thái thanh toán để hỗ trợ khách hàng."
           ]
         },
         {
-          "title": "c. Thông tin từ bên thứ ba",
+          "title": "2.3. Dữ liệu sử dụng dịch vụ",
           "points": [
-            "Khi bạn cho phép liên kết tài khoản mạng xã hội (Facebook, Google, v.v.), BMP chỉ thu các trường thông tin bạn đồng ý chia sẻ."
+            "Kết quả luận giải và báo cáo được tạo ra cho người dùng.",
+            "Thời gian truy cập, tần suất sử dụng các tính năng.",
+            "Phản hồi và đánh giá của người dùng về dịch vụ."
           ]
         }
       ]
@@ -44,63 +48,95 @@
     {
       "title": "3. Mục đích và cơ sở pháp lý sử dụng",
       "points": [
-        "Cung cấp dịch vụ tư vấn vận mệnh, phong thủy, tương hợp tương khắc, tử vi, tarot, …",
-        "Cá nhân hóa trải nghiệm, gửi thông báo, email nhắc nhở, ưu đãi.",
-        "Phân tích thống kê, cải thiện chất lượng dịch vụ.",
+        "Cung cấp dịch vụ tư vấn vận mệnh, phong thủy, tương hợp tương khắc, bát tự, tarot theo yêu cầu của người dùng.",
+        "Xử lý giao dịch nạp điểm Duyên và quản lý tài khoản thanh toán.",
+        "Cá nhân hóa trải nghiệm, gửi thông báo về dịch vụ, email nhắc nhở, ưu đãi đặc biệt.",
+        "Phân tích thống kê sử dụng dịch vụ, cải thiện chất lượng và phát triển tính năng mới.",
+        "Phát hiện và ngăn chặn gian lận, lạm dụng hệ thống điểm Duyên.",
         "Thực hiện nghĩa vụ với cơ quan nhà nước khi có yêu cầu hợp pháp.",
-        "Truyền thông, tiếp thị (với sự đồng ý theo Đ°75/2013/NĐ-CP hướng dẫn Luật Quảng cáo)."
+        "Truyền thông, tiếp thị có mục tiêu (với sự đồng ý của người dùng)."
       ]
     },
     {
       "title": "4. Chia sẻ, chuyển giao thông tin",
       "points": [
-        "KHÔNG chia sẻ thông tin cá nhân của bạn cho bên thứ ba ngoài danh sách dưới đây:",
-        "1. Đối tác thanh toán (ví dụ: cổng VNPay, MoMo) để xác thực giao dịch.",
-        "2. Đối tác cung cấp dịch vụ email, SMS (chỉ gửi khi bạn đồng ý nhận thông báo).",
-        "3. Đơn vị affiliate để giới thiệu sản phẩm (không bán trực tiếp) – luôn minh bạch rằng BMP chỉ làm trung gian.",
-        "4. Cơ quan nhà nước có thẩm quyền khi có yêu cầu hợp pháp.",
-        "Trong mọi trường hợp, BMP phải đảm bảo các đối tác này tuân thủ quy định về bảo mật theo Luật An ninh mạng và Luật Bảo vệ dữ liệu cá nhân."
+        "BMP CAM KẾT KHÔNG chia sẻ thông tin cá nhân của bạn cho bên thứ ba ngoài danh sách được ủy quyền dưới đây:",
+        "Đối tác thanh toán được cấp phép (Paypal, VietQR, các ngân hàng, Visa/Mastercard) để xác thực và xử lý giao dịch nạp điểm Duyên.",
+        "Đối tác cung cấp dịch vụ email, SMS (chỉ gửi khi bạn đồng ý nhận thông báo).",
+        "Đối tác bảo mật và phân tích dữ liệu để ngăn chặn gian lận.",
+        "Cơ quan pháp luật khi có yêu cầu hợp pháp theo quy định của pháp luật Việt Nam.",
+        "Trong trường hợp sáp nhập, mua bán doanh nghiệp, người dùng sẽ được thông báo trước ít nhất 30 ngày."
       ]
     },
     {
-      "title": "5. Thu nhận và sử dụng cookie",
+      "title": "5. Bảo mật thông tin thanh toán và điểm Duyên",
       "points": [
-        "Cookie giúp ghi nhớ phiên đăng nhập, ưu tiên ngôn ngữ, phân tích hành vi người dùng.",
-        "Bạn có thể tắt cookie trong trình duyệt, tuy nhiên một số tính năng sẽ không hoạt động bình thường."
+        "Mã hóa đầu cuối: Tất cả giao dịch điểm Duyên được mã hóa SSL/TLS 256-bit.",
+        "Không lưu trữ thông tin thẻ: BMP không lưu trữ số thẻ, CVV hay thông tin nhạy cảm khác.",
+        "Giám sát giao dịch: Hệ thống tự động phát hiện các giao dịch bất thường.",
+        "Sao lưu dữ liệu: Lịch sử điểm Duyên được sao lưu hàng ngày tại nhiều địa điểm.",
+        "Kiểm tra bảo mật: Thực hiện đánh giá bảo mật định kỳ 6 tháng/lần."
       ]
     },
     {
-      "title": "6. Bảo mật dữ liệu",
+      "title": "6. Quyền của người dùng về dữ liệu cá nhân",
       "points": [
-        "Mọi kênh truyền dẫn đều được mã hóa SSL/TLS.",
-        "Dữ liệu lưu trữ trên máy chủ được mã hóa đầu cuối; chỉ người dùng mới có khóa giải mã."
+        "Quyền truy cập: Xem tất cả thông tin cá nhân và lịch sử giao dịch điểm Duyên.",
+        "Quyền chỉnh sửa: Cập nhật thông tin cá nhân (trừ dữ liệu đã xác thực).",
+        "Quyền xuất dữ liệu: Tải về toàn bộ dữ liệu cá nhân dưới định dạng JSON/PDF.",
+        "Quyền xóa dữ liệu: Yêu cầu xóa tài khoản và dữ liệu (điểm Duyên sẽ mất hiệu lực).",
+        "Quyền hạn chế xử lý: Từ chối nhận email marketing, thông báo không thiết yếu.",
+        "Quyền khiếu nại: Báo cáo vi phạm bảo mật hoặc sử dụng dữ liệu không đúng mục đích.",
+        "Quyền được hỗ trợ: Liên hệ với bộ phận bảo mật để giải quyết các vấn đề."
       ]
     },
     {
-      "title": "7. Cam kết bảo mật",
+      "title": "7. Lưu giữ và bảo quản dữ liệu",
       "points": [
-        "BMP cam kết bảo mật thông tin của bạn là ưu tiên hàng đầu. BMP sử dụng các biện pháp bảo mật tiên tiến để bảo vệ thông tin cá nhân của bạn khỏi mọi sự truy cập trái phép, sử dụng không đúng mục đích hoặc tiết lộ. BMP không bao giờ chia sẻ thông tin của bạn với bên thứ ba mà không có sự đồng ý của bạn trước. Đồng thời, BMP liên tục cập nhật và kiểm tra hệ thống bảo mật của mình để đảm bảo rằng nó luôn đáp ứng được những tiêu chuẩn cao nhất."
+        "Dữ liệu tài khoản: Lưu giữ trong suốt thời gian tài khoản hoạt động + 5 năm sau khi đóng.",
+        "Lịch sử giao dịch điểm Duyên: Lưu giữ vĩnh viễn để phục vụ kiểm toán và pháp lý.",
+        "Dữ liệu luận giải: Lưu giữ 7 năm hoặc cho đến khi người dùng yêu cầu xóa.",
+        "Nhật ký hệ thống: Lưu giữ 2 năm để phục vụ bảo mật và phân tích sự cố.",
+        "Dữ liệu marketing: Xóa ngay lập tức khi người dùng từ chối nhận thông tin.",
+        "Sao lưu an toàn: Tất cả dữ liệu được sao lưu mã hóa tại hạ tầng đám mây có chứng chỉ ISO 27001."
       ]
     },
     {
-      "title": "8. Quyền của người dùng",
+      "title": "8. Cookie và công nghệ theo dõi",
       "points": [
-        "Truy cập, chỉnh sửa, bổ sung hoặc yêu cầu xóa dữ liệu cá nhân bất cứ lúc nào.",
-        "Xuất file dữ liệu cá nhân (theo quy định thông tư của Bộ TT&TT).",
-        "Rút lại hoặc cấp lại quyền đồng ý sử dụng thông tin."
+        "Cookie thiết yếu: Để duy trì phiên đăng nhập và bảo mật tài khoản.",
+        "Cookie phân tích: Google Analytics để hiểu hành vi người dùng (có thể từ chối).",
+        "Cookie quảng cáo: Để hiển thị quảng cáo phù hợp (có thể từ chối).",
+        "Pixel tracking: Để đo lường hiệu quả email marketing (chỉ khi đồng ý).",
+        "Cách quản lý: Người dùng có thể quản lý cookie qua cài đặt trình duyệt hoặc trung tâm quyền riêng tư.",
+        "Không bán dữ liệu: BMP cam kết không bán thông tin cookie cho bên thứ ba."
       ]
     },
     {
-      "title": "9. Lưu giữ và hủy bỏ",
+      "title": "9. Bảo mật và ứng phó sự cố",
       "points": [
-        "Dữ liệu hoạt động: lưu tối thiểu 5 năm sau lần sử dụng cuối cùng (để phục vụ xử lý khiếu nại, kiểm toán).",
-        "Dữ liệu cá nhân: lưu đến khi bạn yêu cầu xóa hoặc hết thời hạn pháp lý."
+        "Chính sách bảo mật 24/7: Giám sát liên tục các hoạt động đáng ngờ.",
+        "Ứng phó vi phạm dữ liệu: Thông báo cho người dùng trong vòng 72 giờ nếu có sự cố.",
+        "Kiểm tra nội bộ: Audit bảo mật hàng quý bởi đội ngũ chuyên gia độc lập.",
+        "Cập nhật bảo mật: Hệ thống được cập nhật bản vá bảo mật đều đặn."
       ]
     },
     {
-      "title": "10. Thay đổi chính sách",
+      "title": "10. Chuyển giao dữ liệu quốc tế",
       "points": [
-        "BMP có quyền sửa đổi Chính sách này bất cứ lúc nào bằng cách đăng bản sửa đổi lên website. Bạn có trách nhiệm thường xuyên xem xét Chính sách này để biết các bản sửa đổi. Việc bạn tiếp tục sử dụng website sau khi các bản sửa đổi được đăng tải sẽ được coi là sự chấp nhận của bạn đối với các bản sửa đổi đó."
+        "Máy chủ chính: Đặt tại Việt Nam, tuân thủ đầy đủ pháp luật địa phương.",
+        "Sao lưu quốc tế: Có thể lưu trữ sao lưu tại Singapore, Nhật Bản với mức bảo mật tương đương.",
+        "Bảo vệ chuyển giao: Mọi chuyển giao dữ liệu được mã hóa và có hợp đồng bảo mật.",
+        "Quyền từ chối: Người dùng có quyền yêu cầu không chuyển giao dữ liệu ra nước ngoài.",
+        "Thông báo minh bạch: Mọi thay đổi về vị trí lưu trữ sẽ được thông báo trước 30 ngày."
+      ]
+    },
+    {
+      "title": "11. Thay đổi chính sách bảo mật",
+      "points": [
+        "Thông báo trước: Mọi thay đổi sẽ được đăng tải tự động và không cần thông báo.",
+        "Đăng tải công khai: Phiên bản mới được đăng tải tại trang chính sách với ghi chú thay đổi.",
+        "Quyền từ chối: Người dùng có quyền từ chối các thay đổi bằng cách đóng tài khoản."
       ]
     }
   ]
