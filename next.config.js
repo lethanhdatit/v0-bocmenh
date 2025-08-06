@@ -1,9 +1,7 @@
-const { i18n } = require("./next-i18next.config.js");
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
-  i18n,
+  // Removed i18n config since we're using next-i18n-router middleware
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -19,6 +17,8 @@ const nextConfig = {
       allowedOrigins: ["localhost:3000"],
     },
   },
+  // Optional: Add trailingSlash for consistent URLs
+  trailingSlash: false,
   // env: {
   //   NEXT_PUBLIC_BE_BASE_URL: process.env.BE_BASE_URL,
   // },

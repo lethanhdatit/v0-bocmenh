@@ -3,8 +3,22 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import SWRProvider from "@/components/providers/SWRProvider";
+import Navigation from "@/components/layout/Navigation";
+import Footer from "@/components/layout/Footer";
+import AuthModals from "@/components/auth/AuthModals";
+import AuthSetup from "@/components/utils/AuthSetup";
+import { getBaseUrl } from "@/lib/infra/utils";
+import GlobalLoadingWrapper from "@/components/ui/GlobalLoadingWrapper";
+import { MyFatesProvider } from "@/contexts/MyFatesContext";
+import { LayoutVisibilityProvider } from "@/contexts/LayoutVisibilityContext";
+import { Toaster } from "@/components/ui/toaster"; // hoặc đúng đường dẫn của bạn
+import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bocmenh.com";
+
+const baseUrl = getBaseUrl();
 const inter = Inter({ subsets: ["latin", "vietnamese"] });
 
 export const metadata: Metadata = {
@@ -83,18 +97,70 @@ export const viewport = {
   maximumScale: 5,
 };
 
+const starryBackground = (
+  <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+    <div className="absolute inset-0">
+      {[...Array(30)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 2}s`,
+            // willChange: "opacity", // Optimize animation
+          }}
+        />
+      ))}
+      {[...Array(18)].map((_, i) => (
+        <div
+          key={`gold-${i}`}
+          className="absolute w-1.5 h-1.5 bg-yellow-500 rounded-full animate-twinkle"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 3}s`,
+            // willChange: "opacity", // Optimize animation
+          }}
+        />
+      ))}
+    </div>
+  </div>
+);
+
+const OrientalBackground = () => (
+  <div className="fixed inset-0 -z-50 overflow-hidden">
+    <div
+      className="absolute inset-0 bg-cover bg-center"
+      style={{ backgroundImage: "url(/imgs/main-bg.png)" }}
+    />
+    <div
+      className="absolute inset-0 opacity-50 mix-blend-multiply"
+      style={{
+        backgroundImage: "url(/imgs/oriental-pattern-dark.png)",
+        backgroundSize: "500px",
+      }}
+    />
+  </div>
+);
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html>
+    <html lang="vi">
       <head>
-        {/* Canonical và hreflang sẽ được handle bởi locale layout */}
+        {/* Canonical URL */}
         <link rel="canonical" href="https://bocmenh.com" />
 
-        {/* Preconnect */}
+        {/* Alternate Languages */}
+        <link rel="alternate" hrefLang="vi" href="https://bocmenh.com" />
+        <link rel="alternate" hrefLang="en" href="https://bocmenh.com/en" />
+        <link rel="alternate" hrefLang="x-default" href="https://bocmenh.com" />
+
+        {/* Preconnect for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -102,20 +168,12 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
 
-        {/* Icons */}
+        {/* Favicon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
-        {/* Alternate language links */}
-        <link rel="alternate" hrefLang="vi" href={`https://bocmenh.com`} />
-        <link rel="alternate" hrefLang="en" href={`https://bocmenh.com/en`} />
-        <link
-          rel="alternate"
-          hrefLang="x-default"
-          href={`https://bocmenh.com`}
-        />
 
-        {/* JSON-LD Schema */}
+        {/* Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -166,7 +224,30 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} bg-black text-white`}>
-        {children}
+        <LanguageProvider>
+          <SWRProvider>
+            <MyFatesProvider>
+              <AuthProvider>
+                <LayoutVisibilityProvider>
+                  <div className="flex flex-col min-h-screen">
+                    {/* <OrientalBackground /> */}
+                    <Navigation />
+                    <main className="flex-grow pt-16 relative">
+                      {starryBackground}
+                      <div className="relative z-0">{children}</div>
+                      <ScrollToTopButton />
+                    </main>
+                    <Footer />
+                  </div>
+                  <Toaster />
+                  <AuthModals />
+                  <AuthSetup />
+                  <GlobalLoadingWrapper />
+                </LayoutVisibilityProvider>
+              </AuthProvider>
+            </MyFatesProvider>
+          </SWRProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

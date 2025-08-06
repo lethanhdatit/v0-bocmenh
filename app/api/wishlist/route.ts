@@ -51,7 +51,6 @@ export async function POST(req: NextRequest) {
       serverSideWishlistStore[userId].push(productId)
     }
 
-    // console.log(`[API POST /wishlist] User ${userId} added ${productId}. Current server wishlist:`, serverSideWishlistStore[userId]);
     return NextResponse.json({ success: true, wishlist: serverSideWishlistStore[userId] })
   } catch (error) {
     console.error("Error adding to wishlist:", error)
