@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { getBaseUrl } from '@/lib/infra/utils'
+import { getEnabledLanguages, getDefaultLanguageConfig } from '@/lib/i18n/language-config'
 
 const baseUrl = getBaseUrl()
 
@@ -26,6 +27,11 @@ const routes = [
     changeFrequency: 'weekly' as const,
   },
   {
+    url: '/numerology/compatibility',
+    priority: 0.7,
+    changeFrequency: 'weekly' as const,
+  },
+  {
     url: '/name-analysis',
     priority: 0.8,
     changeFrequency: 'weekly' as const,
@@ -38,6 +44,36 @@ const routes = [
   {
     url: '/fengshui',
     priority: 0.8,
+    changeFrequency: 'weekly' as const,
+  },
+  {
+    url: '/fengshui/calendar',
+    priority: 0.7,
+    changeFrequency: 'weekly' as const,
+  },
+  {
+    url: '/fengshui/flying-stars',
+    priority: 0.7,
+    changeFrequency: 'weekly' as const,
+  },
+  {
+    url: '/fengshui/house-direction',
+    priority: 0.7,
+    changeFrequency: 'weekly' as const,
+  },
+  {
+    url: '/fengshui/kua-number',
+    priority: 0.7,
+    changeFrequency: 'weekly' as const,
+  },
+  {
+    url: '/fengshui/love-corner',
+    priority: 0.7,
+    changeFrequency: 'weekly' as const,
+  },
+  {
+    url: '/fengshui/wealth-corner',
+    priority: 0.7,
     changeFrequency: 'weekly' as const,
   },
   {
@@ -96,16 +132,6 @@ const routes = [
     changeFrequency: 'daily' as const,
   },
   {
-    url: '/topups-checkout',
-    priority: 0.3,
-    changeFrequency: 'never' as const,
-  },
-  {
-    url: '/topups-history',
-    priority: 0.3,
-    changeFrequency: 'never' as const,
-  },
-  {
     url: '/about',
     priority: 0.6,
     changeFrequency: 'monthly' as const,
@@ -130,21 +156,69 @@ const routes = [
     priority: 0.4,
     changeFrequency: 'yearly' as const,
   },
+  // Private/authenticated routes với priority thấp hơn
+  {
+    url: '/profile',
+    priority: 0.3,
+    changeFrequency: 'never' as const,
+  },
+  {
+    url: '/services-history',
+    priority: 0.3,
+    changeFrequency: 'never' as const,
+  },
+  {
+    url: '/topups-checkout',
+    priority: 0.3,
+    changeFrequency: 'never' as const,
+  },
+  {
+    url: '/topups-history',
+    priority: 0.3,
+    changeFrequency: 'never' as const,
+  },
+  {
+    url: '/wishlist',
+    priority: 0.3,
+    changeFrequency: 'never' as const,
+  },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date().toISOString()
+  const enabledLanguages = getEnabledLanguages()
+  const defaultLanguage = getDefaultLanguageConfig()
   
-  return routes.map((route) => ({
-    url: `${baseUrl}${route.url}`,
-    lastModified: currentDate,
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-    alternates: {
-      languages: {
-        vi: `${baseUrl}${route.url}`,
-        en: `${baseUrl}${route.url}`,
-      },
-    },
-  }))
+  const sitemapEntries: MetadataRoute.Sitemap = []
+  
+  // Generate entries for each route and each language
+  routes.forEach((route) => {
+    enabledLanguages.forEach((language) => {
+      const isDefaultLang = language.code === defaultLanguage.code
+      
+      // URL structure: default language without prefix, other languages with prefix
+      const languagePrefix = isDefaultLang ? '' : `/${language.code}`
+      const fullUrl = `${baseUrl}${languagePrefix}${route.url}`
+      
+      // Build alternates object
+      const alternates: Record<string, string> = {}
+      enabledLanguages.forEach((altLang) => {
+        const altIsDefault = altLang.code === defaultLanguage.code
+        const altPrefix = altIsDefault ? '' : `/${altLang.code}`
+        alternates[altLang.code] = `${baseUrl}${altPrefix}${route.url}`
+      })
+      
+      sitemapEntries.push({
+        url: fullUrl,
+        lastModified: currentDate,
+        changeFrequency: route.changeFrequency,
+        priority: route.priority,
+        alternates: {
+          languages: alternates,
+        },
+      })
+    })
+  })
+  
+  return sitemapEntries
 }

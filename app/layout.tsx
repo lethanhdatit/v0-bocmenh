@@ -3,6 +3,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { getLanguage as getServerLanguage } from "@/lib/i18n/server-utils";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://bocmenh.com";
 const inter = Inter({ subsets: ["latin", "vietnamese"] });
@@ -83,13 +84,14 @@ export const viewport = {
   maximumScale: 5,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { language: lang } = await getServerLanguage();
   return (
-    <html>
+    <html lang={lang}>
       <head>
         {/* Canonical và hreflang sẽ được handle bởi locale layout */}
         <link rel="canonical" href="https://bocmenh.com" />
@@ -105,7 +107,7 @@ export default function RootLayout({
         {/* Icons */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
+        <link rel="manifest" href="/manifest.webmanifest" />
         {/* Alternate language links */}
         <link rel="alternate" hrefLang="vi" href={`https://bocmenh.com`} />
         <link rel="alternate" hrefLang="en" href={`https://bocmenh.com/en`} />
