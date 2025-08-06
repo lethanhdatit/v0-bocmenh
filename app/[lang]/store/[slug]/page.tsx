@@ -134,7 +134,7 @@ export default function ProductDetailPage() {
         <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
           <div className="relative w-full aspect-square rounded-lg overflow-hidden border border-gray-700">
             <Image
-              src={product.images[0] || "/placeholder.svg?width=600&height=600&query=detailed+fengshui+item"}
+              src={product.images[0] || "/placeholder.svg"}
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"

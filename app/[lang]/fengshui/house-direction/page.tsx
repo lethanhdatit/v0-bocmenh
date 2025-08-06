@@ -38,7 +38,7 @@ export default function HouseDirectionPage() {
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         {particles}
-        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=100&width=100&text=✨')] opacity-5" />
+        <div className="absolute inset-0 bg-[url('/placeholder.svg')] opacity-5 bg-repeat bg-center" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-8">

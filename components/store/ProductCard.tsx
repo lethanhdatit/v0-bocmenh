@@ -36,7 +36,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <Link href={`/store/${product.slug}`} className="block relative">
         <div className="relative w-full h-56 sm:h-64">
           <Image
-            src={product.images[0] || "/placeholder.svg?width=400&height=400&query=fengshui+product"}
+            src={product.images[0] || "/placeholder.svg"}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

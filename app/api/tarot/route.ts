@@ -9,7 +9,7 @@ const tarotCards = [
     name: "The Fool",
     nameVi: "Kẻ Ngốc",
     suit: "Major Arcana",
-    image: "/placeholder.svg?height=400&width=280",
+    image: "/placeholder.svg",
     upright: {
       keywords: ["Khởi đầu mới", "Tự do", "Phiêu lưu", "Tiềm năng"],
       meaning: "Bạn đang đứng trước một khởi đầu mới đầy hứa hẹn. Hãy tin tưởng vào bản thân và dũng cảm bước đi.",
@@ -24,7 +24,7 @@ const tarotCards = [
     name: "The Magician",
     nameVi: "Pháp Sư",
     suit: "Major Arcana",
-    image: "/placeholder.svg?height=400&width=280",
+    image: "/placeholder.svg",
     upright: {
       keywords: ["Sức mạnh", "Kỹ năng", "Tập trung", "Hành động"],
       meaning: "Bạn có đủ khả năng và nguồn lực để đạt được mục tiêu. Đây là lúc hành động.",
@@ -39,7 +39,7 @@ const tarotCards = [
     name: "The High Priestess",
     nameVi: "Nữ Tế",
     suit: "Major Arcana",
-    image: "/placeholder.svg?height=400&width=280",
+    image: "/placeholder.svg",
     upright: {
       keywords: ["Trực giác", "Bí ẩn", "Tiềm thức", "Nữ tính"],
       meaning: "Hãy lắng nghe tiếng nói bên trong và tin tưởng vào trực giác của bạn.",
@@ -54,7 +54,7 @@ const tarotCards = [
     name: "The Empress",
     nameVi: "Hoàng Hậu",
     suit: "Major Arcana",
-    image: "/placeholder.svg?height=400&width=280",
+    image: "/placeholder.svg",
     upright: {
       keywords: ["Sáng tạo", "Sinh sản", "Nuôi dưỡng", "Tự nhiên"],
       meaning: "Thời kỳ thịnh vượng và sáng tạo đang đến. Hãy nuôi dưỡng những ý tưởng của bạn.",
@@ -69,7 +69,7 @@ const tarotCards = [
     name: "The Emperor",
     nameVi: "Hoàng Đế",
     suit: "Major Arcana",
-    image: "/placeholder.svg?height=400&width=280",
+    image: "/placeholder.svg",
     upright: {
       keywords: ["Quyền lực", "Cấu trúc", "Kiểm soát", "Lãnh đạo"],
       meaning: "Bạn cần thể hiện sự lãnh đạo và tạo ra trật tự trong cuộc sống.",
@@ -84,7 +84,7 @@ const tarotCards = [
     name: "The Lovers",
     nameVi: "Đôi Tình Nhân",
     suit: "Major Arcana",
-    image: "/placeholder.svg?height=400&width=280",
+    image: "/placeholder.svg",
     upright: {
       keywords: ["Tình yêu", "Hòa hợp", "Lựa chọn", "Kết nối"],
       meaning: "Tình yêu và sự hòa hợp đang đến với bạn. Đây cũng là lúc đưa ra những lựa chọn quan trọng.",
