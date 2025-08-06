@@ -1,72 +1,30 @@
 import type { Metadata } from "next"
-import { getBaseUrl } from "@/lib/infra/utils"
 import { getFeatureConfig } from "@/lib/features/feature-flags"
 import { ComingSoonPage } from "@/components/features/ComingSoonPage"
 import DreamForm from "@/components/forms/DreamForm"
 import DreamJournal from "@/components/sections/DreamJournal"
 import DreamTips from "@/components/sections/DreamTips"
-import { createSEOMetadata } from "@/lib/seo/metadata"
+import { generateMultilingualMetadata, generateMultilingualStructuredData } from "@/lib/seo/seo-helpers"
 
-const baseUrl = getBaseUrl();
+interface DreamsPageProps {
+  params: { lang: string };
+}
 
-export const metadata: Metadata = createSEOMetadata({
-  title: "Giải Mơ AI - Khám Phá Ý Nghĩa Giấc Mơ Với Trí Tuệ Nhân Tạo | Bóc Mệnh", 
-  description: "🌙 Giải mã giấc mơ của bạn với AI thông minh nhất! Khám phá thông điệp từ tiềm thức, ý nghĩa tâm linh và lời khuyên từ giấc mơ. Dịch vụ giải mơ online chính xác #1 VN.",
-  keywords: "giải mơ AI, giấc mơ, ý nghĩa giấc mơ, phân tích giấc mơ, giải mơ online, thông điệp tiềm thức, chiêm bao, mơ thấy gì, giải mơ miễn phí",
-  ogImage: "/og-dreams.jpg",
-  canonicalUrl: "/dreams",
-  alternateLanguages: {
-    vi: `/dreams`,
-    en: `/dreams`,
-  },
-})
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: string };
+}): Promise<Metadata> {
+  return generateMultilingualMetadata({
+    pageKey: 'dreams',
+    params,
+  });
+}
 
-export default function DreamsPage() {
+export default async function DreamsPage({ params }: DreamsPageProps) {
   const featureConfig = getFeatureConfig('/dreams');
+  const structuredData = await generateMultilingualStructuredData('dreams', params);
   
-  // Structured data cho trang giải mơ
-  const dreamsStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: "Giải Mơ AI",
-    description: "Dịch vụ giải mơ bằng trí tuệ nhân tạo",
-    url: `${baseUrl}/dreams`,
-    mainEntity: {
-      "@type": "Service",
-      name: "Dịch vụ Giải Mơ AI",
-      description: "Phân tích và giải thích ý nghĩa giấc mơ bằng AI",
-      provider: {
-        "@type": "Organization",
-        name: "Bóc Mệnh"
-      },
-      serviceType: "Dream Interpretation",
-      areaServed: "VN",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "VND",
-        description: "Dịch vụ giải mơ miễn phí"
-      }
-    },
-    breadcrumb: {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Trang chủ",
-          item: baseUrl,
-        },
-        {
-          "@type": "ListItem", 
-          position: 2,
-          name: "Giải Mơ",
-          item: `${baseUrl}/dreams`,
-        },
-      ],
-    },
-  };
-
   // Nếu feature coming soon, hiển thị coming soon page
   if (featureConfig?.status === 'coming-soon') {
     return (
@@ -74,7 +32,7 @@ export default function DreamsPage() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(dreamsStructuredData),
+            __html: JSON.stringify(structuredData),
           }}
         />
         <ComingSoonPage 
@@ -91,7 +49,7 @@ export default function DreamsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(dreamsStructuredData),
+          __html: JSON.stringify(structuredData),
         }}
       />
       <main className="min-h-screen pt-20 pb-12">

@@ -1,145 +1,32 @@
 import type { Metadata } from "next"
-import { createSEOMetadata } from "@/lib/seo/metadata"
 import NameAnalysisForm from "@/components/forms/NameAnalysisForm"
+import { generateMultilingualMetadata, generateMultilingualStructuredData } from "@/lib/seo/seo-helpers"
 
-export async function generateMetadata(): Promise<Metadata> {
-  return createSEOMetadata({
-    title: "Phân Tích Thần Số Học Tên - Khám Phá Bí Mật Trong Tên | Bóc Mệnh",
-    description: "🔢 Phân tích thần số học tên miễn phí. Khám phá số định mệnh, số cá tính, số linh hồn từ tên của bạn. Hiểu rõ tính cách, tài năng và vận mệnh qua từng chữ cái.",
-    keywords: "phân tích tên thần số học, số định mệnh tên, phân tích tên miễn phí, thần số học vietnam, numerology name, số cá tính, số linh hồn, bói tên, xem tên tuổi",
-    ogImage: "/imgs/name-analysis-og.jpg",
-    canonicalUrl: "/name-analysis",
-    alternateLanguages: {
-      vi: `/name-analysis`,
-      en: `/name-analysis`,
-    },
-  })
+interface NameAnalysisPageProps {
+  params: { lang: string };
 }
 
-export default function NameAnalysisPage() {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Service",
-        "@id": "https://bocmenh.com/name-analysis#service",
-        "name": "Phân Tích Thần Số Học Tên",
-        "description": "Dịch vụ phân tích tên theo thần số học, khám phá số định mệnh, cá tính và linh hồn từ tên",
-        "provider": {
-          "@type": "Organization",
-          "name": "Bóc Mệnh",
-          "url": "https://bocmenh.com"
-        },
-        "serviceType": "Name Numerology Analysis",
-        "areaServed": "Vietnam",
-        "availableLanguage": ["vi", "en", "zh"],
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "VND",
-          "description": "Phân tích tên miễn phí với thần số học"
-        },
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Dịch Vụ Phân Tích Tên",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Tính Số Định Mệnh",
-                "description": "Tính toán số định mệnh từ tên đầy đủ"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Phân Tích Số Cá Tính",
-                "description": "Phân tích hình ảnh bên ngoài qua số cá tính"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Khám Phá Số Linh Hồn",
-                "description": "Tìm hiểu động lực nội tại qua số linh hồn"
-              }
-            }
-          ]
-        }
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://bocmenh.com/name-analysis",
-        "name": "Phân Tích Thần Số Học Tên - Khám Phá Bí Mật Trong Tên",
-        "description": "Trang phân tích tên theo thần số học với các công cụ tính toán chuyên nghiệp",
-        "url": "https://bocmenh.com/name-analysis",
-        "inLanguage": "vi",
-        "isPartOf": {
-          "@type": "WebSite",
-          "name": "Bóc Mệnh",
-          "url": "https://bocmenh.com"
-        },
-        "breadcrumb": {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Trang Chủ",
-              "item": "https://bocmenh.com"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Phân Tích Tên",
-              "item": "https://bocmenh.com/name-analysis"
-            }
-          ]
-        },
-        "mainEntity": {
-          "@id": "https://bocmenh.com/name-analysis#service"
-        }
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Thần số học tên có chính xác không?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Thần số học tên dựa trên hệ thống tính toán cổ xưa đã được sử dụng hàng ngàn năm. Kết quả mang tính tham khảo để hiểu rõ hơn về bản thân và tiềm năng."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Tên tiếng Việt có thể phân tích được không?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Có, hệ thống của chúng tôi hỗ trợ phân tích cả tên tiếng Việt và tiếng Anh. Mỗi chữ cái đều có giá trị số học riêng."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Nên sử dụng tên đầy đủ hay tên gọi?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Nên sử dụng tên đầy đủ như trong giấy khai sinh để có kết quả chính xác nhất. Tên gọi hàng ngày cũng có thể phân tích để xem ảnh hưởng khác nhau."
-            }
-          }
-        ]
-      }
-    ]
-  };
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: string };
+}): Promise<Metadata> {
+  return generateMultilingualMetadata({
+    pageKey: 'name-analysis',
+    params,
+  });
+}
+
+export default async function NameAnalysisPage({ params }: NameAnalysisPageProps) {
+  const structuredData = await generateMultilingualStructuredData('name-analysis', params);
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
       />
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
         <div className="container mx-auto px-4 py-8">

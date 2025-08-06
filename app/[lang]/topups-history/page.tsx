@@ -1,46 +1,29 @@
 import { Metadata } from "next";
-import { createSEOMetadata } from "@/lib/seo/metadata";
+import { generateMultilingualMetadata, generateMultilingualStructuredData } from "@/lib/seo/seo-helpers";
 import { getTranslations } from "@/i18n/server";
 import TopupsHistoryClient from "./TopupsHistoryClient";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return createSEOMetadata({
-    title: "Lịch Sử Nạp Điểm Duyên - Quản Lý Giao Dịch | Bóc Mệnh",
-    description: "📊 Xem lịch sử giao dịch nạp điểm duyên của bạn. Theo dõi trạng thái thanh toán, số dư tài khoản và các giao dịch đã thực hiện.",
-    keywords: "lịch sử nạp tiền, giao dịch điểm duyên, quản lý tài khoản, transaction history, payment history, bóc mệnh account",
-    ogImage: "/imgs/history-og.jpg",
-    canonicalUrl: "/topups-history",
-    alternateLanguages: {
-      vi: `/topups-history`,
-      en: `/topups-history`,
-    },
-    noindex: true // Không index vì là trang cá nhân
+interface TopupsHistoryPageProps {
+  params: {
+    lang: string
+  }
+}
+
+export async function generateMetadata({ params }: TopupsHistoryPageProps): Promise<Metadata> {
+  return generateMultilingualMetadata({
+    pageKey: 'topups-history',
+    params
   });
 }
 
-export default function TopupsHistoryPage() {
-  const historyStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Lịch Sử Nạp Điểm Duyên",
-    "description": "Trang quản lý lịch sử giao dịch nạp điểm duyên",
-    "provider": {
-      "@type": "Organization",
-      "name": "Bóc Mệnh",
-      "url": "https://bocmenh.com"
-    },
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "Bóc Mệnh",
-      "url": "https://bocmenh.com"
-    }
-  };
+export default async function TopupsHistoryPage({ params }: TopupsHistoryPageProps) {
+  const structuredData = await generateMultilingualStructuredData('topups-history', params);
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(historyStructuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <TopupsHistoryClient />
     </>

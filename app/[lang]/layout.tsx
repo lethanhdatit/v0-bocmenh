@@ -33,9 +33,9 @@ export async function generateMetadata({
     notFound();
   }
 
-  // Use our SEO metadata generator with translations
+  // Use 'layout' as pageKey to distinguish from root layout
   return generateMultilingualMetadata({
-    pageKey: 'home', // or 'site' for layout
+    pageKey: 'layout', // Different from root layout
     params,
   });
 }

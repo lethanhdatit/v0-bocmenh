@@ -1,110 +1,23 @@
 import type { Metadata } from "next"
-import { createSEOMetadata } from "@/lib/seo/metadata"
+import { generateMultilingualMetadata, generateMultilingualStructuredData } from "@/lib/seo/seo-helpers"
 import WeddingDateForm from "@/components/forms/WeddingDateForm"
 import { Calendar, Heart, Star, Sparkles } from "lucide-react"
 
-export async function generateMetadata(): Promise<Metadata> {
-  return createSEOMetadata({
-    title: "Chọn Ngày Cưới Hợp Tuổi - Phong Thủy Ngày Cưới | Bóc Mệnh",
-    description: "🎎 Chọn ngày cưới hợp tuổi theo thần số học và phong thủy. Phân tích ngày cưới tốt nhất cho cặp đôi, tính toán độ hợp và lời khuyên màu sắc, hướng cưới.",
-    keywords: "chọn ngày cưới, ngày cưới hợp tuổi, phong thủy ngày cưới, thần số học cưới hỏi, tính ngày cưới, ngày tốt cưới hỏi, xem ngày cưới, wedding date vietnam",
-    ogImage: "/imgs/wedding-date-og.jpg",
-    canonicalUrl: "/wedding-date",
-    alternateLanguages: {
-      vi: `/wedding-date`,
-      en: `/wedding-date`,
-    },
-  })
+interface WeddingDatePageProps {
+  params: {
+    lang: string
+  }
 }
 
-export default async function WeddingDatePage() {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Service",
-        "@id": "https://bocmenh.com/wedding-date#service",
-        "name": "Chọn Ngày Cưới Hợp Tuổi",
-        "description": "Dịch vụ tư vấn chọn ngày cưới tốt nhất theo thần số học và phong thủy",
-        "provider": {
-          "@type": "Organization",
-          "name": "Bóc Mệnh",
-          "url": "https://bocmenh.com"
-        },
-        "serviceType": "Wedding Date Analysis",
-        "areaServed": "Vietnam",
-        "availableLanguage": ["vi", "en", "zh"],
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "VND",
-          "description": "Phân tích ngày cưới miễn phí"
-        }
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://bocmenh.com/wedding-date",
-        "name": "Chọn Ngày Cưới Hợp Tuổi - Phong Thủy Ngày Cưới",
-        "description": "Trang tư vấn chọn ngày cưới tốt nhất theo thần số học và phong thủy",
-        "url": "https://bocmenh.com/wedding-date",
-        "inLanguage": "vi",
-        "isPartOf": {
-          "@type": "WebSite",
-          "name": "Bóc Mệnh",
-          "url": "https://bocmenh.com"
-        },
-        "breadcrumb": {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Trang Chủ",
-              "item": "https://bocmenh.com"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Chọn Ngày Cưới",
-              "item": "https://bocmenh.com/wedding-date"
-            }
-          ]
-        },
-        "mainEntity": {
-          "@id": "https://bocmenh.com/wedding-date#service"
-        }
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Tại sao cần chọn ngày cưới hợp tuổi?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Ngày cưới theo phong thủy và thần số học có thể ảnh hưởng đến vận mệnh hôn nhân. Chọn ngày tốt giúp cặp đôi có cuộc sống hạnh phúc và thuận hòa hơn."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Làm sao để biết ngày cưới có hợp tuổi không?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Cần tính toán dựa trên ngày sinh của cả hai người, sau đó phân tích theo thần số học để tìm ra ngày có năng lượng tích cực nhất cho cặp đôi."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Có nên tránh những ngày nào để cưới?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Theo phong thủy, nên tránh những ngày có năng lượng tiêu cực, ngày xung khắc với tuổi của cô dâu chú rể, và những ngày đặc biệt theo tín ngưỡng dân gian."
-            }
-          }
-        ]
-      }
-    ]
-  };
+export async function generateMetadata({ params }: WeddingDatePageProps): Promise<Metadata> {
+  return generateMultilingualMetadata({
+    pageKey: 'wedding-date',
+    params
+  });
+}
+
+export default async function WeddingDatePage({ params }: WeddingDatePageProps) {
+  const structuredData = await generateMultilingualStructuredData('wedding-date', params);
 
   return (
     <>
