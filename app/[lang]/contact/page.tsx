@@ -1,21 +1,21 @@
 import type { Metadata } from "next"
 import ContactPageClient from "./ContactPageClient"
-import { createSEOMetadata } from "@/lib/seo/metadata"
-import { getBaseUrl } from "@/lib/infra/utils"
+import { generateMultilingualMetadata, generateMultilingualStructuredData } from "@/lib/seo/seo-helpers"
 
-const baseUrl = getBaseUrl()
+interface ContactPageProps {
+  params: { lang: string };
+}
 
-export const metadata: Metadata = createSEOMetadata({
-  title: "Liên Hệ - Bóc Mệnh | Kết Nối Với Chúng Tôi 24/7",
-  description: "📞 Liên hệ với Bóc Mệnh qua Facebook, YouTube, Zalo, Email. Hỗ trợ khách hàng 24/7, cơ hội hợp tác đối tác và affiliate marketing. Đội ngũ tư vấn chuyên nghiệp.",
-  keywords: "liên hệ bóc mệnh, hỗ trợ khách hàng, đối tác affiliate, hợp tác quảng cáo, tư vấn phong thủy, liên hệ hỗ trợ, customer service",
-  ogImage: "/og-contact.jpg",
-  canonicalUrl: "/contact",
-  alternateLanguages: {
-    vi: `/contact`,
-    en: `/contact`,
-  },
-})
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: string };
+}): Promise<Metadata> {
+  return generateMultilingualMetadata({
+    pageKey: 'contact',
+    params,
+  });
+}
 
 export default function ContactPage() {
   // Structured data cho trang contact

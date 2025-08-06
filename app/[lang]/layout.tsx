@@ -1,4 +1,5 @@
 import type React from "react";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
@@ -14,10 +15,29 @@ import { Toaster } from "@/components/ui/toaster";
 import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
 import { getEnabledLanguages } from "@/lib/i18n/language-config";
 import type { SupportedLanguageCode } from "@/lib/i18n/language-config";
+import { generateMultilingualMetadata } from "@/lib/seo/seo-helpers";
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
   params: { lang: string };
+}
+
+// Generate metadata for each locale
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: string };
+}): Promise<Metadata> {
+  // Validate locale first
+  if (!isValidLocale(params.lang)) {
+    notFound();
+  }
+
+  // Use our SEO metadata generator with translations
+  return generateMultilingualMetadata({
+    pageKey: 'home', // or 'site' for layout
+    params,
+  });
 }
 
 // Starry background component
