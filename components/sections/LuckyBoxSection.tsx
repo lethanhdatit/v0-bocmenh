@@ -92,7 +92,8 @@ export default function LuckyBoxSection() {
 
         <div
           id="luckybox-section"
-          className="relative h-96 flex items-center justify-center"
+          className="relative h-96 flex items-center justify-center overflow-hidden"
+          style={{ contain: 'layout style' }}
         >
           <AnimatePresence mode="wait">
             {!isOpened ? (
@@ -102,17 +103,21 @@ export default function LuckyBoxSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.3 } }}
                 className="absolute cursor-pointer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => {
                   openLuckyBox();
+                }}
+                style={{ 
+                  willChange: 'transform',
+                  transformOrigin: 'center'
                 }}
               >
                 <div className="relative">
                   {/* Mystical Aura */}
                   <motion.div
                     animate={{
-                      scale: [1, 1.3, 1],
+                      scale: [1, 1.1, 1],
                       opacity: [0.3, 0.6, 0.3],
                       rotate: [0, 360],
                     }}
@@ -122,6 +127,11 @@ export default function LuckyBoxSection() {
                       ease: "easeInOut",
                     }}
                     className="absolute -inset-8 bg-gradient-to-r from-yellow-500/40 via-amber-500/40 to-orange-500/40 rounded-full blur-2xl"
+                    style={{ 
+                      willChange: 'transform, opacity',
+                      transformOrigin: 'center',
+                      contain: 'layout style paint'
+                    }}
                   />
 
                   {/* Sacred Geometry */}
@@ -148,7 +158,7 @@ export default function LuckyBoxSection() {
                   <div className="relative w-72 h-72 bg-gradient-to-br from-yellow-500 via-amber-500 to-orange-500 rounded-3xl p-8 shadow-2xl border border-yellow-400/50 flex flex-col items-center justify-center">
                     <motion.div
                       animate={{
-                        scale: [1, 1.1, 1],
+                        scale: [1, 1.05, 1],
                         filter: [
                           "hue-rotate(0deg)",
                           "hue-rotate(15deg)",
@@ -159,6 +169,10 @@ export default function LuckyBoxSection() {
                         duration: 3,
                         repeat: Number.POSITIVE_INFINITY,
                         ease: "easeInOut",
+                      }}
+                      style={{ 
+                        willChange: 'transform, filter',
+                        transformOrigin: 'center'
                       }}
                     >
                       <Gift className="w-28 h-28 text-white drop-shadow-lg" />
@@ -291,7 +305,7 @@ export default function LuckyBoxSection() {
                     animate={
                       statusMessage
                         ? {
-                            scale: [1, 1.15, 1],
+                            scale: [1, 1.08, 1],
                             filter: [
                               "drop-shadow(0 0 10px rgba(234, 179, 8, 0.5))",
                               "drop-shadow(0 0 25px rgba(234, 179, 8, 0.8))",
@@ -304,6 +318,10 @@ export default function LuckyBoxSection() {
                       duration: 1.5,
                       repeat: statusMessage ? 2 : 0,
                       ease: "easeInOut",
+                    }}
+                    style={{ 
+                      willChange: statusMessage ? 'transform, filter' : 'auto',
+                      transformOrigin: 'center'
                     }}
                   >
                     {luckyNumber}
@@ -324,7 +342,7 @@ export default function LuckyBoxSection() {
                     animate={
                       statusMessage
                         ? {
-                            scale: [1, 1.02, 1],
+                            scale: [1, 1.01, 1],
                             boxShadow: [
                               "0 0 20px rgba(168, 85, 247, 0.2)",
                               "0 0 40px rgba(168, 85, 247, 0.4)",
@@ -337,6 +355,10 @@ export default function LuckyBoxSection() {
                       duration: 2,
                       repeat: statusMessage ? 1 : 0,
                       ease: "easeInOut",
+                    }}
+                    style={{ 
+                      willChange: statusMessage ? 'transform, box-shadow' : 'auto',
+                      transformOrigin: 'center'
                     }}
                   >
                     <motion.p
