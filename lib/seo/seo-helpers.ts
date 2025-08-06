@@ -17,25 +17,47 @@ export interface SEOConfig {
   openGraph?: {
     title?: string;
     description?: string;
-    type?: 'website' | 'article';
+    type?: 'website' | 'article' | 'product' | 'profile';
     images?: Array<{
       url: string;
       width?: number;
       height?: number;
       alt?: string;
+      type?: string;
     }>;
+    url?: string;
+    siteName?: string;
+    locale?: string;
+    section?: string;
+    publishedTime?: string;
+    modifiedTime?: string;
+    authors?: string[];
+    tags?: string[];
   };
   twitter?: {
-    card?: 'summary' | 'summary_large_image';
+    card?: 'summary' | 'summary_large_image' | 'app' | 'player';
     title?: string;
     description?: string;
     images?: string[];
+    creator?: string;
+    site?: string;
   };
   canonical?: string;
   alternates?: {
     canonical?: string;
     languages?: Record<string, string>;
+    media?: Record<string, string>;
+    types?: Record<string, string>;
   };
+  jsonLd?: Array<Record<string, any>>;
+  breadcrumbs?: Array<{
+    name: string;
+    url: string;
+  }>;
+  category?: string;
+  applicationName?: string;
+  generator?: string;
+  referrer?: 'origin' | 'no-referrer' | 'origin-when-cross-origin';
 }
 
 /**
@@ -45,7 +67,16 @@ export function generateSEOMetadata(
   pageKey: string,
   languageCode: string,
   seoTranslations: any,
-  baseUrl: string = 'https://bocmenh.com'
+  baseUrl: string = 'https://bocmenh.com',
+  options: {
+    type?: 'website' | 'article' | 'product' | 'profile';
+    publishedTime?: string;
+    modifiedTime?: string;
+    section?: string;
+    tags?: string[];
+    authors?: string[];
+    breadcrumbs?: Array<{ name: string; url: string }>;
+  } = {}
 ): SEOConfig {
   const langConfig = getLanguageConfig(languageCode);
   const defaultLang = getDefaultLanguageConfig();
@@ -66,21 +97,72 @@ export function generateSEOMetadata(
     const altLangPrefix = lang.code === defaultLang.code ? '' : `/${lang.code}`;
     alternateLanguages[lang.code] = `${baseUrl}${altLangPrefix}${pageUrl}`;
   });
+
+  // Generate breadcrumbs JSON-LD
+  const breadcrumbsJsonLd = options.breadcrumbs ? {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: options.breadcrumbs.map((crumb, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url
+    }))
+  } : null;
+
+  // Generate FAQ JSON-LD for service pages
+  const faqJsonLd = ['tarot', 'numerology', 'fengshui', 'astrology'].includes(pageKey) ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `Làm thế nào để ${pageSEO.title}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `${pageSEO.description} Bóc Mệnh cung cấp dịch vụ ${pageKey} chính xác và miễn phí.`
+        }
+      }
+    ]
+  } : null;
+
+  const jsonLdSchemas = [breadcrumbsJsonLd, faqJsonLd].filter(Boolean) as Array<Record<string, any>>;
   
   return {
     title: pageSEO.title || siteSEO.siteName || 'Boc Menh',
     description: pageSEO.description || siteSEO.siteDescription || '',
     keywords: pageSEO.keywords || '',
+    category: options.section || 'Spiritual Services',
+    applicationName: siteSEO.siteName,
+    generator: 'Next.js',
+    referrer: 'origin',
     openGraph: {
       title: pageSEO.title || siteSEO.siteName,
       description: pageSEO.description || siteSEO.siteDescription,
-      type: 'website',
+      type: options.type || 'website',
+      url: currentUrl,
+      siteName: siteSEO.siteName,
+      locale: langConfig?.dateLocale,
+      section: options.section,
+      publishedTime: options.publishedTime,
+      modifiedTime: options.modifiedTime,
+      authors: options.authors,
+      tags: options.tags,
       images: [
         {
           url: `${baseUrl}/imgs/og-image-${languageCode}.jpg`,
           width: 1200,
           height: 630,
           alt: pageSEO.title || siteSEO.siteName,
+          type: 'image/jpeg',
+        },
+        // Add mobile-optimized image
+        {
+          url: `${baseUrl}/imgs/og-image-mobile-${languageCode}.jpg`,
+          width: 800,
+          height: 600,
+          alt: pageSEO.title || siteSEO.siteName,
+          type: 'image/jpeg',
         },
       ],
     },
@@ -88,13 +170,27 @@ export function generateSEOMetadata(
       card: 'summary_large_image',
       title: pageSEO.title || siteSEO.siteName,
       description: pageSEO.description || siteSEO.siteDescription,
-      images: [`${baseUrl}/imgs/twitter-image-${languageCode}.jpg`],
+      site: siteSEO.twitterSite,
+      creator: siteSEO.twitterSite,
+      images: [
+        `${baseUrl}/imgs/twitter-image-${languageCode}.jpg`,
+        `${baseUrl}/imgs/twitter-image-square-${languageCode}.jpg`
+      ],
     },
     canonical: currentUrl,
     alternates: {
       canonical: currentUrl,
       languages: alternateLanguages,
+      media: {
+        'only screen and (max-width: 600px)': `${baseUrl}/mobile${langPrefix}${pageUrl}`,
+      },
+      types: {
+        'application/rss+xml': `${baseUrl}/feed.xml`,
+        'application/atom+xml': `${baseUrl}/atom.xml`,
+      },
     },
+    jsonLd: jsonLdSchemas,
+    breadcrumbs: options.breadcrumbs,
   };
 }
 
@@ -146,6 +242,13 @@ export interface GenerateSEOMetadataOptions {
   customTitle?: string;
   customDescription?: string;
   customKeywords?: string;
+  type?: 'website' | 'article' | 'product' | 'profile';
+  publishedTime?: string;
+  modifiedTime?: string;
+  section?: string;
+  tags?: string[];
+  authors?: string[];
+  breadcrumbs?: Array<{ name: string; url: string }>;
   images?: Array<{
     url: string;
     width?: number;
@@ -164,6 +267,13 @@ export async function generateMultilingualMetadata({
   customTitle,
   customDescription,
   customKeywords,
+  type,
+  publishedTime,
+  modifiedTime,
+  section,
+  tags,
+  authors,
+  breadcrumbs,
   images,
 }: GenerateSEOMetadataOptions): Promise<Metadata> {
   const { t } = await getTranslations('seo');
@@ -185,17 +295,32 @@ export async function generateMultilingualMetadata({
     },
   };
   
-  const seoConfig = generateSEOMetadata(pageKey, params.lang, seoTranslations, baseUrl);
+  const seoConfig = generateSEOMetadata(pageKey, params.lang, seoTranslations, baseUrl, {
+    type,
+    publishedTime,
+    modifiedTime,
+    section,
+    tags,
+    authors,
+    breadcrumbs,
+  });
   
   // Override images if provided
   if (images && seoConfig.openGraph) {
-    seoConfig.openGraph.images = images;
+    seoConfig.openGraph.images = images.map(img => ({
+      ...img,
+      type: 'image/jpeg',
+    }));
   }
   
   return {
     title: seoConfig.title,
     description: seoConfig.description,
     keywords: seoConfig.keywords,
+    category: seoConfig.category,
+    applicationName: seoConfig.applicationName,
+    generator: seoConfig.generator,
+    referrer: seoConfig.referrer,
     authors: [{ name: seoTranslations.site.author }],
     creator: seoTranslations.site.author,
     publisher: seoTranslations.site.siteName,
@@ -209,11 +334,16 @@ export async function generateMultilingualMetadata({
     openGraph: {
       title: seoConfig.openGraph?.title,
       description: seoConfig.openGraph?.description,
-      type: seoConfig.openGraph?.type || 'website',
+      type: (seoConfig.openGraph?.type === 'product' ? 'website' : seoConfig.openGraph?.type) || 'website',
       url: seoConfig.canonical,
       siteName: seoTranslations.site.siteName,
       images: seoConfig.openGraph?.images || [],
       locale: langConfig?.dateLocale,
+      publishedTime: seoConfig.openGraph?.publishedTime,
+      modifiedTime: seoConfig.openGraph?.modifiedTime,
+      section: seoConfig.openGraph?.section,
+      authors: seoConfig.openGraph?.authors,
+      tags: seoConfig.openGraph?.tags,
     },
     twitter: {
       card: seoConfig.twitter?.card || 'summary_large_image',
@@ -238,6 +368,20 @@ export async function generateMultilingualMetadata({
       google: process.env.GOOGLE_SITE_VERIFICATION,
       yandex: process.env.YANDEX_VERIFICATION,
       yahoo: process.env.YAHOO_VERIFICATION,
+      other: {
+        'msvalidate.01': process.env.BING_SITE_VERIFICATION || '',
+        'facebook-domain-verification': process.env.FACEBOOK_DOMAIN_VERIFICATION || '',
+      },
+    },
+    other: {
+      'theme-color': '#EAB308',
+      'color-scheme': 'dark light',
+      'mobile-web-app-capable': 'yes',
+      'apple-mobile-web-app-capable': 'yes',
+      'apple-mobile-web-app-status-bar-style': 'black-translucent',
+      'apple-mobile-web-app-title': seoTranslations.site.siteName,
+      'msapplication-TileColor': '#EAB308',
+      'msapplication-config': '/browserconfig.xml',
     },
   };
 }
@@ -360,4 +504,123 @@ export function generateClientSideSEOConfig(
   };
   
   return generateSEOMetadata(pageKey, languageCode, seoTranslations, baseUrl);
+}
+
+/**
+ * Generate enhanced SEO for service pages (tarot, numerology, etc.)
+ */
+export async function generateServicePageSEO(
+  pageKey: string,
+  params: { lang: string },
+  serviceData?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    features?: string[];
+    benefits?: string[];
+  }
+): Promise<Metadata> {
+  const breadcrumbs = [
+    { name: 'Trang chủ', url: '/' },
+    { name: 'Dịch vụ', url: '/services' },
+    { name: pageKey, url: `/${pageKey}` },
+  ];
+
+  return generateMultilingualMetadata({
+    pageKey,
+    params,
+    type: 'article',
+    section: 'Spiritual Services',
+    publishedTime: serviceData?.publishedTime,
+    modifiedTime: serviceData?.modifiedTime || new Date().toISOString(),
+    breadcrumbs,
+    tags: serviceData?.features || ['tarot', 'numerology', 'feng-shui', 'astrology'],
+    authors: ['Bóc Mệnh Expert Team'],
+  });
+}
+
+/**
+ * Generate enhanced SEO for product pages (store items)
+ */
+export async function generateProductPageSEO(
+  productSlug: string,
+  params: { lang: string },
+  productData: {
+    name: string;
+    description: string;
+    price: number;
+    images: Array<{ url: string; alt: string }>;
+    category: string;
+    brand?: string;
+    availability?: 'InStock' | 'OutOfStock' | 'PreOrder';
+  }
+): Promise<Metadata> {
+  const breadcrumbs = [
+    { name: 'Trang chủ', url: '/' },
+    { name: 'Cửa hàng', url: '/store' },
+    { name: productData.category, url: `/store/category/${productData.category}` },
+    { name: productData.name, url: `/store/${productSlug}` },
+  ];
+
+  return generateMultilingualMetadata({
+    pageKey: 'store',
+    params,
+    type: 'product',
+    customTitle: `${productData.name} - Cửa hàng Bóc Mệnh`,
+    customDescription: productData.description,
+    customKeywords: `${productData.name}, ${productData.category}, cửa hàng tâm linh, mua ${productData.category}`,
+    section: 'E-commerce',
+    breadcrumbs,
+    images: productData.images,
+    tags: [productData.category, 'spiritual-products', 'boc-menh-store'],
+  });
+}
+
+/**
+ * Generate enhanced SEO for blog/article pages
+ */
+export async function generateArticlePageSEO(
+  articleSlug: string,
+  params: { lang: string },
+  articleData: {
+    title: string;
+    description: string;
+    publishedTime: string;
+    modifiedTime?: string;
+    author: string;
+    category: string;
+    tags: string[];
+    featuredImage?: string;
+  }
+): Promise<Metadata> {
+  const breadcrumbs = [
+    { name: 'Trang chủ', url: '/' },
+    { name: 'Blog', url: '/blog' },
+    { name: articleData.category, url: `/blog/category/${articleData.category}` },
+    { name: articleData.title, url: `/blog/${articleSlug}` },
+  ];
+
+  const images = articleData.featuredImage ? [
+    {
+      url: articleData.featuredImage,
+      width: 1200,
+      height: 630,
+      alt: articleData.title,
+    }
+  ] : undefined;
+
+  return generateMultilingualMetadata({
+    pageKey: 'blog',
+    params,
+    type: 'article',
+    customTitle: articleData.title,
+    customDescription: articleData.description,
+    customKeywords: articleData.tags.join(', '),
+    section: articleData.category,
+    publishedTime: articleData.publishedTime,
+    modifiedTime: articleData.modifiedTime,
+    breadcrumbs,
+    images,
+    tags: articleData.tags,
+    authors: [articleData.author],
+  });
 }

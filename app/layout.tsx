@@ -12,8 +12,10 @@ const inter = Inter({ subsets: ["latin", "vietnamese"] });
 export async function generateMetadata(): Promise<Metadata> {
   const { language } = await getServerLanguage();
   return generateMultilingualMetadata({
-    pageKey: 'site',
+    pageKey: 'site', // Use 'site' for root layout
     params: { lang: language },
+    customTitle: undefined, // Let site metadata handle this
+    customDescription: undefined,
   });
 }
 
