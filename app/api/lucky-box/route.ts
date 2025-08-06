@@ -43,11 +43,7 @@ function cleanExpiredData() {
     luckyBoxResults.delete(key);
   });
   
-  lastCleanup = now;
-  
-  if (expiredKeys.length > 0) {
-    console.log(`Cleaned up ${expiredKeys.length} expired lucky box results`);
-  }
+  lastCleanup = now;  
 }
 
 function getClientIP(request: NextRequest): string {

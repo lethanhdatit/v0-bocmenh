@@ -45,8 +45,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { productId
     // Nếu user không có wishlist trên server (hoặc store rỗng), không có gì để xóa
     serverSideWishlistStore_DELETE_ROUTE[userId] = []
   }
-
-  // console.log(`[API DELETE /wishlist/${productId}] User ${userId} removed ${productId}. Current server wishlist:`, serverSideWishlistStore_DELETE_ROUTE[userId]);
+  
   // Lưu ý: serverSideWishlistStore_DELETE_ROUTE là một store riêng biệt trong file này.
   // Để đồng bộ thực sự, bạn cần một service quản lý state chung.
   // Hiện tại, API POST và GET dùng một store, API DELETE dùng store khác.

@@ -1,7 +1,7 @@
 // Helper for server-side translations with enhanced caching
 import { createInstance, type i18n as I18nInstanceType } from "i18next";
 import resourcesToBackend from "i18next-resources-to-backend";
-import { getLanguage as getServerLanguage } from "@/lib/languageActions";
+import { getLanguage as getServerLanguage } from "@/lib/i18n/server-utils";
 import { 
   getDefaultLanguageConfig,
   getEnabledLanguages,

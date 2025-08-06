@@ -34,10 +34,10 @@ export async function getLanguage(): Promise<{
     // Only consider as "no session" if user has never set language AND we haven't detected
     const hasRealSession = userHasSetLanguage || isDetected
     
-    return { 
-      language, 
+    return {
+      language,
       hasSession: hasRealSession,
-      isDetected 
+      isDetected
     }
   } catch (error) {
     console.error("Failed to get language:", error)

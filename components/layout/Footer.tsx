@@ -2,22 +2,30 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { Globe, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLayoutVisibility } from "@/contexts/LayoutVisibilityContext";
-import { isFeatureComingSoon, isFeatureMaintenance } from "@/lib/features/feature-flags";
-import { ComingSoonNavBadge, MaintenanceNavBadge } from "@/components/features/ComingSoonBadge";
+import {
+  isFeatureComingSoon,
+  isFeatureMaintenance,
+} from "@/lib/features/feature-flags";
+import {
+  ComingSoonNavBadge,
+  MaintenanceNavBadge,
+} from "@/components/features/ComingSoonBadge";
 
 export default function Footer() {
   const { t } = useTranslation();
-  const { 
-    language, 
-    setLanguage, 
+
+  const {
+    language,
+    setLanguage,
     isLoading: langIsLoading,
     availableLanguages,
-    isDetectedLanguage 
+    isDetectedLanguage,
   } = useLanguage();
   const { showFooter } = useLayoutVisibility();
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
@@ -34,9 +42,9 @@ export default function Footer() {
   const currentLang = availableLanguages.find((l) => l.code === language);
   const currentYear = new Date().getFullYear();
 
-  const handleLanguageChange = async (lang: typeof language) => {
+  const handleLanguageChange = (lang: typeof language) => {
     setShowLanguageMenu(false);
-    await setLanguage(lang);
+    setLanguage(lang);
   };
 
   useEffect(() => {
@@ -69,7 +77,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 flex-shrink-0 min-w-0 mb-3">
               <Link
-                href="/"
+                href={"/"}
                 className="flex-shrink-0"
                 aria-label="Bóc Mệnh - Về trang chủ"
               >
@@ -82,7 +90,7 @@ export default function Footer() {
                 />
               </Link>
               <Link
-                href="/"
+                href={"/"}
                 className="flex-shrink-1 min-w-0 overflow-hidden"
                 aria-label="Bóc Mệnh"
               >
@@ -110,30 +118,30 @@ export default function Footer() {
                     <Link
                       href={link.href}
                       className={`hover:text-yellow-500 transition-colors text-sm inline-block pr-16 ${
-                        isDisabled ? 'opacity-60' : ''
+                        isDisabled ? "opacity-60" : ""
                       }`}
                       {...(isDisabled && {
                         onClick: (e) => e.preventDefault(),
-                        'aria-disabled': true,
+                        "aria-disabled": true,
                         className: `text-gray-500 cursor-not-allowed text-sm inline-block pr-16 ${
-                          isDisabled ? 'opacity-60' : ''
+                          isDisabled ? "opacity-60" : ""
                         }`,
                       })}
                     >
                       {t(link.labelKey)}
                     </Link>
                     {isComingSoon && (
-                      <ComingSoonNavBadge 
-                        position="inline-right" 
-                        size="xs" 
+                      <ComingSoonNavBadge
+                        position="inline-right"
+                        size="xs"
                         distance="normal"
                         className="text-xs"
                       />
                     )}
                     {isMaintenance && (
-                      <MaintenanceNavBadge 
-                        position="inline-right" 
-                        size="xs" 
+                      <MaintenanceNavBadge
+                        position="inline-right"
+                        size="xs"
                         distance="normal"
                         className="text-xs"
                       />
@@ -157,30 +165,30 @@ export default function Footer() {
                     <Link
                       href={link.href}
                       className={`hover:text-yellow-500 transition-colors text-sm inline-block pr-16 ${
-                        isDisabled ? 'opacity-60' : ''
+                        isDisabled ? "opacity-60" : ""
                       }`}
                       {...(isDisabled && {
                         onClick: (e) => e.preventDefault(),
-                        'aria-disabled': true,
+                        "aria-disabled": true,
                         className: `text-gray-500 cursor-not-allowed text-sm inline-block pr-16 ${
-                          isDisabled ? 'opacity-60' : ''
+                          isDisabled ? "opacity-60" : ""
                         }`,
                       })}
                     >
                       {t(link.labelKey)}
                     </Link>
                     {isComingSoon && (
-                      <ComingSoonNavBadge 
-                        position="inline-right" 
-                        size="xs" 
+                      <ComingSoonNavBadge
+                        position="inline-right"
+                        size="xs"
                         distance="normal"
                         className="text-xs"
                       />
                     )}
                     {isMaintenance && (
-                      <MaintenanceNavBadge 
-                        position="inline-right" 
-                        size="xs" 
+                      <MaintenanceNavBadge
+                        position="inline-right"
+                        size="xs"
                         distance="normal"
                         className="text-xs"
                       />
