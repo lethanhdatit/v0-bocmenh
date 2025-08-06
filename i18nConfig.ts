@@ -22,9 +22,9 @@ const i18nConfig: Config = {
   locales: LOCALES,
   defaultLocale: fallbackLng,
   
-  // Sử dụng built-in locale detector với custom logic
+  // Cải thiện locale detector
   localeDetector: (request, config) => {
-    // Kiểm tra cookie NEXT_LOCALE trước
+    // 1. Kiểm tra cookie NEXT_LOCALE trước (highest priority)
     const nextLocaleCookie = request.cookies.get('NEXT_LOCALE')?.value;
     if (nextLocaleCookie && config.locales.includes(nextLocaleCookie)) {
       return nextLocaleCookie;
@@ -33,10 +33,13 @@ const i18nConfig: Config = {
     return detectBrowserLanguage(request);
   },
   
-  // Tuỳ chọn thêm:
+  // Improved settings
   prefixDefault: false, // false = /about thay vì /vi/about cho default locale
   basePath: '', // Nếu app deploy ở subdirectory
   serverSetCookie: 'always', // Luôn set NEXT_LOCALE cookie
+  
+  // Add segment validation
+  // skipTrailingSlashRedirect: true,
 };
 
 export default i18nConfig;
