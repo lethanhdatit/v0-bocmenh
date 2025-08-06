@@ -19,7 +19,7 @@ const nextConfig = {
         hostname: '**',
       },
       {
-        protocol: 'http',
+        protocol: 'http', 
         hostname: 'localhost',
         port: '3000',
       },
@@ -28,6 +28,12 @@ const nextConfig = {
     minimumCacheTTL: 31536000, // 1 year
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Fix for SVG on production
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Disable image optimization for SVGs to prevent encoding issues
+    unoptimized: false,
+    loader: 'default',
   },
   
   // Webpack optimizations
@@ -142,7 +148,7 @@ const nextConfig = {
   // Performance optimizations
   experimental: {
     serverActions: {
-      allowedOrigins: ["localhost:3000"],
+      allowedOrigins: ["localhost:3000", "bocmenh.com"],
     },
     
     // Enable SWC minifier for better performance
@@ -196,6 +202,20 @@ const nextConfig = {
           },
         ],
       },
+      // Fix for SVG images
+      {
+        source: '/placeholder.svg',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'image/svg+xml',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
     ];
   },
   
@@ -212,5 +232,3 @@ const nextConfig = {
 };
 
 module.exports = withBundleAnalyzer(nextConfig);
-
-module.exports = nextConfig;

@@ -48,7 +48,7 @@ export const crystalsDatabase: Crystal[] = [
     meditationVi: "Cầm thạch anh tím khi thiền để tăng cường kết nối tâm linh và bình an nội tâm.",
     placement: "Place in bedroom for better sleep, or in meditation space for spiritual growth.",
     placementVi: "Đặt trong phòng ngủ để ngủ ngon hơn, hoặc trong không gian thiền để phát triển tâm linh.",
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/placeholder.svg",
   },
   {
     id: "rose-quartz",
@@ -68,7 +68,7 @@ export const crystalsDatabase: Crystal[] = [
     meditationVi: "Đặt lên luân xa tim khi thiền để mở lòng với tình yêu và sự chữa lành.",
     placement: "Keep in bedroom or living room to promote love and harmony in relationships.",
     placementVi: "Giữ trong phòng ngủ hoặc phòng khách để thúc đẩy tình yêu và hòa hợp trong các mối quan hệ.",
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/placeholder.svg",
   },
   {
     id: "clear-quartz",
@@ -93,7 +93,7 @@ export const crystalsDatabase: Crystal[] = [
     meditationVi: "Bậc thầy chữa lành - sử dụng để khuếch đại ý định và kết nối với ý thức cao hơn.",
     placement: "Place anywhere to cleanse and energize the space. Perfect for crystal grids.",
     placementVi: "Đặt ở bất kỳ đâu để làm sạch và tạo năng lượng cho không gian. Hoàn hảo cho lưới pha lê.",
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/placeholder.svg",
   },
   {
     id: "black-tourmaline",
@@ -113,7 +113,7 @@ export const crystalsDatabase: Crystal[] = [
     meditationVi: "Cầm khi thiền để cảm thấy được nối đất và được bảo vệ khỏi những ảnh hưởng tiêu cực.",
     placement: "Place near electronics or entrance to protect from negative energy and EMF.",
     placementVi: "Đặt gần thiết bị điện tử hoặc lối vào để bảo vệ khỏi năng lượng tiêu cực và sóng điện từ.",
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/placeholder.svg",
   },
   {
     id: "citrine",
@@ -133,7 +133,7 @@ export const crystalsDatabase: Crystal[] = [
     meditationVi: "Thiền với thạch anh vàng để hiện thực hóa sự thịnh vượng và tăng cường sức mạnh cá nhân.",
     placement: "Place in wealth corner (southeast) or workspace to attract prosperity.",
     placementVi: "Đặt ở góc tài lộc (hướng đông nam) hoặc nơi làm việc để thu hút thịnh vượng.",
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/placeholder.svg",
   },
   {
     id: "labradorite",
@@ -153,7 +153,7 @@ export const crystalsDatabase: Crystal[] = [
     meditationVi: "Sử dụng khi thiền để tăng cường trực giác và kết nối với phép thuật bên trong.",
     placement: "Keep in meditation space or wear as jewelry for daily protection and intuition.",
     placementVi: "Giữ trong không gian thiền hoặc đeo như trang sức để bảo vệ và trực giác hàng ngày.",
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/placeholder.svg",
   },
 ]
 
