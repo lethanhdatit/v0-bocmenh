@@ -152,6 +152,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     }
   }, [params?.lang, language])
 
+  // Sync html lang attribute with current language
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = language;
+    }
+  }, [language])
+
   // Initialize i18n
   useEffect(() => {
     const initializeI18n = async () => {

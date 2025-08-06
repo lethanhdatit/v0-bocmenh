@@ -20,9 +20,14 @@ export const config = {
     // Match tất cả paths NGOẠI TRỪ:
     // - API routes (/api/*)
     // - Next.js internal files (_next/*)
-    // - Static files
+    // - Static files và assets
     // - Public files
-    // - Favicon và các file thường gặp
-    '/((?!api|_next|static|public|favicon\\.ico|robots\\.txt|sitemap\\.xml|manifest\\.json|.*\\.(?:ico|svg|png|jpg|jpeg|webp|js|css|map|json|xml|txt)$).*)',
+    // - Well-known files
+    // - Manifest files
+    // - Service worker và loading files
+    // - File extensions thường gặp
+    '/((?!api|_next|static|public|assets|\\.well-known|wp-content|wp-admin|wp-includes|fonts|i18n|redirect|favicon\\.ico|favicon\\.svg|sw\\.js|loading-animation\\.html|manifest\\.webmanifest|site\\.webmanifest$)(?!.*\\.(?:ico|svg|png|jpg|jpeg|webp|js|css|map|json|xml|txt|php)$).*)',
+    // Match với locale prefix
+    '/:locale((?!api|_next|static|public|assets|\\.well-known|wp-content|wp-admin|wp-includes|fonts|redirect|i18n|favicon\\.ico|favicon\\.svg|sw\\.js|loading-animation\\.html|manifest\\.webmanifest|site\\.webmanifest$)(?!.*\\.(?:ico|svg|png|jpg|jpeg|webp|js|css|map|json|xml|txt|php)$).*)',
   ],
 };

@@ -13,7 +13,7 @@ export const metadata: Metadata = createSEOMetadata({
   canonicalUrl: "/",
   alternateLanguages: {
     vi: `/`,
-    en: `/`,
+    en: `/en`,
   },
 })
 
