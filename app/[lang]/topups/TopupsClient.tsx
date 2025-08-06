@@ -371,7 +371,7 @@ export default function TopupsClient({
                     />
                     {gate.icon && (
                       <Image
-                        src={gate.icon || "/placeholder.svg"}
+                        src={`/${gate.icon}` || "/placeholder.svg"}
                         alt={gate.name}
                         width={64}
                         height={18}

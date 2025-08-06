@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { getDefaultLanguageConfig } from '@/lib/i18n/language-config'
+import { getDefaultLanguageConfig, getEnabledLanguages } from '@/lib/i18n/language-config'
 import { cookies } from 'next/headers'
 
 // Manifest configurations for different languages
@@ -81,7 +81,8 @@ export default function manifest(): MetadataRoute.Manifest {
   const cookieStore = cookies()
   const langCookie = cookieStore.get('NEXT_LOCALE')
   const defaultLang = getDefaultLanguageConfig()
-  const currentLang = langCookie?.value && ['vi', 'en'].includes(langCookie.value) 
+  const enabledLanguages = getEnabledLanguages()
+  const currentLang = langCookie?.value && enabledLanguages.map(l => l.code).includes(langCookie.value)
     ? langCookie.value as keyof typeof manifestConfigs
     : defaultLang.code as keyof typeof manifestConfigs
 
