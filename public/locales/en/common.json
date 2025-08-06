@@ -5,6 +5,7 @@
     "cardVAT": "(Included VAT <b>{{vatRate}}%</b>)",
     "cardNotVAT": "(Not including VAT <b>{{vatRate}}%</b>)",
     "discountDirect": "off",
+    "discountPercent": "extra off",
     "bonusDirect": "bonus",
     "bonusPercent": "extra bonus",
     "title": "Top-up Fates - Boc Menh",

@@ -9,160 +9,61 @@ import {
 } from "@/components/ui/card";
 import { getTranslations } from "@/i18n/server";
 import DestinyResultClient from "./DestinyResultClient";
-import { createSEOMetadata } from "@/lib/seo/metadata";
+import { generateMultilingualMetadata, generateMultilingualStructuredData } from "@/lib/seo/seo-helpers";
 import { getBaseUrl } from "@/lib/infra/utils";
 
 export const dynamic = "force-dynamic";
 
+interface DestinyPageProps {
+  params: { lang: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
 export async function generateMetadata({
   searchParams,
-  params: { locale },
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-  params: { locale: string };
-}): Promise<Metadata> {
-  const { t } = await getTranslations(["common"]);
+  params,
+}: DestinyPageProps): Promise<Metadata> {
   const baseUrl = getBaseUrl();
-
   const id = searchParams?.id as string;
   const name = searchParams?.name as string;
 
   if (id && name) {
-    return createSEOMetadata({
-      title: `Vận Mệnh Của ${name} - Bóc Mệnh | Phân Tích Chi Tiết Số Mệnh`,
-      description: `🔮 Khám phá vận mệnh chi tiết của ${name} qua AI huyền học. Phân tích tính cách, sự nghiệp, tình yêu, tài lộc và lời khuyên phong thủy cá nhân hóa.`,
-      keywords: `vận mệnh ${name}, bóc mệnh cá nhân, phân tích số mệnh, bát tự ${name}, AI huyền học, khám phá bản thân`,
-      ogImage: "/og-destiny-result.jpg",
-      canonicalUrl: `${baseUrl}/destiny?id=${id}`,
-      alternateLanguages: {
-        vi: `${baseUrl}/destiny?id=${id}`,
-        en: `${baseUrl}/destiny?id=${id}`,
+    // Dynamic metadata for specific destiny result
+    const { t } = await getTranslations(["common"]);
+    return {
+      title: `${t('common:seo.destiny.resultTitle', { name })} - Bóc Mệnh`,
+      description: `${t('common:seo.destiny.resultDescription', { name })}`,
+      openGraph: {
+        title: `${t('common:seo.destiny.resultTitle', { name })} - Bóc Mệnh`,
+        description: `${t('common:seo.destiny.resultDescription', { name })}`,
+        url: `${baseUrl}/destiny?id=${id}`,
       },
-    });
+      alternates: {
+        canonical: `${baseUrl}/destiny?id=${id}`,
+      },
+    };
   }
 
-  return createSEOMetadata({
-    title: "Bóc Mệnh Cá Nhân - AI Phân Tích Vận Mệnh Qua Ngày Sinh | Bóc Mệnh",
-    description: "🌟 Khám phá vận mệnh của bạn với AI huyền học chính xác nhất! Nhập thông tin để nhận phân tích chi tiết về tính cách, sự nghiệp, tình yêu, tài lộc và lời khuyên phong thủy.",
-    keywords: "bóc mệnh cá nhân, xem vận mệnh, AI huyền học, phân tích ngày sinh, bát tự online, khám phá bản thân, số mệnh cá nhân, phong thủy cá nhân",
-    ogImage: "/og-destiny.jpg",
-    canonicalUrl: `${baseUrl}/destiny`,
-    alternateLanguages: {
-      vi: `${baseUrl}/destiny`,
-      en: `${baseUrl}/destiny`,
-    },
+  return generateMultilingualMetadata({
+    pageKey: 'destiny',
+    params,
   });
-}
-
-// async function getRecommendedProductsForDestiny(
-//   destiny: DestinyResult | null
-// ): Promise<Product[]> {
-//   const { t } = await getTranslations(["common", "attributes"]);
-//   if (!destiny?.success || !destiny.data) {
-//     return [];
-//   }
-
-//   const elementToMatch = destiny.element?.toLowerCase();
-//   const allProducts = await getProducts(); // Assuming getProducts can be filtered or fetches all
-
-//   if (elementToMatch) {
-//     const translatedElementKey = `attributes.mệnh.${destiny.element}`; // e.g. attributes.mệnh.Kim
-//     const translatedElement = t(
-//       translatedElementKey,
-//       destiny.element as string
-//     ); // Fallback to original if no translation
-
-//     const filteredByElement = allProducts.filter(
-//       (p) =>
-//         p.attributes.some(
-//           (attr) =>
-//             attr.type === "mệnh" &&
-//             (attr.value.toLowerCase() === elementToMatch ||
-//               t(`attributes.mệnh.${attr.value}`, attr.value).toLowerCase() ===
-//                 translatedElement.toLowerCase())
-//         ) ||
-//         p.categories.some((cat) => cat.toLowerCase().includes(elementToMatch!))
-//     );
-//     if (filteredByElement.length > 0) return filteredByElement.slice(0, 3);
-//   }
-
-//   const fallbackCategories = [
-//     t("attributes.mục đích.Bình An"),
-//     t("attributes.mục đích.May Mắn"),
-//     t("attributes.mục đích.Tài Lộc"),
-//   ];
-//   const fallbackProducts = allProducts.filter((p) =>
-//     p.categories.some((cat) => fallbackCategories.includes(cat))
-//   );
-//   return fallbackProducts.slice(0, 3);
-// }
-
-interface DestinyResult {
-  id: string;
-  result: string;
-  input: any;
-  preData: any;
 }
 
 export default async function DestinyPage({
   searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+  params,
+}: DestinyPageProps) {
   const { t } = await getTranslations(["common"]);
-  const baseUrl = getBaseUrl();
-
   const id = searchParams?.id as string | undefined;
-
-  // Structured data cho trang destiny
-  const destinyStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: id ? "Kết Quả Bóc Mệnh Cá Nhân" : "Bóc Mệnh Cá Nhân",
-    description: id ? "Xem kết quả phân tích vận mệnh chi tiết" : "Khám phá vận mệnh của bạn với AI huyền học",
-    url: `${baseUrl}/destiny${id ? `?id=${id}` : ''}`,
-    mainEntity: {
-      "@type": "Service",
-      name: "Dịch vụ Bóc Mệnh Cá Nhân",
-      description: "Phân tích vận mệnh, tính cách và tương lai qua ngày sinh với AI",
-      provider: {
-        "@type": "Organization",
-        name: "Bóc Mệnh"
-      },
-      serviceType: "Fortune Telling",
-      areaServed: "VN",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "VND",
-        description: "Dịch vụ bóc mệnh miễn phí cơ bản"
-      }
-    },
-    breadcrumb: {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Trang chủ",
-          item: baseUrl,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Bóc Mệnh",
-          item: `${baseUrl}/destiny`,
-        },
-      ],
-    },
-  };
+  const structuredData = await generateMultilingualStructuredData('destiny', params);
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(destinyStructuredData),
+          __html: JSON.stringify(structuredData),
         }}
       />
       <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-gray-950 via-slate-900 text-gray-100">

@@ -1,11 +1,32 @@
 import { Metadata } from "next";
 import ServicesHistoryClient from "./ServicesHistoryClient";
+import { generateMultilingualMetadata, generateMultilingualStructuredData } from "@/lib/seo/seo-helpers"
 
-export const metadata: Metadata = {
-  title: "Lịch sử dịch vụ | Insight",
-  description: "Xem lịch sử sử dụng các dịch vụ của bạn",
-};
+interface ServicesHistoryPageProps {
+  params: {
+    lang: string
+  }
+}
 
-export default function ServicesHistoryPage() {
-  return <ServicesHistoryClient />;
+export async function generateMetadata({ params }: ServicesHistoryPageProps): Promise<Metadata> {
+  return generateMultilingualMetadata({
+    pageKey: 'services-history',
+    params
+  });
+}
+
+export default async function ServicesHistoryPage({ params }: ServicesHistoryPageProps) {
+  const structuredData = await generateMultilingualStructuredData('services-history', params);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
+      <ServicesHistoryClient />
+    </>
+  );
 }

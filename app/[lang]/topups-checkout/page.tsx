@@ -1,26 +1,12 @@
 import type { Metadata } from "next";
 import TopupsCheckoutClient from "./TopupsCheckoutClient";
-import { createSEOMetadata } from "@/lib/seo/metadata";
+import { generateMultilingualMetadata, generateMultilingualStructuredData } from "@/lib/seo/seo-helpers";
 import { getTranslations } from "@/i18n/server";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return createSEOMetadata({
-    title: "Thanh Toán Điểm Duyên - Checkout An Toàn | Bóc Mệnh",
-    description:
-      "🛒 Hoàn tất thanh toán gói điểm duyên với hệ thống bảo mật cao. Hỗ trợ Paypal, VietQR, Banking, Visa. Giao dịch nhanh chóng, an toàn và đáng tin cậy.",
-    keywords:
-      "thanh toán điểm duyên, checkout bóc mệnh, vietqr, paypal payment, banking vietnam, visa checkout, giao dịch an toàn, payment gateway",
-    ogImage: "/imgs/checkout-og.jpg",
-    canonicalUrl: "/topups-checkout",
-    alternateLanguages: {
-      vi: `/topups-checkout`,
-      en: `/topups-checkout`,
-    },
-    noindex: true, // Không index trang checkout
-  });
-}
-
 interface TopupsCheckoutPageProps {
+  params: {
+    lang: string
+  }
   searchParams: {
     transId?: string;
     cancel?: string;
@@ -30,33 +16,17 @@ interface TopupsCheckoutPageProps {
   };
 }
 
-export default async function TopupsCheckoutPage({
-  searchParams,
-}: TopupsCheckoutPageProps) {
-  const { transId, cancel, miniMode, showContinuePayment, autoClose } =
-    searchParams;
-  const { t } = await getTranslations("common");
+export async function generateMetadata({ params }: TopupsCheckoutPageProps): Promise<Metadata> {
+  return generateMultilingualMetadata({
+    pageKey: 'topups-checkout',
+    params
+  });
+}
 
-  // Structured data cho trang checkout
-  const checkoutStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "CheckoutPage",
-    name: "Thanh Toán Điểm Duyên",
-    description: "Trang thanh toán an toàn cho việc mua điểm duyên",
-    paymentAccepted: [
-      "VietQR",
-      "PayPal",
-      "Credit Card",
-      "Banking",
-      "Digital Wallet",
-    ],
-    currenciesAccepted: "VND",
-    provider: {
-      "@type": "Organization",
-      name: "Bóc Mệnh",
-      url: "https://bocmenh.com",
-    },
-  };
+export default async function TopupsCheckoutPage({ params, searchParams }: TopupsCheckoutPageProps) {
+  const structuredData = await generateMultilingualStructuredData('topups-checkout', params);
+  const { transId, cancel, miniMode, showContinuePayment, autoClose } = searchParams;
+  const { t } = await getTranslations("common");
 
   if (!transId) {
     return (
@@ -64,7 +34,7 @@ export default async function TopupsCheckoutPage({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(checkoutStructuredData),
+            __html: JSON.stringify(structuredData),
           }}
         />
         <div className="min-h-screen flex items-center justify-center bg-oriental-bg bg-cover bg-center text-foreground">
@@ -86,7 +56,7 @@ export default async function TopupsCheckoutPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(checkoutStructuredData),
+          __html: JSON.stringify(structuredData),
         }}
       />
       <div className="min-h-screen flex items-center justify-center bg-oriental-bg bg-cover bg-center text-foreground">

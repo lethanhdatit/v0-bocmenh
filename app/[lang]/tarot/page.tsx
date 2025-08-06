@@ -3,67 +3,24 @@ import { getBaseUrl } from "@/lib/infra/utils"
 import { getFeatureConfig } from "@/lib/features/feature-flags"
 import { ComingSoonPage } from "@/components/features/ComingSoonPage"
 import TarotForm from "@/components/forms/TarotForm"
-import { createSEOMetadata } from "@/lib/seo/metadata"
+import { generateMultilingualMetadata, generateMultilingualStructuredData } from "@/lib/seo/seo-helpers"
 
-const baseUrl = getBaseUrl();
+interface TarotPageProps {
+  params: {
+    lang: string
+  }
+}
 
-export const metadata: Metadata = createSEOMetadata({
-  title: "Bói Bài Tarot Online - Khám Phá Tương Lai Với AI Tarot | Bóc Mệnh",
-  description: "🔮 Rút bài Tarot AI để khám phá tương lai, tình yêu, sự nghiệp chính xác nhất. Giải mã thông điệp từ vũ trụ với 78 lá bài Tarot mystical. Bói bài online miễn phí.",
-  keywords: "bói tarot online, rút bài tarot, AI tarot, bói bài mystical, tương lai, tình yêu, sự nghiệp, tarot reading, lá bài tarot, huyền học tarot",
-  ogImage: "/og-tarot.jpg",
-  canonicalUrl: "/tarot",
-  alternateLanguages: {
-    vi: `/tarot`,
-    en: `/tarot`,
-  },
-})
+export async function generateMetadata({ params }: TarotPageProps): Promise<Metadata> {
+  return generateMultilingualMetadata({
+    pageKey: 'tarot',
+    params
+  });
+}
 
-export default function TarotPage() {
+export default async function TarotPage({ params }: TarotPageProps) {
+  const structuredData = await generateMultilingualStructuredData('tarot', params);
   const featureConfig = getFeatureConfig('/tarot');
-  
-  // Structured data cho trang tarot
-  const tarotStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: "Bói Bài Tarot",
-    description: "Dịch vụ bói bài Tarot online với AI",
-    url: `${baseUrl}/tarot`,
-    mainEntity: {
-      "@type": "Service",
-      name: "Dịch vụ Bói Tarot AI",
-      description: "Rút bài Tarot và giải mã thông điệp từ vũ trụ",
-      provider: {
-        "@type": "Organization",
-        name: "Bóc Mệnh"
-      },
-      serviceType: "Tarot Reading",
-      areaServed: "VN",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "VND",
-        description: "Dịch vụ bói Tarot miễn phí"
-      }
-    },
-    breadcrumb: {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Trang chủ",
-          item: baseUrl,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Bói Tarot",
-          item: `${baseUrl}/tarot`,
-        },
-      ],
-    },
-  };
 
   // Nếu feature coming soon, hiển thị coming soon page
   if (featureConfig?.status === 'coming-soon') {
@@ -72,7 +29,7 @@ export default function TarotPage() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(tarotStructuredData),
+            __html: JSON.stringify(structuredData),
           }}
         />
         <ComingSoonPage 
@@ -89,7 +46,7 @@ export default function TarotPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(tarotStructuredData),
+          __html: JSON.stringify(structuredData),
         }}
       />
       <main className="min-h-screen pt-20 pb-12">

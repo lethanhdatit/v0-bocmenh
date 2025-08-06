@@ -1,145 +1,32 @@
 import type { Metadata } from "next"
-import { createSEOMetadata } from "@/lib/seo/metadata"
 import BusinessNameForm from "@/components/forms/BusinessNameForm"
+import { generateMultilingualMetadata, generateMultilingualStructuredData } from "@/lib/seo/seo-helpers"
 
-export async function generateMetadata(): Promise<Metadata> {
-  return createSEOMetadata({
-    title: "Phân Tích Tên Doanh Nghiệp - Thần Số Học Kinh Doanh | Bóc Mệnh",
-    description: "Phân tích tên doanh nghiệp theo thần số học miễn phí. Khám phá năng lượng cốt lõi, tiềm năng thành công và chiến lược phát triển tối ưu cho công ty của bạn.",
-    keywords: "phân tích tên doanh nghiệp, thần số học kinh doanh, tên công ty, phong thủy doanh nghiệp, số định mệnh công ty, marketing thần số học, chiến lược kinh doanh, thần số học vietnam, business numerology",
-    ogImage: "/imgs/business-name-og.jpg",
-    canonicalUrl: "/business-name",
-     alternateLanguages: {
-      vi: `/business-name`,
-      en: `/business-name`,
-    },
-  })
+interface BusinessNamePageProps {
+  params: { lang: string };
 }
 
-export default function BusinessNamePage() {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Service",
-        "@id": "https://bocmenh.com/business-name#service",
-        "name": "Phân Tích Tên Doanh Nghiệp",
-        "description": "Dịch vụ phân tích tên doanh nghiệp theo thần số học, đánh giá tiềm năng kinh doanh và tư vấn chiến lược phát triển",
-        "provider": {
-          "@type": "Organization",
-          "name": "Bóc Mệnh",
-          "url": "https://bocmenh.com"
-        },
-        "serviceType": "Business Name Analysis",
-        "areaServed": "Vietnam",
-        "availableLanguage": ["vi", "en", "zh"],
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "VND",
-          "description": "Phân tích tên doanh nghiệp miễn phí với AI"
-        },
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Dịch Vụ Phân Tích Doanh Nghiệp",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Phân Tích Số Định Mệnh Công Ty",
-                "description": "Tính toán và giải thích số định mệnh của doanh nghiệp"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Tư Vấn Chiến Lược Marketing",
-                "description": "Đưa ra lời khuyên marketing phù hợp với đặc tính thần số học"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Dự Báo Tiềm Năng Thành Công",
-                "description": "Đánh giá khả năng phát triển và thách thức của doanh nghiệp"
-              }
-            }
-          ]
-        }
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://bocmenh.com/business-name",
-        "name": "Phân Tích Tên Doanh Nghiệp - Thần Số Học Kinh Doanh",
-        "description": "Trang phân tích tên doanh nghiệp theo thần số học, tư vấn chiến lược kinh doanh và marketing",
-        "url": "https://bocmenh.com/business-name",
-        "inLanguage": "vi",
-        "isPartOf": {
-          "@type": "WebSite",
-          "name": "Bóc Mệnh",
-          "url": "https://bocmenh.com"
-        },
-        "breadcrumb": {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Trang Chủ",
-              "item": "https://bocmenh.com"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Phân Tích Tên Doanh Nghiệp",
-              "item": "https://bocmenh.com/business-name"
-            }
-          ]
-        },
-        "mainEntity": {
-          "@id": "https://bocmenh.com/business-name#service"
-        }
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Phân tích tên doanh nghiệp theo thần số học có hiệu quả không?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Thần số học đã được sử dụng trong kinh doanh hàng ngàn năm. Việc phân tích tên doanh nghiệp giúp hiểu rõ năng lượng cốt lõi và định hướng chiến lược phù hợp."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Những yếu tố nào được phân tích trong tên doanh nghiệp?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Chúng tôi phân tích Số Định Mệnh, Số Cá Tính, Số Linh Hồn của tên công ty, cùng với tương tác giữa các con số này để đưa ra lời khuyên toàn diện."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Có cần cung cấp ngày sinh chủ doanh nghiệp không?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Ngày sinh chủ doanh nghiệp là thông tin tùy chọn nhưng sẽ giúp phân tích chính xác hơn về sự tương thích giữa người lãnh đạo và doanh nghiệp."
-            }
-          }
-        ]
-      }
-    ]
-  }
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: string };
+}): Promise<Metadata> {
+  return generateMultilingualMetadata({
+    pageKey: 'business-name',
+    params,
+  });
+}
+
+export default async function BusinessNamePage({ params }: BusinessNamePageProps) {
+  const structuredData = await generateMultilingualStructuredData('business-name', params);
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
       />
       <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-indigo-100">
         <div className="container mx-auto px-4 py-8">

@@ -1,72 +1,29 @@
 import type { Metadata } from "next"
 import NumerologyForm from "@/components/forms/NumerologyForm"
-import { getBaseUrl } from "@/lib/infra/utils"
-import { createSEOMetadata } from "@/lib/seo/metadata"
+import { generateMultilingualMetadata, generateMultilingualStructuredData } from "@/lib/seo/seo-helpers"
 
-const baseUrl = getBaseUrl();
+interface NumerologyPageProps {
+  params: {
+    lang: string
+  }
+}
 
-export const metadata: Metadata = createSEOMetadata({
-  title: "Thần Số Học - Khám Phá Bí Mật Cuộc Đời Qua Con Số | Numerology Online",
-  description: "🔢 Phân tích thần số học AI dựa trên tên và ngày sinh. Khám phá số đường đời, số định mệnh, số linh hồn, số may mắn và dự báo tương lai chính xác nhất.",
-  keywords: "thần số học, numerology, số đường đời, số định mệnh, số linh hồn, số cá tính, số may mắn, phân tích tên, chu kỳ cá nhân, AI thần số",
-  ogImage: "/og-numerology.jpg",
-  canonicalUrl: "/numerology",
-  alternateLanguages: {
-    vi: `/numerology`,
-    en: `/numerology`,
-  },
-})
+export async function generateMetadata({ params }: NumerologyPageProps): Promise<Metadata> {
+  return generateMultilingualMetadata({
+    pageKey: 'numerology',
+    params
+  });
+}
 
-export default function NumerologyPage() {
-  // Structured data cho trang thần số học
-  const numerologyStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: "Thần Số Học",
-    description: "Dịch vụ phân tích thần số học online",
-    url: `${baseUrl}/numerology`,
-    mainEntity: {
-      "@type": "Service",
-      name: "Dịch vụ Thần Số Học",
-      description: "Phân tích số đường đời, số định mệnh và các con số quan trọng trong cuộc đời",
-      provider: {
-        "@type": "Organization",
-        name: "Bóc Mệnh"
-      },
-      serviceType: "Numerology",
-      areaServed: "VN",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "VND",
-        description: "Dịch vụ thần số học miễn phí"
-      }
-    },
-    breadcrumb: {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Trang chủ",
-          item: baseUrl,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Thần Số Học",
-          item: `${baseUrl}/numerology`,
-        },
-      ],
-    },
-  };
+export default async function NumerologyPage({ params }: NumerologyPageProps) {
+  const structuredData = await generateMultilingualStructuredData('numerology', params);
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(numerologyStructuredData),
+          __html: JSON.stringify(structuredData),
         }}
       />
       <main className="min-h-screen pt-20 pb-12">
