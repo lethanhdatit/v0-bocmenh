@@ -1,10 +1,13 @@
-import type { Metadata } from "next"
-import ContactPageClient from "./ContactPageClient"
-import { generateMultilingualMetadata, generateMultilingualStructuredData } from "@/lib/seo/seo-helpers"
+import type { Metadata } from "next";
+import ContactPageClient from "./ContactPageClient";
+import { generateMultilingualMetadata } from "@/lib/seo/seo-helpers";
+import { getBaseUrl } from "@/lib/infra/utils";
 
 interface ContactPageProps {
   params: { lang: string };
 }
+
+const baseUrl = getBaseUrl();
 
 export async function generateMetadata({
   params,
@@ -12,7 +15,7 @@ export async function generateMetadata({
   params: { lang: string };
 }): Promise<Metadata> {
   return generateMultilingualMetadata({
-    pageKey: 'contact',
+    pageKey: "contact",
     params,
   });
 }
@@ -36,21 +39,21 @@ export default function ContactPage() {
           areaServed: "VN",
           availableLanguage: ["Vietnamese", "English"],
           telephone: "+84-xxx-xxx-xxx",
-          email: "support@bocmenh.com"
+          email: "support@bocmenh.com",
         },
         {
-          "@type": "ContactPoint", 
+          "@type": "ContactPoint",
           contactType: "sales",
           areaServed: "VN",
           availableLanguage: ["Vietnamese"],
-          email: "sales@bocmenh.com"
-        }
+          email: "sales@bocmenh.com",
+        },
       ],
       sameAs: [
         "https://facebook.com/bocmenh",
         "https://youtube.com/bocmenh",
-        "https://zalo.me/bocmenh"
-      ]
+        "https://zalo.me/bocmenh",
+      ],
     },
     breadcrumb: {
       "@type": "BreadcrumbList",
@@ -81,5 +84,5 @@ export default function ContactPage() {
       />
       <ContactPageClient />
     </>
-  )
+  );
 }
