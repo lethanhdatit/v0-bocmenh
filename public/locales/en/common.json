@@ -459,6 +459,21 @@
     "message": "Message",
     "tryAgain": "Try again tomorrow",
     "alreadyOpened": "You've already opened today's lucky box",
+    "page": {
+      "title": "Lucky Box",
+      "heroDescription": "Unlock your fortune with the mystical gift box. Each opening brings a special message and lucky number crafted just for you.",
+      "howItWorks": {
+        "title": "How It Works?",
+        "step1": "Click on the mystical gift box to unlock",
+        "step2": "Receive your lucky number and special message",
+        "step3": "Use the number and guidance in your daily life"
+      },
+      "specialMeaning": {
+        "title": "Special Meaning",
+        "description1": "Each lucky number is generated based on cosmic energy at the moment you open the box. The accompanying message will guide you on how to use this energy positively.",
+        "description2": "The gift box can only be opened once per day, ensuring that each experience is special and meaningful for your personal journey."
+      }
+    },
     "messages": [
       "Today brings positive signs for you. Perhaps this is a good time to explore Four Pillars to better understand yourself. What's hidden in your birth date might reveal many interesting things.",
       "The space around you is experiencing gentle transformations. Have you ever been curious about feng shui in your home? Sometimes small adjustments can bring a more comfortable feeling.",

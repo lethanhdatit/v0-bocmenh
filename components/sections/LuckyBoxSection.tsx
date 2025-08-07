@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Gift, Sparkles, Star } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { apiClient } from "@/lib/api/apiClient";
+import { isFeatureComingSoon, isFeatureMaintenance } from "@/lib/features/feature-flags";
+import LuckyBox from "@/components/common/LuckyBox";
 
 export default function LuckyBoxSection() {
   const { t } = useTranslation();
@@ -15,8 +16,13 @@ export default function LuckyBoxSection() {
   const [isFirstTime, setIsFirstTime] = useState(true);
   const [statusMessage, setStatusMessage] = useState<string>("");
 
+  // Feature flags check
+  const isLuckyBoxComingSoon = isFeatureComingSoon('/luckybox');
+  const isLuckyBoxMaintenance = isFeatureMaintenance('/luckybox');
+  const isLuckyBoxDisabled = isLuckyBoxComingSoon || isLuckyBoxMaintenance;
+
   const openLuckyBox = async () => {
-    if (isOpened || isLoading) {
+    if (isOpened || isLoading || isLuckyBoxDisabled) {
       return;
     }
 
@@ -76,151 +82,52 @@ export default function LuckyBoxSection() {
   return (
     <section className="py-20 px-4">
       <div className="max-w-4xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-yellow-500 to-amber-500 bg-clip-text text-transparent  tracking-wide">
-            {t("luckyBox.title")}
-          </h2>
-          <p className="text-xl text-gray-300 mb-12 font-light italic">
-            {t("luckyBox.description")}
-          </p>
-        </motion.div>
+        {/* Section header with status badge */}
+        <div className="relative">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-yellow-500 to-amber-500 bg-clip-text text-transparent  tracking-wide">
+              {t("luckyBox.title")}
+            </h2>
+            <p className="text-xl text-gray-300 mb-12 font-light italic">
+              {t("luckyBox.description")}
+            </p>
+          </motion.div>
+
+          {/* Status message for section header */}
+          {(isLuckyBoxComingSoon || isLuckyBoxMaintenance) && (
+            <div className="flex justify-center mt-4 mb-8">
+              <div className="bg-yellow-500/20 backdrop-blur-sm rounded-lg px-4 py-2 border border-yellow-400/30">
+                <span className="text-yellow-300 text-sm font-medium">
+                  {isLuckyBoxComingSoon ? t("comingSoon.title") : t("maintenance.title")}
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
 
         <div
           id="luckybox-section"
-          className="relative h-96 flex items-center justify-center overflow-hidden"
+          className={`relative min-h-[280px] sm:min-h-[320px] md:min-h-[400px] flex items-center justify-center px-4 transition-opacity duration-300 ${
+            isLuckyBoxDisabled ? "opacity-60" : "opacity-100"
+          }`}
           style={{ contain: 'layout style' }}
         >
           <AnimatePresence mode="wait">
             {!isOpened ? (
-              <motion.div
-                key="box"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.3 } }}
-                className="absolute cursor-pointer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => {
-                  openLuckyBox();
-                }}
-                style={{ 
-                  willChange: 'transform',
-                  transformOrigin: 'center'
-                }}
-              >
-                <div className="relative">
-                  {/* Mystical Aura */}
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.1, 1],
-                      opacity: [0.3, 0.6, 0.3],
-                      rotate: [0, 360],
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Number.POSITIVE_INFINITY,
-                      ease: "easeInOut",
-                    }}
-                    className="absolute -inset-8 bg-gradient-to-r from-yellow-500/40 via-amber-500/40 to-orange-500/40 rounded-full blur-2xl"
-                    style={{ 
-                      willChange: 'transform, opacity',
-                      transformOrigin: 'center',
-                      contain: 'layout style paint'
-                    }}
-                  />
-
-                  {/* Sacred Geometry */}
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{
-                      duration: 15,
-                      repeat: Number.POSITIVE_INFINITY,
-                      ease: "linear",
-                    }}
-                    className="absolute -inset-6 border-2 border-yellow-400/40 rounded-full"
-                  />
-                  <motion.div
-                    animate={{ rotate: -360 }}
-                    transition={{
-                      duration: 20,
-                      repeat: Number.POSITIVE_INFINITY,
-                      ease: "linear",
-                    }}
-                    className="absolute -inset-4 border border-amber-400/30 rounded-full"
-                  />
-
-                  {/* Main Box */}
-                  <div className="relative w-72 h-72 bg-gradient-to-br from-yellow-500 via-amber-500 to-orange-500 rounded-3xl p-8 shadow-2xl border border-yellow-400/50 flex flex-col items-center justify-center">
-                    <motion.div
-                      animate={{
-                        scale: [1, 1.05, 1],
-                        filter: [
-                          "hue-rotate(0deg)",
-                          "hue-rotate(15deg)",
-                          "hue-rotate(0deg)",
-                        ],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Number.POSITIVE_INFINITY,
-                        ease: "easeInOut",
-                      }}
-                      style={{ 
-                        willChange: 'transform, filter',
-                        transformOrigin: 'center'
-                      }}
-                    >
-                      <Gift className="w-28 h-28 text-white drop-shadow-lg" />
-                    </motion.div>
-                    <p className="text-white font-semibold text-lg mt-4 tracking-wide drop-shadow-md">
-                      {isLoading ? "Đang mở..." : t("luckyBox.button")}
-                    </p>
-                  </div>
-
-                  {/* Floating Elements */}
-                  <motion.div
-                    animate={{ rotate: 360, y: [-5, 5, -5] }}
-                    transition={{
-                      rotate: {
-                        duration: 12,
-                        repeat: Number.POSITIVE_INFINITY,
-                        ease: "linear",
-                      },
-                      y: {
-                        duration: 2,
-                        repeat: Number.POSITIVE_INFINITY,
-                        ease: "easeInOut",
-                      },
-                    }}
-                    className="absolute -top-6 -right-6"
-                  >
-                    <Sparkles className="w-10 h-10 text-yellow-400 drop-shadow-lg" />
-                  </motion.div>
-                  <motion.div
-                    animate={{ rotate: -360, y: [5, -5, 5] }}
-                    transition={{
-                      rotate: {
-                        duration: 10,
-                        repeat: Number.POSITIVE_INFINITY,
-                        ease: "linear",
-                      },
-                      y: {
-                        duration: 2.5,
-                        repeat: Number.POSITIVE_INFINITY,
-                        ease: "easeInOut",
-                      },
-                    }}
-                    className="absolute -bottom-6 -left-6"
-                  >
-                    <Star className="w-8 h-8 text-amber-400 drop-shadow-lg" />
-                  </motion.div>
-                </div>
-              </motion.div>
+              <LuckyBox
+                isOpened={isOpened}
+                isLoading={isLoading}
+                isDisabled={isLuckyBoxDisabled}
+                showComingSoonBadge={isLuckyBoxComingSoon}
+                showMaintenanceBadge={isLuckyBoxMaintenance}
+                onBoxClick={openLuckyBox}
+                size="md"
+              />
             ) : (
               <motion.div
                 key="result"
