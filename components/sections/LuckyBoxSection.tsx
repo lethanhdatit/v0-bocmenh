@@ -112,7 +112,7 @@ export default function LuckyBoxSection() {
 
         <div
           id="luckybox-section"
-          className={`relative min-h-[280px] sm:min-h-[320px] md:min-h-[400px] flex items-center justify-center px-4 transition-opacity duration-300 ${
+          className={`relative ${isOpened ? 'min-h-[500px] sm:min-h-[550px] md:min-h-[600px]' : 'min-h-[280px] sm:min-h-[320px] md:min-h-[400px]'} flex items-center justify-center px-4 transition-all duration-500 ${
             isLuckyBoxDisabled ? "opacity-60" : "opacity-100"
           }`}
           style={{ contain: 'layout style' }}
@@ -138,7 +138,7 @@ export default function LuckyBoxSection() {
                   transition: { duration: 0.4, ease: "easeOut" },
                 }}
                 exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.3 } }}
-                className="absolute w-full max-w-2xl bg-gradient-to-br from-gray-900/90 via-purple-900/50 to-gray-900/90 backdrop-blur-lg border border-purple-400/30 rounded-3xl p-8 shadow-2xl"
+                className="absolute inset-x-4 sm:inset-x-8 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 w-auto md:max-w-2xl bg-gradient-to-br from-gray-900/90 via-purple-900/50 to-gray-900/90 backdrop-blur-lg border border-purple-400/30 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl"
               >
                 {/* Mystical Border Animation */}
                 <motion.div
@@ -175,7 +175,7 @@ export default function LuckyBoxSection() {
                         },
                       }}
                       exit={{ opacity: 0, y: -20, scale: 0.9 }}
-                      className="mb-6 p-4 bg-orange-500/20 border border-orange-500/50 rounded-xl relative overflow-hidden"
+                      className="mb-4 sm:mb-6 p-3 sm:p-4 bg-orange-500/20 border border-orange-500/50 rounded-lg sm:rounded-xl relative overflow-hidden"
                     >
                       <motion.div
                         animate={{
@@ -208,7 +208,7 @@ export default function LuckyBoxSection() {
                     {t("luckyBox.luckyNumber")}
                   </p>
                   <motion.div
-                    className="text-7xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent mb-6 "
+                    className="text-4xl sm:text-6xl md:text-7xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent mb-4 sm:mb-6"
                     animate={
                       statusMessage
                         ? {
@@ -239,13 +239,13 @@ export default function LuckyBoxSection() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="mt-8"
+                  className="mt-6 sm:mt-8"
                 >
-                  <p className="text-sm text-purple-300 mb-4  tracking-wide text-center">
+                  <p className="text-xs sm:text-sm text-purple-300 mb-3 sm:mb-4 tracking-wide text-center">
                     {t("luckyBox.message")}
                   </p>
                   <motion.div
-                    className="bg-gradient-to-br from-purple-800/30 to-indigo-800/30 rounded-xl p-6 border border-purple-400/20"
+                    className="bg-gradient-to-br from-purple-800/30 to-indigo-800/30 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-purple-400/20"
                     animate={
                       statusMessage
                         ? {
@@ -269,7 +269,7 @@ export default function LuckyBoxSection() {
                     }}
                   >
                     <motion.p
-                      className="text-gray-100 text-center leading-relaxed text-base font-light tracking-wide min-h-[120px] flex items-center justify-center"
+                      className="text-gray-100 text-center leading-relaxed text-sm sm:text-base font-light tracking-wide min-h-[80px] sm:min-h-[100px] md:min-h-[120px] flex items-center justify-center"
                       animate={
                         statusMessage
                           ? {
@@ -293,9 +293,9 @@ export default function LuckyBoxSection() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
                   onClick={resetBox}
-                  className="mt-8 text-purple-400 hover:text-purple-300 transition-colors text-sm tracking-wide mx-auto block relative z-10 cursor-pointer"
+                  className="mt-6 sm:mt-8 text-purple-400 hover:text-purple-300 transition-colors text-sm sm:text-base tracking-wide mx-auto block relative z-10 cursor-pointer px-4 py-2"
                 >
-                  {isFirstTime ? t("luckyBox.tryAgain") : "Xem lại"}
+                  {isFirstTime ? t("luckyBox.tryAgain") : t("luckyBox.viewAgain")}
                 </motion.button>
               </motion.div>
             )}

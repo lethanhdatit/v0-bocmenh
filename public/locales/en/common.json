@@ -458,6 +458,7 @@
     "luckyNumber": "Your lucky number",
     "message": "Message",
     "tryAgain": "Try again tomorrow",
+    "viewAgain": "View again",
     "alreadyOpened": "You've already opened today's lucky box",
     "page": {
       "title": "Lucky Box",

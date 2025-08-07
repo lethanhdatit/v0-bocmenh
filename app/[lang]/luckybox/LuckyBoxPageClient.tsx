@@ -1,35 +1,22 @@
-"use client"
+"use client";
 
-import { Suspense } from "react"
-import LuckyBoxSection from "@/components/sections/LuckyBoxSection"
-import { useTranslation } from "react-i18next"
+import { Suspense } from "react";
+import LuckyBoxSection from "@/components/sections/LuckyBoxSection";
+import { useTranslation } from "react-i18next";
 
 export default function LuckyBoxPageClient() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-black to-indigo-900">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/placeholder.svg')] opacity-5 bg-repeat bg-center"></div>
-        <div className="relative z-10 container mx-auto px-4 pt-20">
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 bg-clip-text text-transparent tracking-wide">
-              {t("luckyBox.page.title")}
-            </h1>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto font-light">
-              {t("luckyBox.page.heroDescription")}
-            </p>
-          </div>
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-black to-indigo-900">     
       {/* Lucky Box Section */}
-      <Suspense fallback={
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-yellow-400"></div>
-        </div>
-      }>
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-yellow-400"></div>
+          </div>
+        }
+      >
         <LuckyBoxSection />
       </Suspense>
 
@@ -68,17 +55,13 @@ export default function LuckyBoxPageClient() {
                 {t("luckyBox.page.specialMeaning.title")}
               </h2>
               <div className="space-y-4 text-gray-300">
-                <p>
-                  {t("luckyBox.page.specialMeaning.description1")}
-                </p>
-                <p>
-                  {t("luckyBox.page.specialMeaning.description2")}
-                </p>
+                <p>{t("luckyBox.page.specialMeaning.description1")}</p>
+                <p>{t("luckyBox.page.specialMeaning.description2")}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
