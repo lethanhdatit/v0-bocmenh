@@ -8,7 +8,7 @@ import {
 
 // Cache cho translation resources
 const TRANSLATION_CACHE_KEY = "i18n_translations_cache";
-const CACHE_VERSION = "1.0.4"; // Tăng version này khi có thay đổi translation
+const CACHE_VERSION = "1.0.5"; // Tăng version này khi có thay đổi translation
 const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 24 giờ
 
 interface CachedTranslations {

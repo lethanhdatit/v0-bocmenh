@@ -455,6 +455,21 @@
     "message": "Lời nhắn",
     "tryAgain": "Thử lại ngày mai",
     "alreadyOpened": "Bạn đã mở hộp may mắn hôm nay rồi",
+    "page": {
+      "title": "Hộp Quà May Mắn",
+      "heroDescription": "Mở khóa vận may của bạn với hộp quà thần bí. Mỗi lần mở sẽ mang đến một thông điệp đặc biệt và con số may mắn riêng cho bạn.",
+      "howItWorks": {
+        "title": "Làm thế nào hoạt động?",
+        "step1": "Nhấn vào hộp quà thần bí để mở khóa",
+        "step2": "Nhận con số may mắn và thông điệp đặc biệt",
+        "step3": "Sử dụng con số và lời khuyên trong cuộc sống hàng ngày"
+      },
+      "specialMeaning": {
+        "title": "Ý nghĩa đặc biệt",
+        "description1": "Mỗi con số may mắn được tạo ra dựa trên năng lượng vũ trụ tại thời điểm bạn mở hộp. Thông điệp kèm theo sẽ hướng dẫn bạn cách sử dụng năng lượng này một cách tích cực.",
+        "description2": "Hộp quà chỉ có thể mở một lần mỗi ngày, đảm bảo rằng mỗi trải nghiệm đều đặc biệt và có ý nghĩa riêng biệt cho hành trình của bạn."
+      }
+    },
     "messages": [
       "Hôm nay mang đến những dấu hiệu tích cực cho bạn. Có thể đây là thời điểm thích hợp để tìm hiểu về bát tự để hiểu rõ hơn về bản thân. Những gì ẩn giấu trong ngày sinh có thể mở ra nhiều điều thú vị.",
       "Không gian xung quanh bạn đang có những chuyển biến nhẹ nhàng. Bạn có bao giờ tò mò về phong thủy trong ngôi nhà mình chưa? Đôi khi những điều chỉnh nhỏ có thể mang lại cảm giác thoải mái hơn.",
