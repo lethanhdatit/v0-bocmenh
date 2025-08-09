@@ -19,12 +19,15 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
+import { encodeSlug, SlugTypes } from "@/lib/seo/slug/slugGeneration";
+import { URL_PARAMS, buildSEOFriendlyPath } from "@/lib/constants/url-params";
 
 interface ProductCardProps {
   product: ProductBase;
   className?: string;
   compact?: boolean;
   onUnfavorited?: (productId: string) => void;
+  attributes?: string[];
 }
 
 export default function ProductCard({
@@ -32,6 +35,7 @@ export default function ProductCard({
   className,
   compact = false,
   onUnfavorited,
+  attributes,
 }: ProductCardProps) {
   const [isWishlistLoading, setIsWishlistLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(product.isFavorite);
@@ -82,7 +86,10 @@ export default function ProductCard({
         setIsFavorite(true);
       }
     } catch (error) {
-      console.error(t("store.errors.failedToToggleWishlist", "Failed to toggle wishlist:"), error);
+      console.error(
+        t("store.errors.failedToToggleWishlist", "Failed to toggle wishlist:"),
+        error
+      );
     } finally {
       setIsWishlistLoading(false);
     }
@@ -102,6 +109,18 @@ export default function ProductCard({
     return product.thumbnailImage || "/placeholder.svg";
   };
 
+  const buildSlugLink = () => {
+    const basePath = `/store/${encodeSlug(product.name, {
+      type: SlugTypes.AFFILIATE,
+      ids: [product.autoId.toString() || product.id],
+    })}`;
+
+    // Sử dụng helper function để build SEO-friendly URL
+    return buildSEOFriendlyPath(basePath, attributes);
+  };
+
+  const SlugLink = buildSlugLink();
+
   return (
     <div
       className={cn(
@@ -118,8 +137,8 @@ export default function ProductCard({
         className={cn(
           "relative w-full",
           // More responsive image heights
-          compact 
-            ? "h-32 xs:h-36 sm:h-40 md:h-44 lg:h-48" 
+          compact
+            ? "h-32 xs:h-36 sm:h-40 md:h-44 lg:h-48"
             : "h-40 xs:h-44 sm:h-48 md:h-56 lg:h-64 xl:h-72"
         )}
       >
@@ -186,23 +205,25 @@ export default function ProductCard({
       </div>
 
       {/* Product Info */}
-      <div className={cn(
-        "flex flex-col flex-grow", 
-        compact 
-          ? "p-2 xs:p-2.5 sm:p-3" 
-          : "p-2.5 xs:p-3 sm:p-4 lg:p-5"
-      )}>
+      <div
+        className={cn(
+          "flex flex-col flex-grow",
+          compact ? "p-2 xs:p-2.5 sm:p-3" : "p-2.5 xs:p-3 sm:p-4 lg:p-5"
+        )}
+      >
         {/* Product Name */}
         <h3
           className={cn(
             "font-semibold text-yellow-400 hover:text-yellow-200 transition-colors line-clamp-2 leading-tight",
-            compact 
-              ? "text-sm xs:text-base mb-1 xs:mb-1.5" 
+            compact
+              ? "text-sm xs:text-base mb-1 xs:mb-1.5"
               : "text-sm xs:text-base sm:text-lg lg:text-xl mb-1.5 xs:mb-2 sm:mb-3"
           )}
           title={product.name}
         >
-          {product.name}
+          <Link href={SlugLink} target="_blank">
+            {product.name}
+          </Link>
         </h3>
 
         {/* Rating and Sales */}
@@ -219,7 +240,9 @@ export default function ProductCard({
                   key={i}
                   className={cn(
                     "flex-shrink-0",
-                    compact ? "w-3 h-3 xs:w-3.5 xs:h-3.5" : "w-3 h-3 xs:w-4 xs:h-4",
+                    compact
+                      ? "w-3 h-3 xs:w-3.5 xs:h-3.5"
+                      : "w-3 h-3 xs:w-4 xs:h-4",
                     i < Math.round(product.rating)
                       ? "text-yellow-500 fill-yellow-500"
                       : "text-gray-600"
@@ -235,31 +258,37 @@ export default function ProductCard({
           {product.totalSold > 0 && (
             <div className="flex items-center text-[10px] xs:text-xs text-gray-400 flex-shrink-0">
               <TrendingUp className="w-2.5 h-2.5 xs:w-3 xs:h-3 mr-0.5 xs:mr-1 flex-shrink-0" />
-              <span className="truncate">{product.totalSold} {t("store.sold", "đã bán")}</span>
+              <span className="truncate">
+                {product.totalSold} {t("store.sold", "đã bán")}
+              </span>
             </div>
           )}
         </div>
 
         {/* Attributes Preview */}
         {product.attributes && product.attributes.length > 0 && (
-          <div className={compact ? "mb-1.5 xs:mb-2" : "mb-2 xs:mb-2.5 sm:mb-3"}>
+          <div
+            className={compact ? "mb-1.5 xs:mb-2" : "mb-2 xs:mb-2.5 sm:mb-3"}
+          >
             <div className="flex flex-wrap gap-0.5 xs:gap-1">
-              {product.attributes.slice(0, compact ? 1 : 2).map((attr, index) => (
-                <Badge
-                  key={index}
-                  variant="outline"
-                  className={cn(
-                    "text-[9px] xs:text-[10px] sm:text-xs px-1 xs:px-1.5 py-0.5 leading-tight max-w-full",
-                    attr.isMatched
-                      ? "border-green-500/50 text-green-300 bg-green-500/10"
-                      : "border-gray-600 text-gray-400"
-                  )}
-                >
-                  <span className="truncate">
-                    {attr.name}: {attr.value.join(", ")}
-                  </span>
-                </Badge>
-              ))}
+              {product.attributes
+                .slice(0, compact ? 1 : 2)
+                .map((attr, index) => (
+                  <Badge
+                    key={index}
+                    variant="outline"
+                    className={cn(
+                      "text-[9px] xs:text-[10px] sm:text-xs px-1 xs:px-1.5 py-0.5 leading-tight max-w-full",
+                      attr.isMatched
+                        ? "border-green-500/50 text-green-300 bg-green-500/10"
+                        : "border-gray-600 text-gray-400"
+                    )}
+                  >
+                    <span className="truncate">
+                      {attr.name}: {attr.value.join(", ")}
+                    </span>
+                  </Badge>
+                ))}
               {product.attributes.length > (compact ? 1 : 2) && (
                 <Badge
                   variant="outline"
@@ -273,7 +302,12 @@ export default function ProductCard({
         )}
 
         {/* Stock Status */}
-        <div className={cn("flex items-center", compact ? "mb-1.5 xs:mb-2" : "mb-2 xs:mb-2.5 sm:mb-3")}>
+        <div
+          className={cn(
+            "flex items-center",
+            compact ? "mb-1.5 xs:mb-2" : "mb-2 xs:mb-2.5 sm:mb-3"
+          )}
+        >
           <Package
             className={cn(
               "flex-shrink-0 mr-1 xs:mr-2",
@@ -308,8 +342,8 @@ export default function ProductCard({
                   <p
                     className={cn(
                       "font-bold text-yellow-400 leading-tight",
-                      compact 
-                        ? "text-sm xs:text-base sm:text-lg" 
+                      compact
+                        ? "text-sm xs:text-base sm:text-lg"
                         : "text-base xs:text-lg sm:text-xl lg:text-2xl"
                     )}
                   >
@@ -323,8 +357,8 @@ export default function ProductCard({
                 <p
                   className={cn(
                     "font-bold text-yellow-400 leading-tight",
-                    compact 
-                      ? "text-sm xs:text-base sm:text-lg" 
+                    compact
+                      ? "text-sm xs:text-base sm:text-lg"
                       : "text-base xs:text-lg sm:text-xl lg:text-2xl"
                   )}
                 >
@@ -351,8 +385,8 @@ export default function ProductCard({
               size="icon"
               className={cn(
                 "bg-gray-700/50 hover:bg-gray-600 border border-gray-600 hover:border-gray-500 text-gray-300 hover:text-white transition-all flex-shrink-0",
-                compact 
-                  ? "h-7 w-7 xs:h-8 xs:w-8" 
+                compact
+                  ? "h-7 w-7 xs:h-8 xs:w-8"
                   : "h-8 w-8 xs:h-9 xs:w-9 sm:h-10 sm:w-10"
               )}
               asChild
@@ -366,8 +400,8 @@ export default function ProductCard({
                 <ExternalLink
                   className={cn(
                     "flex-shrink-0",
-                    compact 
-                      ? "h-2.5 w-2.5 xs:h-3 xs:w-3" 
+                    compact
+                      ? "h-2.5 w-2.5 xs:h-3 xs:w-3"
                       : "h-3 w-3 xs:h-3.5 xs:w-3.5 sm:h-4 sm:w-4"
                   )}
                 />
@@ -378,18 +412,18 @@ export default function ProductCard({
               variant="default"
               className={cn(
                 "flex-1 bg-yellow-500 hover:bg-yellow-400 text-black font-semibold transition-colors shadow-lg hover:shadow-yellow-500/30 min-w-0",
-                compact 
-                  ? "text-xs xs:text-sm h-7 xs:h-8 px-2 xs:px-3" 
+                compact
+                  ? "text-xs xs:text-sm h-7 xs:h-8 px-2 xs:px-3"
                   : "text-xs xs:text-sm sm:text-base h-8 xs:h-9 sm:h-10 px-2 xs:px-3 sm:px-4"
               )}
               asChild
             >
-              <Link href={`/store/products/${product.id}`}>
+              <Link href={SlugLink} target="_blank">
                 <Sparkles
                   className={cn(
                     "mr-1 xs:mr-2 flex-shrink-0",
-                    compact 
-                      ? "h-2.5 w-2.5 xs:h-3 xs:w-3" 
+                    compact
+                      ? "h-2.5 w-2.5 xs:h-3 xs:w-3"
                       : "h-3 w-3 xs:h-3.5 xs:w-3.5 sm:h-4 sm:w-4"
                   )}
                 />

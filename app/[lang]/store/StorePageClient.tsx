@@ -874,7 +874,7 @@ export default function StorePageClient({
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
             {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} compact={false} />
+              <ProductCard key={product.id} product={product} compact={false} attributes={selectedAttributes} />
             ))}
           </div>
 
@@ -1851,7 +1851,7 @@ export default function StorePageClient({
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
               {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={product} attributes={selectedAttributes} />
               ))}
             </div>
           </div>

@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { useParams, useRouter } from "next/navigation"
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
 // import type { Product, ProductAttribute } from "@/lib/products"
 // import { getProductBySlug } from "@/lib/products"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Star,
   ChevronLeft,
@@ -18,23 +18,26 @@ import {
   CheckCircle,
   AlertTriangle,
   ShieldCheck,
-} from "lucide-react"
-import { useTranslation } from "react-i18next"
-import ProductCard from "@/components/store/ProductCard"
+} from "lucide-react";
+import { useTranslation } from "react-i18next";
+import ProductCard from "@/components/store/ProductCard";
 // import { sampleProducts } from "@/lib/products"
-import { useWishlist } from "@/hooks/use-wishlist"
-import { cn } from "@/lib/infra/utils"
+import { useWishlist } from "@/hooks/use-wishlist";
+import { cn } from "@/lib/infra/utils";
+import { ProductDetail } from "@/lib/products";
 
-export default function Page() {
-  const params = useParams()
-  const router = useRouter()
-  const slug = params.slug as string
-  const id = params.id as string
+export default function Page({
+  data,
+  slug,
+}: {
+  data: ProductDetail;
+  slug: string;
+}) {
   // const [product, setProduct] = useState<Product | null>(null)
   // const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const { t } = useTranslation()
-  const { isWishlisted, toggleWishlist, isWishlistLoaded } = useWishlist()
+  const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation();
+  const { isWishlisted, toggleWishlist, isWishlistLoaded } = useWishlist();
 
   // useEffect(() => {
   //   if (slug) {
@@ -65,8 +68,11 @@ export default function Page() {
   // }, [slug, router])
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price)
-  }
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(price);
+  };
 
   // const handleShare = () => {
   //   if (navigator.share && product) {
@@ -123,9 +129,11 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-3xl sm:text-4xl font-bold text-yellow-400 mb-3">{t("store.affiliateProducts")}</h1>
+      <h1 className="text-3xl sm:text-4xl font-bold text-yellow-400 mb-3">
+        {t("store.affiliateProducts")}
+      </h1>
       <h4>{slug}</h4>
-      <h4>{id}</h4>
+      <h4>{JSON.stringify(data)}</h4>
     </div>
-  )
+  );
 }

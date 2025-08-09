@@ -1,8 +1,12 @@
 import { apiClient } from "@/lib/api/apiClient";
+import { apiServer, getConfigSSR } from "@/lib/api/apiServer";
 import { PaginatedBase } from "@/lib/utils";
+import { getSession } from "@/lib/session/session";
+import { NextRequest } from "next/server";
+import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 
-export type AffiliateProvider = 'shopee' | 'lazada' | 'tiki' | 'sendo';
-export type AffiliateStatus = 'active' | 'inactive' | 'soldOut' | 'seleted';
+export type AffiliateProvider = "shopee" | "lazada" | "tiki" | "sendo";
+export type AffiliateStatus = "active" | "inactive" | "soldOut" | "seleted";
 
 export interface ProductAttribute {
   name: string;
@@ -185,11 +189,12 @@ export async function getProducts(
     queryParams.set("priceFrom", priceFrom.toString());
   if (priceTo !== undefined) queryParams.set("priceTo", priceTo.toString());
   if (provider) queryParams.set("provider", provider);
-  if (hasDiscount !== undefined) queryParams.set("hasDiscount", hasDiscount.toString());
+  if (hasDiscount !== undefined)
+    queryParams.set("hasDiscount", hasDiscount.toString());
   queryParams.set("sortBy", sortBy);
   queryParams.set("pageSize", pageSize.toString());
   queryParams.set("pageNumber", pageNumber.toString());
-  
+
   const response = await apiClient.get<{ data: ProductBaseResponse }>(
     `/products?${queryParams.toString()}`
   );
@@ -197,6 +202,7 @@ export async function getProducts(
 }
 
 export async function getProduct(
+  headers: ReadonlyHeaders,
   productId: string,
   attributes?: string[]
 ): Promise<ProductDetail> {
@@ -211,10 +217,12 @@ export async function getProduct(
 
   const queryString = queryParams.toString();
   const url = queryString
-    ? `/products/${productId}?${queryString}`
-    : `/products/${productId}`;
+    ? `/affiliate/products/${productId}?${queryString}`
+    : `/affiliate/products/${productId}`;
 
-  const response = await apiClient.get<{ data: ProductDetail }>(url);
+  const session = await getSession();
+  const config = await getConfigSSR(headers, session.accessToken);
+  const response = await apiServer.get<{ data: ProductDetail }>(url, config);
   return response.data.data;
 }
 
