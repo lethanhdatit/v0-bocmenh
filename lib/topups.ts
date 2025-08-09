@@ -1,6 +1,7 @@
 import { apiClient } from "@/lib/api/apiClient";
 import { apiServer } from "@/lib/api/apiServer";
 import { getBaseUrl } from "@/lib/infra/utils";
+import { PaginatedBase } from "@/lib/utils";
 
 export interface TopupPackage {
   id: string;
@@ -63,15 +64,6 @@ export interface TransactionStatusResponse {
   providerMeta?: any;
   meta?: any;
   createdTs?: string;
-}
-
-export interface PaginatedBase<TDto> {
-  pageNumber?: number;
-  pageSize?: number;
-  totalRecords?: number;
-  totalSelected?: number;
-  totalPages?: number;
-  items: TDto[];
 }
 
 export interface ServicePrice {

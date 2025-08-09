@@ -273,7 +273,7 @@ export const FEATURE_FLAGS: Record<FeaturePath, FeatureConfig> = {
   // Thương mại
   '/store': {
     path: '/store',
-    status: 'coming-soon',
+    status: 'active',
     title: 'Cửa Hàng',
     titleKey: 'features.store.title',
     estimatedLaunch: 'Q1 2025'

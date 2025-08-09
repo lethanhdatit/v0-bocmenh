@@ -138,7 +138,7 @@ export default function LuckyBoxSection() {
                   transition: { duration: 0.4, ease: "easeOut" },
                 }}
                 exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.3 } }}
-                className="absolute inset-x-4 sm:inset-x-8 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 w-auto md:max-w-2xl bg-gradient-to-br from-gray-900/90 via-purple-900/50 to-gray-900/90 backdrop-blur-lg border border-purple-400/30 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl"
+                className="w-full max-w-2xl mx-auto bg-gradient-to-br from-gray-900/90 via-purple-900/50 to-gray-900/90 backdrop-blur-lg border border-purple-400/30 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl"
               >
                 {/* Mystical Border Animation */}
                 <motion.div
