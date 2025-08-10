@@ -17,6 +17,7 @@ import ProductPageClient from "./ProductPageClient";
 interface StorePageProps {
   params: {
     lang: string;
+    cateslug: string;
     slug: string;
   };
   searchParams: { [key: string]: string | string[] | undefined };
@@ -94,7 +95,7 @@ const Page = async ({ params, searchParams }: StorePageProps) => {
             __html: JSON.stringify(structuredData),
           }}
         />
-        <ProductPageClient slug={params.slug} data={product} />
+        <ProductPageClient cateslug={params.cateslug} slug={params.slug} data={product} />
       </>
     );
   } catch {

@@ -102,7 +102,7 @@ export default function ContactPageClient() {
                       size="sm"
                       className="bg-gradient-to-r from-yellow-400 to-orange-400 text-black hover:from-yellow-500 hover:to-orange-500"
                     >
-                      <a href={channel.link} target="_blank" rel="noopener noreferrer">
+                      <a href={channel.link} target="_blank">
                         {sections.channels.contact} <ExternalLink className="w-4 h-4 ml-1" />
                       </a>
                     </Button>

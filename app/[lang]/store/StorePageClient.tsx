@@ -23,7 +23,6 @@ import {
   Award,
   DollarSign,
   Tag,
-  Sliders,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -42,7 +41,6 @@ import {
   DropdownMenuContent,
   DropdownMenuCheckboxItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getFilterOptions, getProducts } from "@/lib/products";
@@ -226,7 +224,7 @@ export default function StorePageClient({
       pageSize: pageSize,
       sortBy: searchParams.sortBy,
       keywords: searchTerm || undefined,
-      categoryIds:
+      categoryCodes:
         selectedCategories.length > 0 ? selectedCategories : undefined,
       labels: selectedLabels.length > 0 ? selectedLabels : undefined,
       attributes:
@@ -275,8 +273,10 @@ export default function StorePageClient({
       setIsLoading(true);
       try {
         // Fetch filter options
-        const filterOptionsData = await getFilterOptions();
-        setFilterOptions(filterOptionsData);
+        if(!isHideFilter) {
+          const filterOptionsData = await getFilterOptions();
+          setFilterOptions(filterOptionsData);
+        }
 
         // Fetch initial products
         const productsData = await getProducts(searchParams);
@@ -394,7 +394,7 @@ export default function StorePageClient({
     const params: ProductSearchParams = {
       ...searchParams,
       keywords: searchTerm || undefined,
-      categoryIds:
+      categoryCodes:
         selectedCategories.length > 0 ? selectedCategories : undefined,
       labels: selectedLabels.length > 0 ? selectedLabels : undefined,
       attributes:
@@ -433,7 +433,7 @@ export default function StorePageClient({
     const params: ProductSearchParams = {
       ...searchParams,
       keywords: searchTerm || undefined,
-      categoryIds:
+      categoryCodes:
         selectedCategories.length > 0 ? selectedCategories : undefined,
       labels: selectedLabels.length > 0 ? selectedLabels : undefined,
       attributes:
@@ -472,7 +472,7 @@ export default function StorePageClient({
     const params: ProductSearchParams = {
       ...searchParams,
       keywords: searchTerm || undefined,
-      categoryIds:
+      categoryCodes:
         selectedCategories.length > 0 ? selectedCategories : undefined,
       labels: selectedLabels.length > 0 ? selectedLabels : undefined,
       attributes:
@@ -519,11 +519,11 @@ export default function StorePageClient({
     }
   }, [priceDropdownOpen, priceRange.from, priceRange.to]);
 
-  const handleCategoryToggle = (categoryId: string) => {
+  const handleCategoryToggle = (categoryCode: string) => {
     setSelectedCategories((prev) =>
-      prev.includes(categoryId)
-        ? prev.filter((c) => c !== categoryId)
-        : [...prev, categoryId]
+      prev.includes(categoryCode)
+        ? prev.filter((c) => c !== categoryCode)
+        : [...prev, categoryCode]
     );
   };
 
@@ -1046,14 +1046,14 @@ export default function StorePageClient({
                       <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-track-gray-800 scrollbar-thumb-gray-600 hover:scrollbar-thumb-gray-500 p-3 sm:p-4 min-h-0">
                         {getFilteredCategories().length > 0 ? (
                           getFilteredCategories().map((category) => (
-                            <div key={category.id}>
+                            <div key={category.code}>
                               <DropdownMenuCheckboxItem
                                 checked={selectedCategories.includes(
-                                  category.id
+                                  category.code
                                 )}
                                 onCheckedChange={(checked) => {
                                   // Prevent dropdown from closing
-                                  handleCategoryToggle(category.id);
+                                  handleCategoryToggle(category.code);
                                 }}
                                 onSelect={(event) => {
                                   // Prevent dropdown from closing
@@ -1081,14 +1081,14 @@ export default function StorePageClient({
                                       )
                                       .map((subCategory) => (
                                         <DropdownMenuCheckboxItem
-                                          key={subCategory.id}
+                                          key={subCategory.code}
                                           checked={selectedCategories.includes(
-                                            subCategory.id
+                                            subCategory.code
                                           )}
                                           onCheckedChange={(checked) => {
                                             // Prevent dropdown from closing
                                             handleCategoryToggle(
-                                              subCategory.id
+                                              subCategory.code
                                             );
                                           }}
                                           onSelect={(event) => {
@@ -1710,17 +1710,17 @@ export default function StorePageClient({
                 </span>
                 <span className="sm:hidden">Đang lọc:</span>
               </span>
-              {selectedCategories.map((categoryId) => {
+              {selectedCategories.map((categoryCode) => {
                 const category =
-                  filterOptions.categories?.find((c) => c.id === categoryId) ||
+                  filterOptions.categories?.find((c) => c.code === categoryCode) ||
                   filterOptions.categories
                     ?.find((c) =>
-                      c.children?.some((child) => child.id === categoryId)
+                      c.children?.some((child) => child.code === categoryCode)
                     )
-                    ?.children?.find((child) => child.id === categoryId);
+                    ?.children?.find((child) => child.code === categoryCode);
                 return (
                   <Badge
-                    key={categoryId}
+                    key={categoryCode}
                     variant="secondary"
                     className="bg-yellow-500/20 text-yellow-300 hover:bg-yellow-500/30 transition-colors"
                   >
@@ -1729,7 +1729,7 @@ export default function StorePageClient({
                       variant="ghost"
                       size="sm"
                       className="ml-1 h-auto p-0 text-yellow-300 hover:text-yellow-100"
-                      onClick={() => handleCategoryToggle(categoryId)}
+                      onClick={() => handleCategoryToggle(categoryCode)}
                     >
                       ×
                     </Button>

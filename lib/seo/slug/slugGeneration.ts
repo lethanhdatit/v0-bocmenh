@@ -22,7 +22,7 @@ export const SlugTypesMaskRevert = Object.entries(SlugTypeShort).reduce(
 
 const SPECIAL_CHARS_REGEX = /[\s.,/\\;?:@&=%+#$|<>~'"]/g;
 export const textSlugify = (text: string) => {
-  return text?.trim().replace(SPECIAL_CHARS_REGEX, '-') ?? '';
+  return text?.trim().toLowerCase().replace(SPECIAL_CHARS_REGEX, '-') ?? '';
 };
 
 export const encodeSlug = (title: string, { type, ids }: SlugPayload) => {

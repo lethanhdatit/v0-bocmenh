@@ -19,7 +19,11 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
-import { encodeSlug, SlugTypes } from "@/lib/seo/slug/slugGeneration";
+import {
+  encodeSlug,
+  textSlugify,
+  SlugTypes,
+} from "@/lib/seo/slug/slugGeneration";
 import { URL_PARAMS, buildSEOFriendlyPath } from "@/lib/constants/url-params";
 
 interface ProductCardProps {
@@ -110,7 +114,9 @@ export default function ProductCard({
   };
 
   const buildSlugLink = () => {
-    const basePath = `/store/${encodeSlug(product.name, {
+    const basePath = `/store/${textSlugify(
+      product.category?.name ?? product.autoId
+    )}/${encodeSlug(product.name, {
       type: SlugTypes.AFFILIATE,
       ids: [product.autoId.toString() || product.id],
     })}`;
@@ -395,7 +401,6 @@ export default function ProductCard({
               <a
                 href={product.providerUrl}
                 target="_blank"
-                rel="noopener noreferrer"
               >
                 <ExternalLink
                   className={cn(

@@ -237,7 +237,7 @@
 //                 className="flex-grow bg-yellow-500 hover:bg-yellow-400 text-black transition-colors"
 //                 asChild
 //               >
-//                 <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer">
+//                 <a href={product.affiliateLink} target="_blank">
 //                   {t("store.viewOn")} {product.affiliateName || t("store.partnerSite")}
 //                   <ExternalLink className="ml-2 h-5 w-5" />
 //                 </a>

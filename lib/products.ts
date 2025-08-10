@@ -2,7 +2,6 @@ import { apiClient } from "@/lib/api/apiClient";
 import { apiServer, getConfigSSR } from "@/lib/api/apiServer";
 import { PaginatedBase } from "@/lib/utils";
 import { getSession } from "@/lib/session/session";
-import { NextRequest } from "next/server";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 
 export type AffiliateProvider = "shopee" | "lazada" | "tiki" | "sendo";
@@ -47,6 +46,7 @@ export interface ProductBase {
   totalSold: number;
   name: string;
   thumbnailImage: string;
+  category: ProductCategory;
   attributes: ProductAttributeWithMatch[];
   labels: string[];
   isFavorite: boolean;
@@ -127,6 +127,7 @@ export interface ProductSearchParams {
   labels?: string[];
   keywords?: string;
   categoryIds?: string[];
+  categoryCodes?: string[];
   priceFrom?: number;
   priceTo?: number;
   provider?: AffiliateProvider;
@@ -156,6 +157,7 @@ export async function getProducts(
     labels = [],
     keywords,
     categoryIds = [],
+    categoryCodes = [],
     priceFrom,
     priceTo,
     provider,
@@ -181,6 +183,10 @@ export async function getProducts(
   // Add categoryIds (can be multiple)
   categoryIds.forEach((categoryId) => {
     queryParams.append("categoryIds", categoryId);
+  });
+
+  categoryCodes.forEach((categoryCode) => {
+    queryParams.append("categoryCodes", categoryCode);
   });
 
   // Add single value parameters
