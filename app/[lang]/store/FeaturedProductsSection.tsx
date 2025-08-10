@@ -2,23 +2,29 @@
 
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import ProductCard from "@/components/store/ProductCard";
-import { sampleProducts } from "@/lib/products";
-import { isFeatureComingSoon, isFeatureMaintenance } from "@/lib/features/feature-flags";
-import { ComingSoonBadge, MaintenanceBadge } from "@/components/features/ComingSoonBadge";
+import StorePageClient from "./StorePageClient";
+// import { sampleProducts } from "@/lib/products";
+import {
+  isFeatureComingSoon,
+  isFeatureMaintenance,
+} from "@/lib/features/feature-flags";
+import {
+  ComingSoonBadge,
+  MaintenanceBadge,
+} from "@/components/features/ComingSoonBadge";
 
 export default function FeaturedProductsSection() {
   const { t } = useTranslation();
-  const featuredProducts = sampleProducts.slice(0, 4); // Get first 4 products as featured
-  const isStoreComingSoon = isFeatureComingSoon('/store');
-  const isStoreMaintenance = isFeatureMaintenance('/store');
+  // const featuredProducts = sampleProducts.slice(0, 4); // Get first 4 products as featured
+  const isStoreComingSoon = isFeatureComingSoon("/store");
+  const isStoreMaintenance = isFeatureMaintenance("/store");
   const isStoreDisabled = isStoreComingSoon || isStoreMaintenance;
 
   return (
     <section className="py-12 sm:py-16 bg-gray-900/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header with status badge */}
-        <div className="relative text-center mb-10">
+        <div className="relative text-center">
           <h2 className="text-3xl font-bold text-yellow-500 mb-4">
             {t("home.featuredProducts")}
           </h2>
@@ -42,20 +48,18 @@ export default function FeaturedProductsSection() {
         {/* Products grid with conditional opacity */}
         <div
           id="featured-products-section"
-          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 transition-opacity duration-300 ${
-            isStoreDisabled ? "opacity-60" : "opacity-100"
-          }`}
+          className={`${isStoreDisabled ? "opacity-60" : "opacity-100"}`}
         >
-          {featuredProducts.map((product) => (
-            <div
-              key={product.id}
-              className={`${
-                isStoreDisabled ? "pointer-events-none cursor-not-allowed" : ""
-              }`}
-            >
-              <ProductCard product={product} />
-            </div>
-          ))}
+          {!isStoreDisabled && (
+            <StorePageClient
+              isHideFilter={true}
+              isHideFeatured={true}
+              isHideHeader={true}
+              isHidePagination={true}
+              pageSize={8}
+              isInfinityScroll={false}
+            />
+          )}
         </div>
 
         {/* Call to action button with conditional styling */}

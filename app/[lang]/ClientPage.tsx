@@ -3,7 +3,7 @@
 import HeroSection from "@/components/sections/HeroSection"
 import FeaturesSection from "@/components/sections/FeaturesSection"
 import LuckyBoxSection from "@/components/sections/LuckyBoxSection"
-import FeaturedProductsSection from "@/components/sections/FeaturedProductsSection"
+import FeaturedProductsSection from "@/app/[lang]/store/FeaturedProductsSection"
 import Navigation from "@/components/layout/Navigation"
 import ScrollTourButton, { TourStep } from "@/components/ui/ScrollTourButton"
 

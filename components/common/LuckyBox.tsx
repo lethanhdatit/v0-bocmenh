@@ -147,7 +147,7 @@ export default function LuckyBox({
             <Gift className={`${config.icon} text-white drop-shadow-lg`} />
           </motion.div>
           <p className={`text-white font-semibold ${config.fontSize} mt-2 sm:mt-3 md:mt-4 tracking-wide drop-shadow-md text-center`}>
-            {isLoading ? "Đang mở..." : t("luckyBox.button")}
+            {isLoading ? t("luckyBox.opening") : t("luckyBox.button")}
           </p>
         </div>
 

@@ -20,3 +20,12 @@ export function getIsLoading() {
 export function getLoadingMessage() {
   return useGlobalLoading.getState().message;
 }
+
+export interface PaginatedBase<TDto> {
+  pageNumber?: number;
+  pageSize?: number;
+  totalRecords?: number;
+  totalSelected?: number;
+  totalPages?: number;
+  items: TDto[];
+}

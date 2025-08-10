@@ -403,7 +403,6 @@ export default function TopupsClient({
                 <a
                   href="/terms"
                   target="_blank"
-                  rel="noopener noreferrer"
                   className="text-yellow-600 hover:text-yellow-500 transition-colors font-medium underline"
                 >
                   {t("topups.termsOfService")}
@@ -412,7 +411,6 @@ export default function TopupsClient({
                 <a
                   href="/privacy"
                   target="_blank"
-                  rel="noopener noreferrer"
                   className="text-yellow-600 hover:text-yellow-500 transition-colors font-medium underline"
                 >
                   {t("topups.privacyPolicy")}
