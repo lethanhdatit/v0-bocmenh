@@ -140,6 +140,7 @@
     }
   },
   "nav": {
+    "menu": "Menu",
     "home": "Trang chủ",
     "destiny": "Vận Mệnh",
     "dreams": "Giải Mộng",
@@ -163,7 +164,7 @@
     "premium": "Nâng cấp Premium",
     "wishlist": "Yêu thích",
     "blogs": "Blogs",
-    "luckybox": "Hộp May Mắn",
+    "luckybox": "Túi Mù",
     "morebtn": "Thêm",
     "topups": "Gói Nạp",
     "topupsHistory": "Lịch sử nạp",
@@ -448,21 +449,21 @@
     }
   },
   "luckyBox": {
-    "title": "Hộp May Mắn Hôm Nay",
+    "title": "Túi Mù Hôm Nay",
     "description": "Nhấn vào hộp để nhận số may mắn và lời nhắn đặc biệt",
-    "button": "Mở Hộp May Mắn",
+    "button": "Mở Túi Mù",
     "luckyNumber": "Số may mắn của bạn",
     "message": "Lời nhắn",
     "tryAgain": "Thử lại ngày mai",
     "viewAgain": "Xem lại",
     "opening": "Đang mở...",
-    "alreadyOpened": "Bạn đã mở hộp may mắn hôm nay rồi",
+    "alreadyOpened": "Bạn đã mở túi mù hôm nay rồi",
     "page": {
-      "title": "Hộp Quà May Mắn",
-      "heroDescription": "Mở khóa vận may của bạn với hộp quà thần bí. Mỗi lần mở sẽ mang đến một thông điệp đặc biệt và con số may mắn riêng cho bạn.",
+      "title": "Túi Mù",
+      "heroDescription": "Mở khóa vận may của bạn với túi mù thần bí. Mỗi lần mở sẽ mang đến một thông điệp đặc biệt và con số may mắn riêng cho bạn.",
       "howItWorks": {
         "title": "Làm thế nào hoạt động?",
-        "step1": "Nhấn vào hộp quà thần bí để mở khóa",
+        "step1": "Nhấn vào túi mù thần bí để mở khóa",
         "step2": "Nhận con số may mắn và thông điệp đặc biệt",
         "step3": "Sử dụng con số và lời khuyên trong cuộc sống hàng ngày"
       },
@@ -613,6 +614,7 @@
   "store": {
     "title": "Cửa Hàng Phong Thủy",
     "description": "Khám phá bộ sưu tập đồ phong thủy, huyền học chất lượng cao từ các nền tảng uy tín",
+    "descriptionSection": "Mô tả",
     "loading": "Đang tải sản phẩm...",
     "recommendedForYou": "Gợi ý cho bạn",
     "pageTitle": "Vật Phẩm Phong Thủy",

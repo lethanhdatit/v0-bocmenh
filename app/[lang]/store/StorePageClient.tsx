@@ -80,6 +80,17 @@ export default function StorePageClient({
   defaultSelectedProvider = "",
   defaultPriceRange = {},
 }: StorePageClientProps = {}) {
+  // Auto-hide featured products if any meaningful default filters are provided
+  if (!isHideFeatured) {
+    isHideFeatured = 
+      defaultHasDiscount !== undefined ||
+      (defaultSearchTerm && defaultSearchTerm.trim() !== "") ||
+      (defaultSelectedCategories && defaultSelectedCategories.length > 0) ||
+      (defaultSelectedLabels && defaultSelectedLabels.length > 0) ||
+      (defaultSelectedAttributes && defaultSelectedAttributes.length > 0) ||
+      (defaultSelectedProvider && defaultSelectedProvider.trim() !== "") ||
+      (defaultPriceRange && (defaultPriceRange.from !== undefined || defaultPriceRange.to !== undefined));
+  }
   const [products, setProducts] = useState<ProductBase[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isFiltering, setIsFiltering] = useState(false);
@@ -273,7 +284,7 @@ export default function StorePageClient({
       setIsLoading(true);
       try {
         // Fetch filter options
-        if(!isHideFilter) {
+        if (!isHideFilter) {
           const filterOptionsData = await getFilterOptions();
           setFilterOptions(filterOptionsData);
         }
@@ -733,8 +744,12 @@ export default function StorePageClient({
   const handleSliderChange = (values: number[]) => {
     const [from, to] = values;
     // Handle null/undefined logic properly for the new unified UI
-    const validFrom = from === 0 ? undefined : Math.max(0, Math.min(from, MaxRangePrice));
-    const validTo = to === MaxRangePrice ? undefined : Math.max(from, Math.min(to, MaxRangePrice));
+    const validFrom =
+      from === 0 ? undefined : Math.max(0, Math.min(from, MaxRangePrice));
+    const validTo =
+      to === MaxRangePrice
+        ? undefined
+        : Math.max(from, Math.min(to, MaxRangePrice));
     setTempPriceRange({ from: validFrom, to: validTo });
   };
 
@@ -750,14 +765,14 @@ export default function StorePageClient({
       newRange.from = Math.max(0, fromValue);
     }
 
-    // Handle to value - null means no maximum limit  
+    // Handle to value - null means no maximum limit
     if (toValue !== undefined && toValue < MaxRangePrice) {
       newRange.to = Math.max(newRange.from || 0, toValue);
     }
 
     // Apply the new price range
     setPriceRange(newRange);
-    
+
     // Reset filter mode and close dropdown for better UX
     setPriceFilterMode("all");
     setPriceDropdownOpen(false);
@@ -874,7 +889,12 @@ export default function StorePageClient({
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
             {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} compact={false} attributes={selectedAttributes} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                compact={false}
+                attributes={selectedAttributes}
+              />
             ))}
           </div>
 
@@ -1472,7 +1492,9 @@ export default function StorePageClient({
                         <div className="grid grid-cols-2 gap-3">
                           <div className="space-y-1.5">
                             <label className="text-xs font-medium text-gray-400 flex items-center">
-                              <span>{t("store.minPrice", "Giá tối thiểu")}</span>
+                              <span>
+                                {t("store.minPrice", "Giá tối thiểu")}
+                              </span>
                               <span className="ml-1 text-gray-500">(₫)</span>
                             </label>
                             <Input
@@ -1481,7 +1503,10 @@ export default function StorePageClient({
                               value={tempPriceRange.from || ""}
                               onChange={(e) => {
                                 const value = e.target.value;
-                                const numValue = value === "" ? undefined : parseInt(value, 10);
+                                const numValue =
+                                  value === ""
+                                    ? undefined
+                                    : parseInt(value, 10);
                                 setTempPriceRange((prev) => ({
                                   ...prev,
                                   from: numValue,
@@ -1501,7 +1526,10 @@ export default function StorePageClient({
                               value={tempPriceRange.to || ""}
                               onChange={(e) => {
                                 const value = e.target.value;
-                                const numValue = value === "" ? undefined : parseInt(value, 10);
+                                const numValue =
+                                  value === ""
+                                    ? undefined
+                                    : parseInt(value, 10);
                                 setTempPriceRange((prev) => ({
                                   ...prev,
                                   to: numValue,
@@ -1517,7 +1545,9 @@ export default function StorePageClient({
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => setTempPriceRange({ from: undefined, to: 100000 })}
+                            onClick={() =>
+                              setTempPriceRange({ from: undefined, to: 100000 })
+                            }
                             className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-gray-300 hover:text-white text-xs px-2 py-1 h-7"
                           >
                             {t("store.pricePreset1", "≤ 100K")}
@@ -1525,7 +1555,9 @@ export default function StorePageClient({
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => setTempPriceRange({ from: 100000, to: 500000 })}
+                            onClick={() =>
+                              setTempPriceRange({ from: 100000, to: 500000 })
+                            }
                             className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-gray-300 hover:text-white text-xs px-2 py-1 h-7"
                           >
                             {t("store.pricePreset2", "100K-500K")}
@@ -1533,7 +1565,9 @@ export default function StorePageClient({
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => setTempPriceRange({ from: 500000, to: 1000000 })}
+                            onClick={() =>
+                              setTempPriceRange({ from: 500000, to: 1000000 })
+                            }
                             className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-gray-300 hover:text-white text-xs px-2 py-1 h-7"
                           >
                             {t("store.pricePreset3", "500K-1M")}
@@ -1541,7 +1575,12 @@ export default function StorePageClient({
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => setTempPriceRange({ from: 1000000, to: undefined })}
+                            onClick={() =>
+                              setTempPriceRange({
+                                from: 1000000,
+                                to: undefined,
+                              })
+                            }
                             className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-gray-300 hover:text-white text-xs px-2 py-1 h-7"
                           >
                             {t("store.pricePreset4", "≥ 1M")}
@@ -1551,11 +1590,18 @@ export default function StorePageClient({
                         {/* Interactive Slider */}
                         <div className="space-y-2">
                           <div className="text-xs font-medium text-gray-400 flex items-center justify-between">
-                            <span>{t("store.useSlider", "Hoặc kéo thanh trượt")}</span>
+                            <span>
+                              {t("store.useSlider", "Hoặc kéo thanh trượt")}
+                            </span>
                             <Button
                               size="sm"
                               variant="ghost"
-                              onClick={() => setTempPriceRange({ from: undefined, to: undefined })}
+                              onClick={() =>
+                                setTempPriceRange({
+                                  from: undefined,
+                                  to: undefined,
+                                })
+                              }
                               className="text-gray-500 hover:text-gray-300 text-xs px-1 py-0 h-5"
                             >
                               {t("store.clear", "Xóa")}
@@ -1576,16 +1622,18 @@ export default function StorePageClient({
                           </div>
                           <div className="flex justify-between text-xs text-gray-400 px-2">
                             <span>
-                              {tempPriceRange.from ? 
-                                `${tempPriceRange.from.toLocaleString("vi-VN")} ₫` : 
-                                t("store.noMin", "Không tối thiểu")
-                              }
+                              {tempPriceRange.from
+                                ? `${tempPriceRange.from.toLocaleString(
+                                    "vi-VN"
+                                  )} ₫`
+                                : t("store.noMin", "Không tối thiểu")}
                             </span>
                             <span>
-                              {tempPriceRange.to ? 
-                                `${tempPriceRange.to.toLocaleString("vi-VN")} ₫` : 
-                                t("store.noMax", "Không tối đa")
-                              }
+                              {tempPriceRange.to
+                                ? `${tempPriceRange.to.toLocaleString(
+                                    "vi-VN"
+                                  )} ₫`
+                                : t("store.noMax", "Không tối đa")}
                             </span>
                           </div>
                         </div>
@@ -1603,7 +1651,10 @@ export default function StorePageClient({
                             size="sm"
                             variant="outline"
                             onClick={() => {
-                              setTempPriceRange({ from: undefined, to: undefined });
+                              setTempPriceRange({
+                                from: undefined,
+                                to: undefined,
+                              });
                               setPriceRange({});
                             }}
                             className="bg-gray-800 border-gray-600 hover:bg-gray-700 text-gray-300 hover:text-white text-xs px-3 h-9"
@@ -1712,7 +1763,9 @@ export default function StorePageClient({
               </span>
               {selectedCategories.map((categoryCode) => {
                 const category =
-                  filterOptions.categories?.find((c) => c.code === categoryCode) ||
+                  filterOptions.categories?.find(
+                    (c) => c.code === categoryCode
+                  ) ||
                   filterOptions.categories
                     ?.find((c) =>
                       c.children?.some((child) => child.code === categoryCode)
@@ -1851,7 +1904,11 @@ export default function StorePageClient({
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
               {products.map((product) => (
-                <ProductCard key={product.id} product={product} attributes={selectedAttributes} />
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  attributes={selectedAttributes}
+                />
               ))}
             </div>
           </div>
@@ -1937,13 +1994,15 @@ export default function StorePageClient({
           <p className="text-gray-400 text-lg mb-4">
             {t("store.noProductsFound", "Không tìm thấy sản phẩm nào")}
           </p>
-          <Button
-            onClick={resetFilters}
-            variant="outline"
-            className="bg-gray-800 border-gray-700 hover:bg-gray-600 hover:border-gray-500 text-white hover:text-white transition-all"
-          >
-            {t("store.clearFilters", "Xóa bộ lọc")}
-          </Button>
+          {!isHideFilter && (
+            <Button
+              onClick={resetFilters}
+              variant="outline"
+              className="bg-gray-800 border-gray-700 hover:bg-gray-600 hover:border-gray-500 text-white hover:text-white transition-all"
+            >
+              {t("store.clearFilters", "Xóa bộ lọc")}
+            </Button>
+          )}
         </div>
       ) : null}
     </div>

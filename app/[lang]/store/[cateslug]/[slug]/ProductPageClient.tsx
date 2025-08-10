@@ -662,7 +662,7 @@ export default function ProductPageClient({
               <div className="bg-gray-800/30 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-gray-700">
                 <h3 className="text-lg sm:text-xl font-semibold text-yellow-400 mb-3 sm:mb-4 flex items-center">
                   <Info className="w-5 h-5 sm:w-6 sm:h-6 mr-2" />
-                  {t("store.description")}
+                  {t("store.descriptionSection")}
                 </h3>
                 <div className="prose prose-invert prose-gray max-w-none">
                   <div className="relative">

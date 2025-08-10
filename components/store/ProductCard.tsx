@@ -115,7 +115,7 @@ export default function ProductCard({
 
   const buildSlugLink = () => {
     const basePath = `/store/${textSlugify(
-      product.category?.name ?? product.autoId
+      product.category?.name ?? product.autoId.toString()
     )}/${encodeSlug(product.name, {
       type: SlugTypes.AFFILIATE,
       ids: [product.autoId.toString() || product.id],
