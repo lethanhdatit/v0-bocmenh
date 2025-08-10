@@ -62,7 +62,7 @@ export default function LuckyBoxSection() {
       }
     } catch (error) {
       console.error("Lucky box error:", error);
-      setStatusMessage("Không thể mở hộp may mắn. Vui lòng thử lại sau.");
+      setStatusMessage("Không thể mở túi mù. Vui lòng thử lại sau.");
     } finally {
       setIsLoading(false);
     }

@@ -290,7 +290,7 @@ export const FEATURE_FLAGS: Record<FeaturePath, FeatureConfig> = {
   '/luckybox': {
     path: '/luckybox',
     status: 'active',
-    title: 'Hộp May Mắn',
+    title: 'Túi Mù',
     titleKey: 'nav.luckybox',
     estimatedLaunch: 'Q1 2025'
   }
