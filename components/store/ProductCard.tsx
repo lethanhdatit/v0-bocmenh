@@ -6,11 +6,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { ProductBase } from "@/lib/products";
 import { addToFavorites, removeFromFavorites } from "@/lib/products";
-import type { AffiliateProvider } from "@/lib/products";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  Star,
   Heart,
   ExternalLink,
   Package,
@@ -25,6 +23,9 @@ import {
   SlugTypes,
 } from "@/lib/seo/slug/slugGeneration";
 import { URL_PARAMS, buildSEOFriendlyPath } from "@/lib/constants/url-params";
+import { formatShortNumber } from "@/lib/infra/utils";
+import { getProviderBadgeColor } from "@/lib/store/utils";
+import { CompactStarDisplay } from "@/lib/utils/rating";
 
 interface ProductCardProps {
   product: ProductBase;
@@ -47,27 +48,11 @@ export default function ProductCard({
 
   const { t } = useTranslation();
 
-  // Fetch product data
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("vi-VN", {
       style: "currency",
       currency: "VND",
     }).format(price);
-  };
-
-  const getProviderBadgeColor = (provider: AffiliateProvider) => {
-    switch (provider.toLowerCase()) {
-      case "shopee":
-        return "bg-orange-600/90 text-white border-orange-500 shadow-lg backdrop-blur-sm";
-      case "lazada":
-        return "bg-blue-600/90 text-white border-blue-500 shadow-lg backdrop-blur-sm";
-      case "tiki":
-        return "bg-indigo-600/90 text-white border-indigo-500 shadow-lg backdrop-blur-sm";
-      case "sendo":
-        return "bg-red-600/90 text-white border-red-500 shadow-lg backdrop-blur-sm";
-      default:
-        return "bg-gray-600/90 text-white border-gray-500 shadow-lg backdrop-blur-sm";
-    }
   };
 
   const handleWishlistToggle = async (
@@ -227,7 +212,7 @@ export default function ProductCard({
           )}
           title={product.name}
         >
-          <Link href={SlugLink} target="_blank">
+          <Link href={SlugLink}>
             {product.name}
           </Link>
         </h3>
@@ -235,37 +220,32 @@ export default function ProductCard({
         {/* Rating and Sales */}
         <div
           className={cn(
-            "flex items-center justify-between flex-wrap gap-1",
+            "flex flex-col gap-1",
             compact ? "mb-1.5 xs:mb-2" : "mb-2 xs:mb-2.5 sm:mb-3"
           )}
         >
+          {/* Rating Row */}
           {product.rating > 0 && (
             <div className="flex items-center min-w-0">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className={cn(
-                    "flex-shrink-0",
-                    compact
-                      ? "w-3 h-3 xs:w-3.5 xs:h-3.5"
-                      : "w-3 h-3 xs:w-4 xs:h-4",
-                    i < Math.round(product.rating)
-                      ? "text-yellow-500 fill-yellow-500"
-                      : "text-gray-600"
-                  )}
-                />
-              ))}
+              <CompactStarDisplay rating={product.rating} compact={compact} />
               <span className="ml-1 xs:ml-2 text-[10px] xs:text-xs text-gray-400 flex-shrink-0">
                 ({product.rating.toFixed(1)})
+                {product.ratingCount > 0 && (
+                  <span className="text-gray-500 ml-0.5">
+                    • {formatShortNumber(product.ratingCount, 1000)}
+                  </span>
+                )}
               </span>
             </div>
           )}
 
+          {/* Sales Row */}
           {product.totalSold > 0 && (
-            <div className="flex items-center text-[10px] xs:text-xs text-gray-400 flex-shrink-0">
+            <div className="flex items-center text-[10px] xs:text-xs text-gray-400">
               <TrendingUp className="w-2.5 h-2.5 xs:w-3 xs:h-3 mr-0.5 xs:mr-1 flex-shrink-0" />
               <span className="truncate">
-                {product.totalSold} {t("store.sold", "đã bán")}
+                {formatShortNumber(product.totalSold, 1000)}{" "}
+                {t("store.sold", "đã bán")}
               </span>
             </div>
           )}
@@ -398,10 +378,7 @@ export default function ProductCard({
               asChild
               title={`${t("store.viewOn", "Xem tại")} ${product.provider}`}
             >
-              <a
-                href={product.providerUrl}
-                target="_blank"
-              >
+              <a href={product.providerUrl} target="_blank">
                 <ExternalLink
                   className={cn(
                     "flex-shrink-0",
@@ -423,7 +400,7 @@ export default function ProductCard({
               )}
               asChild
             >
-              <Link href={SlugLink} target="_blank">
+              <Link href={SlugLink}>
                 <Sparkles
                   className={cn(
                     "mr-1 xs:mr-2 flex-shrink-0",

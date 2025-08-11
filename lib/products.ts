@@ -43,6 +43,7 @@ export interface ProductBase {
   discountPercentage: number;
   stock: number;
   rating: number;
+  ratingCount: number;
   totalSold: number;
   name: string;
   thumbnailImage: string;

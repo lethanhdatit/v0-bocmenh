@@ -5,6 +5,7 @@ import {
   ProductBase,
   ProductFilterOptionsResponse,
   ProductSearchParams,
+  AffiliateProvider,
 } from "@/lib/products";
 import ProductCard from "@/components/store/ProductCard";
 import { useAuth } from "@/contexts/AuthContext";
@@ -44,6 +45,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getFilterOptions, getProducts } from "@/lib/products";
+import { getAvailableProviders, getProviderDisplayName } from "@/lib/store/utils";
 
 interface StorePageClientProps {
   isHideFilter?: boolean;
@@ -1709,18 +1711,15 @@ export default function StorePageClient({
                 <SelectItem value="all" className="text-xs sm:text-sm">
                   {t("store.allPlatforms", "Tất cả")}
                 </SelectItem>
-                <SelectItem value="shopee" className="text-xs sm:text-sm">
-                  Shopee
-                </SelectItem>
-                <SelectItem value="lazada" className="text-xs sm:text-sm">
-                  Lazada
-                </SelectItem>
-                <SelectItem value="tiki" className="text-xs sm:text-sm">
-                  Tiki
-                </SelectItem>
-                <SelectItem value="sendo" className="text-xs sm:text-sm">
-                  Sendo
-                </SelectItem>
+                {getAvailableProviders().map((provider) => (
+                  <SelectItem 
+                    key={provider} 
+                    value={provider} 
+                    className="text-xs sm:text-sm"
+                  >
+                    {getProviderDisplayName(provider)}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
