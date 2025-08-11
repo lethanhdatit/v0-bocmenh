@@ -29,13 +29,15 @@ import {
   Zap,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { cn } from "@/lib/infra/utils";
+import { cn, formatShortNumber } from "@/lib/infra/utils";
 import {
   ProductDetail,
   AffiliateProvider,
   addToFavorites,
   removeFromFavorites,
 } from "@/lib/products";
+import { getProviderBadgeColor } from "@/lib/store/utils";
+import { StarDisplay } from "@/lib/utils/rating";
 
 interface ProductPageClientProps {
   data: ProductDetail;
@@ -101,21 +103,6 @@ export default function ProductPageClient({
       style: "currency",
       currency: "VND",
     }).format(price);
-  };
-
-  const getProviderBadgeColor = (provider: AffiliateProvider) => {
-    switch (provider.toLowerCase()) {
-      case "shopee":
-        return "bg-orange-600/90 text-white border-orange-500 shadow-lg backdrop-blur-sm";
-      case "lazada":
-        return "bg-blue-600/90 text-white border-blue-500 shadow-lg backdrop-blur-sm";
-      case "tiki":
-        return "bg-indigo-600/90 text-white border-indigo-500 shadow-lg backdrop-blur-sm";
-      case "sendo":
-        return "bg-red-600/90 text-white border-red-500 shadow-lg backdrop-blur-sm";
-      default:
-        return "bg-gray-600/90 text-white border-gray-500 shadow-lg backdrop-blur-sm";
-    }
   };
 
   const handleWishlistToggle = async () => {
@@ -440,19 +427,19 @@ export default function ProductPageClient({
               <div className="flex items-center justify-between mb-3 sm:mb-4">
                 {data.rating > 0 && (
                   <div className="flex items-center">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={cn(
-                          "w-4 h-4 sm:w-5 sm:h-5",
-                          i < Math.round(data.rating)
-                            ? "text-yellow-500 fill-yellow-500"
-                            : "text-gray-600"
-                        )}
-                      />
-                    ))}
-                    <span className="ml-1 sm:ml-2 text-xs sm:text-sm text-gray-400">
-                      ({data.rating.toFixed(1)})
+                    <StarDisplay 
+                      rating={data.rating}
+                      size="md"
+                      className="mr-1 sm:mr-2"
+                      starClassName="w-4 h-4 sm:w-5 sm:h-5"
+                    />
+                    <span className="text-xs sm:text-sm text-gray-400">
+                      (<span className="font-medium">{data.rating.toFixed(1)}</span>)
+                      {data.ratingCount > 0 && (
+                        <span className="text-gray-500 ml-1">
+                          • <span className="font-medium">{formatShortNumber(data.ratingCount, 1000)}</span> {t("store.reviews", "đánh giá")}
+                        </span>
+                      )}
                     </span>
                   </div>
                 )}
@@ -461,7 +448,7 @@ export default function ProductPageClient({
                   <div className="flex items-center text-xs sm:text-sm text-gray-400">
                     <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                     <span>
-                      {data.totalSold} {t("store.sold")}
+                      <span className="font-medium">{formatShortNumber(data.totalSold, 1000)}</span> {t("store.sold")}
                     </span>
                   </div>
                 )}

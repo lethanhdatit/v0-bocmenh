@@ -682,6 +682,7 @@
     "productDetails": "Product Details",
     "quantity": "Quantity",
     "attributes": "Attributes",
+    "reviewsShort": "reviews",
     "noReviews": "No reviews yet.",
     "writeReview": "Write a Review",
     "viewAffiliateProductAt": "View at {{partnerName}}",

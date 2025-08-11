@@ -664,6 +664,7 @@
     "quantity": "Số lượng",
     "attributes": "Thuộc tính",
     "reviews": "Đánh giá",
+    "reviewsShort": "đ.giá",
     "noReviews": "Chưa có đánh giá nào.",
     "writeReview": "Viết đánh giá",
     "variants": "Phiên bản",
