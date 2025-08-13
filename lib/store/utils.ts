@@ -26,20 +26,7 @@ export const getProviderDisplayName = (provider: AffiliateProvider): string => {
 /**
  * Get Tailwind CSS classes for provider badge
  */
-export const getProviderBadgeColor = (provider: AffiliateProvider) => {
-    switch (provider.toLowerCase()) {
-      case "shopee":
-        return "bg-orange-600/90 text-white border-orange-500 shadow-lg backdrop-blur-sm";
-      case "lazada":
-        return "bg-blue-600/90 text-white border-blue-500 shadow-lg backdrop-blur-sm";
-      case "tiki":
-        return "bg-indigo-600/90 text-white border-indigo-500 shadow-lg backdrop-blur-sm";
-      case "sendo":
-        return "bg-red-600/90 text-white border-red-500 shadow-lg backdrop-blur-sm";
-      default:
-        return "bg-gray-600/90 text-white border-gray-500 shadow-lg backdrop-blur-sm";
-    }
-  };
+
 
 /**
  * Get provider brand colors for theming

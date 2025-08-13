@@ -36,7 +36,6 @@ import {
   addToFavorites,
   removeFromFavorites,
 } from "@/lib/products";
-import { getProviderBadgeColor } from "@/lib/store/utils";
 import { StarDisplay } from "@/lib/utils/rating";
 
 interface ProductPageClientProps {
@@ -44,6 +43,21 @@ interface ProductPageClientProps {
   slug: string;
   cateslug: string;
 }
+
+export const getProviderBadgeColor = (provider: string) => {
+  switch (provider.toLowerCase()) {
+    case "shopee":
+      return "bg-orange-600/90 text-white border-white shadow-lg backdrop-blur-sm";
+    case "lazada":
+      return "bg-blue-600/90 text-white border-white shadow-lg backdrop-blur-sm";
+    case "tiki":
+      return "bg-indigo-600/90 text-white border-white shadow-lg backdrop-blur-sm";
+    case "sendo":
+      return "bg-red-600/90 text-white border-white shadow-lg backdrop-blur-sm";
+    default:
+      return "bg-gray-600/90 text-white border-white shadow-lg backdrop-blur-sm";
+  }
+};
 
 export default function ProductPageClient({
   data,
@@ -285,9 +299,7 @@ export default function ProductPageClient({
 
               {/* Provider Badge */}
               <Link
-                href={`/store?platform=${encodeURIComponent(
-                  data.provider
-                )}`}
+                href={`/store?platform=${encodeURIComponent(data.provider)}`}
                 target="_blank"
                 className="absolute top-2 sm:top-3 lg:top-4 right-2 sm:right-3 lg:right-4"
               >
@@ -427,17 +439,25 @@ export default function ProductPageClient({
               <div className="flex items-center justify-between mb-3 sm:mb-4">
                 {data.rating > 0 && (
                   <div className="flex items-center">
-                    <StarDisplay 
+                    <StarDisplay
                       rating={data.rating}
                       size="md"
                       className="mr-1 sm:mr-2"
                       starClassName="w-4 h-4 sm:w-5 sm:h-5"
                     />
                     <span className="text-xs sm:text-sm text-gray-400">
-                      (<span className="font-medium">{data.rating.toFixed(1)}</span>)
+                      (
+                      <span className="font-medium">
+                        {data.rating.toFixed(1)}
+                      </span>
+                      )
                       {data.ratingCount > 0 && (
                         <span className="text-gray-500 ml-1">
-                          • <span className="font-medium">{formatShortNumber(data.ratingCount, 1000)}</span> {t("store.reviews", "đánh giá")}
+                          •{" "}
+                          <span className="font-medium">
+                            {formatShortNumber(data.ratingCount, 1000)}
+                          </span>{" "}
+                          {t("store.reviews", "đánh giá")}
                         </span>
                       )}
                     </span>
@@ -448,7 +468,10 @@ export default function ProductPageClient({
                   <div className="flex items-center text-xs sm:text-sm text-gray-400">
                     <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                     <span>
-                      <span className="font-medium">{formatShortNumber(data.totalSold, 1000)}</span> {t("store.sold")}
+                      <span className="font-medium">
+                        {formatShortNumber(data.totalSold, 1000)}
+                      </span>{" "}
+                      {t("store.sold")}
                     </span>
                   </div>
                 )}
@@ -559,9 +582,7 @@ export default function ProductPageClient({
                     (label, index) => (
                       <Link
                         key={index}
-                        href={`/store?tags=${encodeURIComponent(
-                          label
-                        )}`}
+                        href={`/store?tags=${encodeURIComponent(label)}`}
                         target="_blank"
                       >
                         <Badge className="bg-yellow-600/20 text-yellow-300 border border-yellow-500/30 text-xs sm:text-sm hover:bg-yellow-600/30 hover:border-yellow-400/50 transition-colors cursor-pointer">
@@ -692,14 +713,14 @@ export default function ProductPageClient({
                   <h3 className="text-lg sm:text-xl font-semibold text-yellow-400 flex items-center">
                     <Award className="w-5 h-5 sm:w-6 sm:h-6 mr-2" />
                     {t("store.attributes")}
-                    {data.attributes.length > 3 && (
+                    {data.attributes.length > 4 && (
                       <span className="ml-2 text-sm text-gray-500">
                         ({data.attributes.length})
                       </span>
                     )}
                   </h3>
 
-                  {data.attributes.length > 3 && (
+                  {data.attributes.length > 4 && (
                     <Button
                       variant="ghost"
                       size="sm"
@@ -716,7 +737,7 @@ export default function ProductPageClient({
                 <div className="grid gap-3 sm:gap-4">
                   {(showAllAttributes
                     ? data.attributes
-                    : data.attributes.slice(0, 3)
+                    : data.attributes.slice(0, 4)
                   ).map((attr, index) => (
                     <div
                       key={index}

@@ -16,35 +16,87 @@ interface LuckyBoxResult {
   timestamp: number;
 }
 
-// In-memory storage (in production, use Redis or database)
-const luckyBoxResults = new Map<string, LuckyBoxResult>();
+// In-memory storage organized by date for efficient cleanup
+const luckyBoxResults = new Map<string, Map<string, LuckyBoxResult>>();
 
-// Clean expired data every hour
+// Cleanup tracking
 let lastCleanup = Date.now();
-const CLEANUP_INTERVAL = 60 * 60 * 1000; // 1 hour
+const CLEANUP_INTERVAL = 4 * 60 * 60 * 1000; // 4 hours (reduced frequency)
+const MAX_ENTRIES_PER_DAY = 10000; // Limit entries per day to prevent memory bloat
+const MAX_DAYS_TO_KEEP = 1; // Only keep today's data
 
-// Clean expired data (older than current date)
-function cleanExpiredData() {
-  const now = Date.now();
-  if (now - lastCleanup < CLEANUP_INTERVAL) {
-    return; // Skip if cleaned recently
+// Background cleanup timer (only in Node.js environment)
+let backgroundCleanupTimer: NodeJS.Timeout | null = null;
+
+// Initialize background cleanup
+function initializeBackgroundCleanup() {
+  if (typeof window === 'undefined' && !backgroundCleanupTimer) {
+    // Run cleanup every 6 hours
+    backgroundCleanupTimer = setInterval(() => {
+      forceCleanExpiredData();
+    }, 6 * 60 * 60 * 1000);
+  }
+}
+
+// Get today's date string
+function getTodayDateString(): string {
+  return new Date().toISOString().split('T')[0];
+}
+
+// Force cleanup (used by background timer)
+function forceCleanExpiredData() {
+  const today = getTodayDateString();
+  const keysToDelete: string[] = [];
+  
+  for (const dateKey of luckyBoxResults.keys()) {
+    if (dateKey !== today) {
+      keysToDelete.push(dateKey);
+    }
   }
   
-  const today = new Date().toISOString().split('T')[0];
-  const expiredKeys: string[] = [];
-  
-  luckyBoxResults.forEach((result, key) => {
-    if (result.date !== today) {
-      expiredKeys.push(key);
+  keysToDelete.forEach(dateKey => {
+    const deletedEntries = luckyBoxResults.get(dateKey)?.size || 0;
+    luckyBoxResults.delete(dateKey);
+    if (deletedEntries > 0) {
+      console.log(`Cleaned up ${deletedEntries} lucky box entries for date: ${dateKey}`);
     }
   });
   
-  expiredKeys.forEach(key => {
-    luckyBoxResults.delete(key);
-  });
-  
-  lastCleanup = now;  
+  lastCleanup = Date.now();
 }
+
+// Lazy cleanup - only clean when needed
+function cleanExpiredDataLazy() {
+  const now = Date.now();
+  const today = getTodayDateString();
+  
+  // Only cleanup if interval passed AND we have data from previous days
+  if (now - lastCleanup < CLEANUP_INTERVAL) {
+    return;
+  }
+  
+  // Quick check if cleanup is needed
+  if (luckyBoxResults.size <= 1 && luckyBoxResults.has(today)) {
+    lastCleanup = now;
+    return; // Only today's data exists, no cleanup needed
+  }
+  
+  forceCleanExpiredData();
+}
+
+// Get or create today's data bucket
+function getTodayDataBucket(): Map<string, LuckyBoxResult> {
+  const today = getTodayDateString();
+  
+  if (!luckyBoxResults.has(today)) {
+    luckyBoxResults.set(today, new Map<string, LuckyBoxResult>());
+  }
+  
+  return luckyBoxResults.get(today)!;
+}
+
+// Initialize background cleanup on module load
+initializeBackgroundCleanup();
 
 function getClientIP(request: NextRequest): string {
   const forwardedFor = request.headers.get('x-forwarded-for');
@@ -75,15 +127,21 @@ async function luckyBoxApiGetHandler(
   const { t } = await getTranslations(["common"]);
 
   try {
-    // Clean expired data first
-    cleanExpiredData();
+    // Lazy cleanup of expired data
+    cleanExpiredDataLazy();
     
     const clientIP = getClientIP(request);
-    const today = new Date().toISOString().split('T')[0];
-    const key = `${clientIP}_${today}`;
+    const today = getTodayDateString();
+    const todayBucket = getTodayDataBucket();
+    
+    // Check if today's bucket is getting too large
+    if (todayBucket.size > MAX_ENTRIES_PER_DAY) {
+      // Optional: Log warning or implement rate limiting
+      console.warn(`Lucky box entries for ${today} exceeded ${MAX_ENTRIES_PER_DAY} entries`);
+    }
     
     // Check if user already has a result for today
-    let result = luckyBoxResults.get(key);
+    let result = todayBucket.get(clientIP);
     let isFirstTime = false;
     
     if (!result) {
@@ -99,7 +157,7 @@ async function luckyBoxApiGetHandler(
         timestamp: Date.now()
       };
       
-      luckyBoxResults.set(key, result);
+      todayBucket.set(clientIP, result);
       isFirstTime = true;
     }
 
