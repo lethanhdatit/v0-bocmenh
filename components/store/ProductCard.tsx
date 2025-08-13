@@ -16,15 +16,13 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { cn } from "@/lib/utils";
 import {
   encodeSlug,
   textSlugify,
   SlugTypes,
 } from "@/lib/seo/slug/slugGeneration";
 import { URL_PARAMS, buildSEOFriendlyPath } from "@/lib/constants/url-params";
-import { formatShortNumber } from "@/lib/infra/utils";
-import { getProviderBadgeColor } from "@/lib/store/utils";
+import { formatShortNumber, cn } from "@/lib/infra/utils";
 import { CompactStarDisplay } from "@/lib/utils/rating";
 
 interface ProductCardProps {
@@ -34,6 +32,21 @@ interface ProductCardProps {
   onUnfavorited?: (productId: string) => void;
   attributes?: string[];
 }
+
+export const getProviderBadgeColor = (provider: string) => {
+  switch (provider.toLowerCase()) {
+    case "shopee":
+      return "bg-orange-600/90 text-white border-white shadow-lg backdrop-blur-sm";
+    case "lazada":
+      return "bg-blue-600/90 text-white border-white shadow-lg backdrop-blur-sm";
+    case "tiki":
+      return "bg-indigo-600/90 text-white border-white shadow-lg backdrop-blur-sm";
+    case "sendo":
+      return "bg-red-600/90 text-white border-white shadow-lg backdrop-blur-sm";
+    default:
+      return "bg-gray-600/90 text-white border-white shadow-lg backdrop-blur-sm";
+  }
+};
 
 export default function ProductCard({
   product,
@@ -212,9 +225,7 @@ export default function ProductCard({
           )}
           title={product.name}
         >
-          <Link href={SlugLink}>
-            {product.name}
-          </Link>
+          <Link href={SlugLink}>{product.name}</Link>
         </h3>
 
         {/* Rating and Sales */}
